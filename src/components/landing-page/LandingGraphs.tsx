@@ -40,7 +40,7 @@ const LandingGraphs = () => {
         <LandingLineProgress />
       </Box>
 
-      <div style={styles.section}>
+      <Box sx={{ mt: 7 }}>
         <Typography
           variant="h3"
           sx={{ textAlign: "center", mb: 4, color: "#121D1E" }}
@@ -55,9 +55,9 @@ const LandingGraphs = () => {
           study plan for your child
         </Typography>
         <LandingRadar />
-      </div>
+      </Box>
 
-      <div style={styles.section}>
+      <Box sx={{ mt: 7 }}>
         <Typography
           variant="h3"
           sx={{ textAlign: "center", mb: 4, color: "#121D1E" }}
@@ -71,10 +71,13 @@ const LandingGraphs = () => {
           For every 10 children who take the 11+ exam, only one child gets a
           grammar school spot.
         </Typography>
-      </div>
+      </Box>
 
-      <div style={styles.section}>
-        <Typography variant="h3" style={styles.header}>
+      <Box sx={{ mt: 7 }}>
+        <Typography
+          variant="h3"
+          sx={{ textAlign: "center", mb: 4, color: "#121D1E" }}
+        >
           <b>One new expertly written maths test every week</b>
         </Typography>
         <Typography
@@ -94,7 +97,7 @@ const LandingGraphs = () => {
         >
           <img src="https://i.imgur.com/Fn56Ft1.png" style={{ width: 800 }} />
         </div>
-      </div>
+      </Box>
     </Container>
   )
 }

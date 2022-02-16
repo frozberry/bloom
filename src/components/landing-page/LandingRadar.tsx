@@ -1,7 +1,7 @@
 import { LocalGasStation } from "@mui/icons-material"
 import { useState } from "react"
 
-// import Radar from "../stats/Radar"
+import Radar from "../graphs/Radar"
 import useInterval from "../../lib/useInterval"
 
 type Foo = {
@@ -11,7 +11,7 @@ type Foo = {
 
 type Bar = {
   category: string
-  Oli: number
+  ["Your child"]: number
   Average: number
 }
 
@@ -24,47 +24,47 @@ const initData: Foo = {
   data: [
     {
       category: "fractions",
-      Oli: rand(5, 15),
+      ["Your child"]: rand(5, 15),
       Average: 60,
     },
     {
       category: "algebra",
-      Oli: rand(5, 15),
+      ["Your child"]: rand(5, 15),
       Average: 65,
     },
     {
       category: "numbers",
-      Oli: rand(5, 15),
+      ["Your child"]: rand(5, 15),
       Average: 80,
     },
     {
       category: "statistics",
-      Oli: rand(5, 15),
+      ["Your child"]: rand(5, 15),
       Average: 74,
     },
     {
       category: "multiplication and division",
-      Oli: rand(5, 15),
+      ["Your child"]: rand(5, 15),
       Average: 69,
     },
     {
       category: "addition and subtraction",
-      Oli: rand(5, 15),
+      ["Your child"]: rand(5, 15),
       Average: 85,
     },
     {
       category: "measurement",
-      Oli: rand(5, 15),
+      ["Your child"]: rand(5, 15),
       Average: 89,
     },
     {
       category: "ratio and proportion",
-      Oli: rand(5, 15),
+      ["Your child"]: rand(5, 15),
       Average: 75,
     },
     {
       category: "geometry",
-      Oli: rand(5, 15),
+      ["Your child"]: rand(5, 15),
       Average: 62,
     },
   ],
@@ -78,12 +78,12 @@ const genData = (currentData: Foo): Foo => {
   }
 
   const data = currentData.data.map((d) => {
-    const currentValue = d.Oli
+    const currentValue = d["Your child"]
     const maxValue = Math.min(100, currentValue + 20)
     const newValue = rand(currentValue, maxValue)
     return {
       ...d,
-      Oli: newValue,
+      ["Your child"]: newValue,
     }
   })
 
@@ -100,7 +100,7 @@ const LandingRadar = () => {
     setRadarData(() => genData(radarData))
   }, 1000)
 
-  return <>{/* <Radar data={radarData.data} /> */}</>
+  return <Radar data={radarData.data} />
 }
 
 export default LandingRadar

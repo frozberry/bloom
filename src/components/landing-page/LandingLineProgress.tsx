@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react"
+import { useState } from "react"
 import useInterval from "../../lib/useInterval"
-// import LineProgress from "../stats/LineProgress"
+import LineProgress from "../graphs/LineProgress"
 
 type Coord = {
   x: number
@@ -58,7 +58,7 @@ const LandingLineProgress = () => {
     },
   ]
 
-  return <>{/* <LineProgress data={data} bottomLabel="week" /> */}</>
+  return <LineProgress data={data} bottomLabel="week" />
 }
 
 export default LandingLineProgress
