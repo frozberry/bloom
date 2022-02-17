@@ -71,8 +71,6 @@ const initData: Foo = {
 }
 
 const genData = (currentData: Foo): Foo => {
-  console.log(currentData)
-
   if (currentData.its > 11) {
     return initData
   }
