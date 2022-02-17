@@ -1,4 +1,3 @@
-import React from "react"
 // import { useDispatch, useSelector } from "react-redux"
 // import { Link, useHistory } from "react-router-dom"
 import {
@@ -18,6 +17,11 @@ import Image from "next/image"
 // import { clearTest } from "../reducers/testReducer"
 // import { clearStripe } from "../reducers/stripeReducer"
 
+type HeaderProp = {
+  link: string
+  children: string
+}
+
 const Header = () => {
   //   const user = useSelector((state) => state.user)
   //   const stripe = useSelector((state) => state.stripe)
@@ -36,7 +40,7 @@ const Header = () => {
   //     window.location.replace(url)
   //   }
 
-  const HeaderItem = (props) => {
+  const HeaderItem = (props: HeaderProp) => {
     return (
       <Link href={props.link} passHref>
         <Button sx={{ color: "black" }}>{props.children}</Button>
@@ -67,21 +71,21 @@ const Header = () => {
     <>
       <AppBar position="static" style={{ margin: 0, backgroundColor: "white" }}>
         <Toolbar>
-          <Link
-            href="/"
-            sx={{
-              textDecoration: "none",
-              color: "black",
-              //   cursor: "pointer",
-            }}
-            passHref
-          >
-            {/* <span> */}
-            <img
-              src="/logo-text.png"
-              style={{ height: 20, display: "inline" }}
-            />
-            {/* </span> */}
+          <Link href="/" passHref>
+            <Box
+              sx={{
+                display: "inline",
+                cursor: "pointer",
+                py: 1,
+              }}
+            >
+              <Image
+                src="/logo-text.png"
+                alt="Waterfront"
+                width={154}
+                height={20}
+              />
+            </Box>
           </Link>
           {/* somehow sets to the right of the app bar marginRight not needed here, but could play with positioning */}
           <section style={{ marginLeft: "auto", marginRight: 0 }}>
