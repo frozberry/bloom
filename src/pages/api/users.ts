@@ -10,4 +10,5 @@ const handler = async (req: NextApiRequest, res: NextApiResponse<Data[]>) => {
 
   res.send(allUsers)
 }
+
 export default handler

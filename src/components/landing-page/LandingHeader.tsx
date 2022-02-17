@@ -48,6 +48,7 @@ const LandingHeader = () => {
                   marginLeft: "auto",
                   marginRight: "auto",
                   display: "block",
+                  textAlign: "center",
                 }}
               >
                 <Box>
