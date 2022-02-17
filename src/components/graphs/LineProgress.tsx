@@ -1,6 +1,8 @@
 import { ResponsiveLine } from "@nivo/line"
 
-const LineProgress = ({ data, bottomLabel }) => {
+const tooltip = (p: any) => <div>{`${p.point.data.y}%`}</div>
+
+const LineProgress = ({ data, bottomLabel }: any) => {
   return (
     <div style={{ height: 400, fontFamily: "Roboto" }}>
       <ResponsiveLine
@@ -20,7 +22,6 @@ const LineProgress = ({ data, bottomLabel }) => {
         axisTop={null}
         axisRight={null}
         axisBottom={{
-          orient: "bottom",
           tickSize: 5,
           tickPadding: 5,
           tickRotation: 0,
@@ -29,7 +30,6 @@ const LineProgress = ({ data, bottomLabel }) => {
           legendPosition: "middle",
         }}
         axisLeft={{
-          orient: "left",
           tickSize: 5,
           tickPadding: 5,
           tickRotation: 0,
@@ -43,7 +43,7 @@ const LineProgress = ({ data, bottomLabel }) => {
         pointBorderColor={{ from: "serieColor" }}
         pointLabelYOffset={-12}
         useMesh={true}
-        tooltip={(p) => `${p.point.data.y}%`}
+        tooltip={(p) => tooltip(p)}
         legends={[
           {
             anchor: "bottom-right",

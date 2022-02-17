@@ -1,6 +1,6 @@
 import { ResponsiveRadar } from "@nivo/radar"
 
-const Radar = ({ data }) => {
+const Radar = ({ data }: any) => {
   const objKeys = Object.keys(data[0])
   const keys = objKeys.filter((k) => k !== "category")
 
@@ -31,6 +31,7 @@ const Radar = ({ data }) => {
           fillOpacity={0.25}
           blendMode="multiply"
           animate={true}
+          //@ts-ignore
           motionConfig="wobbly"
           isInteractive={true}
           tooltipFormat={(value, key) => `${value}%`}

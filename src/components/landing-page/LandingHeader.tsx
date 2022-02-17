@@ -4,6 +4,7 @@ import Button from "@mui/material/Button"
 import Container from "@mui/material/Container"
 import Grid from "@mui/material/Grid"
 import Image from "next/image"
+import { TextField } from "@mui/material"
 
 const LandingHeader = () => {
   return (
@@ -16,6 +17,7 @@ const LandingHeader = () => {
         backgroundColor: "lightBlue.main",
       }}
     >
+      <TextField type="submit" variant="filled"></TextField>
       <Container maxWidth="md" sx={{ py: 4 }}>
         <Grid container spacing={3}>
           <Grid item xs={12} sm={6}>
@@ -26,6 +28,7 @@ const LandingHeader = () => {
                 letterSpacing: 3,
                 mb: 4,
                 fontSize: 30,
+                color: "blue",
               }}
             >
               <b>Secure your child&apos;s grammar school future</b>

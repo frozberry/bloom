@@ -16,12 +16,6 @@
     "jsxImportSource": "@emotion/react",
     "incremental": true
   },
-  "include": [
-    "next-env.d.ts",
-    "**/*.ts",
-    "**/*.tsx",
-    "src/lib/useInterval.js",
-    "src/components/landing-page/WhatsWaterfront.tsx"
-  ],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "src/components/graphs/LineProgress.js"],
   "exclude": ["node_modules"]
 }
