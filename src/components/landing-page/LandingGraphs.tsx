@@ -3,22 +3,7 @@ import Box from "@mui/material/Box"
 import Container from "@mui/material/Container"
 import LandingRadar from "./LandingRadar"
 import LandingLineProgress from "./LandingLineProgress"
-
-const styles = {
-  section: {
-    marginTop: 80,
-  },
-  header: {
-    textAlign: "center",
-    marginBottom: 30,
-    color: "#121D1E",
-  },
-  subHeader: {
-    textAlign: "center",
-    marginBottom: 50,
-    fontSize: 22,
-  },
-}
+import Image from "next/image"
 
 const LandingGraphs = () => {
   return (
@@ -95,7 +80,19 @@ const LandingGraphs = () => {
             marginBottom: 80,
           }}
         >
-          <img src="https://i.imgur.com/Fn56Ft1.png" style={{ width: 800 }} />
+          <Box
+            sx={{
+              width: "80%",
+            }}
+          >
+            <Image
+              src="/questions.png"
+              alt="Expertly written 11+ maths examination questions"
+              layout="responsive"
+              width={1080}
+              height={570}
+            />
+          </Box>
         </div>
       </Box>
     </Container>
