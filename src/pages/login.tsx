@@ -6,19 +6,16 @@ import Image from "next/image"
 import Link from "next/link"
 
 type FormValues = {
-  name: string
   email: string
   password: string
 }
 
 const initialValues = {
-  name: "",
   email: "",
   password: "",
 }
 
 const validationSchema = yup.object().shape({
-  name: yup.string().required("Required"),
   email: yup.string().required("Required"),
   password: yup.string().required("Required"),
 })
@@ -27,7 +24,6 @@ const onSubmit = (
   values: FormValues,
   formikHelpers: FormikHelpers<FormValues>
 ) => {
-  alert(values.name)
   alert(values.email)
   alert(values.password)
   formikHelpers.setSubmitting(false)
@@ -46,11 +42,7 @@ export default function App() {
             height={512}
           />
         </Box>
-        <Typography variant="h2">Create an account</Typography>
-        <Typography variant="body1" sx={{ textAlign: "center" }}>
-          Fill out the form to start working towards your child's grammar
-          placement school today today.
-        </Typography>
+        <Typography variant="h2">Log in</Typography>
       </Box>
 
       <Formik
@@ -60,16 +52,6 @@ export default function App() {
       >
         {(formikProps: FormikProps<FormValues>) => (
           <Form noValidate autoComplete="off">
-            <Box>
-              <Typography variant="subtitle2">Parent's Full Name</Typography>
-              <Field
-                name="name"
-                placeholder="Name"
-                size="small"
-                component={FormTextField}
-                fullWidth
-              />
-            </Box>
             <Box>
               <Typography variant="subtitle2">Parent's Email</Typography>
               <Field
@@ -104,8 +86,10 @@ export default function App() {
           </Form>
         )}
       </Formik>
-      <Typography variant="body1" sx={{ mt: 2 }}>
-        Already have an account? <Link href="/login">Login here</Link>
+      <Typography variant="body1" sx={{ textAlign: "center", mt: 2 }}>
+        <Link href="/forgot-password">Forgot password?</Link>
+        {" · "}
+        <Link href="/signup">Sign up for an account</Link>
       </Typography>
     </Container>
   )
