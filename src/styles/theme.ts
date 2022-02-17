@@ -17,12 +17,12 @@ let theme = createTheme({
     // primary: {
     //   main: "#556cd6",
     // },
-    secondary: {
-      main: "#19857b",
-    },
-    error: {
-      main: red.A400,
-    },
+    // secondary: {
+    //   main: "#19857b",
+    // },
+    // error: {
+    //   main: red.A400,
+    // },
     // background: {
     //   default: "#0F1B35",
     // },
