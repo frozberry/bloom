@@ -5,7 +5,7 @@ import FormTextField from "../components/forms/FormTextField"
 import Image from "next/image"
 import Link from "next/link"
 import { GetServerSideProps } from "next"
-import { prisma } from "../lib/prisma"
+import { prisma } from "../prisma/client"
 
 export const getServerSideProps: GetServerSideProps = async () => {
   const users = await prisma.user.findMany()
