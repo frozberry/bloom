@@ -1,6 +1,7 @@
 import Typography from "@mui/material/Typography"
 import Button from "@mui/material/Button"
 import Container from "@mui/material/Container"
+import Link from "next/link"
 
 const LandingFooter = () => {
   return (
@@ -26,15 +27,17 @@ const LandingFooter = () => {
         >
           Try Waterfront free for 14-days
         </Typography>
-        <Button
-          variant="contained"
-          color="primary"
-          fullWidth
-          // onClick={() => history.push("/signup")}
-          sx={{ mb: 5, py: 3, fontSize: 20, textTransform: "none" }}
-        >
-          Start preparing for the 11+ exam
-        </Button>
+        <Link href="signup" passHref>
+          <Button
+            variant="contained"
+            color="primary"
+            fullWidth
+            // onClick={() => history.push("/signup")}
+            sx={{ mb: 5, py: 3, fontSize: 20, textTransform: "none" }}
+          >
+            Start preparing for the 11+ exam
+          </Button>
+        </Link>
         <Typography sx={{ textAlign: "center" }}>
           Get started today with zero risk
         </Typography>

@@ -4,6 +4,7 @@ import Button from "@mui/material/Button"
 import Container from "@mui/material/Container"
 import Grid from "@mui/material/Grid"
 import Image from "next/image"
+import Link from "next/link"
 
 const LandingHeader = () => {
   return (
@@ -36,43 +37,45 @@ const LandingHeader = () => {
               Only 1 in 10 children who take the 11+ get accepted to grammar
               schools. See how your child ranks against the competition.
             </Typography>
-            <Button
-              variant="contained"
-              sx={{
-                color: "white",
-                py: 3,
-                px: 10,
-                textTransform: "none",
-                marginLeft: "auto",
-                marginRight: "auto",
-                display: "block",
-              }}
-            >
-              <Box>
-                <Typography
-                  variant="h4"
-                  sx={{
-                    fontWeight: "bold",
-                  }}
-                >
-                  Get started today
-                </Typography>
-                <Typography
-                  variant="body2"
-                  sx={{
-                    fontSize: "1rem",
-                    color: "white",
-                    mb: 0,
-                    display: {
-                      xs: "none",
-                      sm: "block",
-                    },
-                  }}
-                >
-                  Try Waterfront free for 14-days
-                </Typography>
-              </Box>
-            </Button>
+            <Link href="/signup" passHref>
+              <Button
+                variant="contained"
+                sx={{
+                  color: "white",
+                  py: 3,
+                  px: 10,
+                  textTransform: "none",
+                  marginLeft: "auto",
+                  marginRight: "auto",
+                  display: "block",
+                }}
+              >
+                <Box>
+                  <Typography
+                    variant="h4"
+                    sx={{
+                      fontWeight: "bold",
+                    }}
+                  >
+                    Get started today
+                  </Typography>
+                  <Typography
+                    variant="body2"
+                    sx={{
+                      fontSize: "1rem",
+                      color: "white",
+                      mb: 0,
+                      display: {
+                        xs: "none",
+                        sm: "block",
+                      },
+                    }}
+                  >
+                    Try Waterfront free for 14-days
+                  </Typography>
+                </Box>
+              </Button>
+            </Link>
           </Grid>
           <Grid item xs={12} sm={6}>
             <Box
