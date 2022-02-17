@@ -4,10 +4,10 @@ import * as yup from "yup"
 import FormTextField from "../components/forms/FormTextField"
 import Image from "next/image"
 import Link from "next/link"
-import { GetStaticProps } from "next"
+import { GetServerSideProps } from "next"
 import { prisma } from "../lib/prisma"
 
-export const getStaticProps: GetStaticProps = async () => {
+export const getServerSideProps: GetServerSideProps = async () => {
   const users = await prisma.user.findMany()
   return {
     props: {
