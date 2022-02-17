@@ -6,9 +6,19 @@ type Data = {
 }
 
 const handler = async (req: NextApiRequest, res: NextApiResponse<Data[]>) => {
-  const allUsers = await prisma.user.findMany()
+  switch (req.method) {
+    case "GET":
+      const allUsers = await prisma.user.findMany()
+      res.send(allUsers)
+      break
 
-  res.send(allUsers)
+    case "POST":
+      // handlePost()
+      break
+
+    default:
+      res.status(405).end(`Method ${req.method} Not Allowed`)
+  }
 }
 
 export default handler
