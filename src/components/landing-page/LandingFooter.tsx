@@ -7,7 +7,7 @@ const LandingFooter = () => {
     <Container
       maxWidth={false}
       sx={{
-        backgroundColor: "#D8E2FC",
+        backgroundColor: "lightBlue.main",
         py: 4,
         px: 6,
       }}
@@ -21,7 +21,6 @@ const LandingFooter = () => {
           sx={{
             letterSpacing: 1,
             textAlign: "center",
-            color: "#121D1E",
             marginBottom: 10,
           }}
         >
@@ -36,7 +35,7 @@ const LandingFooter = () => {
         >
           Start preparing for the 11+ exam
         </Button>
-        <Typography sx={{ textAlign: "center", color: "#121D1E" }}>
+        <Typography sx={{ textAlign: "center" }}>
           Get started today with zero risk
         </Typography>
       </Container>

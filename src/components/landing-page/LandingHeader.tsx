@@ -22,11 +22,9 @@ const LandingHeader = () => {
             <Typography
               variant="h3"
               sx={{
-                // color: "red",
                 letterSpacing: 3,
                 mb: 4,
                 fontSize: 30,
-                color: "blue",
               }}
             >
               <b>Secure your child&apos;s grammar school future</b>

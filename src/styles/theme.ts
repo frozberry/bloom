@@ -4,9 +4,11 @@ import { red } from "@mui/material/colors"
 declare module "@mui/material/styles" {
   interface Palette {
     lightBlue: Palette["primary"]
+    beige: Palette["primary"]
   }
   interface PaletteOptions {
     lightBlue: PaletteOptions["primary"]
+    beige: PaletteOptions["primary"]
   }
 }
 
@@ -27,16 +29,17 @@ let theme = createTheme({
     lightBlue: {
       main: "#D8E2FC",
     },
+    beige: {
+      main: "#FFEEE2",
+    },
   },
   typography: {
     body1: {
       fontSize: "1.25rem",
       lineHeight: 1.8,
       marginBottom: 24,
-      color: "#4E616C",
     },
     h1: {
-      color: "white",
       letterSpacing: 1.5,
       textAlign: "center",
       marginTop: "1vh",
@@ -47,14 +50,12 @@ let theme = createTheme({
       fontSize: "2rem",
       textAlign: "center",
       fontWeight: "bold",
-      color: "#232129",
     },
     h3: {
       // fontSize: "1.75rem",
       marginBottom: 24,
       alignSelf: "flex-start",
       fontWeight: "bold",
-      color: "#232129",
     },
   },
   breakpoints: {

@@ -9,10 +9,7 @@ const LandingGraphs = () => {
   return (
     <Container maxWidth="md">
       <Box sx={{ mt: 7 }}>
-        <Typography
-          variant="h3"
-          sx={{ textAlign: "center", mb: 4, color: "#121D1E" }}
-        >
+        <Typography variant="h3" sx={{ textAlign: "center", mb: 4 }}>
           <b>Track your child's progress over time</b>
         </Typography>
         <Typography
@@ -26,10 +23,7 @@ const LandingGraphs = () => {
       </Box>
 
       <Box sx={{ mt: 7 }}>
-        <Typography
-          variant="h3"
-          sx={{ textAlign: "center", mb: 4, color: "#121D1E" }}
-        >
+        <Typography variant="h3" sx={{ textAlign: "center", mb: 4 }}>
           <b>Detailed breakdown of your child's strength and weaknesses</b>
         </Typography>
         <Typography
@@ -43,10 +37,7 @@ const LandingGraphs = () => {
       </Box>
 
       <Box sx={{ mt: 7 }}>
-        <Typography
-          variant="h3"
-          sx={{ textAlign: "center", mb: 4, color: "#121D1E" }}
-        >
+        <Typography variant="h3" sx={{ textAlign: "center", mb: 4 }}>
           <b>See how your child ranks against the competition</b>
         </Typography>
         <Typography
@@ -59,10 +50,7 @@ const LandingGraphs = () => {
       </Box>
 
       <Box sx={{ mt: 7 }}>
-        <Typography
-          variant="h3"
-          sx={{ textAlign: "center", mb: 4, color: "#121D1E" }}
-        >
+        <Typography variant="h3" sx={{ textAlign: "center", mb: 4 }}>
           <b>One new expertly written maths test every week</b>
         </Typography>
         <Typography

@@ -7,7 +7,7 @@ const HowItWorks = () => {
     <Container
       maxWidth={false}
       sx={{
-        backgroundColor: "#FFEEE2",
+        backgroundColor: "beige.main",
         py: 6,
       }}
     >
@@ -21,11 +21,7 @@ const HowItWorks = () => {
             <Typography sx={{ fontSize: 60, textAlign: "center" }}>
               1
             </Typography>
-            <Typography
-              align="center"
-              paragraph
-              sx={{ fontSize: 22, color: "#121D1E" }}
-            >
+            <Typography align="center" paragraph sx={{ fontSize: 22 }}>
               Every week your child completes an 11+ maths exam on our website
             </Typography>
           </Grid>
@@ -33,11 +29,7 @@ const HowItWorks = () => {
             <Typography sx={{ fontSize: 60, textAlign: "center" }}>
               2
             </Typography>
-            <Typography
-              align="center"
-              paragraph
-              sx={{ fontSize: 22, color: "#121D1E" }}
-            >
+            <Typography align="center" paragraph sx={{ fontSize: 22 }}>
               Compare their results to other children competing for grammar
               school spots
             </Typography>
@@ -46,11 +38,7 @@ const HowItWorks = () => {
             <Typography sx={{ fontSize: 60, textAlign: "center" }}>
               3
             </Typography>
-            <Typography
-              align="center"
-              paragraph
-              sx={{ fontSize: 22, color: "#121D1E" }}
-            >
+            <Typography align="center" paragraph sx={{ fontSize: 22 }}>
               Use our data-driven insights to give you the insights to perfect
               your child's preparation
             </Typography>
