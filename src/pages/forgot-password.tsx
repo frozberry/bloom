@@ -7,17 +7,14 @@ import Link from "next/link"
 
 type FormValues = {
   email: string
-  password: string
 }
 
 const initialValues = {
   email: "",
-  password: "",
 }
 
 const validationSchema = yup.object().shape({
   email: yup.string().required("Required"),
-  password: yup.string().required("Required"),
 })
 
 const onSubmit = (
@@ -25,7 +22,6 @@ const onSubmit = (
   formikHelpers: FormikHelpers<FormValues>
 ) => {
   alert(values.email)
-  alert(values.password)
   formikHelpers.setSubmitting(false)
 }
 
@@ -33,7 +29,10 @@ export default function App() {
   return (
     <Container maxWidth="xs">
       <Box sx={{ my: 4 }}>
-        <Typography variant="h2">Log in</Typography>
+        <Typography variant="h2">Reset your password</Typography>
+        <Typography variant="body1" sx={{ textAlign: "center" }}>
+          Enter the email address associated with your account
+        </Typography>
       </Box>
 
       <Formik
@@ -44,21 +43,10 @@ export default function App() {
         {(formikProps: FormikProps<FormValues>) => (
           <Form noValidate autoComplete="off">
             <Box>
-              <Typography variant="subtitle2">Parent's Email</Typography>
+              <Typography variant="subtitle2">Email</Typography>
               <Field
                 name="email"
                 placeholder="Email"
-                size="small"
-                component={FormTextField}
-                fullWidth
-              />
-            </Box>
-            <Box>
-              <Typography variant="subtitle2">Password</Typography>
-              <Field
-                name="password"
-                placeholder="********"
-                type="password"
                 size="small"
                 component={FormTextField}
                 fullWidth
@@ -68,7 +56,6 @@ export default function App() {
               type="submit"
               variant="contained"
               size="large"
-              color="primary"
               fullWidth
               disabled={formikProps.isSubmitting}
             >
@@ -77,11 +64,6 @@ export default function App() {
           </Form>
         )}
       </Formik>
-      <Typography variant="body1" sx={{ textAlign: "center", mt: 2 }}>
-        <Link href="/forgot-password">Forgot password?</Link>
-        {" · "}
-        <Link href="/signup">Sign up for an account</Link>
-      </Typography>
     </Container>
   )
 }
