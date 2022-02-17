@@ -4,10 +4,30 @@ import * as yup from "yup"
 import FormTextField from "../components/forms/FormTextField"
 import Image from "next/image"
 import Link from "next/link"
+import { GetStaticProps } from "next"
+import { prisma } from "../lib/prisma"
+
+export const getStaticProps: GetStaticProps = async () => {
+  const users = await prisma.user.findMany()
+  return {
+    props: {
+      users,
+    },
+  }
+}
 
 type FormValues = {
   email: string
   password: string
+}
+
+type User = {
+  id: number
+  name: string
+}
+
+type ComponentProps = {
+  users: User[]
 }
 
 const initialValues = {
@@ -29,12 +49,16 @@ const onSubmit = (
   formikHelpers.setSubmitting(false)
 }
 
-export default function App() {
+export default function App({ users }: ComponentProps) {
   return (
     <Container maxWidth="xs">
       <Box sx={{ my: 4 }}>
         <Typography variant="h2">Log in</Typography>
       </Box>
+
+      {users.map((u: User) => (
+        <p key={u.id}>{u.name}</p>
+      ))}
 
       <Formik
         initialValues={initialValues}
