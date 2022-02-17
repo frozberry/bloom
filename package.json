@@ -20,6 +20,7 @@
     "@nivo/line": "^0.70.1",
     "@nivo/pie": "^0.70.1",
     "@nivo/radar": "^0.70.1",
+    "@prisma/client": "^3.9.2",
     "@stripe/stripe-js": "^1.22.0",
     "axios": "^0.24.0",
     "formik": "^2.2.9",
@@ -35,6 +36,10 @@
     "eslint-config-next": "12.0.4",
     "eslint-config-prettier": "^8.3.0",
     "prettier": "^2.4.1",
+    "prisma": "^3.9.2",
     "typescript": "4.5.2"
+  },
+  "prisma": {
+    "schema": "src/prisma/schema.prisma"
   }
 }

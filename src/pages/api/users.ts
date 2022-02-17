@@ -1,13 +1,13 @@
 import type { NextApiRequest, NextApiResponse } from "next"
+import { prisma } from "../../lib/prisma"
 
 type Data = {
   name: string
 }
 
-export default function handler(
-  req: NextApiRequest,
-  res: NextApiResponse<Data>
-) {
-  //   res.status(200).json({ name: "John Doe" })
-  res.send({ name: "henry" })
+const handler = async (req: NextApiRequest, res: NextApiResponse<Data[]>) => {
+  const allUsers = await prisma.user.findMany()
+
+  res.send(allUsers)
 }
+export default handler
