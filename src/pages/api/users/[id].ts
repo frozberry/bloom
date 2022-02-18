@@ -1,7 +1,6 @@
 import { User } from "@prisma/client"
 import type { NextApiRequest, NextApiResponse } from "next"
-import { prisma } from "../../../prisma/client"
-import { deleteUser, findUser } from "../../../services/server/userService"
+import { deleteUser, findUserById } from "../../../services/server/userService"
 
 const handler = async (
   req: NextApiRequest,
@@ -12,7 +11,7 @@ const handler = async (
 
   switch (req.method) {
     case "GET":
-      const user = await findUser(id)
+      const user = await findUserById(id)
       res.send(user)
       break
 
