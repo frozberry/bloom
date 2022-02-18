@@ -1,27 +1,29 @@
+import { User } from "@prisma/client"
 import type { NextApiRequest, NextApiResponse } from "next"
 import { prisma } from "../../../prisma/client"
-
-type User = {
-  name: string
-}
+import { deleteUser, findUser } from "../../../services/server/userService"
 
 const handler = async (
   req: NextApiRequest,
   res: NextApiResponse<User | null>
 ) => {
-  let {
-    query: { id },
-  } = req
+  let { id } = req.query
+  id = id as string
 
   switch (req.method) {
     case "GET":
-      const user = await prisma.user.findUnique({ where: { id: Number(id) } })
+      const user = await findUser(id)
       res.send(user)
       break
 
     case "DELETE":
-      await prisma.user.delete({ where: { id: Number(id) } })
-      res.status(200)
+      const success = await deleteUser(id)
+
+      if (!success) {
+        res.status(405).end("user not found")
+      }
+
+      res.status(200).end("user deleted")
       break
 
     default:

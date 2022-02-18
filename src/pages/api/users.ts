@@ -3,16 +3,22 @@ import type { NextApiRequest, NextApiResponse } from "next"
 import { prisma } from "../../prisma/client"
 import { User } from "@prisma/client"
 
-const handler = async (req: NextApiRequest, res: NextApiResponse<User[]>) => {
+import { createUser, getUsers } from "../../services/server/userService"
+
+const handler = async (
+  req: NextApiRequest,
+  res: NextApiResponse<User[] | User>
+) => {
   switch (req.method) {
     case "GET":
-      const allUsers = await prisma.user.findMany()
-
+      const allUsers = await getUsers()
       res.send(allUsers)
       break
 
     case "POST":
-      // handlePost()
+      const { parentName, email, password } = req.body
+      const user = await createUser(parentName, email, password)
+      res.send(user!)
       break
 
     default:
