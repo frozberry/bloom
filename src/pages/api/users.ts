@@ -3,6 +3,7 @@ import { prisma } from "../../prisma/client"
 import { User } from "@prisma/client"
 
 import { createUser, getUsers } from "../../services/server/userService"
+import verifyUser from "../../lib/verifyUser"
 
 const handler = async (
   req: NextApiRequest,
@@ -10,8 +11,13 @@ const handler = async (
 ) => {
   switch (req.method) {
     case "GET":
-      const allUsers = await getUsers()
-      res.send(allUsers)
+      // const allUsers = await getUsers()
+      // res.send(allUsers)
+      const u = await verifyUser(req)
+      if (!u) {
+        res.status(401).end("unauthorized")
+      }
+      res.send(u!)
       break
 
     case "POST":
