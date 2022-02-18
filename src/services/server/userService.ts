@@ -1,3 +1,4 @@
+import { DomainDisabled, LiveHelpOutlined } from "@mui/icons-material"
 import { User } from "@prisma/client"
 import bcrypt from "bcrypt"
 import jwt from "jsonwebtoken"
@@ -30,6 +31,30 @@ export const createUser = async (
   })
 
   return user
+}
+
+export const editUser = async (
+  user: User,
+  firstName: string,
+  lastName: string,
+  dob: string,
+  gender: string
+) => {
+  const updatedData = {
+    firstName,
+    lastName,
+    dob,
+    gender,
+  }
+
+  const updatedUser = await prisma.user.update({
+    where: { id: user.id },
+    data: {
+      ...updatedData,
+    },
+  })
+
+  return updatedUser
 }
 
 export const deleteUser = async (id: string): Promise<boolean> => {
