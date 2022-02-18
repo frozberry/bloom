@@ -1,5 +1,4 @@
 import type { NextApiRequest, NextApiResponse } from "next"
-import { prisma } from "../../prisma/client"
 import { User } from "@prisma/client"
 
 import {
@@ -22,41 +21,38 @@ type PutBody = {
   gender: string
 }
 
-const handler = async (
-  req: NextApiRequest,
-  res: NextApiResponse<User[] | User>
-) => {
+const GET = async (req: NextApiRequest, res: NextApiResponse<User[]>) => {
+  const users = await getUsers()
+  res.send(users)
+}
+
+const POST = async (req: NextApiRequest, res: NextApiResponse<User>) => {
+  const { parentName, email, password }: PostBody = req.body
+  const user = await createUser(parentName, email, password)
+  res.send(user!)
+}
+
+const PUT = async (req: NextApiRequest, res: NextApiResponse<User>) => {
+  const { firstName, lastName, dob, gender }: PutBody = req.body
+  const user = await verifyUser(req)
+  if (!user) {
+    return res.status(401).end()
+  }
+  const updatedUser = await editUser(user!, firstName, lastName, dob, gender)
+  res.send(updatedUser!)
+}
+
+const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   switch (req.method) {
     case "GET":
-      const allUsers = await getUsers()
-      res.send(allUsers)
+      GET(req, res)
       break
-
     case "POST":
-      const { parentName, email, password }: PostBody = req.body
-      const user = await createUser(parentName, email, password)
-      res.send(user!)
+      POST(req, res)
       break
-
     case "PUT":
-      const { firstName, lastName, dob, gender }: PutBody = req.body
-      const userVerified = await verifyUser(req)
-
-      if (!userVerified) {
-        res.status(401).end()
-      }
-
-      const updatedUser = await editUser(
-        userVerified!,
-        firstName,
-        lastName,
-        dob,
-        gender
-      )
-
-      res.send(updatedUser!)
+      PUT(req, res)
       break
-
     default:
       res.status(405).end(`Method ${req.method} Not Allowed`)
   }
