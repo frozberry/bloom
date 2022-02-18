@@ -19,7 +19,7 @@ export const createUser = async (
   email: string,
   password: string
 ): Promise<User | null> => {
-  const passwordHash = password
+  const passwordHash = await bcrypt.hash(password, 10)
 
   const user = await prisma.user.create({
     data: { parentName, email, passwordHash },
