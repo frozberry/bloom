@@ -1,14 +1,13 @@
+import { LoginOutlined } from "@mui/icons-material"
 import type { NextApiRequest, NextApiResponse } from "next"
 import { prisma } from "../../prisma/client"
+import { User } from "@prisma/client"
 
-type Data = {
-  name: string
-}
-
-const handler = async (req: NextApiRequest, res: NextApiResponse<Data[]>) => {
+const handler = async (req: NextApiRequest, res: NextApiResponse<User[]>) => {
   switch (req.method) {
     case "GET":
       const allUsers = await prisma.user.findMany()
+
       res.send(allUsers)
       break
 
