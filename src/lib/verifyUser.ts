@@ -9,7 +9,7 @@ type Token = {
 }
 
 const verifyUser = async (req: NextApiRequest): Promise<User | null> => {
-  const authorization = req.headers.authorization
+  const { authorization } = req.headers
   if (!authorization) {
     return null
   }
