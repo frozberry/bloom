@@ -91,7 +91,7 @@ export const login = async (
 
 /* ------------------------------- Profile ------------------------------- */
 
-export const getProfiles = async (id: string): Promise<UserProfile[]> => {
+export const getProfiles = async (): Promise<UserProfile[]> => {
   const users = await prisma.user.findMany({
     select: {
       firstName: true,
