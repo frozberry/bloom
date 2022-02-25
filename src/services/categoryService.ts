@@ -15,8 +15,16 @@ export const createCategory = async (
   return category
 }
 
-export const deleteCategory = async (name: string): Promise<boolean> => {
+export const findCategoryByName = async (
+  name: string
+): Promise<Category | null> => {
   const category = await prisma.category.findUnique({ where: { name } })
+  return category
+}
+
+export const deleteCategory = async (name: string): Promise<boolean> => {
+  const category = await findCategoryByName(name)
+
   if (!category) {
     return false
   }
