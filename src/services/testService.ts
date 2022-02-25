@@ -1,11 +1,7 @@
 import { Category, Problem, Test, User } from "@prisma/client"
 import { prisma } from "../prisma/client"
 import _ from "lodash"
-import { ProblemWithCategory } from "../lib/types"
-
-type Numbered = {
-  num: number
-}
+import { Numbered, ProblemWithCategory } from "../lib/types"
 
 export const getTests = async () => {
   const tests = await prisma.test.findMany({

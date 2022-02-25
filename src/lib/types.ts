@@ -14,3 +14,8 @@ export type UserProfile = Prisma.UserGetPayload<{
 export type ProblemWithCategory = Prisma.ProblemGetPayload<{
   include: { categories: true }
 }>
+
+// Generic type for Tests and GradedTests
+export type Numbered = {
+  num: number
+}
