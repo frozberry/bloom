@@ -93,6 +93,23 @@ export const login = async (
 
 export const getProfiles = async (id: string): Promise<UserProfile[]> => {
   const users = await prisma.user.findMany({
+    select: {
+      firstName: true,
+      lastName: true,
+      dob: true,
+      gender: true,
+      profilePicture: true,
+      score: true,
+    },
+  })
+
+  return users
+}
+
+export const findProfileById = async (
+  id: string
+): Promise<UserProfile | null> => {
+  const user = await prisma.user.findUnique({
     where: {
       id,
     },
@@ -106,5 +123,5 @@ export const getProfiles = async (id: string): Promise<UserProfile[]> => {
     },
   })
 
-  return users
+  return user
 }
