@@ -1,6 +1,7 @@
-import { User } from "@prisma/client"
+import { Prisma, User } from "@prisma/client"
 import bcrypt from "bcrypt"
 import jwt from "jsonwebtoken"
+import { UserProfile } from "../lib/types"
 import { prisma } from "../prisma/client"
 
 export const getUsers = async (): Promise<User[]> => {
@@ -86,4 +87,24 @@ export const login = async (
   )
 
   return token
+}
+
+/* ------------------------------- Profile ------------------------------- */
+
+export const getProfiles = async (id: string): Promise<UserProfile[]> => {
+  const users = await prisma.user.findMany({
+    where: {
+      id,
+    },
+    select: {
+      firstName: true,
+      lastName: true,
+      dob: true,
+      gender: true,
+      profilePicture: true,
+      score: true,
+    },
+  })
+
+  return users
 }
