@@ -2,13 +2,14 @@ import { Container, Typography, Button, Box } from "@mui/material"
 import { Formik, FormikHelpers, FormikProps, Form, Field } from "formik"
 import * as yup from "yup"
 import FormTextField from "../components/forms/FormTextField"
-import Image from "next/image"
 import Link from "next/link"
 import { GetServerSideProps } from "next"
-import { prisma } from "../prisma/client"
+import { User } from "@prisma/client"
+import { getUsers } from "../services/server/userService"
 
 export const getServerSideProps: GetServerSideProps = async () => {
-  const users = await prisma.user.findMany()
+  const users = await getUsers()
+
   return {
     props: {
       users,
@@ -19,15 +20,6 @@ export const getServerSideProps: GetServerSideProps = async () => {
 type FormValues = {
   email: string
   password: string
-}
-
-type User = {
-  id: number
-  name: string
-}
-
-type ComponentProps = {
-  users: User[]
 }
 
 const initialValues = {
@@ -49,7 +41,7 @@ const onSubmit = (
   formikHelpers.setSubmitting(false)
 }
 
-export default function App({ users }: ComponentProps) {
+export default function App({ users }: { users: User[] }) {
   return (
     <Container maxWidth="xs">
       <Box sx={{ my: 4 }}>
@@ -57,7 +49,7 @@ export default function App({ users }: ComponentProps) {
       </Box>
 
       {users.map((u: User) => (
-        <p key={u.id}>{u.name}</p>
+        <p key={u.id}>{u.email}</p>
       ))}
 
       <Formik

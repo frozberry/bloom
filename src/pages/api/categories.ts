@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from "next"
-import { User } from "@prisma/client"
+import { User, Category } from "@prisma/client"
 
 import { createUser, editUser, getUsers } from "../../services/userService"
 import verifyUser from "../../lib/verifyUser"
