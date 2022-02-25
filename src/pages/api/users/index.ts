@@ -1,8 +1,8 @@
 import type { NextApiRequest, NextApiResponse } from "next"
 import { User } from "@prisma/client"
 
-import { createUser, editUser, getUsers } from "../../services/userService"
-import verifyUser from "../../lib/verifyUser"
+import { createUser, editUser, getUsers } from "../../../services/userService"
+import verifyUser from "../../../lib/verifyUser"
 
 type PostBody = {
   parentName: string
