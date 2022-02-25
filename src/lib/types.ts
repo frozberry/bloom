@@ -1,4 +1,4 @@
-import { Prisma } from "@prisma/client"
+import { Category, GradedCategory, Prisma } from "@prisma/client"
 
 export type UserProfile = Prisma.UserGetPayload<{
   select: {
@@ -18,4 +18,8 @@ export type ProblemWithCategory = Prisma.ProblemGetPayload<{
 // Generic type for Tests and GradedTests
 export type Numbered = {
   num: number
+}
+
+export type CategoryWithAverage = Category & {
+  average: number
 }

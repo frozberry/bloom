@@ -1,4 +1,5 @@
 import { User } from "@prisma/client"
+import { CategoryWithAverage } from "../lib/types"
 import { prisma } from "../prisma/client"
 
 export const getGradedTests = async () => {
@@ -30,7 +31,7 @@ export const getCatergoriesAverage = async () => {
 
   const categories = await prisma.category.findMany()
 
-  const categoriesAveraged = categories.map((c) => {
+  const categoriesAveraged: CategoryWithAverage[] = categories.map((c) => {
     const mgc = gradedCategories.filter((gc) => gc.categoryName === c.name)
 
     const totalAttempts = mgc.reduce((acc, gc) => gc.attempts + acc, 0)
