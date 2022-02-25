@@ -13,6 +13,8 @@ const passwordReset = (email: string, resetUrl: string) => {
   })
 }
 
-module.exports = {
+const sendEmail = {
   passwordReset,
 }
+
+export default sendEmail
