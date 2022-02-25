@@ -3,6 +3,62 @@ import { prisma } from "../prisma/client"
 import dayjs from "dayjs"
 import _ from "lodash"
 
+export const getGradedTests = async () => {
+  const gradedTests = await prisma.gradedTest.findMany()
+  return gradedTests
+}
+
+export const findGradedTestById = async (id: string) => {
+  const gradedTest = await prisma.gradedTest.findUnique({
+    where: {
+      id,
+    },
+    include: {
+      gradedProblems: true,
+      user: true,
+    },
+  })
+  return gradedTest
+}
+
+export const getUsersGradedTests = async (userId: string) => {
+  const gradedTests = await prisma.gradedTest.findMany({
+    where: {
+      userId,
+    },
+    include: {
+      gradedProblems: true,
+    },
+  })
+  return gradedTests
+}
+
+// TODO copying old API - maybe can be refactored
+// Sorting could be done on frontend, but this doesn't include gradedProblems
+export const getSortedGradedTests = async (userId: string) => {
+  const gradedTests = await prisma.gradedTest.findMany({
+    where: { userId: userId },
+  })
+  const tests = await prisma.test.findMany()
+
+  // TODO improve types
+  const testSorted: { testId: string; num: number; attempts: any }[] = []
+
+  tests.forEach((t) => {
+    const usersAttempts = gradedTests.filter((gt) => gt.testId === t.id)
+    const testEntry = {
+      testId: t.id,
+      num: t.num,
+      attempts: usersAttempts,
+    }
+    if (usersAttempts.length > 0) {
+      testSorted.push(testEntry)
+    }
+  })
+
+  return testSorted
+}
+
 // Use correct type for answers
 export const submitTest = async (user: User, testId: string, answers: any) => {
   // Fetch the Test the user just completed
