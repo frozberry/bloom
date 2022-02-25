@@ -1,11 +1,11 @@
 import { Category, Problem, Test, User } from "@prisma/client"
 import { prisma } from "../prisma/client"
 import _ from "lodash"
+import { ProblemWithCategory } from "../lib/types"
 
 type Numbered = {
   num: number
 }
-type ProblemWithCategory = Problem & { categories: Category[] }
 
 export const getTests = async () => {
   const tests = await prisma.test.findMany({
@@ -62,7 +62,7 @@ export const createTest = async (problems: ProblemWithCategory[]) => {
     num: i + 1,
     correct: problem.correct.toString(),
     categories: problem.categories && {
-      connect: problem.categories.map((c) => ({ name: c })),
+      connect: problem.categories.map((category) => ({ name: category })),
     },
   }))
 

@@ -10,3 +10,7 @@ export type UserProfile = Prisma.UserGetPayload<{
     score: true
   }
 }>
+
+export type ProblemWithCategory = Prisma.ProblemGetPayload<{
+  include: { categories: true }
+}>
