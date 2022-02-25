@@ -1,6 +1,9 @@
 import { Category } from "@prisma/client"
 import type { NextApiRequest, NextApiResponse } from "next"
-import { createCategory, getCatergories } from "../../services/categoryService"
+import {
+  createCategory,
+  getCatergories,
+} from "../../../services/categoryService"
 
 type PostBody = {
   name: string

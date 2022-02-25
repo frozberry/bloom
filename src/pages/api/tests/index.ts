@@ -1,7 +1,11 @@
 import { Category, Prisma, Problem, Test } from "@prisma/client"
 import { NextApiRequest, NextApiResponse } from "next"
-import verifyUser from "../../lib/verifyUser"
-import { createTest, getNextTest, getTests } from "../../services/testService"
+import verifyUser from "../../../lib/verifyUser"
+import {
+  createTest,
+  getNextTest,
+  getTests,
+} from "../../../services/testService"
 
 type PostBody = {
   problems: (Problem & { categories: Category[] })[]

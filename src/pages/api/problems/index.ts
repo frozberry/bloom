@@ -1,6 +1,6 @@
 import { Problem } from "@prisma/client"
 import type { NextApiRequest, NextApiResponse } from "next"
-import { getProblems } from "../../services/problemService"
+import { getProblems } from "../../../services/problemService"
 
 const GET = async (req: NextApiRequest, res: NextApiResponse<Problem[]>) => {
   const categories = await getProblems()

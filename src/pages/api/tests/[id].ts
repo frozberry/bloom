@@ -1,6 +1,6 @@
 import { Test } from "@prisma/client"
 import type { NextApiRequest, NextApiResponse } from "next"
-import { deleteTest, findTestById } from "../../../../services/testService"
+import { deleteTest, findTestById } from "../../../services/testService"
 
 const GET = async (
   req: NextApiRequest,
