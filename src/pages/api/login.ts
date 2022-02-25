@@ -1,8 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from "next"
-import { prisma } from "../../prisma/client"
-import { User } from "@prisma/client"
-
-import { login } from "../../services/server/userService"
+import { login } from "../../services/userService"
 
 const handler = async (req: NextApiRequest, res: NextApiResponse<string>) => {
   switch (req.method) {
