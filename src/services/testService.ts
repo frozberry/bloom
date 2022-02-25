@@ -100,7 +100,7 @@ export const deleteTest = async (id: string) => {
 
 const nextTestNum = <T extends Numbered>(tests: T[]) => {
   const lastTest = _.maxBy(tests, (test) => test.num)
-  const lastNum = lastTest?.num || 0
-  const nextNum = lastNum + 1
-  return nextNum
+
+  const incrementedNum = lastTest ? lastTest.num + 1 : 1
+  return incrementedNum
 }
