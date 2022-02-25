@@ -1,13 +1,27 @@
 import type { NextApiRequest, NextApiResponse } from "next"
+import stripe from "../../../lib/stripeServer"
 
 type PostBody = {
   customerId: string
 }
 
-// TODO
-const POST = async (req: NextApiRequest, res: NextApiResponse<string>) => {
+type PostResponse = {
+  url: string
+}
+
+const POST = async (
+  req: NextApiRequest,
+  res: NextApiResponse<PostResponse>
+) => {
   const { customerId }: PostBody = req.body
-  res.send("unimplemented")
+  const returnUrl = process.env.FRONTEND
+
+  const portalSession = await stripe.billingPortal.sessions.create({
+    customer: customerId,
+    return_url: returnUrl,
+  })
+
+  res.send({ url: portalSession.url })
 }
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
