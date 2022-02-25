@@ -1,22 +1,31 @@
 import type { NextApiRequest, NextApiResponse } from "next"
-import { User } from "@prisma/client"
-
-import { createUser, editUser, getUsers } from "../../services/userService"
+import { GradedCategory } from "@prisma/client"
 import verifyUser from "../../lib/verifyUser"
-import { getCatergoriesAverage } from "../../services/gradedTestService"
+import {
+  getCatergoriesAverage,
+  getUsersGradedCategories,
+} from "../../services/gradedCategoryService"
+import { CategoryWithAverage } from "../../lib/types"
 
-const GET = async (req: NextApiRequest, res: NextApiResponse<User[]>) => {
+const GET = async (
+  req: NextApiRequest,
+  res: NextApiResponse<CategoryWithAverage[] | GradedCategory[]>
+) => {
   const { average } = req.query
 
   if (average === "true") {
     const averages = await getCatergoriesAverage()
     res.send(averages)
-  } else {
-    const users = await getUsers()
-    res.send(users)
   }
-  const users = await getUsers()
-  res.send(users)
+
+  const user = await verifyUser(req)
+
+  if (!user) {
+    return res.status(401).end()
+  }
+
+  const gradedCategories = await getUsersGradedCategories(user)
+  res.send(gradedCategories)
 }
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {

@@ -2,20 +2,20 @@ import { User } from "@prisma/client"
 import { CategoryWithAverage } from "../lib/types"
 import { prisma } from "../prisma/client"
 
-export const getGradedTests = async () => {
-  const gradedTests = await prisma.gradedTest.findMany()
-  return gradedTests
+export const getGradedCategories = async () => {
+  const gradedCatergories = await prisma.gradedCategory.findMany()
+  return gradedCatergories
 }
 
-export const getUsersGradedTests = async (user: User) => {
-  const gradedTests = await prisma.gradedTest.findMany({
+export const getUsersGradedCategories = async (user: User) => {
+  const gradedCatergories = await prisma.gradedCategory.findMany({
     where: {
       user: {
         id: user.id,
       },
     },
   })
-  return gradedTests
+  return gradedCatergories
 }
 
 // TODO blindly copied and pasted - not sure if working
