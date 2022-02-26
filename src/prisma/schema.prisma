@@ -52,7 +52,7 @@ model Problem {
   num        Int
   img        String?
   date       DateTime   @default(now())
-  exam       Exam       @relation(fields: [examId], references: [id])
+  exam       Exam       @relation(fields: [examId], references: [id], onDelete: Cascade)
   examId     String
   categories Category[]
 }
@@ -66,9 +66,9 @@ model GradedExam {
   firstAttempt   Boolean
   time           Int
   date           DateTime        @default(now())
-  user           User            @relation(fields: [userId], references: [id])
+  user           User            @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId         String
-  exam           Exam            @relation(fields: [examId], references: [id])
+  exam           Exam            @relation(fields: [examId], references: [id], onDelete: Cascade)
   examId         String
   gradedProblems GradedProblem[]
 }
@@ -84,7 +84,7 @@ model GradedProblem {
   options      String[]
   unit         String?
   date         DateTime   @default(now())
-  gradedExam   GradedExam @relation(fields: [gradedExamId], references: [id])
+  gradedExam   GradedExam @relation(fields: [gradedExamId], references: [id], onDelete: Cascade)
   gradedExamId String
   categories   Category[]
 }
@@ -92,9 +92,9 @@ model GradedProblem {
 model ExamSession {
   id     String   @id @default(uuid())
   start  DateTime @default(now())
-  user   User     @relation(fields: [userId], references: [id])
+  user   User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId String   @unique
-  Exam   Exam?    @relation(fields: [examId], references: [id])
+  Exam   Exam?    @relation(fields: [examId], references: [id], onDelete: Cascade)
   examId String?
 }
 
@@ -109,9 +109,9 @@ model GradedCategory {
   id           String   @id @default(uuid())
   correct      Int      @default(0)
   attempts     Int      @default(0)
-  user         User     @relation(fields: [userId], references: [id])
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId       String
-  category     Category @relation(fields: [categoryName], references: [name])
+  category     Category @relation(fields: [categoryName], references: [name], onDelete: Cascade)
   categoryName String
 
   @@unique([userId, categoryName])
