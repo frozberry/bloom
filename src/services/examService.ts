@@ -3,8 +3,8 @@ import { prisma } from "../prisma/client"
 import _ from "lodash"
 import { Numbered } from "../lib/types"
 
-export const getTests = async () => {
-  const tests = await prisma.exam.findMany({
+export const getExams = async () => {
+  const exams = await prisma.exam.findMany({
     include: {
       problems: {
         include: {
@@ -13,31 +13,31 @@ export const getTests = async () => {
       },
     },
   })
-  return tests
+  return exams
 }
 
-export const getNextTest = async (user: User) => {
+export const getNextExam = async (user: User) => {
   // TODO replace with service
-  const gradedTests = await prisma.gradedExam.findMany({
+  const gradedExams = await prisma.gradedExam.findMany({
     where: {
       userId: user.id,
     },
   })
 
-  const nextTest = await prisma.exam.findUnique({
+  const nextExam = await prisma.exam.findUnique({
     where: {
-      num: nextTestNum(gradedTests),
+      num: nextExamNum(gradedExams),
     },
     include: {
       problems: true,
     },
   })
 
-  return nextTest
+  return nextExam
 }
 
-export const findTestById = async (id: string) => {
-  const test = await prisma.exam.findUnique({
+export const findExamById = async (id: string) => {
+  const exam = await prisma.exam.findUnique({
     where: {
       id,
     },
@@ -45,12 +45,12 @@ export const findTestById = async (id: string) => {
       problems: true,
     },
   })
-  return test
+  return exam
 }
 
 // TODO temporary any type for seed to work
 // Previously ProblemWithCategory[]
-export const createTest = async (problems: any[]) => {
+export const createExam = async (problems: any[]) => {
   // TODO
   // allCatergoriesValid()
 
@@ -65,11 +65,11 @@ export const createTest = async (problems: any[]) => {
     },
   }))
 
-  const tests = await getTests()
+  const exams = await getExams()
 
-  const savedTest = await prisma.exam.create({
+  const savedExam = await prisma.exam.create({
     data: {
-      num: nextTestNum(tests),
+      num: nextExamNum(exams),
       problems: {
         create: numberedProblems,
       },
@@ -79,16 +79,16 @@ export const createTest = async (problems: any[]) => {
     },
   })
 
-  return savedTest
+  return savedExam
 }
 
-export const deleteTest = async (id: string) => {
-  const test = await findTestById(id)
-  if (!test) {
+export const deleteExam = async (id: string) => {
+  const exam = await findExamById(id)
+  if (!exam) {
     return false
   }
 
-  // TODO check if deleting test deletes problems too
+  // TODO check if deleting exam deletes problems too
   await prisma.exam.delete({
     where: {
       id,
@@ -97,9 +97,9 @@ export const deleteTest = async (id: string) => {
   return true
 }
 
-const nextTestNum = <T extends Numbered>(tests: T[]) => {
-  const lastTest = _.maxBy(tests, (test) => test.num)
+const nextExamNum = <T extends Numbered>(exams: T[]) => {
+  const lastExam = _.maxBy(exams, (exam) => exam.num)
 
-  const incrementedNum = lastTest ? lastTest.num + 1 : 1
+  const incrementedNum = lastExam ? lastExam.num + 1 : 1
   return incrementedNum
 }

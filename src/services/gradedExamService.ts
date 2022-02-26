@@ -3,13 +3,13 @@ import { prisma } from "../prisma/client"
 import dayjs from "dayjs"
 import _ from "lodash"
 
-export const getGradedTests = async () => {
-  const gradedTests = await prisma.gradedExam.findMany()
-  return gradedTests
+export const getGradedExams = async () => {
+  const gradedExams = await prisma.gradedExam.findMany()
+  return gradedExams
 }
 
-export const findGradedTestById = async (id: string) => {
-  const gradedTest = await prisma.gradedExam.findUnique({
+export const findGradedExamById = async (id: string) => {
+  const gradedExam = await prisma.gradedExam.findUnique({
     where: {
       id,
     },
@@ -18,11 +18,11 @@ export const findGradedTestById = async (id: string) => {
       user: true,
     },
   })
-  return gradedTest
+  return gradedExam
 }
 
-export const getUsersGradedTests = async (userId: string) => {
-  const gradedTests = await prisma.gradedExam.findMany({
+export const getUsersGradedExams = async (userId: string) => {
+  const gradedExams = await prisma.gradedExam.findMany({
     where: {
       userId,
     },
@@ -30,41 +30,41 @@ export const getUsersGradedTests = async (userId: string) => {
       gradedProblems: true,
     },
   })
-  return gradedTests
+  return gradedExams
 }
 
 // TODO copying old API - maybe can be refactored
 // Sorting could be done on frontend, but this doesn't include gradedProblems
-export const getSortedGradedTests = async (userId: string) => {
-  const gradedTests = await prisma.gradedExam.findMany({
+export const getSortedGradedExams = async (userId: string) => {
+  const gradedExams = await prisma.gradedExam.findMany({
     where: { userId: userId },
   })
-  const tests = await prisma.exam.findMany()
+  const exams = await prisma.exam.findMany()
 
   // TODO improve types
-  const testSorted: { testId: string; num: number; attempts: any }[] = []
+  const examSorted: { examId: string; num: number; attempts: any }[] = []
 
-  tests.forEach((t) => {
-    const usersAttempts = gradedTests.filter((gt) => gt.examId === t.id)
-    const testEntry = {
-      testId: t.id,
+  exams.forEach((t) => {
+    const usersAttempts = gradedExams.filter((gt) => gt.examId === t.id)
+    const examEntry = {
+      examId: t.id,
       num: t.num,
       attempts: usersAttempts,
     }
     if (usersAttempts.length > 0) {
-      testSorted.push(testEntry)
+      examSorted.push(examEntry)
     }
   })
 
-  return testSorted
+  return examSorted
 }
 
 // Use correct type for answers
-export const submitTest = async (user: User, testId: string, answers: any) => {
-  // Fetch the Test the user just completed
-  console.log("Fetching test")
-  const test = await prisma.exam.findUnique({
-    where: { id: testId },
+export const submitExam = async (user: User, examId: string, answers: any) => {
+  // Fetch the Exam the user just completed
+  console.log("Fetching exam")
+  const exam = await prisma.exam.findUnique({
+    where: { id: examId },
     include: {
       problems: {
         include: {
@@ -75,13 +75,13 @@ export const submitTest = async (user: User, testId: string, answers: any) => {
   })
 
   // TODO prevent TS null errors later. Maybe a better way to do this?
-  if (!test) {
+  if (!exam) {
     return null
   }
 
-  // Reconcile the Test's problems with the user's submissions
-  console.log("Reconcilling users selections with test problems")
-  const gradedProblems = test.problems.map((p) => {
+  // Reconcile the Exam's problems with the user's submissions
+  console.log("Reconcilling users selections with exam problems")
+  const gradedProblems = exam.problems.map((p) => {
     // TODO use correct type
     const submitted = answers.find((a: any) => p.id === a.problemId)
     const gp = {
@@ -101,15 +101,15 @@ export const submitTest = async (user: User, testId: string, answers: any) => {
     return gp
   })
 
-  console.log("Fetching user's gradedTests")
+  console.log("Fetching user's gradedExams")
   console.log("Checking if first attempt")
-  const usersGradedTests = await prisma.gradedExam.findMany({
+  const usersGradedExams = await prisma.gradedExam.findMany({
     where: {
       userId: user.id,
     },
   })
 
-  const firstAttempt = await isFirstAttemptAtTest(usersGradedTests, testId)
+  const firstAttempt = await isFirstAttemptAtExam(usersGradedExams, examId)
 
   // grade the users GradedCategories
   if (firstAttempt) {
@@ -142,21 +142,21 @@ export const submitTest = async (user: User, testId: string, answers: any) => {
   const totalMarks = gradedProblems.length
   const percent = Math.round((100 / totalMarks) * marks)
 
-  console.log("Deleting test session")
-  const testSession = await prisma.examSession.delete({
+  console.log("Deleting exam session")
+  const examSession = await prisma.examSession.delete({
     where: { userId: user.id },
   })
 
-  const time = calculateTime(testSession.start)
+  const time = calculateTime(examSession.start)
 
-  console.log("Saving gradedTest")
-  const savedGradedTest = await prisma.gradedExam.create({
+  console.log("Saving gradedExam")
+  const savedGradedExam = await prisma.gradedExam.create({
     data: {
-      examId: test.id,
+      examId: exam.id,
       userId: user.id,
       marks,
-      total: test.problems.length,
-      num: test.num,
+      total: exam.problems.length,
+      num: exam.num,
       percent,
       firstAttempt,
       time,
@@ -169,8 +169,8 @@ export const submitTest = async (user: User, testId: string, answers: any) => {
     },
   })
 
-  const withNewTest = usersGradedTests.concat(savedGradedTest)
-  const onlyFirstAttempt = withNewTest.filter((gt) => gt.firstAttempt)
+  const withNewExam = usersGradedExams.concat(savedGradedExam)
+  const onlyFirstAttempt = withNewExam.filter((gt) => gt.firstAttempt)
 
   console.log("Updating user")
   await prisma.user.update({
@@ -182,15 +182,15 @@ export const submitTest = async (user: User, testId: string, answers: any) => {
     },
   })
 
-  return savedGradedTest
+  return savedGradedExam
 }
 
-const isFirstAttemptAtTest = async (
-  usersGradedTests: GradedExam[],
-  testId: string
+const isFirstAttemptAtExam = async (
+  usersGradedExams: GradedExam[],
+  examId: string
 ) => {
   let firstAttempt = true
-  if (usersGradedTests.filter((gt) => gt.examId === testId).length > 0) {
+  if (usersGradedExams.filter((gt) => gt.examId === examId).length > 0) {
     firstAttempt = false
   }
   return firstAttempt
