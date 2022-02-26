@@ -1,5 +1,22 @@
 import { Category, GradedCategory, Prisma } from "@prisma/client"
 
+export type UserWithoutDate = Prisma.UserGetPayload<{
+  select: {
+    id: true
+    email: true
+    firstName: true
+    lastName: true
+    parentName: true
+    gender: true
+    admin: true
+    profilePicture: true
+    active: true
+    score: true
+    gradedTests: true
+    gradedCategories: true
+  }
+}>
+
 export type UserProfile = Prisma.UserGetPayload<{
   select: {
     firstName: true
