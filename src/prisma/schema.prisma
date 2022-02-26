@@ -28,18 +28,18 @@ model User {
   score            Float?
   date             DateTime         @default(now())
   dateSub          DateTime?
-  gradedTests      GradedTest[]
-  testSession      TestSession?
+  gradedExams      GradedExam[]
+  examSession      ExamSession?
   gradedCategories GradedCategory[]
 }
 
-model Test {
+model Exam {
   id           String        @id @default(uuid())
   num          Int           @unique
   date         DateTime      @default(now())
   problems     Problem[]
-  gradedTests  GradedTest[]
-  testSessions TestSession[]
+  gradedExams  GradedExam[]
+  examSessions ExamSession[]
 }
 
 model Problem {
@@ -52,12 +52,12 @@ model Problem {
   num        Int
   img        String?
   date       DateTime   @default(now())
-  test       Test       @relation(fields: [testId], references: [id])
-  testId     String
+  exam       Exam       @relation(fields: [examId], references: [id])
+  examId     String
   categories Category[]
 }
 
-model GradedTest {
+model GradedExam {
   id             String          @id @default(uuid())
   marks          Int
   total          Int
@@ -68,8 +68,8 @@ model GradedTest {
   date           DateTime        @default(now())
   user           User            @relation(fields: [userId], references: [id])
   userId         String
-  test           Test            @relation(fields: [testId], references: [id])
-  testId         String
+  exam           Exam            @relation(fields: [examId], references: [id])
+  examId         String
   gradedProblems GradedProblem[]
 }
 
@@ -84,18 +84,18 @@ model GradedProblem {
   options      String[]
   unit         String?
   date         DateTime   @default(now())
-  gradedTest   GradedTest @relation(fields: [gradedTestId], references: [id])
-  gradedTestId String
+  gradedExam   GradedExam @relation(fields: [gradedExamId], references: [id])
+  gradedExamId String
   categories   Category[]
 }
 
-model TestSession {
+model ExamSession {
   id     String   @id @default(uuid())
   start  DateTime @default(now())
   user   User     @relation(fields: [userId], references: [id])
   userId String   @unique
-  Test   Test?    @relation(fields: [testId], references: [id])
-  testId String?
+  Exam   Exam?    @relation(fields: [examId], references: [id])
+  examId String?
 }
 
 model Category {
