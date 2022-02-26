@@ -48,7 +48,9 @@ export const findTestById = async (id: string) => {
   return test
 }
 
-export const createTest = async (problems: ProblemWithCategory[]) => {
+// TODO temporary any type for seed to work
+// Previously ProblemWithCategory[]
+export const createTest = async (problems: any[]) => {
   // TODO
   // allCatergoriesValid()
 
@@ -58,7 +60,8 @@ export const createTest = async (problems: ProblemWithCategory[]) => {
     num: i + 1,
     correct: problem.correct.toString(),
     categories: problem.categories && {
-      connect: problem.categories.map((category) => ({ name: category })),
+      // TODO this any can be removed when arg type is correct
+      connect: problem.categories.map((category: any) => ({ name: category })),
     },
   }))
 
