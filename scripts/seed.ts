@@ -2,6 +2,7 @@ import { prisma } from "../src/prisma/client"
 import { createExam } from "../src/services/examService"
 import { submitExam } from "../src/services/gradedExamService"
 import problems from "../exams/three"
+import { findUserByEmail } from "../src/services/userService"
 
 const categories = [
   { name: "numbers" },
@@ -71,15 +72,10 @@ const createUsers = async () => {
 }
 
 const createGradedCatergories = async () => {
-  const user = await prisma.user.findUnique({
-    where: { email: "pannicope@gmail.com" },
-  })
+  const user1 = await findUserByEmail("pannicope@gmail.com")
+  const user2 = await findUserByEmail("henry@henrywu.co.uk")
 
-  const user2 = await prisma.user.findUnique({
-    where: { email: "henry@henrywu.co.uk" },
-  })
-
-  const users = [user, user2]
+  const users = [user1, user2]
 
   users.forEach(async (u) => {
     categories.forEach(async (c) => {
@@ -96,11 +92,7 @@ const createGradedCatergories = async () => {
 }
 
 const getUser = async () => {
-  const user = await prisma.user.findUnique({
-    where: {
-      email: "pannicope@gmail.com",
-    },
-  })
+  const user = await findUserByEmail("pannicope@gmail.com")
   return user
 }
 
