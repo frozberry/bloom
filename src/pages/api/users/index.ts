@@ -17,7 +17,7 @@ type PutBody = {
   gender: string
 }
 
-const GET = async (req: NextApiRequest, res: NextApiResponse<User[]>) => {
+const GET = async (req: NextApiRequest, res: NextApiResponse) => {
   const users = await getUsers()
   res.send(users)
 }
