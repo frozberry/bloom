@@ -1,7 +1,7 @@
 import { prisma } from "../src/prisma/client"
 import { createExam } from "../src/services/examService"
 import { submitExam } from "../src/services/gradedExamService"
-import problems from "../exams/three"
+import problems from "../exams/one"
 import { findUserByEmail } from "../src/services/userService"
 
 const categories = [

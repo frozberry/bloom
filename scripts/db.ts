@@ -1,4 +1,4 @@
-import problems from "../exams/three"
+import problems from "../exams/one"
 import { prisma } from "../src/prisma/client"
 import { createExam } from "../src/services/examService"
 

@@ -347,4 +347,4 @@ const problems = [
   },
 ]
 
-module.exports = problems
+export default problems
