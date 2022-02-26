@@ -18,11 +18,11 @@ const categories = [
 const deleteAll = async () => {
   await prisma.gradedProblem.deleteMany()
   await prisma.gradedCategory.deleteMany()
-  await prisma.gradedTest.deleteMany()
+  await prisma.gradedExam.deleteMany()
   await prisma.category.deleteMany()
-  await prisma.testSession.deleteMany()
+  await prisma.examSession.deleteMany()
   await prisma.problem.deleteMany()
-  await prisma.test.deleteMany()
+  await prisma.exam.deleteMany()
   await prisma.user.deleteMany()
 }
 
@@ -104,11 +104,11 @@ const getUser = async () => {
   return user
 }
 
-const createTestSession = async (user: any, test: any) => {
-  await prisma.testSession.create({
+const createTestSession = async (user: any, exam: any) => {
+  await prisma.examSession.create({
     data: {
       userId: user.id,
-      testId: test.id,
+      examId: exam.id,
     },
   })
 }
