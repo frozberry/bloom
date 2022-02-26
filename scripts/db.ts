@@ -1,7 +1,12 @@
+import problems from "../exams/three"
 import { prisma } from "../src/prisma/client"
+import { createExam } from "../src/services/examService"
 
 const main = async () => {
-  await prisma.exam.deleteMany()
+  for (let index = 0; index < 50; index++) {
+    console.log(index)
+    await createExam(problems)
+  }
 }
 
 main().catch((e) => {

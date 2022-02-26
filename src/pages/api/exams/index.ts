@@ -1,29 +1,12 @@
 import { Category, Problem, Exam } from "@prisma/client"
 import { NextApiRequest, NextApiResponse } from "next"
-import verifyUser from "../../../lib/verifyUser"
-import {
-  createExam,
-  getNextExam,
-  getExams,
-} from "../../../services/examService"
+import { createExam, getExams } from "../../../services/examService"
 
 type PostBody = {
   problems: (Problem & { categories: Category[] })[]
 }
 
-const GET = async (req: NextApiRequest, res: NextApiResponse) => {
-  const { next } = req.query
-
-  const user = await verifyUser(req)
-
-  if (next === "true") {
-    if (!user) {
-      return res.status(401).end("unauthorized")
-    }
-    const nextExam = await getNextExam(user)
-    return res.send(nextExam)
-  }
-
+const GET = async (req: NextApiRequest, res: NextApiResponse<Exam[]>) => {
   const exams = await getExams()
   res.send(exams)
 }
