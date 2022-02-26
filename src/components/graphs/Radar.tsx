@@ -34,7 +34,7 @@ const Radar = ({ data }: any) => {
           //@ts-ignore
           motionConfig="wobbly"
           isInteractive={true}
-          tooltipFormat={(value, key) => `${value}%`}
+          tooltipFormat={(value) => `${value}%`}
           legends={[
             {
               anchor: "top-left",

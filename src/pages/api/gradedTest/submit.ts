@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from "next"
-import { GradedTest, User } from "@prisma/client"
+import { GradedTest } from "@prisma/client"
 import verifyUser from "../../../lib/verifyUser"
 import { submitTest } from "../../../services/gradedTestService"
 

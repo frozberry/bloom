@@ -1,4 +1,3 @@
-import { LocalGasStation } from "@mui/icons-material"
 import { useState } from "react"
 
 import Radar from "../graphs/Radar"

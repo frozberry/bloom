@@ -1,4 +1,4 @@
-import { Category, GradedCategory, Prisma, Problem } from "@prisma/client"
+import { Category, Prisma } from "@prisma/client"
 
 export type UserWithoutDate = Prisma.UserGetPayload<{
   select: {

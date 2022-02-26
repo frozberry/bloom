@@ -22,20 +22,20 @@ const GET = async (req: NextApiRequest, res: NextApiResponse) => {
   res.send(users)
 }
 
-const POST = async (req: NextApiRequest, res: NextApiResponse<User>) => {
+const POST = async (req: NextApiRequest, res: NextApiResponse<User | null>) => {
   const { parentName, email, password }: PostBody = req.body
   const user = await createUser(parentName, email, password)
-  res.send(user!)
+  res.send(user)
 }
 
-const PUT = async (req: NextApiRequest, res: NextApiResponse<User>) => {
+const PUT = async (req: NextApiRequest, res: NextApiResponse<User | null>) => {
   const { firstName, lastName, dob, gender }: PutBody = req.body
   const user = await verifyUser(req)
   if (!user) {
     return res.status(401).end()
   }
-  const updatedUser = await editUser(user!, firstName, lastName, dob, gender)
-  res.send(updatedUser!)
+  const updatedUser = await editUser(user, firstName, lastName, dob, gender)
+  res.send(updatedUser)
 }
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {

@@ -1,4 +1,4 @@
-import { Category, Prisma, Problem, Test } from "@prisma/client"
+import { Category, Problem, Test } from "@prisma/client"
 import { NextApiRequest, NextApiResponse } from "next"
 import verifyUser from "../../../lib/verifyUser"
 import {
@@ -20,7 +20,7 @@ const GET = async (req: NextApiRequest, res: NextApiResponse) => {
     if (!user) {
       return res.status(401).end("unauthorized")
     }
-    const nextTest = await getNextTest(user!)
+    const nextTest = await getNextTest(user)
     return res.send(nextTest)
   }
 
@@ -28,10 +28,10 @@ const GET = async (req: NextApiRequest, res: NextApiResponse) => {
   res.send(tests)
 }
 
-const POST = async (req: NextApiRequest, res: NextApiResponse<Test>) => {
+const POST = async (req: NextApiRequest, res: NextApiResponse<Test | null>) => {
   const { problems }: PostBody = req.body
   const test = await createTest(problems)
-  res.send(test!)
+  res.send(test)
 }
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {

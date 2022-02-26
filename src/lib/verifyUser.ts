@@ -16,6 +16,7 @@ const verifyUser = async (req: NextApiRequest): Promise<User | null> => {
 
   const token = authorization.substring(7)
 
+  // eslint-disable-next-line
   const decodedToken = jwt.verify(token, process.env.JWT_SECRET!) as Token
 
   if (!decodedToken) {

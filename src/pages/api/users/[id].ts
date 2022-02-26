@@ -4,11 +4,11 @@ import { deleteUser, findUserById } from "../../../services/userService"
 
 const GET = async (
   req: NextApiRequest,
-  res: NextApiResponse<User>,
+  res: NextApiResponse<User | null>,
   id: string
 ) => {
   const user = await findUserById(id)
-  res.send(user!)
+  res.send(user)
 }
 
 const DELETE = async (

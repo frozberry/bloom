@@ -1,13 +1,6 @@
 // import { useDispatch, useSelector } from "react-redux"
 // import { Link, useHistory } from "react-router-dom"
-import {
-  AppBar,
-  Toolbar,
-  Typography,
-  Button,
-  Divider,
-  Box,
-} from "@mui/material"
+import { AppBar, Toolbar, Button, Box } from "@mui/material"
 import Link from "next/link"
 import Image from "next/image"
 // import stripeService from "../services/stripeService"

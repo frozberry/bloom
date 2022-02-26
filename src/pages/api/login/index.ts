@@ -7,9 +7,9 @@ const handler = async (req: NextApiRequest, res: NextApiResponse<string>) => {
       const { email, password } = req.body
       const token = await login(email, password)
       if (!token) {
-        res.status(401).end("invalid email or password")
+        return res.status(401).end("invalid email or password")
       }
-      res.send(token!)
+      res.send(token)
       break
 
     default:

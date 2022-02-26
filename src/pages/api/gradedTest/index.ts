@@ -7,7 +7,7 @@ import {
 } from "../../../services/gradedTestService"
 
 const GET = async (req: NextApiRequest, res: NextApiResponse<GradedTest[]>) => {
-  const { all, sorted } = req.query
+  const { all } = req.query
 
   if (all === "true") {
     const gradedTests = await getGradedTests()

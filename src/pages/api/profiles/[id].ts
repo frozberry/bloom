@@ -4,11 +4,11 @@ import { findProfileById } from "../../../services/userService"
 
 const GET = async (
   req: NextApiRequest,
-  res: NextApiResponse<UserProfile>,
+  res: NextApiResponse<UserProfile | null>,
   id: string
 ) => {
   const user = await findProfileById(id)
-  res.send(user!)
+  res.send(user)
 }
 
 const handler = async (
