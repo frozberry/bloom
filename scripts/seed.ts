@@ -126,6 +126,16 @@ const createAnswers = async (test: any) => {
 }
 
 const main = async () => {
+  const args = process.argv.slice(2)
+  const reset = args.includes("--reset")
+
+  if (reset) {
+    console.log("Resetting database")
+    await deleteAll()
+    await createCategories()
+    return
+  }
+
   console.log("Seeding database")
   await deleteAll()
   await createCategories()
