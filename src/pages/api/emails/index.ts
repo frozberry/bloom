@@ -1,7 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from "next"
-import sendEmail from "../../../lib/sendEmail"
 import { findUserByEmail } from "../../../services/userService"
 import jwt from "jsonwebtoken"
+import { sendPasswordResetEmail } from "../../../services/emailService"
 
 type PostBody = {
   email: string
@@ -24,7 +24,7 @@ const POST = async (req: NextApiRequest, res: NextApiResponse) => {
   const token = jwt.sign(userForToken, user.passwordHash)
   const resetUrl = `${process.env.FRONTEND}/reset-password/?token=${token}&id=${user.id}`
 
-  sendEmail.passwordReset(user.email, resetUrl)
+  sendPasswordResetEmail(user.email, resetUrl)
 
   res.status(200).end(`email sent to ${user.email}`)
 }

@@ -1,6 +1,6 @@
 import postmark from "postmark"
 
-const passwordReset = (email: string, resetUrl: string) => {
+export const sendPasswordResetEmail = (email: string, resetUrl: string) => {
   const client = new postmark.ServerClient(process.env.POSTMARK_SECRET!)
 
   client.sendEmailWithTemplate({
@@ -12,9 +12,3 @@ const passwordReset = (email: string, resetUrl: string) => {
     },
   })
 }
-
-const sendEmail = {
-  passwordReset,
-}
-
-export default sendEmail
