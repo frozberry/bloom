@@ -4,7 +4,7 @@ import verifyUser from "../../../lib/verifyUser"
 import {
   getGradedTests,
   getUsersGradedTests,
-} from "../../../services/gradedTestService"
+} from "../../../services/gradedExamService"
 
 const GET = async (req: NextApiRequest, res: NextApiResponse<GradedExam[]>) => {
   const { all } = req.query

@@ -5,7 +5,7 @@ import {
   createTest,
   getNextTest,
   getTests,
-} from "../../../services/testService"
+} from "../../../services/examService"
 
 type PostBody = {
   problems: (Problem & { categories: Category[] })[]

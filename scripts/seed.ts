@@ -1,6 +1,6 @@
 import { prisma } from "../src/prisma/client"
-import { createTest } from "../src/services/testService"
-import { submitTest } from "../src/services/gradedTestService"
+import { createTest } from "../src/services/examService"
+import { submitTest } from "../src/services/gradedExamService"
 import problems from "../exams/three"
 
 const categories = [
