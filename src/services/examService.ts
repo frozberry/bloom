@@ -84,7 +84,6 @@ export const deleteExam = async (id: string) => {
     return false
   }
 
-  // TODO check if deleting exam deletes problems too
   await prisma.exam.delete({
     where: {
       id,
