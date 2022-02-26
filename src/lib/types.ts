@@ -12,7 +12,7 @@ export type UserWithoutDate = Prisma.UserGetPayload<{
     profilePicture: true
     active: true
     score: true
-    gradedTests: true
+    gradedExams: true
     gradedCategories: true
   }
 }>

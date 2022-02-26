@@ -17,7 +17,7 @@ export const getUsers = async (): Promise<UserWithoutDate[]> => {
       profilePicture: true,
       active: true,
       score: true,
-      gradedTests: true,
+      gradedExams: true,
       gradedCategories: true,
     },
   })
