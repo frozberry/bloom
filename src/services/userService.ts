@@ -1,4 +1,4 @@
-import { Prisma, User } from "@prisma/client"
+import { User } from "@prisma/client"
 import bcrypt from "bcrypt"
 import jwt from "jsonwebtoken"
 import { UserProfile, UserWithoutDate } from "../lib/types"
@@ -98,6 +98,7 @@ export const login = async (
 
   const token = jwt.sign(
     { id: user.id, email: user.email },
+    // eslint-disable-next-line
     process.env.JWT_SECRET!
   )
 

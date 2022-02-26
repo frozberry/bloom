@@ -6,7 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint lint",
+    "lint": "eslint src",
     "prettier": "prettier --write .",
     "seed": "npx ts-node --transpileOnly scripts/seed.ts",
     "reset": "npx ts-node --transpileOnly scripts/seed.ts --reset"

@@ -1,5 +1,4 @@
 import { createTheme, responsiveFontSizes } from "@mui/material/styles"
-import { red } from "@mui/material/colors"
 
 declare module "@mui/material/styles" {
   interface Palette {
