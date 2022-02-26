@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from "next"
-import stripe from "../../../lib/stripeServer"
+import { getCustomerPortalUrl } from "../../../services/stripeService"
 
 type PostBody = {
   customerId: string
@@ -14,14 +14,8 @@ const POST = async (
   res: NextApiResponse<PostResponse>
 ) => {
   const { customerId }: PostBody = req.body
-  const returnUrl = process.env.FRONTEND
-
-  const portalSession = await stripe.billingPortal.sessions.create({
-    customer: customerId,
-    return_url: returnUrl,
-  })
-
-  res.send({ url: portalSession.url })
+  const url = await getCustomerPortalUrl(customerId)
+  res.send({ url })
 }
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
