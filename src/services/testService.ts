@@ -1,10 +1,10 @@
-import { Category, Problem, Test, User } from "@prisma/client"
+import { User } from "@prisma/client"
 import { prisma } from "../prisma/client"
 import _ from "lodash"
-import { Numbered, ProblemWithCategory } from "../lib/types"
+import { Numbered } from "../lib/types"
 
 export const getTests = async () => {
-  const tests = await prisma.test.findMany({
+  const tests = await prisma.exam.findMany({
     include: {
       problems: {
         include: {
@@ -18,13 +18,13 @@ export const getTests = async () => {
 
 export const getNextTest = async (user: User) => {
   // TODO replace with service
-  const gradedTests = await prisma.gradedTest.findMany({
+  const gradedTests = await prisma.gradedExam.findMany({
     where: {
       userId: user.id,
     },
   })
 
-  const nextTest = await prisma.test.findUnique({
+  const nextTest = await prisma.exam.findUnique({
     where: {
       num: nextTestNum(gradedTests),
     },
@@ -37,7 +37,7 @@ export const getNextTest = async (user: User) => {
 }
 
 export const findTestById = async (id: string) => {
-  const test = await prisma.test.findUnique({
+  const test = await prisma.exam.findUnique({
     where: {
       id,
     },
@@ -67,7 +67,7 @@ export const createTest = async (problems: any[]) => {
 
   const tests = await getTests()
 
-  const savedTest = await prisma.test.create({
+  const savedTest = await prisma.exam.create({
     data: {
       num: nextTestNum(tests),
       problems: {
@@ -89,7 +89,7 @@ export const deleteTest = async (id: string) => {
   }
 
   // TODO check if deleting test deletes problems too
-  await prisma.test.delete({
+  await prisma.exam.delete({
     where: {
       id,
     },

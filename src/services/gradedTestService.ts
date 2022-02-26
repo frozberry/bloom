@@ -1,15 +1,15 @@
-import { GradedTest, Problem, User } from "@prisma/client"
+import { GradedExam, User } from "@prisma/client"
 import { prisma } from "../prisma/client"
 import dayjs from "dayjs"
 import _ from "lodash"
 
 export const getGradedTests = async () => {
-  const gradedTests = await prisma.gradedTest.findMany()
+  const gradedTests = await prisma.gradedExam.findMany()
   return gradedTests
 }
 
 export const findGradedTestById = async (id: string) => {
-  const gradedTest = await prisma.gradedTest.findUnique({
+  const gradedTest = await prisma.gradedExam.findUnique({
     where: {
       id,
     },
@@ -22,7 +22,7 @@ export const findGradedTestById = async (id: string) => {
 }
 
 export const getUsersGradedTests = async (userId: string) => {
-  const gradedTests = await prisma.gradedTest.findMany({
+  const gradedTests = await prisma.gradedExam.findMany({
     where: {
       userId,
     },
@@ -36,16 +36,16 @@ export const getUsersGradedTests = async (userId: string) => {
 // TODO copying old API - maybe can be refactored
 // Sorting could be done on frontend, but this doesn't include gradedProblems
 export const getSortedGradedTests = async (userId: string) => {
-  const gradedTests = await prisma.gradedTest.findMany({
+  const gradedTests = await prisma.gradedExam.findMany({
     where: { userId: userId },
   })
-  const tests = await prisma.test.findMany()
+  const tests = await prisma.exam.findMany()
 
   // TODO improve types
   const testSorted: { testId: string; num: number; attempts: any }[] = []
 
   tests.forEach((t) => {
-    const usersAttempts = gradedTests.filter((gt) => gt.testId === t.id)
+    const usersAttempts = gradedTests.filter((gt) => gt.examId === t.id)
     const testEntry = {
       testId: t.id,
       num: t.num,
@@ -63,7 +63,7 @@ export const getSortedGradedTests = async (userId: string) => {
 export const submitTest = async (user: User, testId: string, answers: any) => {
   // Fetch the Test the user just completed
   console.log("Fetching test")
-  const test = await prisma.test.findUnique({
+  const test = await prisma.exam.findUnique({
     where: { id: testId },
     include: {
       problems: {
@@ -103,7 +103,7 @@ export const submitTest = async (user: User, testId: string, answers: any) => {
 
   console.log("Fetching user's gradedTests")
   console.log("Checking if first attempt")
-  const usersGradedTests = await prisma.gradedTest.findMany({
+  const usersGradedTests = await prisma.gradedExam.findMany({
     where: {
       userId: user.id,
     },
@@ -143,16 +143,16 @@ export const submitTest = async (user: User, testId: string, answers: any) => {
   const percent = Math.round((100 / totalMarks) * marks)
 
   console.log("Deleting test session")
-  const testSession = await prisma.testSession.delete({
+  const testSession = await prisma.examSession.delete({
     where: { userId: user.id },
   })
 
   const time = calculateTime(testSession.start)
 
   console.log("Saving gradedTest")
-  const savedGradedTest = await prisma.gradedTest.create({
+  const savedGradedTest = await prisma.gradedExam.create({
     data: {
-      testId: test.id,
+      examId: test.id,
       userId: user.id,
       marks,
       total: test.problems.length,
@@ -186,11 +186,11 @@ export const submitTest = async (user: User, testId: string, answers: any) => {
 }
 
 const isFirstAttemptAtTest = async (
-  usersGradedTests: GradedTest[],
+  usersGradedTests: GradedExam[],
   testId: string
 ) => {
   let firstAttempt = true
-  if (usersGradedTests.filter((gt) => gt.testId === testId).length > 0) {
+  if (usersGradedTests.filter((gt) => gt.examId === testId).length > 0) {
     firstAttempt = false
   }
   return firstAttempt
