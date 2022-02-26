@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from "next"
-import { login } from "../../services/userService"
+import { login } from "../../../services/userService"
 
 const handler = async (req: NextApiRequest, res: NextApiResponse<string>) => {
   switch (req.method) {

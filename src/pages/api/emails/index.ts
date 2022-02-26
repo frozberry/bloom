@@ -1,6 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from "next"
-import sendEmail from "../../lib/sendEmail"
-import { findUserByEmail } from "../../services/userService"
+import sendEmail from "../../../lib/sendEmail"
+import { findUserByEmail } from "../../../services/userService"
 import jwt from "jsonwebtoken"
 
 type PostBody = {
