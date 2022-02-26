@@ -46,7 +46,7 @@ export type ProblemWithCategory = Prisma.ProblemGetPayload<
 >
 
 /* -------------------------------- Numbered -------------------------------- */
-// Generic type for Tests and GradedTests
+// Generic type for Exams and GradedExams
 export type Numbered = {
   num: number
 }

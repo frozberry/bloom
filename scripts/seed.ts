@@ -1,6 +1,6 @@
 import { prisma } from "../src/prisma/client"
-import { createTest } from "../src/services/examService"
-import { submitTest } from "../src/services/gradedExamService"
+import { createExam } from "../src/services/examService"
+import { submitExam } from "../src/services/gradedExamService"
 import problems from "../exams/three"
 
 const categories = [
@@ -104,7 +104,7 @@ const getUser = async () => {
   return user
 }
 
-const createTestSession = async (user: any, exam: any) => {
+const createExamSession = async (user: any, exam: any) => {
   await prisma.examSession.create({
     data: {
       userId: user.id,
@@ -113,8 +113,8 @@ const createTestSession = async (user: any, exam: any) => {
   })
 }
 
-const createAnswers = async (test: any) => {
-  const seedAnswers = test.problems.map((p: any) => {
+const createAnswers = async (exam: any) => {
+  const seedAnswers = exam.problems.map((p: any) => {
     const correct = Math.random() < 0.8
     const wrongAns = p.multi ? p.options[0] : 1
     return {
@@ -141,13 +141,13 @@ const main = async () => {
   await createCategories()
   await createUsers()
   await createGradedCatergories()
-  const test = await createTest(problems)
+  const exam = await createExam(problems)
   const user = await getUser()
-  await createTestSession(user, test)
-  const seedAnswers = await createAnswers(test)
+  await createExamSession(user, exam)
+  const seedAnswers = await createAnswers(exam)
 
-  console.log("Submitting test")
-  await submitTest(user!, test.id, seedAnswers)
+  console.log("Submitting exam")
+  await submitExam(user!, exam.id, seedAnswers)
   console.log("Done")
 }
 

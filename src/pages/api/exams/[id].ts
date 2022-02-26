@@ -1,14 +1,14 @@
 import { Exam } from "@prisma/client"
 import type { NextApiRequest, NextApiResponse } from "next"
-import { deleteTest, findTestById } from "../../../services/examService"
+import { deleteExam, findExamById } from "../../../services/examService"
 
 const GET = async (
   req: NextApiRequest,
   res: NextApiResponse<Exam | null>,
   id: string
 ) => {
-  const test = await findTestById(id)
-  res.send(test)
+  const exam = await findExamById(id)
+  res.send(exam)
 }
 
 const DELETE = async (
@@ -16,13 +16,13 @@ const DELETE = async (
   res: NextApiResponse,
   id: string
 ) => {
-  const success = await deleteTest(id)
+  const success = await deleteExam(id)
 
   if (!success) {
-    return res.status(405).end("test not found")
+    return res.status(405).end("exam not found")
   }
 
-  res.status(200).end("test deleted")
+  res.status(200).end("exam deleted")
 }
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
