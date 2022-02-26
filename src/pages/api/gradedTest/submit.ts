@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from "next"
-import { GradedTest } from "@prisma/client"
+import { GradedExam } from "@prisma/client"
 import verifyUser from "../../../lib/verifyUser"
 import { submitTest } from "../../../services/gradedTestService"
 
@@ -11,7 +11,7 @@ type PostBody = {
 
 const POST = async (
   req: NextApiRequest,
-  res: NextApiResponse<GradedTest | null>
+  res: NextApiResponse<GradedExam | null>
 ) => {
   const { testId, answers }: PostBody = req.body
   const user = await verifyUser(req)

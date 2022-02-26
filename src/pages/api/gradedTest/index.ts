@@ -1,12 +1,12 @@
 import type { NextApiRequest, NextApiResponse } from "next"
-import { GradedTest } from "@prisma/client"
+import { GradedExam } from "@prisma/client"
 import verifyUser from "../../../lib/verifyUser"
 import {
   getGradedTests,
   getUsersGradedTests,
 } from "../../../services/gradedTestService"
 
-const GET = async (req: NextApiRequest, res: NextApiResponse<GradedTest[]>) => {
+const GET = async (req: NextApiRequest, res: NextApiResponse<GradedExam[]>) => {
   const { all } = req.query
 
   if (all === "true") {
