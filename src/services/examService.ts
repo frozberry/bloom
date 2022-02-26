@@ -2,6 +2,7 @@ import { User } from "@prisma/client"
 import { prisma } from "../prisma/client"
 import _ from "lodash"
 import { Numbered } from "../lib/types"
+import { getGradedExams, getUsersGradedExams } from "./gradedExamService"
 
 export const getExams = async () => {
   const exams = await prisma.exam.findMany({
@@ -17,12 +18,7 @@ export const getExams = async () => {
 }
 
 export const getNextExam = async (user: User) => {
-  // TODO replace with service
-  const gradedExams = await prisma.gradedExam.findMany({
-    where: {
-      userId: user.id,
-    },
-  })
+  const gradedExams = await getUsersGradedExams(user.id)
 
   const nextExam = await prisma.exam.findUnique({
     where: {
