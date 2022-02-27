@@ -4,7 +4,7 @@ import verifyUser from "../../../lib/verifyUser"
 import {
   getCatergoriesAverage,
   getUsersGradedCategories,
-} from "../../../services/gradedCategoryService"
+} from "../../../services/server/gradedCategoryService"
 import { CategoryWithAverage } from "../../../lib/types"
 
 const GET = async (

@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from "next"
-import { getProfiles } from "../../../services/userService"
+import { getProfiles } from "../../../services/server/userService"
 import { UserProfile } from "../../../lib/types"
 
 const GET = async (

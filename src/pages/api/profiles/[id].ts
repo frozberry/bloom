@@ -1,6 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from "next"
 import { UserProfile } from "../../../lib/types"
-import { findProfileById } from "../../../services/userService"
+import { findProfileById } from "../../../services/server/userService"
 
 const GET = async (
   req: NextApiRequest,

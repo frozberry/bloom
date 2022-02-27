@@ -1,6 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from "next"
 import { GradedExam } from "@prisma/client"
-import { getGradedExams } from "../../../services/gradedExamService"
+import { getGradedExams } from "../../../services/server/gradedExamService"
 
 const GET = async (req: NextApiRequest, res: NextApiResponse<GradedExam[]>) => {
   const gradedExams = await getGradedExams()

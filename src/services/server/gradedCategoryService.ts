@@ -1,6 +1,6 @@
 import { Category, User } from "@prisma/client"
-import { CategoryWithAverage } from "../lib/types"
-import { prisma } from "../prisma/client"
+import { CategoryWithAverage } from "../../lib/types"
+import { prisma } from "../../prisma/client"
 
 export const getGradedCategories = async () => {
   const gradedCatergories = await prisma.gradedCategory.findMany()

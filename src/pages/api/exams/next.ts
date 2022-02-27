@@ -1,7 +1,7 @@
 import { Exam } from "@prisma/client"
 import { NextApiRequest, NextApiResponse } from "next"
 import verifyUser from "../../../lib/verifyUser"
-import { getNextExam } from "../../../services/examService"
+import { getNextExam } from "../../../services/server/examService"
 
 const GET = async (req: NextApiRequest, res: NextApiResponse<Exam | null>) => {
   const user = await verifyUser(req)

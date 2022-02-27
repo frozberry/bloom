@@ -1,6 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from "next"
 import verifyUser from "../../../lib/verifyUser"
-import { getSortedGradedExams } from "../../../services/gradedExamService"
+import { getSortedGradedExams } from "../../../services/server/gradedExamService"
 
 // Check NextApiResopnse<> type
 const GET = async (req: NextApiRequest, res: NextApiResponse) => {

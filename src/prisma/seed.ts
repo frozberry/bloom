@@ -1,8 +1,8 @@
 import { prisma } from "./client"
-import { createExam } from "../services/examService"
-import { submitExam } from "../services/gradedExamService"
+import { createExam } from "../services/server/examService"
+import { submitExam } from "../services/server/gradedExamService"
 import problems from "../../exams/one"
-import { findUserByEmail } from "../services/userService"
+import { findUserByEmail } from "../services/server/userService"
 import { Category } from "@prisma/client"
 
 const deleteAll = async () => {

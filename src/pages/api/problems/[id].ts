@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from "next"
-import { deleteProblem } from "../../../services/problemService"
+import { deleteProblem } from "../../../services/server/problemService"
 
 const DELETE = async (
   req: NextApiRequest,

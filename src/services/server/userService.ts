@@ -1,8 +1,12 @@
 import { User } from "@prisma/client"
 import bcrypt from "bcrypt"
 import jwt from "jsonwebtoken"
-import { ResetPasswordToken, UserProfile, UserWithoutDate } from "../lib/types"
-import { prisma } from "../prisma/client"
+import {
+  ResetPasswordToken,
+  UserProfile,
+  UserWithoutDate,
+} from "../../lib/types"
+import { prisma } from "../../prisma/client"
 
 export const getUsers = async (): Promise<UserWithoutDate[]> => {
   const users = await prisma.user.findMany({

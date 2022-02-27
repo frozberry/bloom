@@ -1,7 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from "next"
 import { GradedExam } from "@prisma/client"
 import verifyUser from "../../../lib/verifyUser"
-import { submitExam } from "../../../services/gradedExamService"
+import { submitExam } from "../../../services/server/gradedExamService"
 
 // TODO use proper type
 type PostBody = {

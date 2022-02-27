@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from "next"
-import { getCustomerPortalUrl } from "../../../services/stripeService"
+import { getCustomerPortalUrl } from "../../../services/server/stripeService"
 
 type PostBody = {
   customerId: string

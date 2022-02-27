@@ -1,7 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from "next"
 import { GradedExam } from "@prisma/client"
 import verifyUser from "../../../lib/verifyUser"
-import { getUsersGradedExams } from "../../../services/gradedExamService"
+import { getUsersGradedExams } from "../../../services/server/gradedExamService"
 
 const GET = async (req: NextApiRequest, res: NextApiResponse<GradedExam[]>) => {
   const user = await verifyUser(req)

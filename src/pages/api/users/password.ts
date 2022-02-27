@@ -4,7 +4,7 @@ import {
   changePassword,
   findUserById,
   validatePassword,
-} from "../../../services/userService"
+} from "../../../services/server/userService"
 
 type PutBody = {
   userId: string

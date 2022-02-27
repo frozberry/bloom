@@ -1,6 +1,6 @@
 import { Problem, Exam } from "@prisma/client"
 import { NextApiRequest, NextApiResponse } from "next"
-import { createExam, getExams } from "../../../services/examService"
+import { createExam, getExams } from "../../../services/server/examService"
 
 type PostBody = {
   // TODO should probably be ProbelmeCreateInput

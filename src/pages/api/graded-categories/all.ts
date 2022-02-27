@@ -3,7 +3,7 @@ import { GradedCategory } from "@prisma/client"
 import {
   getCatergoriesAverage,
   getGradedCategories,
-} from "../../../services/gradedCategoryService"
+} from "../../../services/server/gradedCategoryService"
 import { CategoryWithAverage } from "../../../lib/types"
 
 const GET = async (

@@ -1,5 +1,5 @@
 import { Problem } from "@prisma/client"
-import { prisma } from "../prisma/client"
+import { prisma } from "../../prisma/client"
 
 export const getProblems = async (): Promise<Problem[]> => {
   const problems = await prisma.problem.findMany()
