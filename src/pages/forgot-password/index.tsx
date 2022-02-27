@@ -1,7 +1,7 @@
 import { Container, Typography, Button, Box } from "@mui/material"
 import { Formik, FormikHelpers, FormikProps, Form, Field } from "formik"
 import * as yup from "yup"
-import FormTextField from "../components/forms/FormTextField"
+import FormTextField from "../../components/forms/FormTextField"
 
 type FormValues = {
   email: string
