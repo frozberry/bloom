@@ -14,8 +14,10 @@ prisma.$use(async (params, next) => {
   const after = Date.now()
   console.log(
     "\x1b[32m",
-    `Query ${params.model}.${params.action} took ${after - before}ms`
+    `Query ${params.model}.${params.action} took ${after - before}ms`,
+    "\x1b[37m"
   )
+
   return result
 })
 
