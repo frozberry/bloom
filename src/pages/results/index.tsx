@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react"
 import { Container, Typography, Divider } from "@mui/material"
 import Link from "next/link"
 import { useQuery } from "react-query"
@@ -12,6 +13,16 @@ const styles = {
 }
 
 const ResultsList = () => {
+  const [user, setUser] = useState(null)
+
+  useEffect(() => {
+    const loggedUserJson = localStorage.getItem("loggedWaterfrontUser")
+    if (loggedUserJson) {
+      const u = JSON.parse(loggedUserJson)
+      setUser(u)
+    }
+  }, [])
+
   const { isLoading, error, data } = useQuery("gradedTestsData", () =>
     axios.get("/api/graded-exams/all").then((res) => res.data)
   )
@@ -22,6 +33,8 @@ const ResultsList = () => {
 
   return (
     <Container>
+      <div>{user.email}</div>
+
       {data.map((gradedTest: any) => (
         <SingleAttempt key={gradedTest.id} gt={gradedTest} />
       ))}
