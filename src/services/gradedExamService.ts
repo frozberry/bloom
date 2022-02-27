@@ -1,4 +1,4 @@
-import { GradedExam, Prisma, User } from "@prisma/client"
+import { GradedExam, User } from "@prisma/client"
 import { prisma } from "../prisma/client"
 import dayjs from "dayjs"
 import _ from "lodash"
@@ -77,22 +77,22 @@ export const submitExam = async (user: User, examId: string, answers: any) => {
 
   // Reconcile the Exam's problems with the user's submissions
   console.log("Reconcilling users selections with exam problems")
-  const gradedProblems = exam.problems.map((p) => {
+  const gradedProblems = exam.problems.map((problem) => {
     // TODO use correct type
-    const submitted = answers.find((a: any) => p.id === a.problemId)
-    const gp = {
-      question: p.question,
-      correct: p.correct.toString(),
-      multi: p.multi,
-      num: p.num,
-      img: p.img,
-      options: p.options,
-      unit: p.unit,
-      categories: p.categories,
+    const submitted = answers.find((a: any) => problem.id === a.problemId)
+    const gradedProblem = {
+      question: problem.question,
+      correct: problem.correct.toString(),
+      multi: problem.multi,
+      num: problem.num,
+      img: problem.img,
+      options: problem.options,
+      unit: problem.unit,
+      categories: problem.categories,
       selected: submitted.selected?.toString() || null,
     }
 
-    return gp
+    return gradedProblem
   })
 
   console.log("Fetching user's gradedExams")
@@ -108,8 +108,8 @@ export const submitExam = async (user: User, examId: string, answers: any) => {
   // grade the users GradedCategories
   if (firstAttempt) {
     console.log("It is first attempt, marking gradedCategories")
-    gradedProblems.forEach(async (gp) => {
-      gp.categories.forEach(async (category) => {
+    gradedProblems.forEach(async (gradedProblem) => {
+      gradedProblem.categories.forEach(async (category) => {
         await prisma.gradedCategory.update({
           where: {
             userId_category: {
@@ -122,7 +122,7 @@ export const submitExam = async (user: User, examId: string, answers: any) => {
               increment: 1,
             },
             correct: {
-              increment: isProblemCorrect(gp) ? 1 : 0,
+              increment: isProblemCorrect(gradedProblem) ? 1 : 0,
             },
           },
         })
@@ -131,7 +131,9 @@ export const submitExam = async (user: User, examId: string, answers: any) => {
     console.log("Grading categories done")
   }
 
-  const marks = gradedProblems.filter((p) => isProblemCorrect(p)).length
+  const marks = gradedProblems.filter((problem) =>
+    isProblemCorrect(problem)
+  ).length
 
   const totalMarks = gradedProblems.length
   const percent = Math.round((100 / totalMarks) * marks)
@@ -164,7 +166,9 @@ export const submitExam = async (user: User, examId: string, answers: any) => {
   })
 
   const withNewExam = usersGradedExams.concat(savedGradedExam)
-  const onlyFirstAttempt = withNewExam.filter((gt) => gt.firstAttempt)
+  const onlyFirstAttempts = withNewExam.filter(
+    (gradedExam) => gradedExam.firstAttempt
+  )
 
   console.log("Updating user")
   await prisma.user.update({
@@ -172,7 +176,7 @@ export const submitExam = async (user: User, examId: string, answers: any) => {
       id: user.id,
     },
     data: {
-      score: _.meanBy(onlyFirstAttempt, (gt) => gt.percent),
+      score: _.meanBy(onlyFirstAttempts, (gradedExam) => gradedExam.percent),
     },
   })
 
