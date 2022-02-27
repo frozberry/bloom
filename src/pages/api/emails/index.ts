@@ -1,6 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from "next"
 import { findUserByEmail } from "../../../services/userService"
-import jwt from "jsonwebtoken"
 import { sendPasswordResetEmail } from "../../../services/emailService"
 
 type PostBody = {

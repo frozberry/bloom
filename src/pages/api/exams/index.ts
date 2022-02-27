@@ -1,4 +1,4 @@
-import { Category, Problem, Exam } from "@prisma/client"
+import { Problem, Exam } from "@prisma/client"
 import { NextApiRequest, NextApiResponse } from "next"
 import { createExam, getExams } from "../../../services/examService"
 
