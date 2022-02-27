@@ -1,8 +1,5 @@
 import { useQuery } from "react-query"
-
-type M = {
-  message: string
-}
+import Link from "next/link"
 
 const Page = () => {
   const { isLoading, error, data } = useQuery("repoData", () =>
@@ -24,7 +21,7 @@ const Page = () => {
       <strong>🍴 {data.forks_count}</strong>
       <div>
         <h1>
-          <a href="/effect">effect</a>
+          <Link href="effect">effect</Link>
         </h1>
       </div>
     </div>

@@ -1,6 +1,7 @@
 // @ts-nocheck
 import axios from "axios"
 import { useEffect, useState } from "react"
+import Link from "next/link"
 
 const Page = () => {
   const [data, setData] = useState(null)
@@ -25,7 +26,7 @@ const Page = () => {
       <strong>🍴 {data.forks_count}</strong>
       <div>
         <h1>
-          <a href="/query">query</a>
+          <Link href="query">query</Link>
         </h1>
       </div>
     </div>
