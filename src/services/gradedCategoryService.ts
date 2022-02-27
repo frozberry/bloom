@@ -29,7 +29,19 @@ export const getCatergoriesAverage = async () => {
     },
   })
 
-  const categories = Object.values(Category)
+  // TODO find way to loop over
+  // const categories = Object.values(Category)
+  const categories = [
+    Category.ADDITION_SUBTRACTION,
+    Category.ALGEBRA,
+    Category.FRACTIONS,
+    Category.GEOMETRY,
+    Category.MEASUREMENT,
+    Category.MULTIPLICATION_DIVISION,
+    Category.NUMBERS,
+    Category.RATIO_PROPORTION,
+    Category.STATISTICS,
+  ]
 
   const categoriesAveraged: CategoryWithAverage[] = categories.map((c) => {
     const mgc = gradedCategories.filter((gc) => gc.category === c)
