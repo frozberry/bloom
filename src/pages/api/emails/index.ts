@@ -15,16 +15,7 @@ const POST = async (req: NextApiRequest, res: NextApiResponse) => {
     return res.status(401).end("email not found")
   }
 
-  const userForToken = {
-    email: user.email,
-    id: user.id,
-  }
-
-  // TODO rework the reset password flow
-  const token = jwt.sign(userForToken, user.passwordHash)
-  const resetUrl = `${process.env.FRONTEND}/reset-password/?token=${token}&id=${user.id}`
-
-  sendPasswordResetEmail(user.email, resetUrl)
+  sendPasswordResetEmail(user.id, user.email)
 
   res.status(200).end(`email sent to ${user.email}`)
 }

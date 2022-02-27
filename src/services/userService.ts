@@ -1,7 +1,7 @@
 import { User } from "@prisma/client"
 import bcrypt from "bcrypt"
 import jwt from "jsonwebtoken"
-import { UserProfile, UserWithoutDate } from "../lib/types"
+import { ResetPasswordToken, UserProfile, UserWithoutDate } from "../lib/types"
 import { prisma } from "../prisma/client"
 
 export const getUsers = async (): Promise<UserWithoutDate[]> => {
@@ -156,4 +156,30 @@ export const changePassword = async (userId: string, password: string) => {
     data: { passwordHash },
   })
   return updatedUser
+}
+
+export const resetPassword = async (password: string, token: string) => {
+  // eslint-disable-next-line
+  const reset = jwt.verify(token, process.env.JWT_SECRET!) as ResetPasswordToken
+
+  // TODO maybe should just throw error
+  if (Date.now() > reset.expires) {
+    return false
+  }
+
+  const updatedUser = await changePassword(reset.id, password)
+  return updatedUser
+}
+
+export const passwordResetUrl = async (userId: string): Promise<string> => {
+  const token = jwt.sign(
+    {
+      id: userId,
+      expires: Date.now() + 3600000,
+    },
+    // eslint-disable-next-line
+    process.env.JWT_SECRET!
+  )
+  const url = `${process.env.FRONTEND_URL}/reset-password/${token}`
+  return url
 }

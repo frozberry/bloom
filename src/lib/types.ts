@@ -45,3 +45,9 @@ export type CategoryWithAverage = {
   category: Category
   average: number
 }
+
+/* --------------------------- ResetPasswordToken --------------------------- */
+export type ResetPasswordToken = {
+  id: string
+  expires: number
+}

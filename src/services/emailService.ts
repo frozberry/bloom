@@ -1,6 +1,9 @@
 import postmark from "postmark"
+import { passwordResetUrl } from "./userService"
 
-export const sendPasswordResetEmail = (email: string, resetUrl: string) => {
+export const sendPasswordResetEmail = (userId: string, email: string) => {
+  const url = passwordResetUrl(userId)
+
   // eslint-disable-next-line
   const client = new postmark.ServerClient(process.env.POSTMARK_SECRET!)
 
@@ -9,7 +12,7 @@ export const sendPasswordResetEmail = (email: string, resetUrl: string) => {
     To: email,
     TemplateAlias: "password-reset",
     TemplateModel: {
-      url: resetUrl,
+      url,
     },
   })
 }
