@@ -1,11 +1,11 @@
 import { Container, Typography, Button, Box } from "@mui/material"
 import { Formik, FormikHelpers, FormikProps, Form, Field } from "formik"
 import * as yup from "yup"
-import FormTextField from "../components/forms/FormTextField"
+import FormTextField from "../../components/forms/FormTextField"
 import Link from "next/link"
 import { GetServerSideProps } from "next"
 import { User } from "@prisma/client"
-import { getUsers } from "../services/userService"
+import { getUsers } from "../../services/userService"
 
 export const getServerSideProps: GetServerSideProps = async () => {
   const users = await getUsers()
