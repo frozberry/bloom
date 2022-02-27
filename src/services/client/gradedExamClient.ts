@@ -3,7 +3,7 @@ import axios from "axios"
 const url = "/api/graded-exams"
 
 export const getSortedTests = async (token: string) => {
-  console.log("sorteed")
+  console.log("get sorted tests")
 
   const config = {
     headers: {

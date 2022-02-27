@@ -1,40 +1,27 @@
-import { useEffect, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import { Container } from "@mui/material"
 import { useQuery } from "react-query"
 import { getSortedTests } from "../../services/client/gradedExamClient"
 import { StoredUser } from "../../lib/types"
 import SingleAttempt from "../../components/results/SingleAttempt"
 import MultipleAttempts from "../../components/results/MultipleAttempts"
+import { UserContext } from "../_app"
 
 const ResultsList = () => {
-  const [user, setUser] = useState<StoredUser>()
-
-  useEffect(() => {
-    const loggedUserJson = localStorage.getItem("loggedWaterfrontUser")
-    if (loggedUserJson) {
-      const u = JSON.parse(loggedUserJson)
-      setUser(u)
-    }
-  }, [])
+  const user = useContext(UserContext)
 
   const { isLoading, error, data } = useQuery(
     "gradedTestsData",
     // axios.get("/api/graded-exams/all").then((res) => res.data)
-    () =>
-      getSortedTests(
-        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjNmYTVhMzhiLWU4ZmMtNDFhNy05NWQwLTA0ZjQzOGVjM2ZmMyIsImVtYWlsIjoicGFubmljb3BlQGdtYWlsLmNvbSIsImlhdCI6MTY0NTk5MzM2OX0.ehn90_RY-ryCEB--FRYkTXooRZI3D8a66ShjA_qlGoE"
-      )
+    () => getSortedTests(user!.token)
   )
 
-  console.log(data)
+  console.log("user", user)
 
   if (isLoading) return "Loading query..."
+  if (error) return "Error"
 
-  if (!user) {
-    return null
-  }
-
-  console.log(data)
+  console.log("data", data)
 
   return (
     <Container>
