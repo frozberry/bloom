@@ -7,11 +7,7 @@ import { getGradedExams, getUsersGradedExams } from "./gradedExamService"
 export const getExams = async () => {
   const exams = await prisma.exam.findMany({
     include: {
-      problems: {
-        include: {
-          categories: true,
-        },
-      },
+      problems: true,
     },
   })
   return exams

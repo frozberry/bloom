@@ -3,34 +3,16 @@ import { createExam } from "../src/services/examService"
 import { submitExam } from "../src/services/gradedExamService"
 import problems from "../exams/one"
 import { findUserByEmail } from "../src/services/userService"
-
-const categories = [
-  { name: "numbers" },
-  { name: "addition and subtraction" },
-  { name: "multiplication and division" },
-  { name: "fractions" },
-  { name: "measurement" },
-  { name: "geometry" },
-  { name: "statistics" },
-  { name: "ratio and proportion" },
-  { name: "algebra" },
-]
+import { Category } from "@prisma/client"
 
 const deleteAll = async () => {
   await prisma.gradedProblem.deleteMany()
   await prisma.gradedCategory.deleteMany()
   await prisma.gradedExam.deleteMany()
-  await prisma.category.deleteMany()
   await prisma.examSession.deleteMany()
   await prisma.problem.deleteMany()
   await prisma.exam.deleteMany()
   await prisma.user.deleteMany()
-}
-
-const createCategories = async () => {
-  await prisma.category.createMany({
-    data: categories,
-  })
 }
 
 const createUsers = async () => {
@@ -78,12 +60,12 @@ const createGradedCatergories = async () => {
   const users = [user1, user2]
 
   users.forEach(async (u) => {
-    categories.forEach(async (c) => {
+    Object.values(Category).forEach(async (c) => {
       await prisma.gradedCategory.createMany({
         data: [
           {
             userId: u!.id,
-            categoryName: c.name,
+            category: c,
           },
         ],
       })
@@ -124,13 +106,11 @@ const main = async () => {
   if (reset) {
     console.log("Resetting database")
     await deleteAll()
-    await createCategories()
     return
   }
 
   console.log("Seeding database")
   await deleteAll()
-  await createCategories()
   await createUsers()
   await createGradedCatergories()
   const exam = await createExam(problems)

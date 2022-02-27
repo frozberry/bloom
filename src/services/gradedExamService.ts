@@ -66,11 +66,7 @@ export const submitExam = async (user: User, examId: string, answers: any) => {
   const exam = await prisma.exam.findUnique({
     where: { id: examId },
     include: {
-      problems: {
-        include: {
-          categories: true,
-        },
-      },
+      problems: true,
     },
   })
 
@@ -92,9 +88,7 @@ export const submitExam = async (user: User, examId: string, answers: any) => {
       img: p.img,
       options: p.options,
       unit: p.unit,
-      categories: {
-        connect: p.categories,
-      },
+      categories: p.categories,
       selected: submitted.selected?.toString() || null,
     }
 
@@ -115,12 +109,12 @@ export const submitExam = async (user: User, examId: string, answers: any) => {
   if (firstAttempt) {
     console.log("It is first attempt, marking gradedCategories")
     gradedProblems.forEach(async (gp) => {
-      gp.categories.connect.forEach(async (c) => {
+      gp.categories.forEach(async (category) => {
         await prisma.gradedCategory.update({
           where: {
-            userId_categoryName: {
+            userId_category: {
               userId: user.id,
-              categoryName: c.name,
+              category,
             },
           },
           data: {

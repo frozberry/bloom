@@ -34,17 +34,6 @@ const userProfile = Prisma.validator<Prisma.UserArgs>()({
 
 export type UserProfile = Prisma.UserGetPayload<typeof userProfile>
 
-/* --------------------------- ProblemWithCategory -------------------------- */
-const problemWithCategory = Prisma.validator<Prisma.ProblemArgs>()({
-  include: {
-    categories: true,
-  },
-})
-
-export type ProblemWithCategory = Prisma.ProblemGetPayload<
-  typeof problemWithCategory
->
-
 /* -------------------------------- Numbered -------------------------------- */
 // Generic type for Exams and GradedExams
 export type Numbered = {
@@ -52,6 +41,7 @@ export type Numbered = {
 }
 
 /* --------------------------- CategoryWithAverage -------------------------- */
-export type CategoryWithAverage = Category & {
+export type CategoryWithAverage = {
+  category: Category
   average: number
 }
