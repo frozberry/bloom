@@ -9,6 +9,9 @@ import createEmotionCache from "../lib/createEmotionCache"
 import Header from "../components/Header"
 import "../styles.css"
 
+import { QueryClient, QueryClientProvider, useQuery } from "react-query"
+const queryClient = new QueryClient()
+
 // Client-side cache, shared for the whole session of the user in the browser.
 const clientSideEmotionCache = createEmotionCache()
 
@@ -25,11 +28,13 @@ export default function MyApp(props: MyAppProps) {
         <meta name="viewport" content="initial-scale=1, width=device-width" />
         <link rel="shortcut icon" href="/logo.png" />
       </Head>
-      <ThemeProvider theme={theme}>
-        <CssBaseline />
-        <Header />
-        <Component {...pageProps} />
-      </ThemeProvider>
+      <QueryClientProvider client={queryClient}>
+        <ThemeProvider theme={theme}>
+          <CssBaseline />
+          <Header />
+          <Component {...pageProps} />
+        </ThemeProvider>
+      </QueryClientProvider>
     </CacheProvider>
   )
 }
