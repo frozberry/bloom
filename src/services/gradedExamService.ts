@@ -1,4 +1,4 @@
-import { GradedExam, User } from "@prisma/client"
+import { GradedExam, Prisma, User } from "@prisma/client"
 import { prisma } from "../prisma/client"
 import dayjs from "dayjs"
 import _ from "lodash"
@@ -59,7 +59,7 @@ export const getSortedGradedExams = async (userId: string) => {
   return examSorted
 }
 
-// Use correct type for answers
+// TODO Use correct type for answers
 export const submitExam = async (user: User, examId: string, answers: any) => {
   // Fetch the Exam the user just completed
   console.log("Fetching exam")
