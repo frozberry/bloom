@@ -105,6 +105,8 @@ model GradedCategory {
   user     User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId   String
   category Category
+
+  @@unique([userId, category])
 }
 
 enum Category {
