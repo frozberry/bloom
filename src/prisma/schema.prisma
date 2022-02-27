@@ -98,21 +98,23 @@ model ExamSession {
   examId String?
 }
 
-model Category {
-  name             String           @id
-  gradedCategories GradedCategory[]
-  problems         Problem[]
-  gradedProblems   GradedProblem[]
+model GradedCategory {
+  id       String   @id @default(uuid())
+  correct  Int      @default(0)
+  attempts Int      @default(0)
+  user     User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId   String
+  category Category
 }
 
-model GradedCategory {
-  id           String   @id @default(uuid())
-  correct      Int      @default(0)
-  attempts     Int      @default(0)
-  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  userId       String
-  category     Category @relation(fields: [categoryName], references: [name], onDelete: Cascade)
-  categoryName String
-
-  @@unique([userId, categoryName])
+enum Category {
+  NUMBERS
+  ADDITION_SUBTRACTION
+  MULTIPLICATION_DIVISION
+  FRACTIONS
+  MEASUREMENT
+  GEOMETRY
+  STATISTICS
+  RATIO_PROPORTION
+  ALGEBRA
 }
