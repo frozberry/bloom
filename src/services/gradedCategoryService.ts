@@ -31,16 +31,16 @@ export const getCatergoriesAverage = async () => {
 
   // TODO find way to loop over
   // const categories = Object.values(Category)
-  const categories = [
-    Category.ADDITION_SUBTRACTION,
-    Category.ALGEBRA,
-    Category.FRACTIONS,
-    Category.GEOMETRY,
-    Category.MEASUREMENT,
-    Category.MULTIPLICATION_DIVISION,
-    Category.NUMBERS,
-    Category.RATIO_PROPORTION,
-    Category.STATISTICS,
+  const categories: Category[] = [
+    "ADDITION_SUBTRACTION",
+    "ALGEBRA",
+    "FRACTIONS",
+    "GEOMETRY",
+    "MEASUREMENT",
+    "MULTIPLICATION_DIVISION",
+    "NUMBERS",
+    "RATIO_PROPORTION",
+    "STATISTICS",
   ]
 
   const categoriesAveraged: CategoryWithAverage[] = categories.map((c) => {
