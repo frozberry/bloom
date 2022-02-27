@@ -21,7 +21,7 @@ const GET = async (
   const user = await verifyUser(req)
 
   if (!user) {
-    return res.status(401).end()
+    return res.status(401).end("unauthoized")
   }
 
   const gradedCategories = await getUsersGradedCategories(user)
