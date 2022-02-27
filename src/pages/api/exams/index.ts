@@ -1,9 +1,10 @@
 import { Category, Problem, Exam } from "@prisma/client"
 import { NextApiRequest, NextApiResponse } from "next"
+import { ProblemWithCategory } from "../../../lib/types"
 import { createExam, getExams } from "../../../services/examService"
 
 type PostBody = {
-  problems: (Problem & { categories: Category[] })[]
+  problems: ProblemWithCategory[]
 }
 
 const GET = async (req: NextApiRequest, res: NextApiResponse<Exam[]>) => {
