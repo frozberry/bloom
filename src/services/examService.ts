@@ -1,4 +1,4 @@
-import { User } from "@prisma/client"
+import { Category, User } from "@prisma/client"
 import { prisma } from "../prisma/client"
 import _ from "lodash"
 import { Numbered } from "../lib/types"
@@ -51,10 +51,8 @@ export const createExam = async (problems: any[]) => {
     ...problem,
     num: i + 1,
     correct: problem.correct.toString(),
-    categories: problem.categories && {
-      // TODO this any can be removed when arg type is correct
-      connect: problem.categories.map((category: any) => ({ name: category })),
-    },
+    // TODO use the real category
+    categories: Category.NUMBERS,
   }))
 
   const exams = await getExams()

@@ -8,10 +8,14 @@
     "start": "next start",
     "lint": "eslint src",
     "prettier": "prettier --write .",
-    "seed": "npx ts-node --transpileOnly scripts/seed.ts",
-    "reset": "npx ts-node --transpileOnly scripts/seed.ts --reset",
+    "seed": "npx ts-node --transpileOnly src/prisma/seed.ts",
+    "reset": "npx ts-node --transpileOnly src/prisma/seed.ts --reset",
     "db": "npx ts-node --transpileOnly scripts/db.ts",
     "main": "JWT_SECRET=sjFJJNYHhNhgBQKbgzenfcbhYiRfytye FRONTEND_URL=http://localhost:3000 npx ts-node --transpileOnly scripts/main.ts JWT_SECRET = sjFJJNYHhNhgBQKbgzenfcbhYiRfytye"
+  },
+  "prisma": {
+    "schema": "src/prisma/schema.prisma",
+    "seed": "npx ts-node --transpileOnly src/prisma/seed.ts"
   },
   "dependencies": {
     "@emotion/cache": "^11.6.0",
@@ -57,8 +61,5 @@
     "prisma": "^3.9.2",
     "ts-node": "^10.5.0",
     "typescript": "4.5.2"
-  },
-  "prisma": {
-    "schema": "src/prisma/schema.prisma"
   }
 }
