@@ -82,29 +82,6 @@ export const deleteUser = async (id: string): Promise<boolean> => {
   return true
 }
 
-export const login = async (
-  email: string,
-  password: string
-): Promise<string | null> => {
-  const user = await findUserByEmail(email)
-  if (!user) {
-    return null
-  }
-
-  const passwordMatch = await bcrypt.compare(password, user.passwordHash)
-  if (!passwordMatch) {
-    return null
-  }
-
-  const token = jwt.sign(
-    { id: user.id, email: user.email },
-    // eslint-disable-next-line
-    process.env.JWT_SECRET!
-  )
-
-  return token
-}
-
 /* ------------------------------- Profile ------------------------------- */
 
 export const getProfiles = async (): Promise<UserProfile[]> => {
@@ -140,4 +117,43 @@ export const findProfileById = async (
   })
 
   return user
+}
+
+/* ---------------------------------- Login --------------------------------- */
+export const login = async (
+  email: string,
+  password: string
+): Promise<string | null> => {
+  const user = await findUserByEmail(email)
+  if (!user) {
+    return null
+  }
+
+  const passwordCorrect = await validatePassword(user, password)
+  if (!passwordCorrect) {
+    return null
+  }
+
+  const token = jwt.sign(
+    { id: user.id, email: user.email },
+    // eslint-disable-next-line
+    process.env.JWT_SECRET!
+  )
+
+  return token
+}
+
+/* -------------------------------- Password -------------------------------- */
+export const validatePassword = async (user: User, password: string) => {
+  const correct = await bcrypt.compare(password, user.passwordHash)
+  return correct
+}
+
+export const changePassword = async (userId: string, password: string) => {
+  const passwordHash = await bcrypt.hash(password, 10)
+  const updatedUser = prisma.user.update({
+    where: { id: userId },
+    data: { passwordHash },
+  })
+  return updatedUser
 }
