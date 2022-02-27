@@ -5,6 +5,7 @@ import { useQuery } from "react-query"
 import dayjs from "dayjs"
 import _ from "lodash"
 import { getSortedTests } from "../../services/client/gradedExamClient"
+import { StoredUser } from "../../lib/types"
 
 const styles = {
   divider: {
@@ -13,14 +14,8 @@ const styles = {
   },
 }
 
-type U = {
-  id: string
-  token: string
-  email: string
-}
-
 const ResultsList = () => {
-  const [user, setUser] = useState<U>()
+  const [user, setUser] = useState<StoredUser>()
 
   useEffect(() => {
     const loggedUserJson = localStorage.getItem("loggedWaterfrontUser")

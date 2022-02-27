@@ -51,3 +51,10 @@ export type ResetPasswordToken = {
   id: string
   expires: number
 }
+
+/* ------------------------------- StoredUser ------------------------------- */
+export type StoredUser = {
+  id: string
+  token: string
+  email: string
+}
