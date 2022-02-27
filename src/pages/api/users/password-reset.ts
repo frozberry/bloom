@@ -14,8 +14,7 @@ const PUT = async (req: NextApiRequest, res: NextApiResponse<User | null>) => {
     return res.status(400).end("password too short")
   }
 
-  // as User can be deleted when I sort out error handling
-  const updatedUser = (await resetPassword(newPassword, token)) as User
+  const updatedUser = await resetPassword(newPassword, token)
   res.send(updatedUser)
 }
 

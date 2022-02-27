@@ -164,7 +164,7 @@ export const resetPassword = async (password: string, token: string) => {
 
   // TODO maybe should just throw error
   if (Date.now() > reset.expires) {
-    return false
+    throw new Error("token expired")
   }
 
   const updatedUser = await changePassword(reset.id, password)
