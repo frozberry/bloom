@@ -1,14 +1,9 @@
 import type { NextApiRequest, NextApiResponse } from "next"
 import { GradedExam } from "@prisma/client"
-import verifyUser from "../../../lib/verifyUser"
-import { getUsersGradedExams } from "../../../services/gradedExamService"
+import { getGradedExams } from "../../../services/gradedExamService"
 
 const GET = async (req: NextApiRequest, res: NextApiResponse<GradedExam[]>) => {
-  const user = await verifyUser(req)
-  if (!user) {
-    return res.status(401).end("unauthoized token")
-  }
-  const gradedExams = await getUsersGradedExams(user.id)
+  const gradedExams = await getGradedExams()
   res.send(gradedExams)
 }
 
