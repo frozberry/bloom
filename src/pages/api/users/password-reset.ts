@@ -14,8 +14,12 @@ const PUT = async (req: NextApiRequest, res: NextApiResponse<User | null>) => {
     return res.status(400).end("password too short")
   }
 
-  const updatedUser = await resetPassword(newPassword, token)
-  res.send(updatedUser)
+  try {
+    const updatedUser = await resetPassword(newPassword, token)
+    res.send(updatedUser)
+  } catch (e) {
+    res.status(400).end("error")
+  }
 }
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {

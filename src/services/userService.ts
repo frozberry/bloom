@@ -172,10 +172,11 @@ export const resetPassword = async (password: string, token: string) => {
 }
 
 export const passwordResetUrl = async (userId: string): Promise<string> => {
+  const oneDay = 1000 * 60 * 60 * 24
   const token = jwt.sign(
     {
       id: userId,
-      expires: Date.now() + 3600000,
+      expires: Date.now() + oneDay,
     },
     // eslint-disable-next-line
     process.env.JWT_SECRET!
