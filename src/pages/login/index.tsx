@@ -3,19 +3,9 @@ import { Formik, FormikHelpers, FormikProps, Form, Field } from "formik"
 import * as yup from "yup"
 import FormTextField from "../../components/forms/FormTextField"
 import Link from "next/link"
-import { GetServerSideProps } from "next"
 import { User } from "@prisma/client"
-import { getUsers } from "../../services/server/userService"
-
-export const getServerSideProps: GetServerSideProps = async () => {
-  const users = await getUsers()
-
-  return {
-    props: {
-      users,
-    },
-  }
-}
+import axios from "axios"
+import { LoginRounded } from "@mui/icons-material"
 
 type FormValues = {
   email: string
@@ -32,25 +22,29 @@ const validationSchema = yup.object().shape({
   password: yup.string().required("Required"),
 })
 
-const onSubmit = (
+const onSubmit = async (
   values: FormValues,
   formikHelpers: FormikHelpers<FormValues>
 ) => {
-  alert(values.email)
-  alert(values.password)
+  const res = await axios.post("/api/login", {
+    email: values.email,
+    password: values.password,
+  })
+  console.log(res.data)
+
+  localStorage.setItem(
+    "loggedWaterfrontUser",
+    JSON.stringify({ token: res.data })
+  )
   formikHelpers.setSubmitting(false)
 }
 
-export default function App({ users }: { users: User[] }) {
+export default function App() {
   return (
     <Container maxWidth="xs">
       <Box sx={{ my: 4 }}>
         <Typography variant="h2">Log in</Typography>
       </Box>
-
-      {users.map((u: User) => (
-        <p key={u.id}>{u.email}</p>
-      ))}
 
       <Formik
         initialValues={initialValues}
