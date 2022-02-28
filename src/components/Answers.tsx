@@ -2,7 +2,7 @@ import { useState } from "react"
 import { Container } from "@mui/material"
 import _ from "lodash"
 import ToggleButtons from "./results/ToggleButtons"
-import Answer from "./results/Answer"
+import Solution from "./results/Solution"
 
 const Answers = ({ gradedProblems }: any) => {
   const [view, setView] = useState("all")
@@ -23,7 +23,7 @@ const Answers = ({ gradedProblems }: any) => {
       <ToggleButtons view={view} setView={setView} />
 
       {orderedGradedProblems.map((problem) => (
-        <Answer problem={problem} key={problem.id} />
+        <Solution problem={problem} key={problem.id} />
       ))}
     </Container>
   )
