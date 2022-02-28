@@ -5,16 +5,16 @@ import { getSortedTests } from "../../services/client/gradedExamClient"
 import SingleAttempt from "../../components/results/SingleAttempt"
 import MultipleAttempts from "../../components/results/MultipleAttempts"
 import { UserContext } from "../_app"
+import Loading from "../../components/Loading"
 
 const ResultsList = () => {
   const { isLoading, error, data } = useQuery("gradedTestsData", () =>
     getSortedTests()
   )
-
   const user = useContext(UserContext)
 
   if (!user) return "No user"
-  if (isLoading) return "Loading query..."
+  if (isLoading) return <Loading />
   if (error) return "Error"
 
   return (
