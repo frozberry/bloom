@@ -1,4 +1,4 @@
-import { useState, createContext, useContext, useEffect } from "react"
+import { useState, createContext, useEffect } from "react"
 import Head from "next/head"
 import { AppProps } from "next/app"
 import { ThemeProvider } from "@mui/material/styles"
@@ -10,7 +10,7 @@ import createEmotionCache from "../lib/createEmotionCache"
 import Header from "../components/Header"
 import "../styles.css"
 
-import { QueryClient, QueryClientProvider, useQuery } from "react-query"
+import { QueryClient, QueryClientProvider } from "react-query"
 import { StoredUser } from "../lib/types"
 const queryClient = new QueryClient()
 

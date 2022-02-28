@@ -3,9 +3,7 @@ import { Formik, FormikHelpers, FormikProps, Form, Field } from "formik"
 import * as yup from "yup"
 import FormTextField from "../../components/forms/FormTextField"
 import Link from "next/link"
-import { User } from "@prisma/client"
 import axios from "axios"
-import { LoginRounded } from "@mui/icons-material"
 
 type FormValues = {
   email: string
