@@ -13,8 +13,8 @@ export const getExams = async () => {
   return exams
 }
 
-export const getNextExam = async (user: User) => {
-  const gradedExams = await getUsersGradedExams(user.id)
+export const getNextExam = async (userId: string) => {
+  const gradedExams = await getUsersGradedExams(userId)
 
   const nextExam = await prisma.exam.findUnique({
     where: {

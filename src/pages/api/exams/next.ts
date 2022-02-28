@@ -9,7 +9,7 @@ const GET = async (req: NextApiRequest, res: NextApiResponse<Exam | null>) => {
   if (!user) {
     return res.status(401).end("unauthorized")
   }
-  const nextExam = await getNextExam(user)
+  const nextExam = await getNextExam(user.id)
 
   res.send(nextExam)
 }
