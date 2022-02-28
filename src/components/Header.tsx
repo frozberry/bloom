@@ -1,14 +1,9 @@
-// import { useDispatch, useSelector } from "react-redux"
-// import { Link, useHistory } from "react-router-dom"
 import { AppBar, Toolbar, Button, Box } from "@mui/material"
 import Link from "next/link"
 import Image from "next/image"
+import { useContext } from "react"
+import { UserContext } from "../pages/_app"
 // import stripeService from "../services/stripeService"
-
-// import { clearUser } from "../reducers/userReducer"
-// import { clearProfile } from "../reducers/profileReducer"
-// import { clearTest } from "../reducers/testReducer"
-// import { clearStripe } from "../reducers/stripeReducer"
 
 type HeaderProp = {
   link: string
@@ -16,22 +11,17 @@ type HeaderProp = {
 }
 
 const Header = () => {
-  //   const user = useSelector((state) => state.user)
-  //   const stripe = useSelector((state) => state.stripe)
+  const user = useContext(UserContext)
 
-  //   const handleLogout = (event) => {
-  //     event.preventDefault()
-  //     dispatch(clearUser())
-  //     dispatch(clearProfile())
-  //     dispatch(clearTest())
-  //     dispatch(clearStripe())
-  //     history.push("/")
-  //   }
+  const handleLogout = () => {
+    alert("Logging out")
+  }
 
-  //   const handlePortal = async () => {
-  //     const url = await stripeService.portal(stripe.stripeId)
-  //     window.location.replace(url)
-  //   }
+  const handlePortal = async () => {
+    // const url = await stripeService.portal(stripe.stripeId)
+    // window.location.replace(url)
+    alert("stripe portal")
+  }
 
   const HeaderItem = (props: HeaderProp) => {
     return (
@@ -48,17 +38,21 @@ const Header = () => {
     </>
   )
 
-  //   const loggedIn = () => (
-  //     <>
-  //       <HeaderItem link="/results">Results</HeaderItem>
-  //       <HeaderItem link="/stats">Stats</HeaderItem>
-  //       <Button onClick={handlePortal}>Account</Button>
-  //       {user.email === "pannicope@gmail.com" && (
-  //         <HeaderItem link="/admin">Admin</HeaderItem>
-  //       )}
-  //       <Button onClick={handleLogout}>Log out</Button>
-  //     </>
-  //   )
+  const loggedIn = () => (
+    <>
+      <HeaderItem link="/results">Results</HeaderItem>
+      <HeaderItem link="/stats">Stats</HeaderItem>
+      <Button sx={{ color: "black" }} onClick={handlePortal}>
+        Account
+      </Button>
+      {user?.email === "pannicope@gmail.com" && (
+        <HeaderItem link="/admin">Admin</HeaderItem>
+      )}
+      <Button sx={{ color: "black" }} onClick={handleLogout}>
+        Log out
+      </Button>
+    </>
+  )
 
   return (
     <>
@@ -80,10 +74,9 @@ const Header = () => {
               />
             </Box>
           </Link>
-          {/* somehow sets to the right of the app bar marginRight not needed here, but could play with positioning */}
+          {/* Somehow sets to the right of the app bar marginRight not needed here, but could play with positioning */}
           <section style={{ marginLeft: "auto", marginRight: 0 }}>
-            {/* {user ? loggedIn() : loggedOut()} */}
-            {loggedOut()}
+            {user ? loggedIn() : loggedOut()}
           </section>
         </Toolbar>
       </AppBar>
