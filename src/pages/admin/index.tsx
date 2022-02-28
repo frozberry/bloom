@@ -2,7 +2,7 @@ import { Button, Container, Divider, Typography } from "@mui/material"
 import { useContext, useEffect, useState } from "react"
 import { useQuery } from "react-query"
 import Loading from "../../components/Loading"
-import { getExams } from "../../services/client/exam"
+import { getExams } from "../../services/client/examsClient"
 import { UserContext } from "../_app"
 
 const styles = {

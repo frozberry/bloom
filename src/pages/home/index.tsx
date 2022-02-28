@@ -3,7 +3,7 @@ import { useRouter } from "next/router"
 import { useContext } from "react"
 import { useQuery } from "react-query"
 import Loading from "../../components/Loading"
-import { getNextExam } from "../../services/client/exam"
+import { getNextExam } from "../../services/client/examsClient"
 import { UserContext } from "../_app"
 
 const Home = () => {
