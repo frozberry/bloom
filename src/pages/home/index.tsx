@@ -2,7 +2,7 @@ import { Button, Container, Typography } from "@mui/material"
 import { useRouter } from "next/router"
 import { useContext } from "react"
 import { useQuery } from "react-query"
-import { getNextExam } from "../../services/client/examsClient"
+import { getNextExam } from "../../services/client/examClient"
 import useVerifyApi from "../../useVerifyApi/foo"
 import { UserContext } from "../_app"
 

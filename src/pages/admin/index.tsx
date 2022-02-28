@@ -1,7 +1,7 @@
 import { Button, Container, Divider, Typography } from "@mui/material"
 import { useContext, useEffect, useState } from "react"
 import { useQuery } from "react-query"
-import { getExams } from "../../services/client/examsClient"
+import { getExams } from "../../services/client/examClient"
 import useVerifyApi from "../../useVerifyApi/foo"
 import { UserContext } from "../_app"
 
