@@ -9,8 +9,8 @@ import { useRouter } from "next/router"
 
 const LandingPage = () => {
   const user = useContext(UserContext)
-
   const router = useRouter()
+
   useEffect(() => {
     if (user) {
       router.push("/home")

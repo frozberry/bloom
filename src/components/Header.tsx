@@ -28,7 +28,8 @@ const Header = () => {
       <Link href={props.link} passHref>
         <Button sx={{ color: "black" }}>{props.children}</Button>
       </Link>
-    )  }
+    )
+  }
 
   const loggedOut = () => (
     <>
@@ -57,7 +58,7 @@ const Header = () => {
     <>
       <AppBar position="static" style={{ margin: 0, backgroundColor: "white" }}>
         <Toolbar>
-          <Link href="/" passHref>
+          <Link href={user ? "/home" : "/"} passHref>
             <Box
               sx={{
                 display: "inline",
