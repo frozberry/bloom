@@ -3,8 +3,20 @@ import HowItWorks from "../components/landing-page/HowItWorks"
 import WhatsWaterfront from "../components/landing-page/WhatsWaterfront"
 import LandingFooter from "../components/landing-page/LandingFooter"
 import LandingGraphs from "../components/landing-page/LandingGraphs"
+import { useContext, useEffect } from "react"
+import { UserContext } from "./_app"
+import { useRouter } from "next/router"
 
 const LandingPage = () => {
+  const user = useContext(UserContext)
+
+  const router = useRouter()
+  useEffect(() => {
+    if (user) {
+      router.push("/exams")
+    }
+  }, [user, router])
+
   return (
     <>
       <LandingHeader />

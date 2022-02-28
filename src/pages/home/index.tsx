@@ -12,8 +12,6 @@ const Home = () => {
   const user = useContext(UserContext)
   const nextExam = data
 
-  console.log(nextExam, typeof nextExam)
-
   if (!user) return "No user"
   if (isLoading) return <Loading />
   if (error) return "Error"
