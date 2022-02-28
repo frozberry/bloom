@@ -1,32 +1,24 @@
-import { useContext, useEffect, useState } from "react"
+import { useContext } from "react"
 import { Container } from "@mui/material"
 import { useQuery } from "react-query"
 import { getSortedTests } from "../../services/client/gradedExamClient"
-import { StoredUser } from "../../lib/types"
 import SingleAttempt from "../../components/results/SingleAttempt"
 import MultipleAttempts from "../../components/results/MultipleAttempts"
 import { UserContext } from "../_app"
 
 const ResultsList = () => {
-  const user = useContext(UserContext)
-
-  const { isLoading, error, data } = useQuery(
-    "gradedTestsData",
-    // axios.get("/api/graded-exams/all").then((res) => res.data)
-    () => getSortedTests(user!.token)
+  const { isLoading, error, data } = useQuery("gradedTestsData", () =>
+    getSortedTests()
   )
 
-  console.log("user", user)
+  const user = useContext(UserContext)
 
+  if (!user) return "No user"
   if (isLoading) return "Loading query..."
   if (error) return "Error"
 
-  console.log("data", data)
-
   return (
     <Container>
-      <div>{user.email}</div>
-
       {data.map((test: any) => {
         const multipleAttempts = test.attempts.length > 1
 
