@@ -5,8 +5,11 @@ import _ from "lodash"
 const MultipleAttempts = ({ test }: any) => {
   const firstName = "henry"
   const attempts = test.attempts.length
-  const averagePercent = Math.round(_.meanBy(test.attempts, (a) => a.percent))
-  const averageMarks = Math.round(_.meanBy(test.attempts, (a) => a.marks))
+  // TODO remove any
+  const averagePercent = Math.round(
+    _.meanBy(test.attempts, (a: any) => a.percent)
+  )
+  const averageMarks = Math.round(_.meanBy(test.attempts, (a: any) => a.marks))
   const totalMarks = test.attempts[0].total
   return (
     <Link href={`/results/exam/${test.testId}`} passHref>

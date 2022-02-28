@@ -5,7 +5,7 @@ import FormTextField from "../../components/forms/FormTextField"
 import Link from "next/link"
 import { GetServerSideProps } from "next"
 import { User } from "@prisma/client"
-import { getUsers } from "../../services/userService"
+import { getUsers } from "../../services/server/userService"
 
 export const getServerSideProps: GetServerSideProps = async () => {
   const users = await getUsers()

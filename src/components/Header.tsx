@@ -28,8 +28,7 @@ const Header = () => {
       <Link href={props.link} passHref>
         <Button sx={{ color: "black" }}>{props.children}</Button>
       </Link>
-    )
-  }
+    )  }
 
   const loggedOut = () => (
     <>
