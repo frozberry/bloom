@@ -1,31 +1,11 @@
 import { Button, Container, Paper, Typography } from "@mui/material"
+import Link from "next/link"
 import { useRouter } from "next/router"
 import { useContext } from "react"
 import { useQuery } from "react-query"
 import Loading from "../../components/Loading"
 import { findGradedExamById } from "../../services/client/gradedExamClient"
 import { UserContext } from "../_app"
-
-const styles = {
-  root: {
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    marginTop: 20,
-  },
-  paper: {
-    paddingRight: 90,
-    paddingLeft: 90,
-    paddingTop: 20,
-    paddingBottom: 20,
-  },
-  centerText: {
-    textAlign: "center",
-  },
-  retry: {
-    marginTop: 10,
-  },
-}
 
 const Page = () => {
   const router = useRouter()
@@ -40,24 +20,34 @@ const Page = () => {
   if (error) return "Error"
 
   return (
-    <Container style={styles.root}>
-      <Paper style={styles.paper}>
-        <Typography style={styles.centerText} variant="h6">
+    <Container
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        marginTop: 3,
+      }}
+    >
+      <Paper
+        sx={{
+          px: 10,
+          py: 4,
+        }}
+      >
+        <Typography align="center" variant="h6">
           You scored
         </Typography>
-        <Typography style={styles.centerText} variant="h3">
+        <Typography align="center" variant="h3">
           {gt.percent}%
         </Typography>
-        <Typography style={{ textAlign: "center" }}>
+        <Typography align="center">
           {`${gt.marks}/${gt.total}`} marks
         </Typography>
-        <Button
-          variant="contained"
-          // onClick={() => history.push(`/tests/${gt.testId}`)}
-          style={styles.retry}
-        >
-          Retry test
-        </Button>
+        <Link href={`/exams/${id}`} passHref>
+          <Button variant="contained" sx={{ mt: 2 }}>
+            Retry test
+          </Button>
+        </Link>
       </Paper>
       {/* <Answers gradedProblems={gt.gradedProblems} /> */}
     </Container>
