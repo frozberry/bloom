@@ -13,7 +13,7 @@ const LandingPage = () => {
   const router = useRouter()
   useEffect(() => {
     if (user) {
-      router.push("/exams")
+      router.push("/home")
     }
   }, [user, router])
 
