@@ -22,9 +22,9 @@ const Admin = () => {
   // const router = useRouter()
   const user = useContext(UserContext)
 
-  const [tests, setTests] = useState([])
+  const [exams, setExams] = useState([])
   useEffect(() => {
-    setTests(data)
+    setExams(data)
   }, [data])
 
   if (!user) return "No user"
@@ -32,22 +32,22 @@ const Admin = () => {
   if (error) return "Error"
 
   const selectTest = (id) => {
-    const newTests = tests.map((t) =>
-      t.id === id ? { ...t, open: !t.open } : t
+    const newExam = exams.map((exam) =>
+      exam.id === id ? { ...exam, open: !exam.open } : exam
     )
-    setTests(newTests)
+    setExams(exams)
   }
 
   const handleDelete = async (id) => {
-    if (window.confirm("Are you sure you want to delete this?")) {
-      try {
-        await testService.deleteTest({ token: user.token, id })
-        const newTests = tests.filter((t) => t.id !== id)
-        setTests(newTests)
-      } catch (err) {
-        toast.error("error")
-      }
-    }
+    // if (window.confirm("Are you sure you want to delete this?")) {
+    //   try {
+    //     await testService.deleteTest({ token: user.token, id })
+    //     const newTests = tests.filter((t) => t.id !== id)
+    //     setTests(newTests)
+    //   } catch (err) {
+    //     toast.error("error")
+    //   }
+    // }
   }
 
   return (
@@ -56,21 +56,24 @@ const Admin = () => {
         variant="outlined"
         // onClick={() => history.push("/admin/new-test")}
       >
-        New Test
+        New Exam
       </Button>
-      {tests &&
-        tests.map((t) => (
-          <div key={t.id} style={styles.testDiv}>
-            <div onClick={() => selectTest(t.id)} style={styles.clickableTest}>
+      {exams &&
+        exams.map((exam) => (
+          <div key={exam.id} style={styles.testDiv}>
+            <div
+              onClick={() => selectTest(exam.id)}
+              style={styles.clickableTest}
+            >
               <Typography variant="h5" style={styles.testTitle}>
-                Test {t.num}
+                Test {exam.num}
               </Typography>
-              <Typography>{t.problems.length} questions</Typography>
+              <Typography>{exam.problems.length} questions</Typography>
             </div>
             <div>
-              {t.open && (
+              {exam.open && (
                 <>
-                  {t.problems.map((p) => (
+                  {exam.problems.map((p) => (
                     <div key={p.question}>
                       {/* <Problem problem={p} viewOnly /> */}
                     </div>
@@ -78,7 +81,7 @@ const Admin = () => {
 
                   <Button
                     variant="outlined"
-                    onClick={() => handleDelete(t.id)}
+                    onClick={() => handleDelete(exam.id)}
                     color="secondary"
                   >
                     Delete
