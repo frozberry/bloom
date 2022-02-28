@@ -30,7 +30,7 @@ const createUsers = async () => {
         dob,
         gender: "male",
         passwordHash:
-          "$2b$10$8GfTVRlKhQz0eKQl5w4ycuhhSlXGQ.oFzPRdEljrcQkHYXm.PEChG",
+          "$2b$10$0QPERpxW431jwQQSTh9H0uSFrxcfcT.9QhE3piaqKQgjssC44DpJK",
         stripeId: "cus_JifnHyNvFpbJIx",
         stripeSubId: "sub_JifnkftUVSP4Mg",
         subEnds,
