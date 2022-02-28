@@ -4,8 +4,8 @@ import { useRouter } from "next/router"
 import { useContext } from "react"
 import { useQuery } from "react-query"
 import Answers from "../../components/Answers"
-import Loading from "../../components/Loading"
 import { findGradedExamById } from "../../services/client/gradedExamClient"
+import useVerifyApi from "../../useVerifyApi/foo"
 import { UserContext } from "../_app"
 
 const Page = () => {
@@ -13,13 +13,10 @@ const Page = () => {
   const { id } = router.query as { id: string }
   const { isLoading, error, data } = useQuery(id, () => findGradedExamById(id))
   const user = useContext(UserContext)
+  const { escape, component } = useVerifyApi(user, isLoading, error)
 
+  if (escape) return component
   const gt = data
-
-  if (!user) return "No user"
-  if (isLoading) return <Loading />
-  if (error) return "Error"
-  console.log(gt)
 
   return (
     <Container

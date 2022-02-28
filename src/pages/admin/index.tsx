@@ -1,8 +1,8 @@
 import { Button, Container, Divider, Typography } from "@mui/material"
 import { useContext, useEffect, useState } from "react"
 import { useQuery } from "react-query"
-import Loading from "../../components/Loading"
 import { getExams } from "../../services/client/examsClient"
+import useVerifyApi from "../../useVerifyApi/foo"
 import { UserContext } from "../_app"
 
 const styles = {
@@ -27,9 +27,8 @@ const Admin = () => {
     setExams(data)
   }, [data])
 
-  if (!user) return "No user"
-  if (isLoading) return <Loading />
-  if (error) return "Error"
+  const { escape, component } = useVerifyApi(user, isLoading, error)
+  if (escape) return component
 
   const selectTest = (id) => {
     const newExam = exams.map((exam) =>

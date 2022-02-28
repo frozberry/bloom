@@ -2,19 +2,19 @@ import { Button, Container, Typography } from "@mui/material"
 import { useRouter } from "next/router"
 import { useContext } from "react"
 import { useQuery } from "react-query"
-import Loading from "../../components/Loading"
 import { getNextExam } from "../../services/client/examsClient"
+import useVerifyApi from "../../useVerifyApi/foo"
 import { UserContext } from "../_app"
 
 const Home = () => {
   const { isLoading, error, data } = useQuery("nextExam", getNextExam)
   const router = useRouter()
   const user = useContext(UserContext)
-  const nextExam = data
 
-  if (!user) return "No user"
-  if (isLoading) return <Loading />
-  if (error) return "Error"
+  const { escape, component } = useVerifyApi(user, isLoading, error)
+  if (escape) return component
+
+  const nextExam = data
 
   const startTest = () => {
     if (
