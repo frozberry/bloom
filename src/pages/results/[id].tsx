@@ -3,7 +3,7 @@ import { useRouter } from "next/router"
 import { useContext } from "react"
 import { useQuery } from "react-query"
 import Loading from "../../components/Loading"
-import { findExamById } from "../../services/client/gradedExamClient"
+import { findGradedExamById } from "../../services/client/gradedExamClient"
 import { UserContext } from "../_app"
 
 const styles = {
@@ -30,7 +30,7 @@ const styles = {
 const Page = () => {
   const router = useRouter()
   const { id } = router.query as { id: string }
-  const { isLoading, error, data } = useQuery(id, () => findExamById(id))
+  const { isLoading, error, data } = useQuery(id, () => findGradedExamById(id))
   const user = useContext(UserContext)
 
   const gt = data

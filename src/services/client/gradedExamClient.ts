@@ -3,7 +3,7 @@ import setAuthToken from "../../lib/setAuthToken"
 
 const url = "/api/graded-exams"
 
-export const findExamById = async (id: string) => {
+export const findGradedExamById = async (id: string) => {
   const config = setAuthToken()
 
   const response = await axios.get(`${url}/${id}`, config)
