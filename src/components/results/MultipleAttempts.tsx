@@ -1,4 +1,5 @@
-import { Typography, Divider, Link, Box } from "@mui/material"
+import { Typography, Divider, Box } from "@mui/material"
+import Link from "next/link"
 import _ from "lodash"
 
 // TODO Check this displays correctly when I have multiple attempts
