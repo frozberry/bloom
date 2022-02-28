@@ -1,16 +1,14 @@
 import { useContext } from "react"
 import { Container } from "@mui/material"
 import { useQuery } from "react-query"
-import { getSortedTests } from "../../services/client/gradedExamClient"
+import { getSortedExams } from "../../services/client/gradedExamClient"
 import SingleAttempt from "../../components/results/SingleAttempt"
 import MultipleAttempts from "../../components/results/MultipleAttempts"
 import { UserContext } from "../_app"
 import Loading from "../../components/Loading"
 
 const ResultsList = () => {
-  const { isLoading, error, data } = useQuery("gradedTestsData", () =>
-    getSortedTests()
-  )
+  const { isLoading, error, data } = useQuery("gradedTestsData", getSortedExams)
   const user = useContext(UserContext)
 
   if (!user) return "No user"
