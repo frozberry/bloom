@@ -3,6 +3,7 @@ import Link from "next/link"
 import { useRouter } from "next/router"
 import { useContext } from "react"
 import { useQuery } from "react-query"
+import Answers from "../../components/Answers"
 import Loading from "../../components/Loading"
 import { findGradedExamById } from "../../services/client/gradedExamClient"
 import { UserContext } from "../_app"
@@ -18,6 +19,7 @@ const Page = () => {
   if (!user) return "No user"
   if (isLoading) return <Loading />
   if (error) return "Error"
+  console.log(gt)
 
   return (
     <Container
@@ -49,7 +51,7 @@ const Page = () => {
           </Button>
         </Link>
       </Paper>
-      {/* <Answers gradedProblems={gt.gradedProblems} /> */}
+      <Answers gradedProblems={gt.gradedProblems} />
     </Container>
   )
 }
