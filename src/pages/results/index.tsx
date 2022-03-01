@@ -5,12 +5,12 @@ import { getSortedExams } from "../../services/client/gradedExamClient"
 import SingleAttempt from "../../components/results/SingleExamAttempt"
 import MultipleAttempts from "../../components/results/MultipleExamAttempts"
 import { UserContext } from "../_app"
-import useVerifyApi from "../../useVerifyApi/foo"
+import useVerifyQuery from "../../hooks/useVerifyQuery"
 
 const ResultsList = () => {
   const { isLoading, error, data } = useQuery("gradedTestsData", getSortedExams)
   const user = useContext(UserContext)
-  const { escape, component } = useVerifyApi(user, isLoading, error)
+  const { escape, component } = useVerifyQuery(user, isLoading, error)
 
   if (escape) return component
 

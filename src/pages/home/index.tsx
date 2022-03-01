@@ -3,7 +3,7 @@ import { useRouter } from "next/router"
 import { useContext } from "react"
 import { useQuery } from "react-query"
 import { getNextExam } from "../../services/client/examClient"
-import useVerifyApi from "../../useVerifyApi/foo"
+import useVerifyQuery from "../../hooks/useVerifyQuery"
 import { UserContext } from "../_app"
 
 const Home = () => {
@@ -11,7 +11,7 @@ const Home = () => {
   const router = useRouter()
   const user = useContext(UserContext)
 
-  const { escape, component } = useVerifyApi(user, isLoading, error)
+  const { escape, component } = useVerifyQuery(user, isLoading, error)
   if (escape) return component
 
   const nextExam = data

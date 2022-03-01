@@ -5,7 +5,7 @@ import { useContext } from "react"
 import { useQuery } from "react-query"
 import Answers from "../../components/Answers"
 import { findGradedExamById } from "../../services/client/gradedExamClient"
-import useVerifyApi from "../../useVerifyApi/foo"
+import useVerifyQuery from "../../hooks/useVerifyQuery"
 import { UserContext } from "../_app"
 
 const Page = () => {
@@ -13,7 +13,7 @@ const Page = () => {
   const { id } = router.query as { id: string }
   const { isLoading, error, data } = useQuery(id, () => findGradedExamById(id))
   const user = useContext(UserContext)
-  const { escape, component } = useVerifyApi(user, isLoading, error)
+  const { escape, component } = useVerifyQuery(user, isLoading, error)
 
   if (escape) return component
   const gt = data

@@ -8,6 +8,11 @@ export const getExams = async () => {
   return response.data
 }
 
+export const findExamById = async (id: string) => {
+  const response = await axios.get(`${url}/${id}`)
+  return response.data
+}
+
 export const getNextExam = async () => {
   const config = setAuthToken()
 

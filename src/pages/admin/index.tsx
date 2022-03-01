@@ -2,7 +2,7 @@ import { Button, Container, Divider, Typography } from "@mui/material"
 import { useContext, useEffect, useState } from "react"
 import { useQuery } from "react-query"
 import { getExams } from "../../services/client/examClient"
-import useVerifyApi from "../../useVerifyApi/foo"
+import useVerifyQuery from "../../hooks/useVerifyQuery"
 import { UserContext } from "../_app"
 
 const styles = {
@@ -27,7 +27,7 @@ const Admin = () => {
     setExams(data)
   }, [data])
 
-  const { escape, component } = useVerifyApi(user, isLoading, error)
+  const { escape, component } = useVerifyQuery(user, isLoading, error)
   if (escape) return component
 
   const selectTest = (id) => {

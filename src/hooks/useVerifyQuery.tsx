@@ -6,7 +6,7 @@ type Check = {
   component?: JSX.Element
 }
 
-const useVerifyApi = (
+const useVerifyQuery = (
   user: StoredUser | null,
   isLoading: boolean,
   error: any
@@ -37,4 +37,4 @@ const useVerifyApi = (
   }
 }
 
-export default useVerifyApi
+export default useVerifyQuery
