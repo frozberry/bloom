@@ -6,25 +6,6 @@ import useVerifyQuery from "../../hooks/useVerifyQuery"
 import { findExamById } from "../../services/client/examClient"
 import { UserContext } from "../_app"
 
-const styles = {
-  paper: {
-    paddingTop: 10,
-    paddingBottom: 10,
-    paddingRight: 20,
-    paddingLeft: 20,
-    marginRight: 20,
-  },
-  center: {
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-  },
-  img: {
-    marginTop: 10,
-    marginBottom: 20,
-  },
-}
-
 const Problem = ({
   problem,
   viewOnly,
@@ -38,11 +19,11 @@ const Problem = ({
         <b>Question {problem.num}</b>
       </Typography>
       <Typography sx={{ mb: 3 }}>{problem.question}</Typography>
-      {problem.img && (
+      {/* {problem.img && (
         <div style={styles.center}>
           <img style={styles.img} src={problem.img} />
         </div>
-      )}
+      )} */}
       {problem.multi ? (
         <MultipleChoice problem={problem} viewOnly={viewOnly} />
       ) : (
@@ -63,25 +44,17 @@ const MultipleChoice = ({ problem, viewOnly }) => {
   // }, [])
 
   return (
-    <div
-      style={{
-        display: "flex",
-        flexDirection: "row",
-        alignItems: "center",
-      }}
-    >
+    <Box sx={{ display: "flex", alignItems: "center" }}>
       {problem.options.map((option) => {
         const selected = problem.selected === option
         return (
           <Paper
             key={option}
-            style={{
-              paddingTop: 10,
-              paddingBottom: 10,
-              paddingRight: 20,
-              paddingLeft: 20,
-              marginRight: 20,
-              backgroundColor: selected ? "#4287f5" : null,
+            sx={{
+              py: 1.5,
+              px: 6,
+              mr: 2,
+              backgroundColor: "primary.light",
               textColor: "white",
               cursor: "pointer",
             }}
@@ -91,17 +64,11 @@ const MultipleChoice = ({ problem, viewOnly }) => {
             //     : () => dispatch(selectOption(test, problem.question, option))
             // }
           >
-            <Typography
-              style={{
-                color: selected ? "white" : null,
-              }}
-            >
-              {option}
-            </Typography>
+            <Typography mb={0}>{option}</Typography>
           </Paper>
         )
       })}
-    </div>
+    </Box>
   )
 }
 
