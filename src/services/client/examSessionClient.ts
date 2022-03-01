@@ -10,8 +10,12 @@ export const findUsersExamSession = async () => {
   return response.data
 }
 
-export const createTestSession = async () => {
-  // const config = setAuthToken()
-  // const response = await axios.get(`${url}/next`, config)
-  // return response.data
+export const createTestSession = async (examId: string) => {
+  const config = setAuthToken()
+  const data = {
+    examId,
+  }
+
+  const response = await axios.post(url, data, config)
+  return response.data
 }
