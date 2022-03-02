@@ -4,6 +4,7 @@ import * as yup from "yup"
 import FormTextField from "../../components/forms/FormTextField"
 import Link from "next/link"
 import axios from "axios"
+import { NextRouter, useRouter } from "next/router"
 
 type FormValues = {
   email: string
@@ -22,22 +23,28 @@ const validationSchema = yup.object().shape({
 
 const onSubmit = async (
   values: FormValues,
-  formikHelpers: FormikHelpers<FormValues>
+  formikHelpers: FormikHelpers<FormValues>,
+  router: NextRouter
 ) => {
   const res = await axios.post("/api/login", {
     email: values.email,
     password: values.password,
   })
-  console.log(res.data)
 
-  localStorage.setItem(
-    "loggedWaterfrontUser",
-    JSON.stringify({ token: res.data })
-  )
+  if (res.status === 200) {
+    localStorage.setItem(
+      "loggedWaterfrontUser",
+      JSON.stringify({ token: res.data })
+    )
+    router.push("/home")
+    router.reload()
+  }
+
   formikHelpers.setSubmitting(false)
 }
 
 export default function App() {
+  const router = useRouter()
   return (
     <Container maxWidth="xs">
       <Box sx={{ my: 4 }}>
@@ -47,7 +54,9 @@ export default function App() {
       <Formik
         initialValues={initialValues}
         validationSchema={validationSchema}
-        onSubmit={onSubmit}
+        onSubmit={(values, formikHelpers) =>
+          onSubmit(values, formikHelpers, router)
+        }
       >
         {(formikProps: FormikProps<FormValues>) => (
           <Form noValidate autoComplete="off">

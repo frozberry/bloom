@@ -1,5 +1,7 @@
 // MockTests.com Maths 2
 
+import { Prisma } from "@prisma/client"
+
 const problems = [
   {
     question: "Calculate 7 x 191",
