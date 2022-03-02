@@ -12,6 +12,8 @@ import "../styles.css"
 
 import { QueryClient, QueryClientProvider } from "react-query"
 import { StoredUser } from "../lib/types"
+import { Toaster } from "react-hot-toast"
+
 const queryClient = new QueryClient()
 
 // Client-side cache, shared for the whole session of the user in the browser.
@@ -53,6 +55,7 @@ export default function MyApp(props: MyAppProps) {
           <ThemeProvider theme={theme}>
             <CssBaseline />
             <Header />
+            <Toaster />
             <Component {...pageProps} />
           </ThemeProvider>
         </QueryClientProvider>

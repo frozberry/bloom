@@ -4,6 +4,7 @@ import * as yup from "yup"
 import FormTextField from "../../components/forms/FormTextField"
 import Link from "next/link"
 import { login } from "../../services/client/accountClient"
+import toast from "react-hot-toast"
 
 export default function App() {
   type FormValues = {
@@ -25,20 +26,17 @@ export default function App() {
     values: FormValues,
     formikHelpers: FormikHelpers<FormValues>
   ) => {
-    const res = await login(values.email, values.password)
-
-    if (res.status === 200) {
+    try {
+      const res = await login(values.email, values.password)
       localStorage.setItem(
         "loggedWaterfrontUser",
         JSON.stringify({ token: res.data })
       )
       location.href = "/home"
-    } else {
-      console.log("There was an error logging in")
-      console.log(res.status)
+    } catch (e) {
+      toast.error("error")
+      formikHelpers.setSubmitting(false)
     }
-
-    formikHelpers.setSubmitting(false)
   }
 
   return (
