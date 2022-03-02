@@ -1,5 +1,5 @@
 import { Container } from "@mui/material"
-import { getSortedExams } from "../../services/client/gradedExamClient"
+import { getExamResultsOverview } from "../../services/client/gradedExamClient"
 import SingleAttempt from "../../components/results/SingleExamAttempt"
 import MultipleAttempts from "../../components/results/MultipleExamAttempts"
 import useEscapeComponent from "../../hooks/useEscapeComponent"
@@ -8,7 +8,7 @@ import useAuthQuery from "../../hooks/useAuthQuery"
 const ResultsList = () => {
   const { user, isLoading, error, data } = useAuthQuery(
     "gradedTestsData",
-    getSortedExams
+    getExamResultsOverview
   )
   const { escape, component } = useEscapeComponent(user, isLoading, error)
 
