@@ -1,10 +1,7 @@
-import { useContext } from "react"
 import { Container } from "@mui/material"
-import { useQuery } from "react-query"
 import { getSortedExams } from "../../services/client/gradedExamClient"
 import SingleAttempt from "../../components/results/SingleExamAttempt"
 import MultipleAttempts from "../../components/results/MultipleExamAttempts"
-import { UserContext } from "../_app"
 import useVerifyQuery from "../../hooks/useVerifyQuery"
 import useAuthQuery from "../../hooks/useAuthQuery"
 
