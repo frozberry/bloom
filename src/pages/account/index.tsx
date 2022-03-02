@@ -59,7 +59,7 @@ export default function App() {
               />
             </Box>
             <Box>
-              <Typography variant="subtitle2">New assword</Typography>
+              <Typography variant="subtitle2">New password</Typography>
               <Field
                 name="newPassword"
                 placeholder="********"
