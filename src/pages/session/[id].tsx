@@ -122,7 +122,7 @@ const Page = () => {
       <Typography>{exam.num}</Typography>
       <Typography>{exam.date}</Typography>
       {exam.problems.map((problem) => {
-        return <Problem problem={problem} key={problem.id} />
+        return <Problem problem={problem} viewOnly={false} key={problem.id} />
       })}
     </Container>
   )
