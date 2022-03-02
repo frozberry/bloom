@@ -5,6 +5,8 @@ import FormTextField from "../../components/forms/FormTextField"
 import Link from "next/link"
 import { login } from "../../services/client/accountClient"
 import toast from "react-hot-toast"
+import axios, { AxiosError } from "axios"
+import { ApiError } from "../../lib/types"
 
 export default function App() {
   type FormValues = {
@@ -28,13 +30,22 @@ export default function App() {
   ) => {
     try {
       const res = await login(values.email, values.password)
+
       localStorage.setItem(
         "loggedWaterfrontUser",
         JSON.stringify({ token: res.data })
       )
+
       location.href = "/home"
     } catch (e) {
-      toast.error("error")
+      const error = e as AxiosError<ApiError>
+
+      if (axios.isAxiosError(error)) {
+        toast.error(error.response?.data.message as string)
+      } else {
+        toast.error("Unexpected error")
+      }
+
       formikHelpers.setSubmitting(false)
     }
   }

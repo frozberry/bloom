@@ -6,7 +6,7 @@ export const login = async (email: string, password: string) => {
     password,
   }
   const res = await axios.post("/api/login", data)
-  return res
+  return res.data
 }
 
 export const signup = async (
@@ -20,5 +20,5 @@ export const signup = async (
     password,
   }
   const res = await axios.post("/api/users", data)
-  return res
+  return res.data
 }

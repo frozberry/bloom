@@ -58,3 +58,9 @@ export type StoredUser = {
   token: string
   email: string
 }
+
+/* -------------------------------- ApiError -------------------------------- */
+export type ApiError = {
+  type: string
+  message: string
+}
