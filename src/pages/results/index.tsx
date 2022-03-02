@@ -2,7 +2,7 @@ import { Container } from "@mui/material"
 import { getSortedExams } from "../../services/client/gradedExamClient"
 import SingleAttempt from "../../components/results/SingleExamAttempt"
 import MultipleAttempts from "../../components/results/MultipleExamAttempts"
-import useVerifyQuery from "../../hooks/useVerifyQuery"
+import useEscapeComponent from "../../hooks/useEscapeComponent"
 import useAuthQuery from "../../hooks/useAuthQuery"
 
 const ResultsList = () => {
@@ -10,7 +10,7 @@ const ResultsList = () => {
     "gradedTestsData",
     getSortedExams
   )
-  const { escape, component } = useVerifyQuery(user, isLoading, error)
+  const { escape, component } = useEscapeComponent(user, isLoading, error)
 
   if (escape) return component
 

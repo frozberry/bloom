@@ -2,7 +2,7 @@ import { useRouter } from "next/router"
 import Loading from "../components/Loading"
 import { StoredUser } from "../lib/types"
 
-type Check = {
+type Escape = {
   escape: boolean
   component?: JSX.Element
 }
@@ -13,11 +13,11 @@ const NoUser = () => {
   return null
 }
 
-const useVerifyQuery = (
+const useEscapeComponent = (
   user: StoredUser | null | undefined,
   isLoading: boolean,
   error: any
-): Check => {
+): Escape => {
   if (user === null) {
     return {
       escape: true,
@@ -44,4 +44,4 @@ const useVerifyQuery = (
   }
 }
 
-export default useVerifyQuery
+export default useEscapeComponent

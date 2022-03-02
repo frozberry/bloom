@@ -3,7 +3,7 @@ import Link from "next/link"
 import { useRouter } from "next/router"
 import Answers from "../../components/Answers"
 import { findGradedExamById } from "../../services/client/gradedExamClient"
-import useVerifyQuery from "../../hooks/useVerifyQuery"
+import useEscapeComponent from "../../hooks/useEscapeComponent"
 import useAuthQuery from "../../hooks/useAuthQuery"
 
 const Page = () => {
@@ -12,7 +12,7 @@ const Page = () => {
   const { user, isLoading, error, data } = useAuthQuery(id, () =>
     findGradedExamById(id)
   )
-  const { escape, component } = useVerifyQuery(user, isLoading, error)
+  const { escape, component } = useEscapeComponent(user, isLoading, error)
 
   if (escape) return component
 

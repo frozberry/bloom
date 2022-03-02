@@ -1,13 +1,13 @@
 import { Button, Container, Typography } from "@mui/material"
 import { useRouter } from "next/router"
 import { getNextExam } from "../../services/client/examClient"
-import useVerifyQuery from "../../hooks/useVerifyQuery"
+import useEscapeComponent from "../../hooks/useEscapeComponent"
 import useAuthQuery from "../../hooks/useAuthQuery"
 
 const Home = () => {
   const router = useRouter()
   const { user, isLoading, error, data } = useAuthQuery("nextExam", getNextExam)
-  const { escape, component } = useVerifyQuery(user, isLoading, error)
+  const { escape, component } = useEscapeComponent(user, isLoading, error)
 
   if (escape) return component
 

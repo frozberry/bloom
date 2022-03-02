@@ -1,7 +1,7 @@
 import { Box, Container, Paper, TextField, Typography } from "@mui/material"
 import { useRouter } from "next/router"
 import useAuthQuery from "../../hooks/useAuthQuery"
-import useVerifyQuery from "../../hooks/useVerifyQuery"
+import useEscapeComponent from "../../hooks/useEscapeComponent"
 import { findExamById } from "../../services/client/examClient"
 
 const Problem = ({
@@ -107,7 +107,7 @@ const Page = () => {
   const { user, isLoading, error, data } = useAuthQuery(id, () =>
     findExamById(id)
   )
-  const { escape, component } = useVerifyQuery(user, isLoading, error)
+  const { escape, component } = useEscapeComponent(user, isLoading, error)
 
   if (escape) return component
 
