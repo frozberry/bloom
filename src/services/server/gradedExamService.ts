@@ -2,6 +2,7 @@ import { GradedExam, User } from "@prisma/client"
 import { prisma } from "../../prisma/client"
 import dayjs from "dayjs"
 import _ from "lodash"
+import { ExamResultOverivew } from "../../lib/types"
 
 export const getGradedExams = async () => {
   const gradedExams = await prisma.gradedExam.findMany()
@@ -41,8 +42,7 @@ export const getSortedGradedExams = async (userId: string) => {
   })
   const exams = await prisma.exam.findMany()
 
-  // TODO improve types
-  const examSorted: { examId: string; num: number; attempts: any }[] = []
+  const examSorted: ExamResultOverivew[] = []
 
   exams.forEach((t) => {
     const usersAttempts = gradedExams.filter((gt) => gt.examId === t.id)

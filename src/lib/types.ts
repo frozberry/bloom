@@ -1,4 +1,4 @@
-import { Category, Prisma } from "@prisma/client"
+import { Category, GradedExam, Prisma } from "@prisma/client"
 
 /* ----------------------------- UserWithoutDate ---------------------------- */
 const userWithoutDate = Prisma.validator<Prisma.UserArgs>()({
@@ -53,6 +53,7 @@ export type ResetPasswordToken = {
 }
 
 /* ------------------------------- StoredUser ------------------------------- */
+
 export type StoredUser = {
   id: string
   token: string
@@ -63,4 +64,11 @@ export type StoredUser = {
 export type ServerError = {
   type: string
   message: string
+}
+
+/* --------------------------- ExamResultOverview --------------------------- */
+export type ExamResultOverivew = {
+  examId: string
+  num: number
+  attempts: GradedExam[]
 }
