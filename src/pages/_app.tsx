@@ -21,18 +21,23 @@ interface MyAppProps extends AppProps {
   emotionCache?: EmotionCache
 }
 
-export const UserContext = createContext<StoredUser | null>(null)
+export const UserContext = createContext<StoredUser | null | undefined>(
+  undefined
+)
 
 export default function MyApp(props: MyAppProps) {
   const { Component, emotionCache = clientSideEmotionCache, pageProps } = props
 
-  const [user, setUser] = useState<StoredUser | null>(null)
+  const [user, setUser] = useState<StoredUser | null | undefined>(undefined)
+  console.log(user)
 
   useEffect(() => {
     const loggedUserJson = localStorage.getItem("loggedWaterfrontUser")
     if (loggedUserJson) {
       const u = JSON.parse(loggedUserJson)
       setUser(u)
+    } else {
+      setUser(null)
     }
   }, [])
 

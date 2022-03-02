@@ -1,3 +1,7 @@
+import { Box, Button } from "@mui/material"
+import Link from "next/link"
+import { useRouter } from "next/router"
+import { useEffect } from "react"
 import Loading from "../components/Loading"
 import { StoredUser } from "../lib/types"
 
@@ -6,12 +10,25 @@ type Check = {
   component?: JSX.Element
 }
 
+const NoUser = () => {
+  const router = useRouter()
+  router.push("/")
+  return null
+}
+
 const useVerifyQuery = (
-  user: StoredUser | null,
+  user: StoredUser | null | undefined,
   isLoading: boolean,
   error: any
 ): Check => {
-  if (isLoading) {
+  if (user === null) {
+    return {
+      escape: true,
+      component: <NoUser />,
+    }
+  }
+
+  if (isLoading || user === undefined) {
     return {
       escape: true,
       component: <Loading />,
@@ -21,14 +38,7 @@ const useVerifyQuery = (
   if (error) {
     return {
       escape: true,
-      component: <p>Error: {error}</p>,
-    }
-  }
-
-  if (!user) {
-    return {
-      escape: true,
-      component: <p>You are not logged in</p>,
+      component: <p>Error: {error.message}</p>,
     }
   }
 
