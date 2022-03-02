@@ -8,7 +8,7 @@ import {
   getUsers,
 } from "../../../services/server/userService"
 import verifyUser from "../../../lib/verifyUser"
-import { ApiError, UserWithoutDate } from "../../../lib/types"
+import { ServerError, UserWithoutDate } from "../../../lib/types"
 
 type PostBody = {
   parentName: string
@@ -33,7 +33,7 @@ const GET = async (
 
 const POST = async (
   req: NextApiRequest,
-  res: NextApiResponse<string | ApiError>
+  res: NextApiResponse<string | ServerError>
 ) => {
   const { parentName, email, password }: PostBody = req.body
 

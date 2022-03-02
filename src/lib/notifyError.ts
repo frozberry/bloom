@@ -1,9 +1,9 @@
 import axios, { AxiosError } from "axios"
 import toast from "react-hot-toast"
-import { ApiError } from "./types"
+import { ServerError } from "./types"
 
 const notifyError = (e: any) => {
-  const error = e as AxiosError<ApiError>
+  const error = e as AxiosError<ServerError>
   if (axios.isAxiosError(error)) {
     toast.error(error.response?.data.message as string)
   } else {

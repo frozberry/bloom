@@ -1,10 +1,10 @@
 import type { NextApiRequest, NextApiResponse } from "next"
-import { ApiError } from "../../../lib/types"
+import { ServerError } from "../../../lib/types"
 import { login } from "../../../services/server/userService"
 
 const handler = async (
   req: NextApiRequest,
-  res: NextApiResponse<string | ApiError>
+  res: NextApiResponse<string | ServerError>
 ) => {
   switch (req.method) {
     case "POST":
