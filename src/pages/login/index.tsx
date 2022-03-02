@@ -4,6 +4,7 @@ import * as yup from "yup"
 import FormTextField from "../../components/forms/FormTextField"
 import Link from "next/link"
 import axios from "axios"
+import { login } from "../../services/client/accountClient"
 
 export default function App() {
   type FormValues = {
@@ -25,10 +26,7 @@ export default function App() {
     values: FormValues,
     formikHelpers: FormikHelpers<FormValues>
   ) => {
-    const res = await axios.post("/api/login", {
-      email: values.email,
-      password: values.password,
-    })
+    const res = await login(values.email, values.password)
 
     if (res.status === 200) {
       localStorage.setItem(
@@ -36,6 +34,8 @@ export default function App() {
         JSON.stringify({ token: res.data })
       )
       location.href = "home"
+    } else {
+      console.log("There was an error logging in")
     }
 
     formikHelpers.setSubmitting(false)
