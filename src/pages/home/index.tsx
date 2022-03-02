@@ -12,7 +12,8 @@ const Home = () => {
 
   if (escape) return component
 
-  const nextExam = data
+  const nextExam = data as Exam
+  console.log(nextExam)
 
   const startTest = () => {
     if (
@@ -32,7 +33,7 @@ const Home = () => {
   return (
     <Container>
       {/* TODO needs a better way to handle no more exams as */}
-      {nextExam === "" ? (
+      {!nextExam ? (
         <>
           <Typography>The next test will be released a week.</Typography>
           <Typography>

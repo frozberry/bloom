@@ -17,6 +17,7 @@ export const findExamById = async (id: string) => {
 export const getNextExam = async () => {
   const config = setAuthToken()
 
-  const response = await axios.get<Exam>(`${url}/next`, config)
+  // I think this is being returned as an empty string instead of null
+  const response = await axios.get<Exam | null>(`${url}/next`, config)
   return response.data
 }
