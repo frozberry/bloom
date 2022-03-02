@@ -42,14 +42,20 @@ export const createUser = async (
   parentName: string,
   email: string,
   password: string
-): Promise<User | null> => {
+): Promise<string> => {
   const passwordHash = await bcrypt.hash(password, 10)
 
   const user = await prisma.user.create({
     data: { parentName, email, passwordHash },
   })
 
-  return user
+  const token = jwt.sign(
+    { id: user.id, email: user.email },
+    // eslint-disable-next-line
+    process.env.JWT_SECRET!
+  )
+
+  return token
 }
 
 export const editUser = async (

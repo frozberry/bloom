@@ -33,9 +33,10 @@ export default function App() {
         "loggedWaterfrontUser",
         JSON.stringify({ token: res.data })
       )
-      location.href = "home"
+      location.href = "/home"
     } else {
       console.log("There was an error logging in")
+      console.log(res.status)
     }
 
     formikHelpers.setSubmitting(false)

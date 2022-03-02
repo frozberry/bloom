@@ -5,8 +5,8 @@ export const login = async (email: string, password: string) => {
     email,
     password,
   }
-  const response = await axios.post("/api/login", data)
-  return response.data
+  const res = await axios.post("/api/login", data)
+  return res
 }
 
 export const signup = async (
@@ -19,6 +19,6 @@ export const signup = async (
     email,
     password,
   }
-  const response = await axios.post("/api/users", data)
-  return response.data
+  const res = await axios.post("/api/users", data)
+  return res
 }

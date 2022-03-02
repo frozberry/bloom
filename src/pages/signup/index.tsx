@@ -4,6 +4,8 @@ import * as yup from "yup"
 import FormTextField from "../../components/forms/FormTextField"
 import Image from "next/image"
 import Link from "next/link"
+import { signup } from "../../services/client/accountClient"
+import { LocalGroceryStore } from "@mui/icons-material"
 
 export default function App() {
   type FormValues = {
@@ -24,14 +26,23 @@ export default function App() {
     password: yup.string().required("Required"),
   })
 
-  const onSubmit = (
+  const onSubmit = async (
     values: FormValues,
     formikHelpers: FormikHelpers<FormValues>
   ) => {
-    alert(values.name)
-    alert(values.email)
-    alert(values.password)
-    
+    const res = await signup(values.name, values.email, values.password)
+
+    if (res.status === 200) {
+      localStorage.setItem(
+        "loggedWaterfrontUser",
+        JSON.stringify({ token: res.data })
+      )
+      location.href = "/home"
+    } else {
+      console.log("There was an error creating an account")
+      console.log(res.status)
+    }
+
     formikHelpers.setSubmitting(false)
   }
 
