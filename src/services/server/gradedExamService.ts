@@ -36,7 +36,7 @@ export const getUsersGradedExams = async (userId: string) => {
 
 // TODO copying old API - maybe can be refactored
 // Sorting could be done on frontend, but this doesn't include gradedProblems
-export const getSortedGradedExams = async (userId: string) => {
+export const getExamResultsOverview = async (userId: string) => {
   const gradedExams = await prisma.gradedExam.findMany({
     where: { userId: userId },
   })

@@ -1,6 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from "next"
 import verifyUser from "../../../lib/verifyUser"
-import { getSortedGradedExams } from "../../../services/server/gradedExamService"
+import { getExamResultsOverview } from "../../../services/server/gradedExamService"
 
 // Check NextApiResopnse<> type
 const GET = async (req: NextApiRequest, res: NextApiResponse) => {
@@ -9,7 +9,7 @@ const GET = async (req: NextApiRequest, res: NextApiResponse) => {
     return res.status(401).end("unauthoized token")
   }
 
-  const gradedExams = await getSortedGradedExams(user.id)
+  const gradedExams = await getExamResultsOverview(user.id)
   res.send(gradedExams)
 }
 

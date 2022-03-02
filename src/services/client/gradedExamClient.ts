@@ -11,9 +11,9 @@ export const findGradedExamById = async (id: string) => {
   return res.data
 }
 
-export const getSortedExams = async () => {
+export const getExamResultsOverview = async () => {
   const config = setAuthToken()
 
-  const res = await axios.get(`${url}/test-sorted`, config)
+  const res = await axios.get(`${url}/overview`, config)
   return res.data
 }
