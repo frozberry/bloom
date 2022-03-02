@@ -6,10 +6,13 @@ import SingleAttempt from "../../components/results/SingleExamAttempt"
 import MultipleAttempts from "../../components/results/MultipleExamAttempts"
 import { UserContext } from "../_app"
 import useVerifyQuery from "../../hooks/useVerifyQuery"
+import useAuthQuery from "../../hooks/useAuthQuery"
 
 const ResultsList = () => {
-  const { isLoading, error, data } = useQuery("gradedTestsData", getSortedExams)
-  const user = useContext(UserContext)
+  const { user, isLoading, error, data } = useAuthQuery(
+    "gradedTestsData",
+    getSortedExams
+  )
   const { escape, component } = useVerifyQuery(user, isLoading, error)
 
   if (escape) return component
