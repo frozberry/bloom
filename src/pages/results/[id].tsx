@@ -5,6 +5,7 @@ import Answers from "../../components/Answers"
 import { findGradedExamById } from "../../services/client/gradedExamClient"
 import useEscapeComponent from "../../hooks/useEscapeComponent"
 import useAuthQuery from "../../hooks/useAuthQuery"
+import { GradedExamWithGradedProblems } from "../../lib/types"
 
 const Page = () => {
   const router = useRouter()
@@ -16,7 +17,7 @@ const Page = () => {
 
   if (escape) return component
 
-  const gt = data
+  const gradedExam = data as GradedExamWithGradedProblems
 
   return (
     <Container
@@ -37,10 +38,10 @@ const Page = () => {
           You scored
         </Typography>
         <Typography align="center" variant="h3">
-          {gt.percent}%
+          {gradedExam.percent}%
         </Typography>
         <Typography align="center">
-          {`${gt.marks}/${gt.total}`} marks
+          {`${gradedExam.marks}/${gradedExam.total}`} marks
         </Typography>
         <Link href={`/exams/${id}`} passHref>
           <Button variant="contained" sx={{ mt: 2 }}>
@@ -48,7 +49,7 @@ const Page = () => {
           </Button>
         </Link>
       </Paper>
-      <Answers gradedProblems={gt.gradedProblems} />
+      <Answers gradedProblems={gradedExam.gradedProblems} />
     </Container>
   )
 }
