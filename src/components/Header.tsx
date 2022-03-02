@@ -43,9 +43,10 @@ const Header = () => {
     <>
       <HeaderItem link="/results">Results</HeaderItem>
       <HeaderItem link="/stats">Stats</HeaderItem>
-      <Button sx={{ color: "black" }} onClick={handlePortal}>
+      <HeaderItem link="/account">Account</HeaderItem>
+      {/* <Button sx={{ color: "black" }} onClick={handlePortal}>
         Account
-      </Button>
+      </Button> */}
       {user?.email === "pannicope@gmail.com" && (
         <HeaderItem link="/admin">Admin</HeaderItem>
       )}
