@@ -1,7 +1,7 @@
 import { Container, Typography } from "@mui/material"
 
-const capitalize = ([first, ...rest]) =>
-  first.toUpperCase() + rest.join("").toLowerCase()
+// const capitalize = ([first, ...rest]) =>
+//   first.toUpperCase() + rest.join("").toLowerCase()
 
 const Stats = () => {
   // const [gcs, setGcs] = useState(null)
@@ -19,7 +19,7 @@ const Stats = () => {
 
   // if (!gcs || !averageGcs || !profile) return null
 
-  const calculatePercent = (gc) => Math.round((100 * gc.correct) / gc.attempts)
+  // const calculatePercent = (gc) => Math.round((100 * gc.correct) / gc.attempts)
 
   // const withAverage = gcs.map((gc) => {
   //   const matchedAverage = averageGcs.filter(

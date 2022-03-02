@@ -33,7 +33,7 @@ const Problem = ({
   )
 }
 
-const MultipleChoice = ({ problem, viewOnly }) => {
+const MultipleChoice = ({ problem, viewOnly }: any) => {
   // const dispatch = useDispatch()
   // const test = useSelector((state) => state.test)
 
@@ -45,7 +45,7 @@ const MultipleChoice = ({ problem, viewOnly }) => {
 
   return (
     <Box sx={{ display: "flex", alignItems: "center" }}>
-      {problem.options.map((option) => {
+      {problem.options.map((option: any) => {
         const selected = problem.selected === option
         return (
           <Paper
@@ -72,7 +72,7 @@ const MultipleChoice = ({ problem, viewOnly }) => {
   )
 }
 
-const InputAnswer = ({ problem, viewOnly }) => {
+const InputAnswer = ({ problem, viewOnly }: any) => {
   // const dispatch = useDispatch()
   // const test = useSelector((state) => state.test)
 
@@ -86,10 +86,10 @@ const InputAnswer = ({ problem, viewOnly }) => {
         <>
           <TextField
             type="number"
-            onChange={() => handleChange(event.target.value)}
+            // onChange={() => handleChange(event.target.value)}
             defaultValue={problem.selected}
             // prevents scroll changing the input
-            onWheelCapture={(e) => {
+            onWheelCapture={(e: any) => {
               e.target.blur()
             }}
           />
@@ -121,7 +121,7 @@ const Page = () => {
       <Typography>{exam.id}</Typography>
       <Typography>{exam.num}</Typography>
       <Typography>{exam.date}</Typography>
-      {exam.problems.map((problem) => {
+      {exam.problems.map((problem: any) => {
         return <Problem problem={problem} viewOnly={false} key={problem.id} />
       })}
     </Container>
