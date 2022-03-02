@@ -7,15 +7,18 @@ import Answers from "../../components/Answers"
 import { findGradedExamById } from "../../services/client/gradedExamClient"
 import useVerifyQuery from "../../hooks/useVerifyQuery"
 import { UserContext } from "../_app"
+import useAuthQuery from "../../hooks/useAuthQuery"
 
 const Page = () => {
   const router = useRouter()
   const { id } = router.query as { id: string }
-  const { isLoading, error, data } = useQuery(id, () => findGradedExamById(id))
-  const user = useContext(UserContext)
+  const { user, isLoading, error, data } = useAuthQuery(id, () =>
+    findGradedExamById(id)
+  )
   const { escape, component } = useVerifyQuery(user, isLoading, error)
 
   if (escape) return component
+
   const gt = data
 
   return (
