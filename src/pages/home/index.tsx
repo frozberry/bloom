@@ -3,6 +3,7 @@ import { useRouter } from "next/router"
 import { getNextExam } from "../../services/client/examClient"
 import useEscapeComponent from "../../hooks/useEscapeComponent"
 import useAuthQuery from "../../hooks/useAuthQuery"
+import { Exam } from "@prisma/client"
 
 const Home = () => {
   const router = useRouter()
