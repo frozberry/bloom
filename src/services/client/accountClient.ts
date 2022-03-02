@@ -5,7 +5,7 @@ export const login = async (email: string, password: string) => {
     email,
     password,
   }
-  const res = await axios.post("/api/login", data)
+  const res = await axios.post<string>("/api/login", data)
 
   localStorage.setItem(
     "loggedWaterfrontUser",
@@ -26,7 +26,7 @@ export const signup = async (
     email,
     password,
   }
-  const res = await axios.post("/api/users", data)
+  const res = await axios.post<string>("/api/users", data)
 
   localStorage.setItem(
     "loggedWaterfrontUser",
