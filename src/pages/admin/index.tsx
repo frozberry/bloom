@@ -22,7 +22,7 @@ const Admin = () => {
   // const router = useRouter()
   const user = useContext(UserContext)
 
-  const [exams, setExams] = useState([])
+  const [exams, setExams] = useState<any>([])
   useEffect(() => {
     setExams(data)
   }, [data])
@@ -30,24 +30,24 @@ const Admin = () => {
   const { escape, component } = useVerifyQuery(user, isLoading, error)
   if (escape) return component
 
-  const selectTest = (id) => {
-    const newExam = exams.map((exam) =>
+  const selectTest = (id: any) => {
+    const newExam = exams.map((exam: any) =>
       exam.id === id ? { ...exam, open: !exam.open } : exam
     )
-    setExams(exams)
+    setExams(newExam)
   }
 
-  const handleDelete = async (id) => {
-    // if (window.confirm("Are you sure you want to delete this?")) {
-    //   try {
-    //     await testService.deleteTest({ token: user.token, id })
-    //     const newTests = tests.filter((t) => t.id !== id)
-    //     setTests(newTests)
-    //   } catch (err) {
-    //     toast.error("error")
-    //   }
-    // }
-  }
+  // const handleDelete = async (id) => {
+  // if (window.confirm("Are you sure you want to delete this?")) {
+  //   try {
+  //     await testService.deleteTest({ token: user.token, id })
+  //     const newTests = tests.filter((t) => t.id !== id)
+  //     setTests(newTests)
+  //   } catch (err) {
+  //     toast.error("error")
+  //   }
+  // }
+  // }
 
   return (
     <Container>
@@ -58,7 +58,7 @@ const Admin = () => {
         New Exam
       </Button>
       {exams &&
-        exams.map((exam) => (
+        exams.map((exam: any) => (
           <div key={exam.id} style={styles.testDiv}>
             <div
               onClick={() => selectTest(exam.id)}
@@ -72,7 +72,7 @@ const Admin = () => {
             <div>
               {exam.open && (
                 <>
-                  {exam.problems.map((p) => (
+                  {exam.problems.map((p: any) => (
                     <div key={p.question}>
                       {/* <Problem problem={p} viewOnly /> */}
                     </div>
@@ -80,7 +80,7 @@ const Admin = () => {
 
                   <Button
                     variant="outlined"
-                    onClick={() => handleDelete(exam.id)}
+                    // onClick={() => handleDelete(exam.id)}
                     color="secondary"
                   >
                     Delete
