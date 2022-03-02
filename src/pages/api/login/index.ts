@@ -15,7 +15,7 @@ const handler = async (
       if (!token) {
         return res.status(401).send({
           type: "invalidLoginCredentials",
-          message: "Email and password do not match",
+          message: "Incorrect email or password",
         })
       }
 
