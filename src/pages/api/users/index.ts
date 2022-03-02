@@ -36,6 +36,7 @@ const POST = async (
   res: NextApiResponse<string | ApiError>
 ) => {
   const { parentName, email, password }: PostBody = req.body
+
   const existingUser = await findUserByEmail(email)
 
   if (!existingUser) {
