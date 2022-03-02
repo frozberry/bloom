@@ -37,3 +37,6 @@ yarn-error.log*
 .vercel
 
 /scripts
+
+# emits from running tsc
+tsconfig.tsbuildinfo
