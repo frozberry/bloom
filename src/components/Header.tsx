@@ -18,11 +18,11 @@ const Header = () => {
     location.href = "/login"
   }
 
-  const handlePortal = async () => {
-    // const url = await stripeService.portal(stripe.stripeId)
-    // window.location.replace(url)
-    alert("stripe portal")
-  }
+  // const handlePortal = async () => {
+  // const url = await stripeService.portal(stripe.stripeId)
+  // window.location.replace(url)
+  // alert("stripe portal")
+  // }
 
   const HeaderItem = (props: HeaderProp) => {
     return (

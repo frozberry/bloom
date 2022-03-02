@@ -3,7 +3,6 @@ import { ServerError } from "../../../lib/types"
 import verifyUser from "../../../lib/verifyUser"
 import {
   changePassword,
-  findUserById,
   validatePassword,
 } from "../../../services/server/userService"
 
