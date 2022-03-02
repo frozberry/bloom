@@ -39,7 +39,7 @@ const POST = async (
 
   const existingUser = await findUserByEmail(email)
 
-  if (!existingUser) {
+  if (existingUser) {
     return res.status(400).send({
       type: "userAlreadyExists",
       message: "Account already exists, maybe you meant to log in?",
