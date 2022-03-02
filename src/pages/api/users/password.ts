@@ -1,5 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from "next"
-import { User } from "@prisma/client"
+import { ServerError } from "../../../lib/types"
+import verifyUser from "../../../lib/verifyUser"
 import {
   changePassword,
   findUserById,
@@ -7,31 +8,42 @@ import {
 } from "../../../services/server/userService"
 
 type PutBody = {
-  userId: string
   currentPassword: string
   newPassword: string
 }
 
-const PUT = async (req: NextApiRequest, res: NextApiResponse<User | null>) => {
-  const { userId, currentPassword, newPassword }: PutBody = req.body
+const PUT = async (req: NextApiRequest, res: NextApiResponse<ServerError>) => {
+  const { currentPassword, newPassword }: PutBody = req.body
+  const user = await verifyUser(req)
 
-  const user = await findUserById(userId)
   if (!user) {
-    return res.status(401).end("user not found")
+    return res.status(401).send({
+      type: "userNotFound",
+      message: "User not found",
+    })
   }
 
   if (newPassword.length < 3) {
-    return res.status(400).end("password too short")
+    return res.status(400).send({
+      type: "passwordTooShort",
+      message: "Password must be at least 3 characters long",
+    })
   }
 
-  const passwordCorrect = await validatePassword(user, currentPassword)
+  const passwordCorrect = await validatePassword(
+    currentPassword,
+    user.passwordHash
+  )
 
   if (!passwordCorrect) {
-    return res.status(400).end("password too short")
+    return res.status(400).send({
+      type: "incorrectPassword",
+      message: "Password is incorrect",
+    })
   }
 
-  const updatedUser = await changePassword(userId, newPassword)
-  res.send(updatedUser)
+  await changePassword(user.id, newPassword)
+  res.status(200).end()
 }
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {

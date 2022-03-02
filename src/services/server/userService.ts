@@ -139,7 +139,7 @@ export const login = async (
     return null
   }
 
-  const passwordCorrect = await validatePassword(user, password)
+  const passwordCorrect = await validatePassword(password, user.passwordHash)
   if (!passwordCorrect) {
     return null
   }
@@ -154,8 +154,11 @@ export const login = async (
 }
 
 /* -------------------------------- Password -------------------------------- */
-export const validatePassword = async (user: User, password: string) => {
-  const correct = await bcrypt.compare(password, user.passwordHash)
+export const validatePassword = async (
+  password: string,
+  passwordHash: string
+) => {
+  const correct = await bcrypt.compare(password, passwordHash)
   return correct
 }
 
