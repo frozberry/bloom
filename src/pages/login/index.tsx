@@ -7,6 +7,7 @@ import { login } from "../../services/client/accountClient"
 import toast from "react-hot-toast"
 import axios, { AxiosError } from "axios"
 import { ApiError } from "../../lib/types"
+import notifyError from "../../lib/notifyError"
 
 export default function App() {
   type FormValues = {
@@ -31,12 +32,7 @@ export default function App() {
     try {
       await login(values.email, values.password)
     } catch (e) {
-      const error = e as AxiosError<ApiError>
-      if (axios.isAxiosError(error)) {
-        toast.error(error.response?.data.message as string)
-      } else {
-        toast.error("Unexpected error")
-      }
+      notifyError(e)
       formikHelpers.setSubmitting(false)
     }
   }
