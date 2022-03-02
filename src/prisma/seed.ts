@@ -3,7 +3,7 @@ import { createExam } from "../services/server/examService"
 import { submitExam } from "../services/server/gradedExamService"
 import problems from "../../exams/one"
 import { findUserByEmail } from "../services/server/userService"
-import { Category } from "@prisma/client"
+import { Category, User } from "@prisma/client"
 
 const deleteAll = async () => {
   await prisma.gradedProblem.deleteMany()
@@ -54,8 +54,8 @@ const createUsers = async () => {
 }
 
 const createGradedCatergories = async () => {
-  const user1 = await findUserByEmail("pannicope@gmail.com")
-  const user2 = await findUserByEmail("henry@henrywu.co.uk")
+  const user1 = (await findUserByEmail("pannicope@gmail.com")) as User
+  const user2 = (await findUserByEmail("henry@henrywu.co.uk")) as User
 
   const users = [user1, user2]
 
@@ -66,7 +66,7 @@ const createGradedCatergories = async () => {
       await prisma.gradedCategory.createMany({
         data: [
           {
-            userId: u!.id,
+            userId: u.id,
             category: c,
           },
         ],
@@ -116,12 +116,12 @@ const main = async () => {
   await createUsers()
   await createGradedCatergories()
   const exam = await createExam(problems)
-  const user = await getUser()
+  const user = (await getUser()) as User
   await createExamSession(user, exam)
   const seedAnswers = await createAnswers(exam)
 
   console.log("Submitting exam")
-  await submitExam(user!, exam.id, seedAnswers)
+  await submitExam(user, exam.id, seedAnswers)
   console.log("Done")
 }
 
