@@ -76,7 +76,6 @@ export default function App() {
               color="primary"
               fullWidth
               disabled={formikProps.isSubmitting}
-              align="center"
             >
               Save
             </Button>
