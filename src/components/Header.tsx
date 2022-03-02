@@ -14,7 +14,8 @@ const Header = () => {
   const user = useContext(UserContext)
 
   const handleLogout = () => {
-    alert("Logging out")
+    localStorage.removeItem("loggedWaterfrontUser")
+    location.href = "/login"
   }
 
   const handlePortal = async () => {
