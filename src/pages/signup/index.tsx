@@ -5,6 +5,7 @@ import FormTextField from "../../components/forms/FormTextField"
 import Image from "next/image"
 import Link from "next/link"
 import { signup } from "../../services/client/accountClient"
+import notifyError from "../../lib/notifyError"
 
 export default function App() {
   type FormValues = {
@@ -29,20 +30,12 @@ export default function App() {
     values: FormValues,
     formikHelpers: FormikHelpers<FormValues>
   ) => {
-    const res = await signup(values.name, values.email, values.password)
-
-    if (res.status === 200) {
-      localStorage.setItem(
-        "loggedWaterfrontUser",
-        JSON.stringify({ token: res.data })
-      )
-      location.href = "/home"
-    } else {
-      console.log("There was an error creating an account")
-      console.log(res.status)
+    try {
+      await signup(values.name, values.email, values.password)
+    } catch (e) {
+      notifyError(e)
+      formikHelpers.setSubmitting(false)
     }
-
-    formikHelpers.setSubmitting(false)
   }
 
   return (
