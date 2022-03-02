@@ -12,6 +12,7 @@ const ResultsList = () => {
   const user = useContext(UserContext)
   const { escape, component } = useVerifyQuery(user, isLoading, error)
 
+  console.log(escape, isLoading, error, data)
   if (escape) return component
 
   return (
