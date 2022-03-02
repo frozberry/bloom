@@ -1,7 +1,9 @@
 import { Box, Container, Paper, TextField, Typography } from "@mui/material"
+import { Exam } from "@prisma/client"
 import { useRouter } from "next/router"
 import useAuthQuery from "../../hooks/useAuthQuery"
 import useEscapeComponent from "../../hooks/useEscapeComponent"
+import { ExamWithProblems } from "../../lib/types"
 import { findExamById } from "../../services/client/examClient"
 
 const Problem = ({
@@ -111,9 +113,7 @@ const Page = () => {
 
   if (escape) return component
 
-  const exam = data
-
-  console.log(data)
+  const exam = data as ExamWithProblems
 
   return (
     <Container>

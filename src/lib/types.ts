@@ -34,6 +34,15 @@ const userProfile = Prisma.validator<Prisma.UserArgs>()({
 
 export type UserProfile = Prisma.UserGetPayload<typeof userProfile>
 
+/* ---------------------------- ExamWithProblems ---------------------------- */
+const examWithProblems = Prisma.validator<Prisma.ExamArgs>()({
+  include: {
+    problems: true,
+  },
+})
+
+export type ExamWithProblems = Prisma.ExamGetPayload<typeof examWithProblems>
+
 /* ---------------------- GradedExamWithGradedProblems ---------------------- */
 const gradedExamWithGradedProblems = Prisma.validator<Prisma.GradedExamArgs>()({
   include: {
