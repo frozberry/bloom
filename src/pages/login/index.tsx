@@ -5,42 +5,42 @@ import FormTextField from "../../components/forms/FormTextField"
 import Link from "next/link"
 import axios from "axios"
 
-type FormValues = {
-  email: string
-  password: string
-}
-
-const initialValues = {
-  email: "",
-  password: "",
-}
-
-const validationSchema = yup.object().shape({
-  email: yup.string().required("Required"),
-  password: yup.string().required("Required"),
-})
-
-const onSubmit = async (
-  values: FormValues,
-  formikHelpers: FormikHelpers<FormValues>
-) => {
-  const res = await axios.post("/api/login", {
-    email: values.email,
-    password: values.password,
-  })
-
-  if (res.status === 200) {
-    localStorage.setItem(
-      "loggedWaterfrontUser",
-      JSON.stringify({ token: res.data })
-    )
-    location.href = "home"
+export default function App() {
+  type FormValues = {
+    email: string
+    password: string
   }
 
-  formikHelpers.setSubmitting(false)
-}
+  const initialValues = {
+    email: "",
+    password: "",
+  }
 
-export default function App() {
+  const validationSchema = yup.object().shape({
+    email: yup.string().required("Required"),
+    password: yup.string().required("Required"),
+  })
+
+  const onSubmit = async (
+    values: FormValues,
+    formikHelpers: FormikHelpers<FormValues>
+  ) => {
+    const res = await axios.post("/api/login", {
+      email: values.email,
+      password: values.password,
+    })
+
+    if (res.status === 200) {
+      localStorage.setItem(
+        "loggedWaterfrontUser",
+        JSON.stringify({ token: res.data })
+      )
+      location.href = "home"
+    }
+
+    formikHelpers.setSubmitting(false)
+  }
+
   return (
     <Container maxWidth="xs">
       <Box sx={{ my: 4 }}>

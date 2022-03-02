@@ -3,27 +3,27 @@ import { Formik, FormikHelpers, FormikProps, Form, Field } from "formik"
 import * as yup from "yup"
 import FormTextField from "../../components/forms/FormTextField"
 
-type FormValues = {
-  email: string
-}
-
-const initialValues = {
-  email: "",
-}
-
-const validationSchema = yup.object().shape({
-  email: yup.string().required("Required"),
-})
-
-const onSubmit = (
-  values: FormValues,
-  formikHelpers: FormikHelpers<FormValues>
-) => {
-  alert(values.email)
-  formikHelpers.setSubmitting(false)
-}
-
 export default function App() {
+  type FormValues = {
+    email: string
+  }
+
+  const initialValues = {
+    email: "",
+  }
+
+  const validationSchema = yup.object().shape({
+    email: yup.string().required("Required"),
+  })
+
+  const onSubmit = (
+    values: FormValues,
+    formikHelpers: FormikHelpers<FormValues>
+  ) => {
+    alert(values.email)
+    formikHelpers.setSubmitting(false)
+  }
+
   return (
     <Container maxWidth="xs">
       <Box sx={{ my: 4 }}>

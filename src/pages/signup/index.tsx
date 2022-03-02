@@ -5,35 +5,35 @@ import FormTextField from "../../components/forms/FormTextField"
 import Image from "next/image"
 import Link from "next/link"
 
-type FormValues = {
-  name: string
-  email: string
-  password: string
-}
-
-const initialValues = {
-  name: "",
-  email: "",
-  password: "",
-}
-
-const validationSchema = yup.object().shape({
-  name: yup.string().required("Required"),
-  email: yup.string().required("Required"),
-  password: yup.string().required("Required"),
-})
-
-const onSubmit = (
-  values: FormValues,
-  formikHelpers: FormikHelpers<FormValues>
-) => {
-  alert(values.name)
-  alert(values.email)
-  alert(values.password)
-  formikHelpers.setSubmitting(false)
-}
-
 export default function App() {
+  type FormValues = {
+    name: string
+    email: string
+    password: string
+  }
+
+  const initialValues = {
+    name: "",
+    email: "",
+    password: "",
+  }
+
+  const validationSchema = yup.object().shape({
+    name: yup.string().required("Required"),
+    email: yup.string().required("Required"),
+    password: yup.string().required("Required"),
+  })
+
+  const onSubmit = (
+    values: FormValues,
+    formikHelpers: FormikHelpers<FormValues>
+  ) => {
+    alert(values.name)
+    alert(values.email)
+    alert(values.password)
+    formikHelpers.setSubmitting(false)
+  }
+
   return (
     <Container maxWidth="xs">
       <Box sx={{ my: 4 }}>
