@@ -57,7 +57,7 @@ export default function App() {
               fullWidth
               disabled={formikProps.isSubmitting}
             >
-              Submit
+              Reset
             </Button>
           </Form>
         )}
