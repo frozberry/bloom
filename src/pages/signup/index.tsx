@@ -5,7 +5,6 @@ import FormTextField from "../../components/forms/FormTextField"
 import Image from "next/image"
 import Link from "next/link"
 import { signup } from "../../services/client/accountClient"
-import { LocalGroceryStore } from "@mui/icons-material"
 
 export default function App() {
   type FormValues = {

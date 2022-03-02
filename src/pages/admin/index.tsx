@@ -4,6 +4,7 @@ import { useQuery } from "react-query"
 import { getExams } from "../../services/client/examClient"
 import useVerifyQuery from "../../hooks/useVerifyQuery"
 import { UserContext } from "../_app"
+import useAuthQuery from "../../hooks/useAuthQuery"
 
 const styles = {
   testTitle: {},
@@ -18,16 +19,14 @@ const styles = {
 }
 
 const Admin = () => {
-  const { isLoading, error, data } = useQuery("nextExam", getExams)
-  // const router = useRouter()
-  const user = useContext(UserContext)
-
+  const { user, isLoading, error, data } = useAuthQuery("getExams", getExams)
+  const { escape, component } = useVerifyQuery(user, isLoading, error)
   const [exams, setExams] = useState<any>([])
+
   useEffect(() => {
     setExams(data)
   }, [data])
 
-  const { escape, component } = useVerifyQuery(user, isLoading, error)
   if (escape) return component
 
   const selectTest = (id: any) => {

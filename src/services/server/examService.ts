@@ -1,4 +1,4 @@
-import { Category, User } from "@prisma/client"
+import { Category } from "@prisma/client"
 import { prisma } from "../../prisma/client"
 import _ from "lodash"
 import { Numbered } from "../../lib/types"

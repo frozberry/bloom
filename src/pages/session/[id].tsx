@@ -1,10 +1,8 @@
 import { Box, Container, Paper, TextField, Typography } from "@mui/material"
 import { useRouter } from "next/router"
-import { useContext } from "react"
-import { useQuery } from "react-query"
+import useAuthQuery from "../../hooks/useAuthQuery"
 import useVerifyQuery from "../../hooks/useVerifyQuery"
 import { findExamById } from "../../services/client/examClient"
-import { UserContext } from "../_app"
 
 const Problem = ({
   problem,
@@ -106,8 +104,9 @@ const Page = () => {
   const router = useRouter()
   const { id } = router.query as { id: string }
 
-  const { isLoading, error, data } = useQuery(id, () => findExamById(id))
-  const user = useContext(UserContext)
+  const { user, isLoading, error, data } = useAuthQuery(id, () =>
+    findExamById(id)
+  )
   const { escape, component } = useVerifyQuery(user, isLoading, error)
 
   if (escape) return component

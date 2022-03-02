@@ -1,7 +1,4 @@
-import { Box, Button } from "@mui/material"
-import Link from "next/link"
 import { useRouter } from "next/router"
-import { useEffect } from "react"
 import Loading from "../components/Loading"
 import { StoredUser } from "../lib/types"
 

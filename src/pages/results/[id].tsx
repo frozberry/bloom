@@ -1,12 +1,9 @@
 import { Button, Container, Paper, Typography } from "@mui/material"
 import Link from "next/link"
 import { useRouter } from "next/router"
-import { useContext } from "react"
-import { useQuery } from "react-query"
 import Answers from "../../components/Answers"
 import { findGradedExamById } from "../../services/client/gradedExamClient"
 import useVerifyQuery from "../../hooks/useVerifyQuery"
-import { UserContext } from "../_app"
 import useAuthQuery from "../../hooks/useAuthQuery"
 
 const Page = () => {

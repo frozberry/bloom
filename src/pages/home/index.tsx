@@ -1,17 +1,14 @@
 import { Button, Container, Typography } from "@mui/material"
 import { useRouter } from "next/router"
-import { useContext } from "react"
-import { useQuery } from "react-query"
 import { getNextExam } from "../../services/client/examClient"
 import useVerifyQuery from "../../hooks/useVerifyQuery"
-import { UserContext } from "../_app"
+import useAuthQuery from "../../hooks/useAuthQuery"
 
 const Home = () => {
-  const { isLoading, error, data } = useQuery("nextExam", getNextExam)
   const router = useRouter()
-  const user = useContext(UserContext)
-
+  const { user, isLoading, error, data } = useAuthQuery("nextExam", getNextExam)
   const { escape, component } = useVerifyQuery(user, isLoading, error)
+
   if (escape) return component
 
   const nextExam = data

@@ -3,7 +3,6 @@ import { Formik, FormikHelpers, FormikProps, Form, Field } from "formik"
 import * as yup from "yup"
 import FormTextField from "../../components/forms/FormTextField"
 import Link from "next/link"
-import axios from "axios"
 import { login } from "../../services/client/accountClient"
 
 export default function App() {
