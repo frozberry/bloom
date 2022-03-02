@@ -1,9 +1,7 @@
 import { Button, Container, Divider, Typography } from "@mui/material"
-import { useContext, useEffect, useState } from "react"
-import { useQuery } from "react-query"
+import { useEffect, useState } from "react"
 import { getExams } from "../../services/client/examClient"
 import useVerifyQuery from "../../hooks/useVerifyQuery"
-import { UserContext } from "../_app"
 import useAuthQuery from "../../hooks/useAuthQuery"
 
 const styles = {
