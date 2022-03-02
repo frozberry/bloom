@@ -1,9 +1,9 @@
-import { Typography, Container, Paper, Divider, Box } from "@mui/material"
+import { Typography, Divider, Box } from "@mui/material"
 import Image from "next/image"
 import InputAnswer from "./solutions/InputAnswer"
 import MultipleChoiceAnswer from "./solutions/MultipleChoiceAnswer"
 
-const Solution = ({ problem }) => {
+const Solution = ({ problem }: any) => {
   const isCorrect = (p: any) => {
     if (p.multi) {
       return p.selected === p.correct
