@@ -4,10 +4,11 @@ import { User } from "@prisma/client"
 import {
   createUser,
   editUser,
+  findUserByEmail,
   getUsers,
 } from "../../../services/server/userService"
 import verifyUser from "../../../lib/verifyUser"
-import { UserWithoutDate } from "../../../lib/types"
+import { ApiError, UserWithoutDate } from "../../../lib/types"
 
 type PostBody = {
   parentName: string
@@ -30,8 +31,21 @@ const GET = async (
   res.send(users)
 }
 
-const POST = async (req: NextApiRequest, res: NextApiResponse<string>) => {
+const POST = async (
+  req: NextApiRequest,
+  res: NextApiResponse<string | ApiError>
+) => {
   const { parentName, email, password }: PostBody = req.body
+  const existingUser = await findUserByEmail(email)
+
+  if (!existingUser) {
+    return res.status(400).send({
+      type: "userAlreadyExists",
+      message:
+        "An account with that email already exists, maybe you meant to log in instead?",
+    })
+  }
+
   const user = await createUser(parentName, email, password)
   res.send(user)
 }
