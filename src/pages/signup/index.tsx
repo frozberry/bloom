@@ -31,6 +31,7 @@ export default function App() {
     alert(values.name)
     alert(values.email)
     alert(values.password)
+    
     formikHelpers.setSubmitting(false)
   }
 
