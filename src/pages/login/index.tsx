@@ -29,23 +29,14 @@ export default function App() {
     formikHelpers: FormikHelpers<FormValues>
   ) => {
     try {
-      const res = await login(values.email, values.password)
-
-      localStorage.setItem(
-        "loggedWaterfrontUser",
-        JSON.stringify({ token: res.data })
-      )
-
-      location.href = "/home"
+      await login(values.email, values.password)
     } catch (e) {
       const error = e as AxiosError<ApiError>
-
       if (axios.isAxiosError(error)) {
         toast.error(error.response?.data.message as string)
       } else {
         toast.error("Unexpected error")
       }
-
       formikHelpers.setSubmitting(false)
     }
   }

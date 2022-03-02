@@ -6,6 +6,13 @@ export const login = async (email: string, password: string) => {
     password,
   }
   const res = await axios.post("/api/login", data)
+
+  localStorage.setItem(
+    "loggedWaterfrontUser",
+    JSON.stringify({ token: res.data })
+  )
+
+  location.href = "/home"
   return res.data
 }
 
