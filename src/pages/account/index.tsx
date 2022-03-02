@@ -27,6 +27,7 @@ export default function App() {
   ) => {
     try {
       await changePassword(values.currentPassword, values.newPassword)
+      formikHelpers.resetForm()
     } catch (e) {
       notifyError(e)
       formikHelpers.setSubmitting(false)
