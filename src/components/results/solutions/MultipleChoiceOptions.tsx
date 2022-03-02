@@ -1,6 +1,6 @@
 import { Paper, Typography } from "@mui/material"
 
-const MultipleChoiceOptions = ({ problem, option }) => {
+const MultipleChoiceOptions = ({ problem, option }: any) => {
   const correct = problem.correct === option
 
   if (problem.multi) {

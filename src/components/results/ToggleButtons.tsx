@@ -1,6 +1,6 @@
 import { Button, Container } from "@mui/material"
 
-const ToggleButton = ({ view, setView }) => {
+const ToggleButton = ({ view, setView }: any) => {
   return (
     <Container
       sx={{
