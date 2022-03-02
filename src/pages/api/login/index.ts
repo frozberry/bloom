@@ -11,12 +11,14 @@ const handler = async (
       const { email, password } = req.body
 
       const token = await login(email, password)
+
       if (!token) {
         return res.status(401).send({
           type: "invalidLoginCredentials",
           message: "Email and password do not match",
         })
       }
+
       res.send(token)
       break
 
