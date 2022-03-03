@@ -1,6 +1,5 @@
 import { useRouter } from "next/router"
 import Loading from "../components/Loading"
-import { StoredUser } from "../lib/types"
 
 type Escape = {
   escape: boolean
@@ -9,7 +8,7 @@ type Escape = {
 
 const NoUser = () => {
   const router = useRouter()
-  // router.push("/")
+  router.push("/")
   return null
 }
 
