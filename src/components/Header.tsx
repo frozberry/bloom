@@ -1,8 +1,6 @@
 import { AppBar, Toolbar, Button, Box } from "@mui/material"
 import Link from "next/link"
 import Image from "next/image"
-import { useContext } from "react"
-import { UserContext } from "../pages/_app"
 import { signOut, useSession } from "next-auth/react"
 // import stripeService from "../services/stripeService"
 
@@ -12,7 +10,6 @@ type HeaderProp = {
 }
 
 const Header = () => {
-  // const user = useContext(UserContext)
   const { data: session } = useSession()
 
   const handleLogout = () => {

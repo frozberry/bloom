@@ -1,4 +1,3 @@
-import { useState, createContext, useEffect } from "react"
 import Head from "next/head"
 import { AppProps } from "next/app"
 import { ThemeProvider } from "@mui/material/styles"
@@ -12,7 +11,6 @@ import Header from "../components/Header"
 import "../styles.css"
 
 import { QueryClient, QueryClientProvider } from "react-query"
-import { StoredUser } from "../lib/types"
 import { Toaster } from "react-hot-toast"
 
 const queryClient = new QueryClient()
@@ -24,28 +22,12 @@ interface MyAppProps extends AppProps {
   emotionCache?: EmotionCache
 }
 
-export const UserContext = createContext<StoredUser | null | undefined>(
-  undefined
-)
-
 export default function MyApp(props: MyAppProps) {
   const {
     Component,
     emotionCache = clientSideEmotionCache,
     pageProps: { session, ...pageProps },
   } = props
-
-  const [user, setUser] = useState<StoredUser | null | undefined>(undefined)
-
-  useEffect(() => {
-    const loggedUserJson = localStorage.getItem("loggedWaterfrontUser")
-    if (loggedUserJson) {
-      const u = JSON.parse(loggedUserJson)
-      setUser(u)
-    } else {
-      setUser(null)
-    }
-  }, [])
 
   return (
     <CacheProvider value={emotionCache}>
@@ -55,16 +37,14 @@ export default function MyApp(props: MyAppProps) {
         <link rel="shortcut icon" href="/logo.png" />
       </Head>
       <SessionProvider session={session}>
-        <UserContext.Provider value={user}>
-          <QueryClientProvider client={queryClient}>
-            <ThemeProvider theme={theme}>
-              <CssBaseline />
-              <Header />
-              <Toaster />
-              <Component {...pageProps} />
-            </ThemeProvider>
-          </QueryClientProvider>
-        </UserContext.Provider>
+        <QueryClientProvider client={queryClient}>
+          <ThemeProvider theme={theme}>
+            <CssBaseline />
+            <Header />
+            <Toaster />
+            <Component {...pageProps} />
+          </ThemeProvider>
+        </QueryClientProvider>
       </SessionProvider>
     </CacheProvider>
   )
