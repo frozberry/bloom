@@ -5,7 +5,7 @@ import {
   getUsersGradedCategories,
 } from "../../../services/server/gradedCategoryService"
 import { CategoryWithAverage } from "../../../lib/types"
-import checkSession from "../../../lib/checkSession"
+import authenticateUserSession from "../../../lib/authenticateUserSession"
 
 const GET = async (
   req: NextApiRequest,
@@ -18,7 +18,7 @@ const GET = async (
     res.send(averages)
   }
 
-  const { auth, userId, response } = await checkSession(req, res)
+  const { auth, userId, response } = await authenticateUserSession(req, res)
   if (!auth) {
     return response
   }

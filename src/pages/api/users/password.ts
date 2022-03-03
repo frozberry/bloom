@@ -1,6 +1,6 @@
 import { User } from "@prisma/client"
 import type { NextApiRequest, NextApiResponse } from "next"
-import checkSession from "../../../lib/checkSession"
+import authenticateUserSession from "../../../lib/authenticateUserSession"
 import { ServerError } from "../../../lib/types"
 import {
   changePassword,
@@ -16,7 +16,7 @@ type PutBody = {
 const PUT = async (req: NextApiRequest, res: NextApiResponse<ServerError>) => {
   const { currentPassword, newPassword }: PutBody = req.body
 
-  const { auth, userId, response } = await checkSession(req, res)
+  const { auth, userId, response } = await authenticateUserSession(req, res)
   if (!auth) {
     return response
   }

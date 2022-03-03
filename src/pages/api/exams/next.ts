@@ -1,10 +1,10 @@
 import { Exam } from "@prisma/client"
 import { NextApiRequest, NextApiResponse } from "next"
-import checkSession from "../../../lib/checkSession"
+import authenticateUserSession from "../../../lib/authenticateUserSession"
 import { getNextExam } from "../../../services/server/examService"
 
 const GET = async (req: NextApiRequest, res: NextApiResponse<Exam | null>) => {
-  const { auth, userId, response } = await checkSession(req, res)
+  const { auth, userId, response } = await authenticateUserSession(req, res)
   if (!auth) {
     return response
   }

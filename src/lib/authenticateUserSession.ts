@@ -1,7 +1,10 @@
 import { getSession } from "next-auth/react"
 import { NextApiRequest, NextApiResponse } from "next/types"
 
-const checkSession = async (req: NextApiRequest, res: NextApiResponse) => {
+const authenticateUserSession = async (
+  req: NextApiRequest,
+  res: NextApiResponse
+) => {
   const session = await getSession({ req })
   console.log(session)
   if (session) {
@@ -14,4 +17,4 @@ const checkSession = async (req: NextApiRequest, res: NextApiResponse) => {
   }
 }
 
-export default checkSession
+export default authenticateUserSession

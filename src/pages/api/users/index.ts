@@ -8,7 +8,7 @@ import {
   getUsers,
 } from "../../../services/server/userService"
 import { ServerError, UserWithoutDate } from "../../../lib/types"
-import checkSession from "../../../lib/checkSession"
+import authenticateUserSession from "../../../lib/authenticateUserSession"
 
 type PostBody = {
   parentName: string
@@ -27,7 +27,7 @@ const GET = async (
   req: NextApiRequest,
   res: NextApiResponse<UserWithoutDate[]>
 ) => {
-  const { auth, response } = await checkSession(req, res)
+  const { auth, response } = await authenticateUserSession(req, res)
   if (!auth) {
     return response
   }
@@ -58,7 +58,7 @@ const POST = async (
 const PUT = async (req: NextApiRequest, res: NextApiResponse<User>) => {
   const { firstName, lastName, dob, gender }: PutBody = req.body
 
-  const { auth, userId, response } = await checkSession(req, res)
+  const { auth, userId, response } = await authenticateUserSession(req, res)
   if (!auth) {
     return response
   }

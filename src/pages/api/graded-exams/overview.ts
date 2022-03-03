@@ -1,10 +1,10 @@
 import type { NextApiRequest, NextApiResponse } from "next"
-import checkSession from "../../../lib/checkSession"
+import authenticateUserSession from "../../../lib/authenticateUserSession"
 import { getExamResultsOverview } from "../../../services/server/gradedExamService"
 
 // Check NextApiResopnse<> type
 const GET = async (req: NextApiRequest, res: NextApiResponse) => {
-  const { auth, userId, response } = await checkSession(req, res)
+  const { auth, userId, response } = await authenticateUserSession(req, res)
   if (!auth) {
     return response
   }
