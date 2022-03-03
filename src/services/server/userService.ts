@@ -147,12 +147,6 @@ export const login = async (
     return null
   }
 
-  // const token = jwt.sign(
-  //   { id: user.id, email: user.email },
-  //   // eslint-disable-next-line
-  //   process.env.JWT_SECRET!
-  // )
-
   return user
 }
 
