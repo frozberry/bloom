@@ -7,7 +7,6 @@ import {
   findUserByEmail,
   getUsers,
 } from "../../../services/server/userService"
-import verifyUser from "../../../lib/verifyUser"
 import { ServerError, UserWithoutDate } from "../../../lib/types"
 import checkSession from "../../../lib/checkSession"
 
@@ -58,11 +57,12 @@ const POST = async (
 
 const PUT = async (req: NextApiRequest, res: NextApiResponse<User>) => {
   const { firstName, lastName, dob, gender }: PutBody = req.body
-  const user = await verifyUser(req)
-  if (!user) {
-    return res.status(401).end("unauthorized")
+
+  const { auth, userId, response } = await checkSession(req, res)
+  if (!auth) {
+    return response
   }
-  const updatedUser = await editUser(user, firstName, lastName, dob, gender)
+  const updatedUser = await editUser(userId, firstName, lastName, dob, gender)
   res.send(updatedUser)
 }
 

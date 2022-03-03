@@ -1,7 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from "next"
 import { GradedExam } from "@prisma/client"
-import verifyUser from "../../../lib/verifyUser"
 import { submitExam } from "../../../services/server/gradedExamService"
+import checkSession from "../../../lib/checkSession"
 
 // TODO use proper type
 type PostBody = {
@@ -14,13 +14,13 @@ const POST = async (
   res: NextApiResponse<GradedExam | null>
 ) => {
   const { examId, answers }: PostBody = req.body
-  const user = await verifyUser(req)
 
-  if (!user) {
-    return res.status(401).end("unauthoized token")
+  const { auth, userId, response } = await checkSession(req, res)
+  if (!auth) {
+    return response
   }
 
-  const gradedExam = await submitExam(user, examId, answers)
+  const gradedExam = await submitExam(userId, examId, answers)
   res.send(gradedExam)
 }
 

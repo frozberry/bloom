@@ -1,11 +1,11 @@
 import type { NextApiRequest, NextApiResponse } from "next"
 import { GradedCategory } from "@prisma/client"
-import verifyUser from "../../../lib/verifyUser"
 import {
   getCatergoriesAverage,
   getUsersGradedCategories,
 } from "../../../services/server/gradedCategoryService"
 import { CategoryWithAverage } from "../../../lib/types"
+import checkSession from "../../../lib/checkSession"
 
 const GET = async (
   req: NextApiRequest,
@@ -18,13 +18,12 @@ const GET = async (
     res.send(averages)
   }
 
-  const user = await verifyUser(req)
-
-  if (!user) {
-    return res.status(401).end("unauthoized")
+  const { auth, userId, response } = await checkSession(req, res)
+  if (!auth) {
+    return response
   }
 
-  const gradedCategories = await getUsersGradedCategories(user)
+  const gradedCategories = await getUsersGradedCategories(userId)
   res.send(gradedCategories)
 }
 

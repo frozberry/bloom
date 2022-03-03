@@ -59,7 +59,7 @@ export const createUser = async (
 }
 
 export const editUser = async (
-  user: User,
+  userId: string,
   firstName: string,
   lastName: string,
   dob: string,
@@ -73,7 +73,7 @@ export const editUser = async (
   }
 
   const updatedUser = await prisma.user.update({
-    where: { id: user.id },
+    where: { id: userId },
     data: {
       ...updatedData,
     },

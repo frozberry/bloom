@@ -7,11 +7,11 @@ export const getGradedCategories = async () => {
   return gradedCatergories
 }
 
-export const getUsersGradedCategories = async (user: User) => {
+export const getUsersGradedCategories = async (userId: string) => {
   const gradedCatergories = await prisma.gradedCategory.findMany({
     where: {
       user: {
-        id: user.id,
+        id: userId,
       },
     },
   })

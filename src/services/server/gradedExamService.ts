@@ -60,7 +60,11 @@ export const getExamResultsOverview = async (userId: string) => {
 }
 
 // TODO Use correct type for answers
-export const submitExam = async (user: User, examId: string, answers: any) => {
+export const submitExam = async (
+  userId: string,
+  examId: string,
+  answers: any
+) => {
   // Fetch the Exam the user just completed
   console.log("Fetching exam")
   const exam = await prisma.exam.findUnique({
@@ -99,7 +103,7 @@ export const submitExam = async (user: User, examId: string, answers: any) => {
   console.log("Checking if first attempt")
   const usersGradedExams = await prisma.gradedExam.findMany({
     where: {
-      userId: user.id,
+      userId: userId,
     },
   })
 
@@ -140,7 +144,7 @@ export const submitExam = async (user: User, examId: string, answers: any) => {
 
   console.log("Deleting exam session")
   const examSession = await prisma.examSession.delete({
-    where: { userId: user.id },
+    where: { userId: userId },
   })
 
   const time = calculateTime(examSession.start)
@@ -149,7 +153,7 @@ export const submitExam = async (user: User, examId: string, answers: any) => {
   const savedGradedExam = await prisma.gradedExam.create({
     data: {
       examId: exam.id,
-      userId: user.id,
+      userId: userId,
       marks,
       total: exam.problems.length,
       num: exam.num,
@@ -173,7 +177,7 @@ export const submitExam = async (user: User, examId: string, answers: any) => {
   console.log("Updating user")
   await prisma.user.update({
     where: {
-      id: user.id,
+      id: userId,
     },
     data: {
       score: _.meanBy(onlyFirstAttempts, (gradedExam) => gradedExam.percent),
