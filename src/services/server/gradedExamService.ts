@@ -117,7 +117,7 @@ export const submitExam = async (
         await prisma.gradedCategory.update({
           where: {
             userId_category: {
-              userId: user.id,
+              userId: userId,
               category,
             },
           },
