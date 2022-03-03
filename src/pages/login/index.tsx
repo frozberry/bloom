@@ -42,6 +42,7 @@ export default function App() {
 
     if (!res?.ok) {
       toast.error("Error")
+      formikHelpers.setSubmitting(false)
       return
     }
 
