@@ -17,8 +17,6 @@ const LandingPage = () => {
     }
   }, [session, router])
 
-  console.log("session", session)
-
   return (
     <>
       <LandingHeader />
