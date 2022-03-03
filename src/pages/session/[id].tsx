@@ -1,5 +1,4 @@
 import { Box, Container, Paper, TextField, Typography } from "@mui/material"
-import { Exam } from "@prisma/client"
 import { useRouter } from "next/router"
 import useAuthQuery from "../../hooks/useAuthQuery"
 import useEscapeComponent from "../../hooks/useEscapeComponent"
@@ -34,6 +33,7 @@ const Problem = ({
 }
 
 const MultipleChoice = ({ problem, viewOnly }: any) => {
+  console.log(viewOnly)
   // const dispatch = useDispatch()
   // const test = useSelector((state) => state.test)
 
@@ -46,7 +46,7 @@ const MultipleChoice = ({ problem, viewOnly }: any) => {
   return (
     <Box sx={{ display: "flex", alignItems: "center" }}>
       {problem.options.map((option: any) => {
-        const selected = problem.selected === option
+        // const selected = problem.selected === option
         return (
           <Paper
             key={option}

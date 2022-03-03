@@ -1,4 +1,4 @@
-import { GradedExam, User } from "@prisma/client"
+import { GradedExam } from "@prisma/client"
 import { prisma } from "../../prisma/client"
 import dayjs from "dayjs"
 import _ from "lodash"

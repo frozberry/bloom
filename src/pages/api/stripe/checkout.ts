@@ -8,6 +8,7 @@ type PostBody = {
 // TODO
 const POST = async (req: NextApiRequest, res: NextApiResponse<string>) => {
   const { item, email }: PostBody = req.body
+  console.log(item, email)
   res.send("unimplemented")
 }
 

@@ -1,4 +1,4 @@
-import { Category, User } from "@prisma/client"
+import { Category } from "@prisma/client"
 import { CategoryWithAverage } from "../../lib/types"
 import { prisma } from "../../prisma/client"
 
