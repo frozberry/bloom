@@ -9,6 +9,7 @@ import {
 } from "../../../services/server/userService"
 import { ServerError, UserWithoutDate } from "../../../lib/types"
 import authenticateUserSession from "../../../lib/authenticateUserSession"
+import authenticateAdminSession from "../../../lib/authenticateAdminSession"
 
 type PostBody = {
   parentName: string
@@ -27,7 +28,7 @@ const GET = async (
   req: NextApiRequest,
   res: NextApiResponse<UserWithoutDate[]>
 ) => {
-  const { auth, response } = await authenticateUserSession(req, res)
+  const { auth, response } = await authenticateAdminSession(req, res)
   if (!auth) {
     return response
   }
