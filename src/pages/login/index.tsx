@@ -7,8 +7,11 @@ import { login } from "../../services/client/accountClient"
 import notifyError from "../../lib/notifyError"
 import { signIn } from "next-auth/react"
 import toast from "react-hot-toast"
+import { useRouter } from "next/router"
 
 export default function App() {
+  const router = useRouter()
+
   type FormValues = {
     email: string
     password: string
@@ -28,26 +31,20 @@ export default function App() {
     values: FormValues,
     formikHelpers: FormikHelpers<FormValues>
   ) => {
-    // try {
-    //   await login(values.email, values.password)
-    // } catch (e) {
-    //   notifyError(e)
-    //   formikHelpers.setSubmitting(false)
-    // }
     const res = await signIn("credentials", {
       email: values.email,
       password: values.password,
       redirect: false,
     })
 
-    console.log(res)
+    console.log("res:", res)
 
     if (!res?.ok) {
       toast.error("Error")
+      return
     }
 
-    // may be able to use router
-    location.href = "/home"
+    router.push("/home")
   }
 
   return (

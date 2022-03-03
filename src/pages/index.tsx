@@ -9,25 +9,20 @@ import { useRouter } from "next/router"
 import { signIn, signOut, useSession } from "next-auth/react"
 
 const LandingPage = () => {
-  const user = useContext(UserContext)
+  // const user = useContext(UserContext)
   const router = useRouter()
 
   const { data: session } = useSession()
 
   useEffect(() => {
     if (session) {
-      // router.push("/home")
+      router.push("/home")
     }
   }, [session, router])
   console.log("session", session)
 
   return (
     <>
-      <button onClick={() => signIn()}>Sign in</button>
-      <button onClick={() => signOut()}>Sign out</button>
-
-      {session && <p>{session.user?.email}</p>}
-
       <LandingHeader />
       <WhatsWaterfront />
       <HowItWorks />

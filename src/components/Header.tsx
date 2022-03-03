@@ -3,6 +3,7 @@ import Link from "next/link"
 import Image from "next/image"
 import { useContext } from "react"
 import { UserContext } from "../pages/_app"
+import { signOut, useSession } from "next-auth/react"
 // import stripeService from "../services/stripeService"
 
 type HeaderProp = {
@@ -11,11 +12,13 @@ type HeaderProp = {
 }
 
 const Header = () => {
-  const user = useContext(UserContext)
+  // const user = useContext(UserContext)
+  const { data: session } = useSession()
 
   const handleLogout = () => {
-    localStorage.removeItem("loggedWaterfrontUser")
-    location.href = "/login"
+    // localStorage.removeItem("loggedWaterfrontUser")
+    // location.href = "/login"
+    signOut()
   }
 
   // const handlePortal = async () => {
@@ -44,12 +47,13 @@ const Header = () => {
       <HeaderItem link="/results">Results</HeaderItem>
       <HeaderItem link="/stats">Stats</HeaderItem>
       <HeaderItem link="/account">Account</HeaderItem>
+      <HeaderItem link="/account">{session.user.email}</HeaderItem>
       {/* <Button sx={{ color: "black" }} onClick={handlePortal}>
         Account
       </Button> */}
-      {user?.email === "pannicope@gmail.com" && (
+      {/* {user?.email === "pannicope@gmail.com" && (
         <HeaderItem link="/admin">Admin</HeaderItem>
-      )}
+      )} */}
       <Button sx={{ color: "black" }} onClick={handleLogout}>
         Log out
       </Button>
@@ -60,7 +64,7 @@ const Header = () => {
     <>
       <AppBar position="static" style={{ margin: 0, backgroundColor: "white" }}>
         <Toolbar>
-          <Link href={user ? "/home" : "/"} passHref>
+          <Link href={session ? "/home" : "/"} passHref>
             <Box
               sx={{
                 display: "inline",
@@ -78,7 +82,7 @@ const Header = () => {
           </Link>
           {/* Somehow sets to the right of the app bar marginRight not needed here, but could play with positioning */}
           <section style={{ marginLeft: "auto", marginRight: 0 }}>
-            {user ? loggedIn() : loggedOut()}
+            {session ? loggedIn() : loggedOut()}
           </section>
         </Toolbar>
       </AppBar>
