@@ -14,11 +14,11 @@ const NoUser = () => {
 }
 
 const useEscapeComponent = (
-  user: StoredUser | null | undefined,
+  session: any,
   isLoading: boolean,
   error: any
 ): Escape => {
-  if (user === null) {
+  if (session === null) {
     return {
       escape: true,
       component: <NoUser />,

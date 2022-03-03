@@ -7,8 +7,11 @@ import { Exam } from "@prisma/client"
 
 const Home = () => {
   const router = useRouter()
-  const { user, isLoading, error, data } = useAuthQuery("nextExam", getNextExam)
-  const { escape, component } = useEscapeComponent(user, isLoading, error)
+  const { session, isLoading, error, data } = useAuthQuery(
+    "nextExam",
+    getNextExam
+  )
+  const { escape, component } = useEscapeComponent(session, isLoading, error)
 
   if (escape) return component
 
