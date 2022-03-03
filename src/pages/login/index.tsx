@@ -5,6 +5,8 @@ import FormTextField from "../../components/forms/FormTextField"
 import Link from "next/link"
 import { login } from "../../services/client/accountClient"
 import notifyError from "../../lib/notifyError"
+import { signIn } from "next-auth/react"
+import toast from "react-hot-toast"
 
 export default function App() {
   type FormValues = {
@@ -26,12 +28,26 @@ export default function App() {
     values: FormValues,
     formikHelpers: FormikHelpers<FormValues>
   ) => {
-    try {
-      await login(values.email, values.password)
-    } catch (e) {
-      notifyError(e)
-      formikHelpers.setSubmitting(false)
+    // try {
+    //   await login(values.email, values.password)
+    // } catch (e) {
+    //   notifyError(e)
+    //   formikHelpers.setSubmitting(false)
+    // }
+    const res = await signIn("credentials", {
+      email: values.email,
+      password: values.password,
+      redirect: false,
+    })
+
+    console.log(res)
+
+    if (!res?.ok) {
+      toast.error("Error")
     }
+
+    // may be able to use router
+    location.href = "/home"
   }
 
   return (
@@ -39,6 +55,10 @@ export default function App() {
       <Box sx={{ my: 4 }}>
         <Typography variant="h2">Log in</Typography>
       </Box>
+
+      <div>
+        <button onClick={() => signIn("google")}>Sign in with Google</button>
+      </div>
 
       <Formik
         initialValues={initialValues}
