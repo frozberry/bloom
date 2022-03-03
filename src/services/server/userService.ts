@@ -133,24 +133,27 @@ export const findProfileById = async (
 export const login = async (
   email: string,
   password: string
-): Promise<string | null> => {
+): Promise<User | null> => {
   const user = await findUserByEmail(email)
   if (!user) {
     return null
   }
 
-  const passwordCorrect = await validatePassword(password, user.passwordHash)
+  const passwordCorrect = await validatePassword(
+    password,
+    user.passwordHash as string
+  )
   if (!passwordCorrect) {
     return null
   }
 
-  const token = jwt.sign(
-    { id: user.id, email: user.email },
-    // eslint-disable-next-line
-    process.env.JWT_SECRET!
-  )
+  // const token = jwt.sign(
+  //   { id: user.id, email: user.email },
+  //   // eslint-disable-next-line
+  //   process.env.JWT_SECRET!
+  // )
 
-  return token
+  return user
 }
 
 /* -------------------------------- Password -------------------------------- */

@@ -19,7 +19,7 @@ const handler = async (
         })
       }
 
-      res.send(token)
+      // res.send(token)
       break
 
     default:

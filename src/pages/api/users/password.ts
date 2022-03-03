@@ -31,7 +31,7 @@ const PUT = async (req: NextApiRequest, res: NextApiResponse<ServerError>) => {
 
   const passwordCorrect = await validatePassword(
     currentPassword,
-    user.passwordHash
+    user.passwordHash as string
   )
 
   if (!passwordCorrect) {

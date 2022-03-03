@@ -4,6 +4,7 @@ import GoogleProvider from "next-auth/providers/google"
 import CredentialsProvider from "next-auth/providers/credentials"
 import { PrismaAdapter } from "@next-auth/prisma-adapter"
 import { prisma } from "../../../prisma/client"
+import { login } from "../../../services/server/userService"
 
 export default NextAuth({
   adapter: PrismaAdapter(prisma),
@@ -15,7 +16,6 @@ export default NextAuth({
   },
   callbacks: {
     jwt: ({ token, user }) => {
-      // first time jwt callback is run, user object is available
       if (user) {
         token.id = user.id
       }
@@ -31,10 +31,6 @@ export default NextAuth({
     },
   },
   providers: [
-    GithubProvider({
-      clientId: process.env.GITHUB_ID,
-      clientSecret: process.env.GITHUB_SECRET,
-    }),
     GoogleProvider({
       clientId: process.env.GOOGLE_ID as string,
       clientSecret: process.env.GOOGLE_SECRET as string,
@@ -44,22 +40,21 @@ export default NextAuth({
       credentials: {
         email: {
           label: "Email",
-          type: "text",
-          placeholder: "johndoe@test.com",
+          type: "email",
+          placeholder: "email",
         },
-        password: { label: "Password", type: "password" },
+        password: {
+          label: "Password",
+          type: "password",
+          placeholder: "********",
+        },
       },
-      authorize: (credentials) => {
-        if (credentials?.email === "john" && credentials?.password === "test") {
-          return {
-            id: 2,
-            name: "John",
-            email: "johndoe@test.com",
-          }
-        }
-
-        // login failed
-        return null
+      authorize: async (credentials) => {
+        const user = await login(
+          credentials?.email as string,
+          credentials?.password as string
+        )
+        return user
       },
     }),
   ],
