@@ -9,6 +9,7 @@ import {
 } from "../../../services/server/userService"
 import verifyUser from "../../../lib/verifyUser"
 import { ServerError, UserWithoutDate } from "../../../lib/types"
+import checkSession from "../../../lib/checkSession"
 
 type PostBody = {
   parentName: string
@@ -27,6 +28,11 @@ const GET = async (
   req: NextApiRequest,
   res: NextApiResponse<UserWithoutDate[]>
 ) => {
+  const { auth, response } = await checkSession(req, res)
+  if (!auth) {
+    return response
+  }
+
   const users = await getUsers()
   res.send(users)
 }
