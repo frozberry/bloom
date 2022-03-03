@@ -95,6 +95,7 @@ const LandingHeader = () => {
                 layout="responsive"
                 width={512}
                 height={512}
+                priority
               />
             </Box>
           </Grid>
