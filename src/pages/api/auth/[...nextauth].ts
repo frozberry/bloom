@@ -29,6 +29,7 @@ export default NextAuth({
       return session
     },
   },
+  secret: process.env.NEXTAUTH_SECRET,
   providers: [
     GoogleProvider({
       clientId: process.env.GOOGLE_ID as string,
