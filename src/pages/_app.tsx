@@ -4,6 +4,7 @@ import { AppProps } from "next/app"
 import { ThemeProvider } from "@mui/material/styles"
 import CssBaseline from "@mui/material/CssBaseline"
 import { CacheProvider, EmotionCache } from "@emotion/react"
+import { SessionProvider } from "next-auth/react"
 
 import theme from "../styles/theme"
 import createEmotionCache from "../lib/createEmotionCache"
@@ -28,7 +29,11 @@ export const UserContext = createContext<StoredUser | null | undefined>(
 )
 
 export default function MyApp(props: MyAppProps) {
-  const { Component, emotionCache = clientSideEmotionCache, pageProps } = props
+  const {
+    Component,
+    emotionCache = clientSideEmotionCache,
+    pageProps: { session, ...pageProps },
+  } = props
 
   const [user, setUser] = useState<StoredUser | null | undefined>(undefined)
   console.log(user)
@@ -50,16 +55,18 @@ export default function MyApp(props: MyAppProps) {
         <meta name="viewport" content="initial-scale=1, width=device-width" />
         <link rel="shortcut icon" href="/logo.png" />
       </Head>
-      <UserContext.Provider value={user}>
-        <QueryClientProvider client={queryClient}>
-          <ThemeProvider theme={theme}>
-            <CssBaseline />
-            <Header />
-            <Toaster />
-            <Component {...pageProps} />
-          </ThemeProvider>
-        </QueryClientProvider>
-      </UserContext.Provider>
+      <SessionProvider session={session}>
+        <UserContext.Provider value={user}>
+          <QueryClientProvider client={queryClient}>
+            <ThemeProvider theme={theme}>
+              <CssBaseline />
+              <Header />
+              <Toaster />
+              <Component {...pageProps} />
+            </ThemeProvider>
+          </QueryClientProvider>
+        </UserContext.Provider>
+      </SessionProvider>
     </CacheProvider>
   )
 }

@@ -9,7 +9,7 @@ type Escape = {
 
 const NoUser = () => {
   const router = useRouter()
-  router.push("/")
+  // router.push("/")
   return null
 }
 
