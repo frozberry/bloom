@@ -1,5 +1,6 @@
 import { Container, Typography, Button, Box } from "@mui/material"
 import { Formik, FormikHelpers, FormikProps, Form, Field } from "formik"
+import GoogleButton from "react-google-button"
 import * as yup from "yup"
 import FormTextField from "../../components/forms/FormTextField"
 import Link from "next/link"
@@ -53,9 +54,11 @@ export default function App() {
         <Typography variant="h2">Log in</Typography>
       </Box>
 
-      <div>
-        <button onClick={() => signIn("google")}>Sign in with Google</button>
-      </div>
+      <Box>
+        <GoogleButton onClick={() => signIn("google")} type="dark">
+          Sign in with Google
+        </GoogleButton>
+      </Box>
 
       <Formik
         initialValues={initialValues}
