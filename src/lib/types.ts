@@ -86,7 +86,7 @@ export type ExamResultOverivew = {
 }
 
 /* --------------------------------- Session -------------------------------- */
-export type Session = {
+export type MySession = {
   id: string
   expires: string
   user: SessionUser

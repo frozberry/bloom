@@ -2,6 +2,7 @@ import { AppBar, Toolbar, Button, Box } from "@mui/material"
 import Link from "next/link"
 import Image from "next/image"
 import { signOut, useSession } from "next-auth/react"
+import { MySession } from "../lib/types"
 // import stripeService from "../services/stripeService"
 
 type HeaderProp = {
@@ -10,7 +11,8 @@ type HeaderProp = {
 }
 
 const Header = () => {
-  const { data: session } = useSession()
+  const { data } = useSession()
+  const session = data as MySession
 
   const handleLogout = () => {
     // localStorage.removeItem("loggedWaterfrontUser")

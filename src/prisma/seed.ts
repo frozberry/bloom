@@ -121,7 +121,7 @@ const main = async () => {
   const seedAnswers = await createAnswers(exam)
 
   console.log("Submitting exam")
-  await submitExam(user, exam.id, seedAnswers)
+  await submitExam(user.id, exam.id, seedAnswers)
   console.log("Done")
 }
 

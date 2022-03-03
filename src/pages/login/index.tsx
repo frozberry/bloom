@@ -16,6 +16,13 @@ export default function App() {
     password: string
   }
 
+  type LoginRes = {
+    error: string
+    ok: boolean
+    status: number
+    url: string | null
+  }
+
   const initialValues = {
     email: "",
     password: "",
@@ -30,15 +37,14 @@ export default function App() {
     values: FormValues,
     formikHelpers: FormikHelpers<FormValues>
   ) => {
-    const res = await signIn("credentials", {
+    // @ts-ignore
+    const res: LoginRes = await signIn("credentials", {
       email: values.email,
       password: values.password,
       redirect: false,
     })
 
-    console.log("res:", res)
-
-    if (!res?.ok) {
+    if (!res.ok) {
       toast.error("Error")
       formikHelpers.setSubmitting(false)
       return
