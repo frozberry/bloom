@@ -37,7 +37,6 @@ model User {
   gradedExams      GradedExam[]
   examSession      ExamSession?
   gradedCategories GradedCategory[]
-
 }
 
 model Exam {
