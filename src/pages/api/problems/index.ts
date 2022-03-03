@@ -8,8 +8,6 @@ const GET = async (req: NextApiRequest, res: NextApiResponse<Problem[]>) => {
 }
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
-  console.log("handler")
-
   switch (req.method) {
     case "GET":
       GET(req, res)

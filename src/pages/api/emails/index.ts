@@ -20,8 +20,6 @@ const POST = async (req: NextApiRequest, res: NextApiResponse) => {
 }
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
-  console.log("handler")
-
   switch (req.method) {
     case "POST":
       POST(req, res)

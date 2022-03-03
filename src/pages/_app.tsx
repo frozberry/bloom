@@ -36,7 +36,6 @@ export default function MyApp(props: MyAppProps) {
   } = props
 
   const [user, setUser] = useState<StoredUser | null | undefined>(undefined)
-  console.log(user)
 
   useEffect(() => {
     const loggedUserJson = localStorage.getItem("loggedWaterfrontUser")

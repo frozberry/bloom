@@ -13,7 +13,6 @@ const Home = () => {
   if (escape) return component
 
   const nextExam = data as Exam
-  console.log(nextExam)
 
   const startTest = () => {
     if (
