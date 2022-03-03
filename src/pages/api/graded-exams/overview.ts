@@ -1,15 +1,15 @@
 import type { NextApiRequest, NextApiResponse } from "next"
-import verifyUser from "../../../lib/verifyUser"
+import authenticateUserSession from "../../../lib/authenticateUserSession"
 import { getExamResultsOverview } from "../../../services/server/gradedExamService"
 
 // Check NextApiResopnse<> type
 const GET = async (req: NextApiRequest, res: NextApiResponse) => {
-  const user = await verifyUser(req)
-  if (!user) {
-    return res.status(401).end("unauthoized token")
+  const { auth, userId, response } = await authenticateUserSession(req, res)
+  if (!auth) {
+    return response
   }
 
-  const gradedExams = await getExamResultsOverview(user.id)
+  const gradedExams = await getExamResultsOverview(userId)
   res.send(gradedExams)
 }
 

@@ -7,11 +7,11 @@ import useAuthQuery from "../../hooks/useAuthQuery"
 import { ExamResultOverivew } from "../../lib/types"
 
 const ResultsList = () => {
-  const { user, isLoading, error, data } = useAuthQuery(
+  const { session, isLoading, error, data } = useAuthQuery(
     "gradedTestsData",
     getExamResultsOverview
   )
-  const { escape, component } = useEscapeComponent(user, isLoading, error)
+  const { escape, component } = useEscapeComponent(session, isLoading, error)
 
   if (escape) return component
 

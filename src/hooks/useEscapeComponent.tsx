@@ -1,6 +1,5 @@
 import { useRouter } from "next/router"
 import Loading from "../components/Loading"
-import { StoredUser } from "../lib/types"
 
 type Escape = {
   escape: boolean
@@ -14,18 +13,18 @@ const NoUser = () => {
 }
 
 const useEscapeComponent = (
-  user: StoredUser | null | undefined,
+  session: any,
   isLoading: boolean,
   error: any
 ): Escape => {
-  if (user === null) {
+  if (session === null) {
     return {
       escape: true,
       component: <NoUser />,
     }
   }
 
-  if (isLoading || user === undefined) {
+  if (isLoading || session === undefined) {
     return {
       escape: true,
       component: <Loading />,

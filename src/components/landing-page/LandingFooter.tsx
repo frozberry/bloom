@@ -27,7 +27,7 @@ const LandingFooter = () => {
         >
           Try Waterfront free for 14-days
         </Typography>
-        <Link href="signup" passHref>
+        <Link href="/signup" passHref>
           <Button
             variant="contained"
             color="primary"

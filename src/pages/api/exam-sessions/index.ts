@@ -1,6 +1,6 @@
 import { ExamSession } from "@prisma/client"
 import type { NextApiRequest, NextApiResponse } from "next"
-import verifyUser from "../../../lib/verifyUser"
+import authenticateUserSession from "../../../lib/authenticateUserSession"
 import {
   createExamSession,
   findUsersExamSession,
@@ -14,25 +14,24 @@ const GET = async (
   req: NextApiRequest,
   res: NextApiResponse<ExamSession | null>
 ) => {
-  const user = await verifyUser(req)
-
-  if (!user) {
-    return res.status(401).end()
+  const { auth, userId, response } = await authenticateUserSession(req, res)
+  if (!auth) {
+    return response
   }
 
-  const examSession = await findUsersExamSession(user.id)
+  const examSession = await findUsersExamSession(userId)
   res.send(examSession)
 }
 
 const POST = async (req: NextApiRequest, res: NextApiResponse) => {
   const { examId }: PostBody = req.body
-  const user = await verifyUser(req)
 
-  if (!user) {
-    return res.status(401).end()
+  const { auth, userId, response } = await authenticateUserSession(req, res)
+  if (!auth) {
+    return response
   }
 
-  const examSession = await createExamSession(user.id, examId)
+  const examSession = await createExamSession(userId, examId)
   res.send(examSession)
 }
 

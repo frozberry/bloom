@@ -1,15 +1,15 @@
 import { Exam } from "@prisma/client"
 import { NextApiRequest, NextApiResponse } from "next"
-import verifyUser from "../../../lib/verifyUser"
+import authenticateUserSession from "../../../lib/authenticateUserSession"
 import { getNextExam } from "../../../services/server/examService"
 
 const GET = async (req: NextApiRequest, res: NextApiResponse<Exam | null>) => {
-  const user = await verifyUser(req)
-
-  if (!user) {
-    return res.status(401).end("unauthorized")
+  const { auth, userId, response } = await authenticateUserSession(req, res)
+  if (!auth) {
+    return response
   }
-  const nextExam = await getNextExam(user.id)
+
+  const nextExam = await getNextExam(userId)
 
   res.send(nextExam)
 }

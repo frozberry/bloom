@@ -1,15 +1,26 @@
 import { Container, Typography, Button, Box } from "@mui/material"
 import { Formik, FormikHelpers, FormikProps, Form, Field } from "formik"
+import GoogleButton from "react-google-button"
 import * as yup from "yup"
 import FormTextField from "../../components/forms/FormTextField"
 import Link from "next/link"
-import { login } from "../../services/client/accountClient"
-import notifyError from "../../lib/notifyError"
+import { signIn } from "next-auth/react"
+import toast from "react-hot-toast"
+import { useRouter } from "next/router"
 
 export default function App() {
+  const router = useRouter()
+
   type FormValues = {
     email: string
     password: string
+  }
+
+  type LoginRes = {
+    error: string
+    ok: boolean
+    status: number
+    url: string | null
   }
 
   const initialValues = {
@@ -26,18 +37,39 @@ export default function App() {
     values: FormValues,
     formikHelpers: FormikHelpers<FormValues>
   ) => {
-    try {
-      await login(values.email, values.password)
-    } catch (e) {
-      notifyError(e)
+    // @ts-ignore
+    const res: LoginRes = await signIn("credentials", {
+      email: values.email,
+      password: values.password,
+      redirect: false,
+    })
+
+    if (!res.ok) {
+      toast.error("Error")
       formikHelpers.setSubmitting(false)
+      return
     }
+
+    router.push("/home")
   }
 
   return (
     <Container maxWidth="xs">
       <Box sx={{ my: 4 }}>
         <Typography variant="h2">Log in</Typography>
+      </Box>
+
+      <Box>
+        <GoogleButton
+          onClick={() =>
+            signIn("google", {
+              callbackUrl: `${process.env.NEXT_PUBLIC_URL}/home`,
+            })
+          }
+          type="dark"
+        >
+          Sign in with Google
+        </GoogleButton>
       </Box>
 
       <Formik

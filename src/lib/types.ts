@@ -72,14 +72,6 @@ export type ResetPasswordToken = {
   expires: number
 }
 
-/* ------------------------------- StoredUser ------------------------------- */
-
-export type StoredUser = {
-  id: string
-  token: string
-  email: string
-}
-
 /* -------------------------------- ServerError -------------------------------- */
 export type ServerError = {
   type: string
@@ -91,4 +83,17 @@ export type ExamResultOverivew = {
   examId: string
   num: number
   attempts: GradedExam[]
+}
+
+/* --------------------------------- Session -------------------------------- */
+export type MySession = {
+  id: string
+  expires: string
+  user: SessionUser
+}
+
+type SessionUser = {
+  name: string | null
+  email: string
+  image: string | null
 }

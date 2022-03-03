@@ -1,8 +1,10 @@
+import { User } from "@prisma/client"
 import type { NextApiRequest, NextApiResponse } from "next"
+import authenticateUserSession from "../../../lib/authenticateUserSession"
 import { ServerError } from "../../../lib/types"
-import verifyUser from "../../../lib/verifyUser"
 import {
   changePassword,
+  findUserById,
   validatePassword,
 } from "../../../services/server/userService"
 
@@ -13,14 +15,13 @@ type PutBody = {
 
 const PUT = async (req: NextApiRequest, res: NextApiResponse<ServerError>) => {
   const { currentPassword, newPassword }: PutBody = req.body
-  const user = await verifyUser(req)
 
-  if (!user) {
-    return res.status(401).send({
-      type: "userNotFound",
-      message: "User not found",
-    })
+  const { auth, userId, response } = await authenticateUserSession(req, res)
+  if (!auth) {
+    return response
   }
+
+  const user = (await findUserById(userId)) as User
 
   if (newPassword.length < 3) {
     return res.status(400).send({
@@ -31,7 +32,7 @@ const PUT = async (req: NextApiRequest, res: NextApiResponse<ServerError>) => {
 
   const passwordCorrect = await validatePassword(
     currentPassword,
-    user.passwordHash
+    user.passwordHash as string
   )
 
   if (!passwordCorrect) {

@@ -7,8 +7,9 @@ import {
   findUserByEmail,
   getUsers,
 } from "../../../services/server/userService"
-import verifyUser from "../../../lib/verifyUser"
 import { ServerError, UserWithoutDate } from "../../../lib/types"
+import authenticateUserSession from "../../../lib/authenticateUserSession"
+import authenticateAdminSession from "../../../lib/authenticateAdminSession"
 
 type PostBody = {
   parentName: string
@@ -27,6 +28,11 @@ const GET = async (
   req: NextApiRequest,
   res: NextApiResponse<UserWithoutDate[]>
 ) => {
+  const { auth, response } = await authenticateAdminSession(req, res)
+  if (!auth) {
+    return response
+  }
+
   const users = await getUsers()
   res.send(users)
 }
@@ -52,11 +58,12 @@ const POST = async (
 
 const PUT = async (req: NextApiRequest, res: NextApiResponse<User>) => {
   const { firstName, lastName, dob, gender }: PutBody = req.body
-  const user = await verifyUser(req)
-  if (!user) {
-    return res.status(401).end("unauthorized")
+
+  const { auth, userId, response } = await authenticateUserSession(req, res)
+  if (!auth) {
+    return response
   }
-  const updatedUser = await editUser(user, firstName, lastName, dob, gender)
+  const updatedUser = await editUser(userId, firstName, lastName, dob, gender)
   res.send(updatedUser)
 }
 

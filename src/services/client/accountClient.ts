@@ -1,6 +1,5 @@
 import axios from "axios"
 import toast from "react-hot-toast"
-import setAuthToken from "../../lib/setAuthToken"
 
 export const login = async (email: string, password: string) => {
   const data = {
@@ -48,9 +47,8 @@ export const changePassword = async (
     currentPassword,
     newPassword,
   }
-  const config = setAuthToken()
 
-  await axios.put("/api/users/password", data, config)
+  await axios.put("/api/users/password", data)
   toast.success("Password updated successfully")
 
   return

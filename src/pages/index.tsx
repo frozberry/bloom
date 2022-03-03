@@ -3,19 +3,19 @@ import HowItWorks from "../components/landing-page/HowItWorks"
 import WhatsWaterfront from "../components/landing-page/WhatsWaterfront"
 import LandingFooter from "../components/landing-page/LandingFooter"
 import LandingGraphs from "../components/landing-page/LandingGraphs"
-import { useContext, useEffect } from "react"
-import { UserContext } from "./_app"
+import { useEffect } from "react"
 import { useRouter } from "next/router"
+import { useSession } from "next-auth/react"
 
 const LandingPage = () => {
-  const user = useContext(UserContext)
   const router = useRouter()
+  const { data: session } = useSession()
 
   useEffect(() => {
-    if (user) {
+    if (session) {
       router.push("/home")
     }
-  }, [user, router])
+  }, [session, router])
 
   return (
     <>
