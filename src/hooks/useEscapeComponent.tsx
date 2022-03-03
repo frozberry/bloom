@@ -25,7 +25,7 @@ const useEscapeComponent = (
     }
   }
 
-  if (isLoading || user === undefined) {
+  if (isLoading || session === undefined) {
     return {
       escape: true,
       component: <Loading />,
