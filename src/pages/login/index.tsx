@@ -55,7 +55,14 @@ export default function App() {
       </Box>
 
       <Box>
-        <GoogleButton onClick={() => signIn("google")} type="dark">
+        <GoogleButton
+          onClick={() =>
+            signIn("google", {
+              callbackUrl: `${process.env.NEXT_PUBLIC_URL}/home`,
+            })
+          }
+          type="dark"
+        >
           Sign in with Google
         </GoogleButton>
       </Box>
