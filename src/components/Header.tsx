@@ -18,7 +18,7 @@ const Header = () => {
   const handleLogout = () => {
     // localStorage.removeItem("loggedWaterfrontUser")
     // location.href = "/login"
-    signOut()
+    signOut({ callbackUrl: `${process.env.NEXT_PUBLIC_URL}/login` })
   }
 
   // const handlePortal = async () => {
