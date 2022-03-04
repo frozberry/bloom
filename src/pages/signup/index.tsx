@@ -1,4 +1,4 @@
-import { Container, Typography, Button, Box } from "@mui/material"
+import { Container, Typography, Button, Box, Divider } from "@mui/material"
 import { Formik, FormikHelpers, FormikProps, Form, Field } from "formik"
 import * as yup from "yup"
 import FormTextField from "../../components/forms/FormTextField"
@@ -6,6 +6,7 @@ import Image from "next/image"
 import Link from "next/link"
 import { signup } from "../../services/client/accountClient"
 import notifyError from "../../lib/notifyError"
+import GoogleSignIn from "../../components/GoogleSignIn"
 
 export default function App() {
   type FormValues = {
@@ -51,11 +52,16 @@ export default function App() {
           />
         </Box>
         <Typography variant="h2">Create an account</Typography>
-        <Typography variant="body1" sx={{ textAlign: "center" }}>
-          Fill out the form to start working towards your child's grammar
+        <Typography variant="body1" sx={{ textAlign: "center", mt: 1 }}>
+          Join Waterfront to start working towards your child's grammar school
           placement school today today.
         </Typography>
       </Box>
+
+      <GoogleSignIn />
+      <Divider sx={{ color: "text.secondary", mb: 2 }}>
+        or continue with email
+      </Divider>
 
       <Formik
         initialValues={initialValues}

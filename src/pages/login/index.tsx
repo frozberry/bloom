@@ -1,4 +1,4 @@
-import { Container, Typography, Button, Box } from "@mui/material"
+import { Container, Typography, Button, Box, Divider } from "@mui/material"
 import { Formik, FormikHelpers, FormikProps, Form, Field } from "formik"
 import GoogleButton from "react-google-button"
 import * as yup from "yup"
@@ -8,6 +8,7 @@ import { signIn } from "next-auth/react"
 import { useRouter } from "next/router"
 import axios from "axios"
 import notifyError from "../../lib/notifyError"
+import GoogleSignIn from "../../components/GoogleSignIn"
 
 // User already has a Google account, but tries to sign in with login
 // User already has login, but tries to sign in with Google
@@ -67,14 +68,11 @@ export default function App() {
           password
         </Box>
       )}
-      <Box mb={3}>
-        <GoogleButton
-          onClick={() => signIn("google", { callbackUrl })}
-          type="dark"
-        >
-          Sign in with Google
-        </GoogleButton>
-      </Box>
+
+      <GoogleSignIn />
+      <Divider sx={{ color: "text.secondary", mb: 2 }}>
+        or continue with email
+      </Divider>
 
       <Formik
         initialValues={initialValues}
