@@ -1,4 +1,11 @@
-import { Container, Typography, Button, Box, Divider } from "@mui/material"
+import {
+  Container,
+  Typography,
+  Button,
+  Box,
+  Divider,
+  Alert,
+} from "@mui/material"
 import { Formik, FormikHelpers, FormikProps, Form, Field } from "formik"
 import * as yup from "yup"
 import FormTextField from "../../components/forms/FormTextField"
@@ -56,69 +63,68 @@ export default function App() {
   }
 
   return (
-    <Container maxWidth="xs">
-      <Box sx={{ my: 4 }}>
-        <Typography variant="h2">Log in</Typography>
-      </Box>
-
-      {oAuthError && (
-        <Box>
-          Account was not created with Google, please sign in with email and
-          password
+    <>
+      <Alert severity="error" hidden={!oAuthError}>
+        This account doesn't use Google sign in. Please log in with your email
+        and password.{" "}
+      </Alert>
+      <Container maxWidth="xs">
+        <Box sx={{ my: 4 }}>
+          <Typography variant="h2">Log in</Typography>
         </Box>
-      )}
 
-      <GoogleSignIn />
-      <Divider sx={{ color: "text.secondary", mb: 2 }}>
-        or continue with email
-      </Divider>
+        <GoogleSignIn />
+        <Divider sx={{ color: "text.secondary", mb: 2 }}>
+          or continue with email
+        </Divider>
 
-      <Formik
-        initialValues={initialValues}
-        validationSchema={validationSchema}
-        onSubmit={onSubmit}
-      >
-        {(formikProps: FormikProps<FormValues>) => (
-          <Form noValidate autoComplete="off">
-            <Box>
-              <Typography variant="subtitle2">Parent's Email</Typography>
-              <Field
-                name="email"
-                placeholder="Email"
-                size="small"
-                component={FormTextField}
+        <Formik
+          initialValues={initialValues}
+          validationSchema={validationSchema}
+          onSubmit={onSubmit}
+        >
+          {(formikProps: FormikProps<FormValues>) => (
+            <Form noValidate autoComplete="off">
+              <Box>
+                <Typography variant="subtitle2">Parent's Email</Typography>
+                <Field
+                  name="email"
+                  placeholder="Email"
+                  size="small"
+                  component={FormTextField}
+                  fullWidth
+                />
+              </Box>
+              <Box>
+                <Typography variant="subtitle2">Password</Typography>
+                <Field
+                  name="password"
+                  placeholder="********"
+                  type="password"
+                  size="small"
+                  component={FormTextField}
+                  fullWidth
+                />
+              </Box>
+              <Button
+                type="submit"
+                variant="contained"
+                size="large"
+                color="primary"
                 fullWidth
-              />
-            </Box>
-            <Box>
-              <Typography variant="subtitle2">Password</Typography>
-              <Field
-                name="password"
-                placeholder="********"
-                type="password"
-                size="small"
-                component={FormTextField}
-                fullWidth
-              />
-            </Box>
-            <Button
-              type="submit"
-              variant="contained"
-              size="large"
-              color="primary"
-              fullWidth
-              disabled={formikProps.isSubmitting}
-            >
-              Submit
-            </Button>
-          </Form>
-        )}
-      </Formik>
-      <Typography variant="body1" sx={{ textAlign: "center", mt: 2 }}>
-        <Link href="/forgot-password">Forgot password?</Link>
-        {" · "}
-        <Link href="/signup">Sign up for an account</Link>
-      </Typography>
-    </Container>
+                disabled={formikProps.isSubmitting}
+              >
+                Submit
+              </Button>
+            </Form>
+          )}
+        </Formik>
+        <Typography variant="body1" sx={{ textAlign: "center", mt: 2 }}>
+          <Link href="/forgot-password">Forgot password?</Link>
+          {" · "}
+          <Link href="/signup">Sign up for an account</Link>
+        </Typography>
+      </Container>
+    </>
   )
 }
