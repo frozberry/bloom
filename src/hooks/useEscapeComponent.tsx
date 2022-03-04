@@ -1,3 +1,4 @@
+import { useSession } from "next-auth/react"
 import { useRouter } from "next/router"
 import Loading from "../components/Loading"
 
@@ -12,11 +13,10 @@ const NoUser = () => {
   return null
 }
 
-const useEscapeComponent = (
-  session: any,
-  isLoading: boolean,
-  error: any
-): Escape => {
+const useEscapeComponent = (isLoading: boolean, error: any): Escape => {
+  const { data } = useSession()
+  const session = data
+
   if (session === null) {
     return {
       escape: true,
