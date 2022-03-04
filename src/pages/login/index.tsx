@@ -8,6 +8,10 @@ import { signIn } from "next-auth/react"
 import toast from "react-hot-toast"
 import { useRouter } from "next/router"
 
+// User already has a Google account, but tries to sign in with login
+// User already has login, but tries to sign in with Google
+// Account doesn't exist at all
+
 export default function App() {
   const router = useRouter()
 
