@@ -15,17 +15,12 @@ import notifyError from "../../lib/notifyError"
 
 export default function App() {
   const router = useRouter()
+  const { error } = router.query
+  const oAuthError = error === "OAuthAccountNotLinked"
 
   type FormValues = {
     email: string
     password: string
-  }
-
-  type LoginRes = {
-    error: string
-    ok: boolean
-    status: number
-    url: string | null
   }
 
   const initialValues = {
@@ -66,7 +61,13 @@ export default function App() {
         <Typography variant="h2">Log in</Typography>
       </Box>
 
-      <Box>
+      {oAuthError && (
+        <Box>
+          Account was not created with Google, please sign in with email and
+          password
+        </Box>
+      )}
+      <Box mb={3}>
         <GoogleButton
           onClick={() => signIn("google", { callbackUrl })}
           type="dark"
