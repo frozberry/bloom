@@ -1,7 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from "next"
 import {
   findUserByEmail,
-  login,
   validatePassword,
 } from "../../../services/server/userService"
 import { ServerError } from "../../../lib/types"
