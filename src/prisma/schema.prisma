@@ -11,7 +11,8 @@ generator client {
 }
 
 model User {
-  id            String    @id @default(cuid())
+  // NextAuth
+  id            String    @id @default(uuid())
   name          String?
   email         String    @unique
   emailVerified DateTime?
@@ -19,21 +20,24 @@ model User {
   accounts      Account[]
   sessions      Session[]
 
-  firstName        String?
-  lastName         String?
-  parentName       String?
-  passwordHash     String?
-  dob              DateTime?
-  gender           String?
-  admin            Boolean          @default(false)
-  profilePicture   String?
-  stripeId         String?
-  stripeSubId      String?
-  active           Boolean          @default(false)
-  subEnds          DateTime?
-  score            Float?
-  date             DateTime         @default(now())
-  dateSub          DateTime?
+  // Application
+  firstName      String?
+  lastName       String?
+  parentName     String?
+  passwordHash   String?
+  dob            DateTime?
+  gender         String?
+  admin          Boolean   @default(false)
+  profilePicture String?
+  stripeId       String?
+  stripeSubId    String?
+  active         Boolean   @default(false)
+  subEnds        DateTime?
+  score          Float?
+  date           DateTime  @default(now())
+  dateSub        DateTime?
+
+  // Relations
   gradedExams      GradedExam[]
   examSession      ExamSession?
   gradedCategories GradedCategory[]
@@ -127,19 +131,21 @@ enum Category {
   ALGEBRA
 }
 
+// NextAuth
+
 model Account {
-  id                       String  @id @default(cuid())
+  id                       String  @id @default(uuid())
   userId                   String
   type                     String
   provider                 String
   providerAccountId        String
-  refresh_token            String? @db.Text
-  refresh_token_expires_in Int?
+  refresh_token            String? @map("refeshToken") @db.Text
+  refresh_token_expires_in Int?    @map("refreshTokenExpiresIn")
   access_token             String? @db.Text
-  expires_at               Int?
-  token_type               String?
+  expires_at               Int?    @map("expiresAt")
+  token_type               String? @map("tokenType")
   scope                    String?
-  id_token                 String? @db.Text
+  id_token                 String? @map("idToken") @db.Text
   session_state            String?
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
@@ -148,7 +154,7 @@ model Account {
 }
 
 model Session {
-  id           String   @id @default(cuid())
+  id           String   @id @default(uuid())
   sessionToken String   @unique
   userId       String
   expires      DateTime

@@ -64,10 +64,12 @@ export default function App() {
 
   return (
     <>
-      <Alert severity="error" hidden={!oAuthError}>
-        This account doesn't use Google sign in. Please log in with your email
-        and password.{" "}
-      </Alert>
+      {oAuthError && (
+        <Alert severity="error" hidden={!oAuthError}>
+          This account doesn't use Google sign in. Please log in with your email
+          and password.{" "}
+        </Alert>
+      )}
       <Container maxWidth="xs">
         <Box sx={{ my: 4 }}>
           <Typography variant="h2">Log in</Typography>

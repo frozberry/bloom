@@ -112,6 +112,7 @@ const main = async () => {
   }
 
   console.log("Seeding database")
+
   await deleteAll()
   await createUsers()
   await createGradedCatergories()
