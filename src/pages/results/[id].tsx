@@ -27,12 +27,7 @@ const Page = () => {
         marginTop: 3,
       }}
     >
-      <Paper
-        sx={{
-          px: 10,
-          py: 4,
-        }}
-      >
+      <Paper sx={{ px: 10, py: 4 }}>
         <Typography align="center" variant="h6">
           You scored
         </Typography>
