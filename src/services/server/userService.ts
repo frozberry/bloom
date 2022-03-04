@@ -92,6 +92,14 @@ export const deleteUser = async (id: string): Promise<boolean> => {
   return true
 }
 
+export const userIsOAuth = async (id: string): Promise<boolean> => {
+  const user = await findUserById(id)
+  if (user?.passwordHash) {
+    return false
+  }
+  return true
+}
+
 /* ------------------------------- Profile ------------------------------- */
 
 export const getProfiles = async (): Promise<UserProfile[]> => {
