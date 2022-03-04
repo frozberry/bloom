@@ -7,6 +7,8 @@ import Link from "next/link"
 import { signIn } from "next-auth/react"
 import toast from "react-hot-toast"
 import { useRouter } from "next/router"
+import axios from "axios"
+import notifyError from "../../lib/notifyError"
 
 // User already has a Google account, but tries to sign in with login
 // User already has login, but tries to sign in with Google
@@ -41,6 +43,12 @@ export default function App() {
     values: FormValues,
     formikHelpers: FormikHelpers<FormValues>
   ) => {
+    try {
+      await axios.post("/api/auth/verify-login", { email: values.email })
+    } catch (e) {
+      notifyError(e)
+    }
+
     // @ts-ignore
     const res: LoginRes = await signIn("credentials", {
       email: values.email,
@@ -54,7 +62,7 @@ export default function App() {
       return
     }
 
-    router.push("/home")
+    // router.push("/home")
   }
 
   return (
