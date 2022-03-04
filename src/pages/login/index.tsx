@@ -56,7 +56,7 @@ export default function App() {
       })
     } catch (e) {
       notifyError(e)
-      formikHelpers.resetForm()
+      formikHelpers.setSubmitting(false)
     }
   }
 
