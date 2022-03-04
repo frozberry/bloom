@@ -1,5 +1,9 @@
 import type { NextApiRequest, NextApiResponse } from "next"
-import { findUserByEmail } from "../../../services/server/userService"
+import {
+  findUserByEmail,
+  login,
+  validatePassword,
+} from "../../../services/server/userService"
 import { ServerError } from "../../../lib/types"
 
 type PostBody = {
@@ -9,14 +13,29 @@ type PostBody = {
 }
 
 const POST = async (req: NextApiRequest, res: NextApiResponse<ServerError>) => {
-  const { email }: PostBody = req.body
+  const { email, password }: PostBody = req.body
 
-  const existingUser = await findUserByEmail(email)
+  const user = await findUserByEmail(email)
 
-  if (!existingUser?.passwordHash) {
+  if (!user) {
+    return res.status(400).send({
+      type: "noUser",
+      message: "No user with that email exists",
+    })
+  }
+
+  if (!user?.passwordHash) {
     return res.status(400).send({
       type: "notCredentialUser",
       message: "use google",
+    })
+  }
+  const passwordCorrect = await validatePassword(password, user.passwordHash)
+
+  if (!passwordCorrect) {
+    return res.status(400).send({
+      type: "invalidCredentials",
+      message: "Incorrect email or password",
     })
   }
 
