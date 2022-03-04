@@ -7,6 +7,7 @@ import Link from "next/link"
 import { signup } from "../../services/client/accountClient"
 import notifyError from "../../lib/notifyError"
 import GoogleSignIn from "../../components/GoogleSignIn"
+import { signIn } from "next-auth/react"
 
 export default function App() {
   type FormValues = {
@@ -33,6 +34,11 @@ export default function App() {
   ) => {
     try {
       await signup(values.name, values.email, values.password)
+      signIn("credentials", {
+        email: values.email,
+        password: values.password,
+        callbackUrl: "/home",
+      })
     } catch (e) {
       notifyError(e)
       formikHelpers.setSubmitting(false)

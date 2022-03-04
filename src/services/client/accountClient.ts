@@ -29,13 +29,6 @@ export const signup = async (
   }
   const res = await axios.post<string>("/api/users", data)
 
-  localStorage.setItem(
-    "loggedWaterfrontUser",
-    JSON.stringify({ token: res.data })
-  )
-
-  location.href = "/home"
-
   return res.data
 }
 
