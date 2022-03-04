@@ -103,10 +103,3 @@ export default function App() {
     </Container>
   )
 }
-function useVerifyQuery(
-  user: any,
-  isLoading: boolean,
-  error: unknown
-): { escape: any; component: any } {
-  throw new Error("Function not implemented.")
-}
