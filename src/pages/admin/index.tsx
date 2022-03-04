@@ -17,8 +17,8 @@ const styles = {
 }
 
 const Admin = () => {
-  const { session, isLoading, error, data } = useAuthQuery("getExams", getExams)
-  const { escape, component } = useEscapeComponent(session, isLoading, error)
+  const { isLoading, error, data } = useAuthQuery("getExams", getExams)
+  const { escape, component } = useEscapeComponent(isLoading, error)
   const [exams, setExams] = useState<any>([])
 
   useEffect(() => {

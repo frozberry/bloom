@@ -12,7 +12,6 @@ const ResultsList = () => {
     getExamResultsOverview
   )
   const { escape, component } = useEscapeComponent(isLoading, error)
-
   if (escape) return component
 
   const examResultsOverview = data as ExamResultOverivew[]

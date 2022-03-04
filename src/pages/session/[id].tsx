@@ -105,11 +105,8 @@ const InputAnswer = ({ problem, viewOnly }: any) => {
 const Page = () => {
   const router = useRouter()
   const { id } = router.query as { id: string }
-
-  const { session, isLoading, error, data } = useAuthQuery(id, () =>
-    findExamById(id)
-  )
-  const { escape, component } = useEscapeComponent(session, isLoading, error)
+  const { isLoading, error, data } = useAuthQuery(id, () => findExamById(id))
+  const { escape, component } = useEscapeComponent(isLoading, error)
 
   if (escape) return component
 

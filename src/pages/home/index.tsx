@@ -7,11 +7,8 @@ import { Exam } from "@prisma/client"
 
 const Home = () => {
   const router = useRouter()
-  const { session, isLoading, error, data } = useAuthQuery(
-    "nextExam",
-    getNextExam
-  )
-  const { escape, component } = useEscapeComponent(session, isLoading, error)
+  const { isLoading, error, data } = useAuthQuery("nextExam", getNextExam)
+  const { escape, component } = useEscapeComponent(isLoading, error)
 
   if (escape) return component
 
@@ -29,7 +26,7 @@ const Home = () => {
 
   // TODO get the users name
   const profile = {
-    firstName: "henry"
+    firstName: "henry",
   }
 
   return (

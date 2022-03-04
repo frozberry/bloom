@@ -10,11 +10,10 @@ import { GradedExamWithGradedProblems } from "../../lib/types"
 const Page = () => {
   const router = useRouter()
   const { id } = router.query as { id: string }
-  const { session, isLoading, error, data } = useAuthQuery(id, () =>
+  const { isLoading, error, data } = useAuthQuery(id, () =>
     findGradedExamById(id)
   )
-  const { escape, component } = useEscapeComponent(session, isLoading, error)
-
+  const { escape, component } = useEscapeComponent(isLoading, error)
   if (escape) return component
 
   const gradedExam = data as GradedExamWithGradedProblems
