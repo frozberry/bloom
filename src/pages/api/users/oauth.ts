@@ -3,6 +3,7 @@ import { userIsOAuth } from "../../../services/server/userService"
 import authenticateUserSession from "../../../lib/authenticateUserSession"
 
 const GET = async (req: NextApiRequest, res: NextApiResponse<boolean>) => {
+  console.log("ouath runs")
   const { auth, userId, response } = await authenticateUserSession(req, res)
   if (!auth) {
     return response

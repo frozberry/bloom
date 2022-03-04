@@ -2,10 +2,24 @@ import { Container, Typography, Button, Box } from "@mui/material"
 import { Formik, FormikHelpers, FormikProps, Form, Field } from "formik"
 import * as yup from "yup"
 import FormTextField from "../../components/forms/FormTextField"
+import useAuthQuery from "../../hooks/useAuthQuery"
+import useEscapeComponent from "../../hooks/useEscapeComponent"
 import notifyError from "../../lib/notifyError"
-import { changePassword } from "../../services/client/accountClient"
+import {
+  changePassword,
+  isUserOAuth,
+} from "../../services/client/accountClient"
 
 export default function App() {
+  const { session, isLoading, error, data } = useAuthQuery(
+    "isOAuth",
+    isUserOAuth
+  )
+  const { escape, component } = useEscapeComponent(session, isLoading, error)
+  if (escape) return component
+
+  const isOAuth = data as boolean
+
   type FormValues = {
     currentPassword: string
     newPassword: string
@@ -36,52 +50,63 @@ export default function App() {
 
   return (
     <Container maxWidth="xs">
-      <Box sx={{ my: 4 }}>
-        <Typography variant="h2">Change password</Typography>
-      </Box>
+      {!isOAuth && (
+        <>
+          <Box sx={{ my: 4 }}>
+            <Typography variant="h2">Change password</Typography>
+          </Box>
 
-      <Formik
-        initialValues={initialValues}
-        validationSchema={validationSchema}
-        onSubmit={onSubmit}
-      >
-        {(formikProps: FormikProps<FormValues>) => (
-          <Form noValidate autoComplete="off">
-            <Box>
-              <Typography variant="subtitle2">Current password</Typography>
-              <Field
-                name="currentPassword"
-                placeholder="********"
-                type="password"
-                size="small"
-                component={FormTextField}
-                fullWidth
-              />
-            </Box>
-            <Box>
-              <Typography variant="subtitle2">New password</Typography>
-              <Field
-                name="newPassword"
-                placeholder="********"
-                type="password"
-                size="small"
-                component={FormTextField}
-                fullWidth
-              />
-            </Box>
-            <Button
-              type="submit"
-              variant="contained"
-              size="large"
-              color="primary"
-              fullWidth
-              disabled={formikProps.isSubmitting}
-            >
-              Save
-            </Button>
-          </Form>
-        )}
-      </Formik>
+          <Formik
+            initialValues={initialValues}
+            validationSchema={validationSchema}
+            onSubmit={onSubmit}
+          >
+            {(formikProps: FormikProps<FormValues>) => (
+              <Form noValidate autoComplete="off">
+                <Box>
+                  <Typography variant="subtitle2">Current password</Typography>
+                  <Field
+                    name="currentPassword"
+                    placeholder="********"
+                    type="password"
+                    size="small"
+                    component={FormTextField}
+                    fullWidth
+                  />
+                </Box>
+                <Box>
+                  <Typography variant="subtitle2">New password</Typography>
+                  <Field
+                    name="newPassword"
+                    placeholder="********"
+                    type="password"
+                    size="small"
+                    component={FormTextField}
+                    fullWidth
+                  />
+                </Box>
+                <Button
+                  type="submit"
+                  variant="contained"
+                  size="large"
+                  color="primary"
+                  fullWidth
+                  disabled={formikProps.isSubmitting}
+                >
+                  Save
+                </Button>
+              </Form>
+            )}
+          </Formik>
+        </>
+      )}
     </Container>
   )
+}
+function useVerifyQuery(
+  user: any,
+  isLoading: boolean,
+  error: unknown
+): { escape: any; component: any } {
+  throw new Error("Function not implemented.")
 }

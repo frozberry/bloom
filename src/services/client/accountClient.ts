@@ -46,3 +46,8 @@ export const changePassword = async (
 
   return
 }
+
+export const isUserOAuth = async () => {
+  const res = await axios.get<boolean>("/api/users/oauth")
+  return res.data
+}
