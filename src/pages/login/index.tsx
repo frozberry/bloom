@@ -44,25 +44,19 @@ export default function App() {
     formikHelpers: FormikHelpers<FormValues>
   ) => {
     try {
-      await axios.post("/api/auth/verify-login", { email: values.email })
+      await axios.post("/api/auth/verify-login", {
+        email: values.email,
+        password: values.password,
+      })
+      await signIn("credentials", {
+        email: values.email,
+        password: values.password,
+        callbackUrl: "/home",
+      })
     } catch (e) {
       notifyError(e)
+      formikHelpers.resetForm()
     }
-
-    // @ts-ignore
-    const res: LoginRes = await signIn("credentials", {
-      email: values.email,
-      password: values.password,
-      redirect: false,
-    })
-
-    if (!res.ok) {
-      toast.error("Error")
-      formikHelpers.setSubmitting(false)
-      return
-    }
-
-    // router.push("/home")
   }
 
   return (
