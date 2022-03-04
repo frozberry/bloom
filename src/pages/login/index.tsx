@@ -5,7 +5,6 @@ import * as yup from "yup"
 import FormTextField from "../../components/forms/FormTextField"
 import Link from "next/link"
 import { signIn } from "next-auth/react"
-import toast from "react-hot-toast"
 import { useRouter } from "next/router"
 import axios from "axios"
 import notifyError from "../../lib/notifyError"
@@ -39,6 +38,8 @@ export default function App() {
     password: yup.string().required("Required"),
   })
 
+  const callbackUrl = "/home"
+
   const onSubmit = async (
     values: FormValues,
     formikHelpers: FormikHelpers<FormValues>
@@ -51,7 +52,7 @@ export default function App() {
       await signIn("credentials", {
         email: values.email,
         password: values.password,
-        callbackUrl: "/home",
+        callbackUrl,
       })
     } catch (e) {
       notifyError(e)
@@ -67,11 +68,7 @@ export default function App() {
 
       <Box>
         <GoogleButton
-          onClick={() =>
-            signIn("google", {
-              callbackUrl: `${process.env.NEXT_PUBLIC_URL}/home`,
-            })
-          }
+          onClick={() => signIn("google", { callbackUrl })}
           type="dark"
         >
           Sign in with Google
