@@ -27,7 +27,7 @@ const POST = async (req: NextApiRequest, res: NextApiResponse<ServerError>) => {
   if (!user?.passwordHash) {
     return res.status(400).send({
       type: "notCredentialUser",
-      message: "use google",
+      message: "Account already exists, please sign in with Google",
     })
   }
   const passwordCorrect = await validatePassword(password, user.passwordHash)
