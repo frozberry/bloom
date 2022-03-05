@@ -1,16 +1,23 @@
 import { Typography, Divider, Box } from "@mui/material"
 import Link from "next/link"
 import dayjs from "dayjs"
+import { GradedExamWithExam } from "../../lib/types"
 
-const SingleAttempt = ({ gradedTest }: any) => {
+type Props = {
+  gradedExam: GradedExamWithExam
+}
+
+const SingleAttempt = ({ gradedExam }: Props) => {
   return (
-    <Link href={`/results/${gradedTest.id}`} passHref>
+    <Link href={`/results/${gradedExam.id}`} passHref>
       <Box sx={{ cursor: "pointer" }}>
-        <Typography variant="h4">Maths Test {gradedTest.num}</Typography>
-        <Typography>{dayjs(gradedTest.date).format("D MMM h:mma")}</Typography>
-        <Typography>{gradedTest.percent}%</Typography>
+        <Typography variant="h4">Maths Test {gradedExam.exam.num}</Typography>
         <Typography>
-          {gradedTest.marks}/{gradedTest.total} marks
+          {dayjs(gradedExam.createdAt).format("D MMM h:mma")}
+        </Typography>
+        <Typography>{Math.round(gradedExam.percent)}%</Typography>
+        <Typography>
+          {gradedExam.marks}/{gradedExam.totalMarks} marks
         </Typography>
         <Divider />
       </Box>

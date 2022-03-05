@@ -23,7 +23,7 @@ const ResultsList = () => {
           return <MultipleAttempts test={test} key={test.id} />
         }
 
-        return <SingleAttempt gradedTest={test.attempts[0]} key={test.id} />
+        return <SingleAttempt gradedExam={test.attempts[0]} key={test.id} />
       })}
     </Container>
   )

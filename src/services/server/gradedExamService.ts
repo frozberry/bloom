@@ -43,6 +43,7 @@ export const getUsersGradedExams = async (userId: string, exam: boolean) => {
 export const getExamResultsOverview = async (userId: string) => {
   const gradedExams = await prisma.gradedExam.findMany({
     where: { userId: userId },
+    include: { exam: true },
   })
   const exams = await prisma.exam.findMany()
 

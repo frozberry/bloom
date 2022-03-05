@@ -53,6 +53,16 @@ const gradedExamWithGradedProblems = Prisma.validator<Prisma.GradedExamArgs>()({
 export type GradedExamWithGradedProblems = Prisma.GradedExamGetPayload<
   typeof gradedExamWithGradedProblems
 >
+/* --------------------------- GradedExamWithExam --------------------------- */
+const gradedExamWithExam = Prisma.validator<Prisma.GradedExamArgs>()({
+  include: {
+    exam: true,
+  },
+})
+
+export type GradedExamWithExam = Prisma.GradedExamGetPayload<
+  typeof gradedExamWithExam
+>
 
 /* -------------------------------- Numbered -------------------------------- */
 // Generic type for Exams and GradedExams
