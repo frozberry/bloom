@@ -1,23 +1,23 @@
-import { Exam } from "@prisma/client"
+import { Exam, GradedExam } from "@prisma/client"
 import type { NextApiRequest, NextApiResponse } from "next"
 import authUserSession from "../../../lib/authUserSession"
 import { findGradedExamById } from "../../../services/server/gradedExamService"
 
 const GET = async (
   req: NextApiRequest,
-  res: NextApiResponse<Exam | null>,
+  res: NextApiResponse<GradedExam | null>,
   id: string
 ) => {
   const { unauthorized, userId, response } = await authUserSession(req, res)
   if (unauthorized) return response
 
-  const exam = await findGradedExamById(id)
+  const gradedExam = await findGradedExamById(id)
 
-  if (exam?.userId !== userId) {
+  if (gradedExam?.userId !== userId) {
     return res.status(401).end("unauthorized")
   }
 
-  res.send(exam)
+  res.send(gradedExam)
 }
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {

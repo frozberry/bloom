@@ -33,7 +33,7 @@ const Page = () => {
           {gradedExam.percent}%
         </Typography>
         <Typography align="center">
-          {`${gradedExam.marks}/${gradedExam.total}`} marks
+          {`${gradedExam.marks}/${gradedExam.totalMarks}`} marks
         </Typography>
         <Link href={`/exams/${id}`} passHref>
           <Button variant="contained" sx={{ mt: 2 }}>

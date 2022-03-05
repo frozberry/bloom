@@ -98,11 +98,13 @@ export const submitExam = async (
       gradedProblems: true,
     },
   })
+  if (!newGradedExam) throw new Error("Graded Exam not created")
 
   if (firstAttempt) {
     updateGradedCategories(userId, newGradedExam.gradedProblems)
     updateUserScore(userId)
   }
+  return newGradedExam
 }
 
 /* --------------------------------- Helpers -------------------------------- */
@@ -133,7 +135,7 @@ const correctSubmissions = (
 }
 
 const isFirstAttemptAtExam = async (examSession: ExamSession) => {
-  const usersGradedExams = await getUsersGradedExams(examSession.userId)
+  const usersGradedExams = await getUsersGradedExams(examSession.userId, false)
 
   const pastAttempts = usersGradedExams.filter(
     (gradedExam) => gradedExam.examId === examSession.examId

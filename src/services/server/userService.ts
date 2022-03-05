@@ -104,7 +104,7 @@ export const userIsOAuth = async (id: string): Promise<boolean> => {
 
 export const updateUserScore = async (userId: string) => {
   console.log("Updating users score")
-  const gradedExams = await getUsersGradedExams(userId)
+  const gradedExams = await getUsersGradedExams(userId, false)
 
   const firstAttempts = gradedExams.filter(
     (gradedExam) => gradedExam.firstAttempt

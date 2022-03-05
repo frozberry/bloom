@@ -8,7 +8,7 @@ const GET = async (req: NextApiRequest, res: NextApiResponse<Exam | null>) => {
   if (unauthorized) return response
 
   // TODO fix this, should be graded exams
-  const nextExam = await getNextExam()
+  const nextExam = await getNextExam(userId)
 
   res.send(nextExam)
 }

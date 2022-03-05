@@ -7,7 +7,7 @@ const GET = async (req: NextApiRequest, res: NextApiResponse<GradedExam[]>) => {
   const { unauthorized, userId, response } = await authUserSession(req, res)
   if (unauthorized) return response
 
-  const gradedExams = await getUsersGradedExams(userId)
+  const gradedExams = await getUsersGradedExams(userId, false)
   res.send(gradedExams)
 }
 
