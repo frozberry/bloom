@@ -1,4 +1,4 @@
-import { Exam, GradedExam } from "@prisma/client"
+import { GradedExam } from "@prisma/client"
 import type { NextApiRequest, NextApiResponse } from "next"
 import authUserSession from "../../../lib/authUserSession"
 import { findGradedExamById } from "../../../services/server/gradedExamService"

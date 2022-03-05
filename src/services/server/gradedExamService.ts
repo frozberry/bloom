@@ -1,13 +1,11 @@
-import { ExamSession, GradedExam, GradedProblem, Problem } from "@prisma/client"
-import { prisma } from "../../prisma/client"
-import dayjs from "dayjs"
-import _ from "lodash"
+import { ExamSession, Problem } from "@prisma/client"
+import { calculateDuration } from "../../lib/calculateDuration"
 import { ExamResultOverivew, ProblemSubmission } from "../../lib/types"
+import { prisma } from "../../prisma/client"
 import { findExamById } from "./examService"
 import { findExamSessionById } from "./examSessionService"
-import { updateUserScore } from "./userService"
 import { updateGradedCategories } from "./gradedCategoryService"
-import { calculateDuration } from "../../lib/calculateDuration"
+import { updateUserScore } from "./userService"
 
 /* ---------------------------------- CRUD ---------------------------------- */
 export const getGradedExams = async () => {

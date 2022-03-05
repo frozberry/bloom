@@ -1,7 +1,6 @@
-import { Category } from "@prisma/client"
-import { prisma } from "../../prisma/client"
 import _ from "lodash"
 import { Numbered, ProblemJson } from "../../lib/types"
+import { prisma } from "../../prisma/client"
 import { getUsersGradedExams } from "./gradedExamService"
 import { constructProblems } from "./problemService"
 
