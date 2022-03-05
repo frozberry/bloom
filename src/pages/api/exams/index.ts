@@ -8,7 +8,6 @@ import {
 } from "../../../services/server/examService"
 
 type PostBody = {
-  // TODO should probably be ProbelmeCreateInput
   problems: ProblemJson[]
 }
 
