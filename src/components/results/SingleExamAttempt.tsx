@@ -8,9 +8,8 @@ type Props = {
 }
 
 const SingleAttempt = ({ gradedExam }: Props) => {
-  console.log(gradedExam)
   return (
-    <Link href={`/results/${gradedExam?.id}`} passHref>
+    <Link href={`/results/graded-exams/${gradedExam.id}`} passHref>
       <Box sx={{ cursor: "pointer" }}>
         <Typography variant="h4">Maths Test {gradedExam?.exam?.num}</Typography>
         <Typography>

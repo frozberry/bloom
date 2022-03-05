@@ -21,6 +21,7 @@ export const findGradedExamById = async (id: string) => {
     include: {
       gradedProblems: true,
       user: true,
+      exam: true,
     },
   })
   return gradedExam

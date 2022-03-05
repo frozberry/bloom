@@ -1,10 +1,10 @@
 import { Button, Container, Paper, Typography } from "@mui/material"
 import Link from "next/link"
 import { useRouter } from "next/router"
-import Answers from "../../components/Answers"
-import useAuthQuery from "../../hooks/useAuthQuery"
-import { GradedExamWithGradedProblems } from "../../lib/types"
-import { findGradedExamById } from "../../services/client/gradedExamClient"
+import Answers from "../../../components/Answers"
+import useAuthQuery from "../../../hooks/useAuthQuery"
+import { GradedExamWithGradedProblems } from "../../../lib/types"
+import { findGradedExamById } from "../../../services/client/gradedExamClient"
 
 const Page = () => {
   const router = useRouter()
