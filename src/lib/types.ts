@@ -92,7 +92,7 @@ export type ServerError = {
 export type ExamResultOverivew = {
   examId: string
   num: number
-  attempts: GradedExam[]
+  attempts: GradedExamWithExam[]
 }
 
 /* --------------------------------- Session -------------------------------- */
