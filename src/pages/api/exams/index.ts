@@ -9,8 +9,8 @@ type PostBody = {
 }
 
 const GET = async (req: NextApiRequest, res: NextApiResponse<Exam[]>) => {
-  const { auth, response } = await authenticateAdminSession(req, res)
-  if (auth) return response
+  const { unauthorized, response } = await authenticateAdminSession(req, res)
+  if (unauthorized) return response
 
   const exams = await getExams()
   res.send(exams)

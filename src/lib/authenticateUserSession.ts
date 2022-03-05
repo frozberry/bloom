@@ -7,10 +7,10 @@ const authenticateUserSession = async (
 ) => {
   const session = await getSession({ req })
   if (session) {
-    return { auth: true, userId: session.id as string }
+    return { unauthorized: false, userId: session.id as string }
   }
   return {
-    auth: false,
+    auth: true,
     response: res.status(401).end("unauthorized"),
     userId: "",
   }

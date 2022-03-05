@@ -8,8 +8,8 @@ const GET = async (
   res: NextApiResponse<Exam | null>,
   id: string
 ) => {
-  const { auth, response } = await authenticateAdminSession(req, res)
-  if (auth) return response
+  const { unauthorized, response } = await authenticateAdminSession(req, res)
+  if (unauthorized) return response
 
   const exam = await findExamById(id)
   res.send(exam)
@@ -20,8 +20,8 @@ const DELETE = async (
   res: NextApiResponse,
   id: string
 ) => {
-  const { auth, response } = await authenticateAdminSession(req, res)
-  if (auth) return response
+  const { unauthorized, response } = await authenticateAdminSession(req, res)
+  if (unauthorized) return response
 
   const success = await deleteExam(id)
 

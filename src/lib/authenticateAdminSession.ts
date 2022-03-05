@@ -11,7 +11,7 @@ const authenticateAdminSession = async (
 
   if (!session) {
     return {
-      auth: false,
+      unauthorized: true,
       response: res.status(401).end("unauthorized"),
       userId: "",
     }
@@ -21,14 +21,14 @@ const authenticateAdminSession = async (
 
   if (!user.admin) {
     return {
-      auth: false,
+      unauthorized: true,
       response: res.status(401).end("admin"),
       userId: "",
     }
   }
 
   return {
-    auth: true,
+    unauthorized: false,
     userId: session.id as string,
   }
 }

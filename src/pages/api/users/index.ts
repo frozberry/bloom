@@ -28,10 +28,8 @@ const GET = async (
   req: NextApiRequest,
   res: NextApiResponse<UserWithoutDate[]>
 ) => {
-  const { auth, response } = await authenticateAdminSession(req, res)
-  if (!auth) {
-    return response
-  }
+  const { unauthorized, response } = await authenticateAdminSession(req, res)
+  if (unauthorized) return response
 
   const users = await getUsers()
   res.send(users)
