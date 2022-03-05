@@ -3,6 +3,7 @@ import { prisma } from "../../prisma/client"
 import _ from "lodash"
 import { Numbered } from "../../lib/types"
 import { getUsersGradedExams } from "./gradedExamService"
+import { constructProblems } from "./problemService"
 
 export const getExams = async () => {
   const exams = await prisma.exam.findMany({
@@ -44,12 +45,7 @@ export const findExamById = async (id: string) => {
 // Previously ProblemWithCategory[]
 export const createExam = async (problems: any[]) => {
   // TODO maybe move to problemService
-  const numberedProblems = problems.map((problem, i) => ({
-    ...problem,
-    num: i + 1,
-    correct: problem.correct.toString(),
-    categories: problem.categories,
-  }))
+  const numberedProblems = constructProblems(problems)
 
   const savedExam = await prisma.exam.create({
     data: {

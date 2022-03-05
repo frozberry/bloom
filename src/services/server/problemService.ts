@@ -20,3 +20,12 @@ export const deleteProblem = async (id: string): Promise<boolean> => {
   await prisma.problem.delete({ where: { id } })
   return true
 }
+
+export const constructProblems = (inputProblems: any[]) => {
+  const problems = inputProblems.map((problem, i) => ({
+    ...problem,
+    num: i + 1,
+    correct: problem.correct.toString(),
+  }))
+  return problems
+}
