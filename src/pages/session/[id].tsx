@@ -1,12 +1,12 @@
 import { Box, Container, Paper, TextField, Typography } from "@mui/material"
-import { Problem } from "@prisma/client"
+import { GradedProblem, Problem } from "@prisma/client"
 import { useRouter } from "next/router"
 import useAuthQuery from "../../hooks/useAuthQuery"
 import { ExamWithProblems } from "../../lib/types"
 import { findExamById } from "../../services/client/examClient"
 
 type Props = {
-  problem: Problem
+  problem: GradedProblem
   viewOnly: boolean
 }
 const Problem = ({ problem, viewOnly }: Props) => {

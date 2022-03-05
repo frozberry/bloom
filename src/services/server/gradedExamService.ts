@@ -90,6 +90,7 @@ export const submitExam = async (
     })
     const gradedProblem = {
       //TODO string conversion might not be needed
+      num: problem.num,
       question: problem.question,
       multi: problem.multi,
       correct: problem.correct,
