@@ -1,14 +1,19 @@
 import { Typography, Divider, Box } from "@mui/material"
+import { GradedProblem } from "@prisma/client"
 import Image from "next/image"
 import InputAnswer from "./solutions/InputAnswer"
 import MultipleChoiceAnswer from "./solutions/MultipleChoiceAnswer"
 
-const Solution = ({ problem }: any) => {
-  const isCorrect = (p: any) => {
-    if (p.multi) {
-      return p.selected === p.correct
+type Props = {
+  problem: GradedProblem
+}
+
+const Solution = ({ problem }: Props) => {
+  const isCorrect = (problem: GradedProblem) => {
+    if (problem.multi) {
+      return problem.selected === problem.correct
     }
-    return Number(p.selected) === Number(p.correct)
+    return Number(problem.selected) === Number(problem.correct)
   }
 
   const correct = isCorrect(problem)

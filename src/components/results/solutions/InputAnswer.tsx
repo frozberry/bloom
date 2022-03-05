@@ -1,6 +1,11 @@
 import { Typography } from "@mui/material"
+import { GradedProblem } from "@prisma/client"
+type Props = {
+  problem: GradedProblem
+  correct: boolean
+}
 
-const InputAnswer = ({ problem, correct }: any) => {
+const InputAnswer = ({ problem, correct }: Props) => {
   return (
     <>
       <Typography>
