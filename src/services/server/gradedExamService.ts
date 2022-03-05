@@ -89,24 +89,24 @@ export const submitExamNew = async (
       userId,
       examId: examSession.examId,
     },
+    include: {
+      gradedProblems: true,
+    },
   })
 
   if (firstAttempt) {
-    updateGradedCategories()
-    updateUserAverages(userId)
+    updateGradedCategories(userId, newGradedExam.gradedProblems)
+    updateUserScore(userId)
   }
 }
 
-const updateUserAverages = async (userId: string) => {
-  console.log("Updating users average score")
-
-  // TODO see if I can avoid this db call
+const updateUserScore = async (userId: string) => {
+  console.log("Updating users score")
   const gradedExams = await getUsersGradedExams(userId)
 
   const firstAttempts = gradedExams.filter(
     (gradedExam) => gradedExam.firstAttempt
   )
-
   const score = _.meanBy(firstAttempts, (gradedExam) => gradedExam.percent)
 
   await prisma.user.update({
