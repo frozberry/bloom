@@ -7,6 +7,7 @@ import { findExamById } from "./examService"
 import { findExamSessionById } from "./examSessionService"
 import { updateUserScore } from "./userService"
 import { updateGradedCategories } from "./gradedCategoryService"
+import { calculateDuration } from "../../lib/calculateDuration"
 
 /* ---------------------------------- CRUD ---------------------------------- */
 export const getGradedExams = async () => {
@@ -79,7 +80,7 @@ export const submitExam = async (
     submissions,
     exam.problems
   )
-  const time = dayjs(examSession.start).millisecond() - dayjs().millisecond()
+  const time = calculateDuration(examSession.start)
   const firstAttempt = await isFirstAttemptAtExam(examSession)
 
   const newGradedExam = await prisma.gradedExam.create({
