@@ -48,7 +48,6 @@ export const resetPassword = async (password: string, token: string) => {
   // eslint-disable-next-line
   const reset = jwt.verify(token, process.env.JWT_SECRET!) as ResetPasswordToken
 
-  // TODO maybe should just throw error
   if (Date.now() > reset.expires) {
     throw new Error("token expired")
   }

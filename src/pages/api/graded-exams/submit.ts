@@ -4,23 +4,21 @@ import authUserSession from "../../../lib/authUserSession"
 import { ProblemSubmission } from "../../../lib/types"
 import { submitExam } from "../../../services/server/gradedExamService"
 
-// TODO use proper type
 type PostBody = {
   examId: string
-  // TODO rename to submission
-  answers: ProblemSubmission[]
+  submissions: ProblemSubmission[]
 }
 
 const POST = async (
   req: NextApiRequest,
   res: NextApiResponse<GradedExam | null>
 ) => {
-  const { examId, answers }: PostBody = req.body
+  const { examId, submissions }: PostBody = req.body
 
   const { unauthorized, userId, response } = await authUserSession(req, res)
   if (unauthorized) return response
 
-  const gradedExam = await submitExam(userId, examId, answers)
+  const gradedExam = await submitExam(userId, examId, submissions)
   res.send(gradedExam)
 }
 
