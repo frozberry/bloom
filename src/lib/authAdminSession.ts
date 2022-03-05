@@ -1,4 +1,3 @@
-import { User } from "@prisma/client"
 import { getSession } from "next-auth/react"
 import { NextApiRequest, NextApiResponse } from "next/types"
 import { findUserById } from "../services/server/userService"
@@ -9,16 +8,16 @@ const authAdminSession = async (req: NextApiRequest, res: NextApiResponse) => {
   if (!session) {
     return {
       unauthorized: true,
-      response: res.status(401).end("unauthorized"),
+      response: res.status(401).end("You must be logged in to do that"),
     }
   }
 
-  const user = (await findUserById(session.id as string)) as User
+  const user = await findUserById(session.id as string)
 
-  if (!user.admin) {
+  if (!user?.admin) {
     return {
       unauthorized: true,
-      response: res.status(401).end("admin"),
+      response: res.status(401).end("You must be admin to do that"),
     }
   }
 
