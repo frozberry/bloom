@@ -1,16 +1,15 @@
 import { Box, Container, Paper, TextField, Typography } from "@mui/material"
+import { Problem } from "@prisma/client"
 import { useRouter } from "next/router"
 import useAuthQuery from "../../hooks/useAuthQuery"
 import { ExamWithProblems } from "../../lib/types"
 import { findExamById } from "../../services/client/examClient"
 
-const Problem = ({
-  problem,
-  viewOnly,
-}: {
-  problem: any
+type Props = {
+  problem: Problem
   viewOnly: boolean
-}) => {
+}
+const Problem = ({ problem, viewOnly }: Props) => {
   return (
     <Box sx={{ mb: 5 }}>
       <Typography>
@@ -31,7 +30,7 @@ const Problem = ({
   )
 }
 
-const MultipleChoice = ({ problem, viewOnly }: any) => {
+const MultipleChoice = ({ problem, viewOnly }: Props) => {
   console.log(viewOnly)
   // const dispatch = useDispatch()
   // const test = useSelector((state) => state.test)
@@ -71,7 +70,7 @@ const MultipleChoice = ({ problem, viewOnly }: any) => {
   )
 }
 
-const InputAnswer = ({ problem, viewOnly }: any) => {
+const InputAnswer = ({ problem, viewOnly }: Props) => {
   // const dispatch = useDispatch()
   // const test = useSelector((state) => state.test)
 

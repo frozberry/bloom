@@ -86,6 +86,7 @@ model GradedExam {
 
 model GradedProblem {
   id           String     @id @default(uuid())
+  num          Int
   question     String
   multi        Boolean
   correct      String

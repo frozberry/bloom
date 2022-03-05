@@ -1,12 +1,14 @@
 import { GradedExam } from "@prisma/client"
 import type { NextApiRequest, NextApiResponse } from "next"
 import authUserSession from "../../../lib/authUserSession"
+import { ProblemSubmission } from "../../../lib/types"
 import { submitExam } from "../../../services/server/gradedExamService"
 
 // TODO use proper type
 type PostBody = {
   examId: string
-  answers: any
+  // TODO rename to submission
+  answers: ProblemSubmission[]
 }
 
 const POST = async (

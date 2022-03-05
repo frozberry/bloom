@@ -124,3 +124,9 @@ export type ProblemSubmission = {
   problemId: string
   selected: string
 }
+
+export enum ViewOptions {
+  ALL,
+  CORRECT,
+  INCORRECT,
+}

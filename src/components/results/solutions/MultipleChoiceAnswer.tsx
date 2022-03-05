@@ -1,7 +1,12 @@
 import { Box } from "@mui/material"
+import { GradedProblem } from "@prisma/client"
 import MultipleChoiceOptions from "./MultipleChoiceOptions"
 
-const MultipleChoiceAnswer = ({ problem }: any) => {
+type Props = {
+  problem: GradedProblem
+}
+
+const MultipleChoiceAnswer = ({ problem }: Props) => {
   return (
     <Box
       sx={{
@@ -10,7 +15,7 @@ const MultipleChoiceAnswer = ({ problem }: any) => {
         alignItems: "center",
       }}
     >
-      {problem.options.map((option: any) => (
+      {problem.options.map((option: string) => (
         <MultipleChoiceOptions problem={problem} option={option} key={option} />
       ))}
     </Box>

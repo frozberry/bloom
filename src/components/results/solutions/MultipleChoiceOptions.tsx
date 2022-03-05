@@ -1,6 +1,12 @@
 import { Paper, Typography } from "@mui/material"
+import { GradedProblem } from "@prisma/client"
 
-const MultipleChoiceOptions = ({ problem, option }: any) => {
+type Props = {
+  problem: GradedProblem
+  option: string
+}
+
+const MultipleChoiceOptions = ({ problem, option }: Props) => {
   const correct = problem.correct === option
 
   if (problem.multi) {
