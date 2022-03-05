@@ -45,7 +45,7 @@ model User {
 
 model Exam {
   id           String        @id @default(uuid())
-  num          Int           @unique @default(autoincrement())
+  num          Int           @unique
   date         DateTime      @default(now())
   problems     Problem[]
   gradedExams  GradedExam[]

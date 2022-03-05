@@ -44,7 +44,7 @@ export const findExamById = async (id: string) => {
 // TODO temporary any type for seed to work
 // Previously ProblemWithCategory[]
 export const createExam = async (problems: any[]) => {
-  // TODO maybe move to problemService
+  const exams = await getExams()
   const numberedProblems = constructProblems(problems)
 
   const savedExam = await prisma.exam.create({
@@ -52,6 +52,7 @@ export const createExam = async (problems: any[]) => {
       problems: {
         create: numberedProblems,
       },
+      num: nextExamNum(exams),
     },
     include: {
       problems: true,
