@@ -1,8 +1,8 @@
 import { useState } from "react"
 import { Container } from "@mui/material"
 import _ from "lodash"
-import ToggleButtons from "./results/ToggleButtons"
-import Solution from "./results/Solution"
+import ToggleButtons from "./ToggleButtons"
+import Solution from "./Solution"
 
 const Answers = ({ gradedProblems }: any) => {
   const [view, setView] = useState("all")
