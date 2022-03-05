@@ -1,11 +1,15 @@
-import { Problem, Exam } from "@prisma/client"
+import { Exam } from "@prisma/client"
 import { NextApiRequest, NextApiResponse } from "next"
 import authAdminSession from "../../../lib/authAdminSession"
-import { createExam, getExams } from "../../../services/server/examService"
+import { ProblemJson } from "../../../lib/types"
+import {
+  createExamFromJson,
+  getExams,
+} from "../../../services/server/examService"
 
 type PostBody = {
   // TODO should probably be ProbelmeCreateInput
-  problems: Problem[]
+  problems: ProblemJson[]
 }
 
 const GET = async (req: NextApiRequest, res: NextApiResponse<Exam[]>) => {
@@ -21,7 +25,7 @@ const POST = async (req: NextApiRequest, res: NextApiResponse<Exam | null>) => {
   const { unauthorized, response } = await authAdminSession(req, res)
   if (unauthorized) return response
 
-  const exam = await createExam(problems)
+  const exam = await createExamFromJson(problems)
   res.send(exam)
 }
 

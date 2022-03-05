@@ -1,5 +1,5 @@
 import { prisma } from "./client"
-import { createExam } from "../services/server/examService"
+import { createExamFromJson } from "../services/server/examService"
 import { submitExam } from "../services/server/gradedExamService"
 import problems from "../../exams/one"
 import { findUserByEmail } from "../services/server/userService"
@@ -117,7 +117,7 @@ const main = async () => {
   await deleteAll()
   await createUsers()
   await createGradedCatergories()
-  const exam = await createExam(problems)
+  const exam = await createExamFromJson(problems)
   const user = (await getUser()) as User
   await createExamSession(user, exam)
   const seedAnswers = await createAnswers(exam)

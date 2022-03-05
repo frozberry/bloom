@@ -1,7 +1,7 @@
 import { Category } from "@prisma/client"
 import { prisma } from "../../prisma/client"
 import _ from "lodash"
-import { Numbered } from "../../lib/types"
+import { Numbered, ProblemJson } from "../../lib/types"
 import { getUsersGradedExams } from "./gradedExamService"
 import { constructProblems } from "./problemService"
 
@@ -41,9 +41,7 @@ export const findExamById = async (id: string) => {
   return exam
 }
 
-// TODO temporary any type for seed to work
-// Previously ProblemWithCategory[]
-export const createExam = async (problems: any[]) => {
+export const createExamFromJson = async (problems: ProblemJson[]) => {
   const exams = await getExams()
   const numberedProblems = constructProblems(problems)
 
