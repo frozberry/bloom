@@ -19,16 +19,11 @@ const ResultsList = () => {
       {examResultsOverview.map((examResult: ExamResultOverivew) => {
         const multipleAttempts = examResult.attempts.length > 1
 
-        if (multipleAttempts) {
-          return <MultipleAttempts test={examResult} key={examResult.examId} />
+        if (true) {
+          return <MultipleAttempts exam={examResult} key={examResult.examId} />
         }
 
-        return (
-          <SingleAttempt
-            gradedExam={examResult.attempts[0]}
-            key={examResult.examId}
-          />
-        )
+        return <SingleAttempt exam={exam} key={exam.id} />
       })}
     </Container>
   )
