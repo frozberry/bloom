@@ -1,4 +1,4 @@
-import { ExamSession, GradedExam, Problem } from "@prisma/client"
+import { ExamSession, GradedExam, GradedProblem, Problem } from "@prisma/client"
 import { prisma } from "../../prisma/client"
 import dayjs from "dayjs"
 import _ from "lodash"
@@ -119,10 +119,15 @@ const updateUserAverages = async (userId: string) => {
   })
 }
 
-const updateGradedCategories = () => {
-  console.log("It is first attempt, marking gradedCategories")
+const updateGradedCategories = async (
+  userId: string,
+  gradedProblems: GradedProblem[]
+) => {
   gradedProblems.forEach(async (gradedProblem) => {
     gradedProblem.categories.forEach(async (category) => {
+      const correct = isProblemCorrect(category)
+      const mark = correct ? 1 : 0
+
       await prisma.gradedCategory.update({
         where: {
           userId_category: {
@@ -135,7 +140,7 @@ const updateGradedCategories = () => {
             increment: 1,
           },
           correct: {
-            increment: isProblemCorrect(gradedProblem) ? 1 : 0,
+            increment: mark,
           },
         },
       })
