@@ -90,6 +90,58 @@ export const submitExamNew = async (
       examId: examSession.examId,
     },
   })
+
+  if (firstAttempt) {
+    updateGradedCategories()
+    updateUserAverages(userId)
+  }
+}
+
+const updateUserAverages = async (userId: string) => {
+  console.log("Updating users average score")
+
+  // TODO see if I can avoid this db call
+  const gradedExams = await getUsersGradedExams(userId)
+
+  const firstAttempts = gradedExams.filter(
+    (gradedExam) => gradedExam.firstAttempt
+  )
+
+  const score = _.meanBy(firstAttempts, (gradedExam) => gradedExam.percent)
+
+  await prisma.user.update({
+    where: {
+      id: userId,
+    },
+    data: {
+      score,
+    },
+  })
+}
+
+const updateGradedCategories = () => {
+  console.log("It is first attempt, marking gradedCategories")
+  gradedProblems.forEach(async (gradedProblem) => {
+    gradedProblem.categories.forEach(async (category) => {
+      await prisma.gradedCategory.update({
+        where: {
+          userId_category: {
+            userId: userId,
+            category,
+          },
+        },
+        data: {
+          attempts: {
+            increment: 1,
+          },
+          correct: {
+            increment: isProblemCorrect(gradedProblem) ? 1 : 0,
+          },
+        },
+      })
+    })
+  })
+  console.log("Grading categories done")
 }
 
 const getMarks = (submissions: ProblemSubmission[], problems: Problem[]) => {
