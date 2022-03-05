@@ -34,8 +34,6 @@ export const getUsersGradedExams = async (userId: string) => {
   return gradedExams
 }
 
-// TODO copying old API - maybe can be refactored
-// Sorting could be done on frontend, but this doesn't include gradedProblems
 export const getExamResultsOverview = async (userId: string) => {
   const gradedExams = await prisma.gradedExam.findMany({
     where: { userId: userId },
@@ -74,10 +72,7 @@ export const submitExam = async (
     },
   })
 
-  // TODO prevent TS null errors later. Maybe a better way to do this?
-  if (!exam) {
-    return null
-  }
+  if (!exam) return null
 
   // Reconcile the Exam's problems with the user's submissions
   console.log("Reconcilling users selections with exam problems")
