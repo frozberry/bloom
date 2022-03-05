@@ -82,3 +82,10 @@ export const deleteExam = async (id: string) => {
   })
   return true
 }
+
+const nextExamNum = <T extends Numbered>(exams: T[]) => {
+  const lastExam = _.maxBy(exams, (exam) => exam.num)
+
+  const incrementedNum = lastExam ? lastExam.num + 1 : 1
+  return incrementedNum
+}

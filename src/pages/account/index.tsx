@@ -3,7 +3,6 @@ import { Formik, FormikHelpers, FormikProps, Form, Field } from "formik"
 import * as yup from "yup"
 import FormTextField from "../../components/forms/FormTextField"
 import useAuthQuery from "../../hooks/useAuthQuery"
-import useEscapeComponent from "../../hooks/useEscapeComponent"
 import notifyError from "../../lib/notifyError"
 import {
   changePassword,
