@@ -53,29 +53,30 @@ model Exam {
 }
 
 model Problem {
-  id         String     @id @default(uuid())
-  question   String
-  multi      Boolean    @default(false)
-  correct    String
-  options    String[]
-  unit       String?
-  num        Int
-  img        String?
-  date       DateTime   @default(now())
-  exam       Exam       @relation(fields: [examId], references: [id], onDelete: Cascade)
-  examId     String
-  categories Category[]
+  id            String          @id @default(uuid())
+  question      String
+  multi         Boolean         @default(false)
+  correct       String
+  options       String[]
+  unit          String?
+  num           Int
+  img           String?
+  date          DateTime        @default(now())
+  exam          Exam            @relation(fields: [examId], references: [id], onDelete: Cascade)
+  examId        String
+  categories    Category[]
+  gradedProblem GradedProblem[]
 }
 
 model GradedExam {
   id             String          @id @default(uuid())
-  marks          Int
-  total          Int
-  percent        Float
   num            Int
+  marks          Int
+  percent        Float
+  totalMarks     Int
   firstAttempt   Boolean
   time           Int
-  date           DateTime        @default(now())
+  createdAt      DateTime        @default(now())
   user           User            @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId         String
   exam           Exam            @relation(fields: [examId], references: [id], onDelete: Cascade)
@@ -85,18 +86,13 @@ model GradedExam {
 
 model GradedProblem {
   id           String     @id @default(uuid())
-  question     String
-  correct      String
   selected     String?
-  num          Int
-  multi        Boolean    @default(false)
-  img          String?
-  options      String[]
-  unit         String?
-  date         DateTime   @default(now())
+  correct      String
+  categories   Category[]
   gradedExam   GradedExam @relation(fields: [gradedExamId], references: [id], onDelete: Cascade)
   gradedExamId String
-  categories   Category[]
+  problem      Problem    @relation(fields: [problemId], references: [id], onDelete: Cascade)
+  problemId    String
 }
 
 model ExamSession {
@@ -104,8 +100,8 @@ model ExamSession {
   start  DateTime @default(now())
   user   User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId String   @unique
-  Exam   Exam?    @relation(fields: [examId], references: [id], onDelete: Cascade)
-  examId String?
+  Exam   Exam     @relation(fields: [examId], references: [id], onDelete: Cascade)
+  examId String
 }
 
 model GradedCategory {
