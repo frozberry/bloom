@@ -78,11 +78,6 @@ const createGradedCatergories = async () => {
   })
 }
 
-const getUser = async () => {
-  const user = await findUserByEmail("pannicope@gmail.com")
-  return user
-}
-
 const createAnswers = async (exam: ExamWithProblems) => {
   const seedAnswers = exam.problems.map((p: any) => {
     const correct = Math.random() < 0.8
@@ -111,7 +106,7 @@ const main = async () => {
   await createUsers()
   await createGradedCatergories()
   const exam = await createExamFromJson(problems)
-  const user = (await getUser()) as User
+  const user = (await findUserByEmail("pannicope@gmail.com")) as User
   const examSession = await createExamSession(user.id, exam.id)
   const seedAnswers = await createAnswers(exam)
 
