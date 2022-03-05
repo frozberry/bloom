@@ -28,13 +28,14 @@ export const findGradedExamById = async (id: string) => {
   return gradedExam
 }
 
-export const getUsersGradedExams = async (userId: string) => {
+export const getUsersGradedExams = async (userId: string, exam: boolean) => {
   const gradedExams = await prisma.gradedExam.findMany({
     where: {
       userId,
     },
     include: {
       gradedProblems: true,
+      exam,
     },
   })
   return gradedExams
