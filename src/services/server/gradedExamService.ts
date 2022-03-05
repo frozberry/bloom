@@ -88,6 +88,7 @@ export const submitExam = async (
       return submission.problemId === problem.id
     })
     const gradedProblem = {
+      //TODO string conversion might not be needed
       selected: submission?.selected.toString(),
       correct: problem.correct,
       problem: {

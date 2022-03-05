@@ -81,7 +81,7 @@ const createGradedCatergories = async () => {
 const createAnswers = async (exam: ExamWithProblems) => {
   const seedAnswers = exam.problems.map((p: any) => {
     const correct = Math.random() < 0.8
-    const wrongAns = p.multi ? p.options[0] : 1
+    const wrongAns = p.multi ? p.options[0] : "foo"
     return {
       selected: correct ? p.correct : wrongAns,
       problemId: p.id,
