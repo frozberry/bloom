@@ -1,5 +1,4 @@
 import { Category, GradedExam, Prisma } from "@prisma/client"
-import { string } from "yup/lib/locale"
 
 /* ----------------------------- UserWithoutDate ---------------------------- */
 const userWithoutDate = Prisma.validator<Prisma.UserArgs>()({
@@ -108,4 +107,10 @@ export type ProblemJson = {
   multi?: boolean
   unit?: string
   img?: string
+}
+
+/* ---------------------------- ProblemSubmission --------------------------- */
+export type ProblemSubmission = {
+  problemId: string
+  selected: string
 }

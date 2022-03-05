@@ -2,7 +2,8 @@ import { GradedExam } from "@prisma/client"
 import { prisma } from "../../prisma/client"
 import dayjs from "dayjs"
 import _ from "lodash"
-import { ExamResultOverivew } from "../../lib/types"
+import { ExamResultOverivew, ProblemSubmission } from "../../lib/types"
+import { findExamById } from "./examService"
 
 export const getGradedExams = async () => {
   const gradedExams = await prisma.gradedExam.findMany()
@@ -55,6 +56,60 @@ export const getExamResultsOverview = async (userId: string) => {
   })
 
   return examSorted
+}
+
+export const submitExamNew = async (
+  userId: string,
+  sessionId: string,
+  submissions: ProblemSubmission[]
+) => {
+  // TODO use helper
+  const examSession = await prisma.examSession.findUnique({
+    where: {
+      id: sessionId,
+    },
+  })
+
+  if (!examSession) {
+    throw new Error("Exam session not found")
+  }
+
+  const exam = await findExamById(examSession.examId)
+  if (!exam) {
+    throw new Error("Exam not found")
+  }
+
+  const usersGradedExams = await getUsersGradedExams(userId)
+
+  // TODO move to function
+  const marks = submissions.filter((submission) => {
+    const problem = exam.problems.find(
+      (problem) => problem.id === submission.problemId
+    )
+    return problem?.correct === submission.selected
+  }).length
+
+  const totalMarks = exam.problems.length
+  const percent = (marks / totalMarks) * 100
+
+  const time = dayjs(examSession.start).millisecond() - dayjs().millisecond()
+
+  const firstAttempt = await isFirstAttemptAtExam(
+    usersGradedExams,
+    examSession.examId
+  )
+
+  const newGradedExam = await prisma.gradedExam.create({
+    data: {
+      marks,
+      totalMarks,
+      percent,
+      firstAttempt,
+      time,
+      userId,
+      examId: examSession.examId,
+    },
+  })
 }
 
 // TODO Use correct type for answers
@@ -186,11 +241,13 @@ const isFirstAttemptAtExam = async (
   usersGradedExams: GradedExam[],
   examId: string
 ) => {
-  let firstAttempt = true
-  if (usersGradedExams.filter((gt) => gt.examId === examId).length > 0) {
-    firstAttempt = false
+  const pastAttempts = usersGradedExams.filter(
+    (gradedExam) => gradedExam.examId === examId
+  )
+  if (pastAttempts.length > 0) {
+    return false
   }
-  return firstAttempt
+  return true
 }
 
 // TODO use correct type

@@ -71,8 +71,8 @@ model Problem {
 model GradedExam {
   id             String          @id @default(uuid())
   marks          Int
-  percent        Float
   totalMarks     Int
+  percent        Float
   firstAttempt   Boolean
   time           Int
   createdAt      DateTime        @default(now())
