@@ -1,9 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from "next"
-import {
-  findUserByEmail,
-  validatePassword,
-} from "../../../services/server/userService"
+import { findUserByEmail } from "../../../services/server/userService"
 import { ServerError } from "../../../lib/types"
+import { validatePassword } from "../../../services/server/accountService"
 
 type PostBody = {
   parentName: string

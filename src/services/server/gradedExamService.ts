@@ -8,6 +8,7 @@ import { findExamSessionById } from "./examSessionService"
 import { updateUserScore } from "./userService"
 import { updateGradedCategories } from "./gradedCategoryService"
 
+/* ---------------------------------- CRUD ---------------------------------- */
 export const getGradedExams = async () => {
   const gradedExams = await prisma.gradedExam.findMany()
   return gradedExams
@@ -38,6 +39,7 @@ export const getUsersGradedExams = async (userId: string) => {
   return gradedExams
 }
 
+/* ---------------------------- Results Overview ---------------------------- */
 export const getExamResultsOverview = async (userId: string) => {
   const gradedExams = await prisma.gradedExam.findMany({
     where: { userId: userId },
@@ -61,6 +63,7 @@ export const getExamResultsOverview = async (userId: string) => {
   return examSorted
 }
 
+/* ------------------------------- Submit Exam ------------------------------ */
 export const submitExam = async (
   userId: string,
   examSessionId: string,
@@ -100,6 +103,7 @@ export const submitExam = async (
   }
 }
 
+/* --------------------------------- Helpers -------------------------------- */
 const calculateMarks = (
   submissions: ProblemSubmission[],
   problems: Problem[]

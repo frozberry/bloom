@@ -7,7 +7,8 @@ const GET = async (req: NextApiRequest, res: NextApiResponse<Exam | null>) => {
   const { unauthorized, userId, response } = await authUserSession(req, res)
   if (unauthorized) return response
 
-  const nextExam = await getNextExam(userId)
+  // TODO fix this, should be graded exams
+  const nextExam = await getNextExam()
 
   res.send(nextExam)
 }

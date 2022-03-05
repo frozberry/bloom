@@ -1,6 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from "next"
 import { User } from "@prisma/client"
-import { resetPassword } from "../../../services/server/userService"
+import { resetPassword } from "../../../services/server/accountService"
 
 type PutBody = {
   newPassword: string

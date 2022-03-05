@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from "next"
-import { getProfiles } from "../../../services/server/userService"
+import { getProfiles } from "../../../services/server/profileService"
 import { UserProfile } from "../../../lib/types"
 import authAdminSession from "../../../lib/authAdminSession"
 

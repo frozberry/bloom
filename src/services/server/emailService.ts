@@ -1,5 +1,5 @@
 import postmark from "postmark"
-import { passwordResetUrl } from "./userService"
+import { passwordResetUrl } from "./accountService"
 
 export const sendPasswordResetEmail = (userId: string, email: string) => {
   const url = passwordResetUrl(userId)

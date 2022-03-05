@@ -4,9 +4,9 @@ import authUserSession from "../../../lib/authUserSession"
 import { ServerError } from "../../../lib/types"
 import {
   changePassword,
-  findUserById,
   validatePassword,
-} from "../../../services/server/userService"
+} from "../../../services/server/accountService"
+import { findUserById } from "../../../services/server/userService"
 
 type PutBody = {
   currentPassword: string
