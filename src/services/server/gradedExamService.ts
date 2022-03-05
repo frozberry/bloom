@@ -90,8 +90,13 @@ export const submitExam = async (
     })
     const gradedProblem = {
       //TODO string conversion might not be needed
-      selected: submission?.selected.toString(),
+      question: problem.question,
+      multi: problem.multi,
       correct: problem.correct,
+      selected: submission?.selected.toString(),
+      options: problem.options,
+      unit: problem.unit,
+
       problem: {
         connect: { id: problem.id },
       },
@@ -101,6 +106,7 @@ export const submitExam = async (
 
   const newGradedExam = await prisma.gradedExam.create({
     data: {
+      num: exam.num,
       marks,
       totalMarks,
       percent,

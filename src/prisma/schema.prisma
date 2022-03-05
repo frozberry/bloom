@@ -70,6 +70,7 @@ model Problem {
 
 model GradedExam {
   id             String          @id @default(uuid())
+  num            Int
   marks          Int
   totalMarks     Int
   percent        Float
@@ -85,8 +86,14 @@ model GradedExam {
 
 model GradedProblem {
   id           String     @id @default(uuid())
-  selected     String?
+  question     String
+  multi        Boolean
   correct      String
+  selected     String?
+  options      String[]
+  unit         String?
+  img          String?
+  createdAt    DateTime   @default(now())
   categories   Category[]
   gradedExam   GradedExam @relation(fields: [gradedExamId], references: [id], onDelete: Cascade)
   gradedExamId String

@@ -30,7 +30,7 @@ const Page = () => {
           You scored
         </Typography>
         <Typography align="center" variant="h3">
-          {gradedExam.percent}%
+          {Math.round(gradedExam.percent)}%
         </Typography>
         <Typography align="center">
           {`${gradedExam.marks}/${gradedExam.totalMarks}`} marks
