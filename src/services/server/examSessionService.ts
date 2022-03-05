@@ -1,5 +1,14 @@
 import { prisma } from "../../prisma/client"
 
+export const findExamSessionById = async (id: string) => {
+  const examSession = await prisma.examSession.findUnique({
+    where: {
+      id,
+    },
+  })
+  return examSession
+}
+
 export const findUsersExamSession = async (userId: string) => {
   const examSession = await prisma.examSession.findUnique({
     where: {

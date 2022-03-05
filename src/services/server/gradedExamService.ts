@@ -1,9 +1,10 @@
-import { GradedExam } from "@prisma/client"
+import { ExamSession, GradedExam, Problem } from "@prisma/client"
 import { prisma } from "../../prisma/client"
 import dayjs from "dayjs"
 import _ from "lodash"
 import { ExamResultOverivew, ProblemSubmission } from "../../lib/types"
 import { findExamById } from "./examService"
+import { findExamSessionById } from "./examSessionService"
 
 export const getGradedExams = async () => {
   const gradedExams = await prisma.gradedExam.findMany()
@@ -60,15 +61,10 @@ export const getExamResultsOverview = async (userId: string) => {
 
 export const submitExamNew = async (
   userId: string,
-  sessionId: string,
+  examSessionId: string,
   submissions: ProblemSubmission[]
 ) => {
-  // TODO use helper
-  const examSession = await prisma.examSession.findUnique({
-    where: {
-      id: sessionId,
-    },
-  })
+  const examSession = await findExamSessionById(examSessionId)
 
   if (!examSession) {
     throw new Error("Exam session not found")
@@ -79,25 +75,9 @@ export const submitExamNew = async (
     throw new Error("Exam not found")
   }
 
-  const usersGradedExams = await getUsersGradedExams(userId)
-
-  // TODO move to function
-  const marks = submissions.filter((submission) => {
-    const problem = exam.problems.find(
-      (problem) => problem.id === submission.problemId
-    )
-    return problem?.correct === submission.selected
-  }).length
-
-  const totalMarks = exam.problems.length
-  const percent = (marks / totalMarks) * 100
-
+  const { marks, totalMarks, percent } = getMarks(submissions, exam.problems)
   const time = dayjs(examSession.start).millisecond() - dayjs().millisecond()
-
-  const firstAttempt = await isFirstAttemptAtExam(
-    usersGradedExams,
-    examSession.examId
-  )
+  const firstAttempt = await isFirstAttemptAtExam(examSession)
 
   const newGradedExam = await prisma.gradedExam.create({
     data: {
@@ -110,6 +90,29 @@ export const submitExamNew = async (
       examId: examSession.examId,
     },
   })
+}
+
+const getMarks = (submissions: ProblemSubmission[], problems: Problem[]) => {
+  const correct = correctSubmissions(submissions, problems)
+  const marks = correct.length
+  const totalMarks = problems.length
+  const percent = (marks / totalMarks) * 100
+
+  return { marks, totalMarks, percent }
+}
+
+const correctSubmissions = (
+  submissions: ProblemSubmission[],
+  problems: Problem[]
+) => {
+  const correct = submissions.filter((submission) => {
+    const problem = problems.find(
+      (problem) => problem.id === submission.problemId
+    )
+    return problem?.correct === submission.selected
+  })
+
+  return correct
 }
 
 // TODO Use correct type for answers
@@ -237,12 +240,11 @@ export const submitExam = async (
   return savedGradedExam
 }
 
-const isFirstAttemptAtExam = async (
-  usersGradedExams: GradedExam[],
-  examId: string
-) => {
+const isFirstAttemptAtExam = async (examSession: ExamSession) => {
+  const usersGradedExams = await getUsersGradedExams(examSession.userId)
+
   const pastAttempts = usersGradedExams.filter(
-    (gradedExam) => gradedExam.examId === examId
+    (gradedExam) => gradedExam.examId === examSession.examId
   )
   if (pastAttempts.length > 0) {
     return false
