@@ -70,7 +70,6 @@ model Problem {
 
 model GradedExam {
   id             String          @id @default(uuid())
-  num            Int
   marks          Int
   percent        Float
   totalMarks     Int
