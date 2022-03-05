@@ -8,7 +8,6 @@ const authenticateAdminSession = async (
   res: NextApiResponse
 ) => {
   const session = await getSession({ req })
-  console.log(session)
 
   if (!session) {
     return {

@@ -6,7 +6,6 @@ const authenticateUserSession = async (
   res: NextApiResponse
 ) => {
   const session = await getSession({ req })
-  console.log("session:", session)
   if (session) {
     return { auth: true, userId: session.id as string }
   }
