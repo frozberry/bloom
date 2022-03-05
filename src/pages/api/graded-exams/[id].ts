@@ -1,5 +1,6 @@
 import { Exam } from "@prisma/client"
 import type { NextApiRequest, NextApiResponse } from "next"
+import authUserSession from "../../../lib/authUserSession"
 import { findGradedExamById } from "../../../services/server/gradedExamService"
 
 const GET = async (
@@ -7,7 +8,15 @@ const GET = async (
   res: NextApiResponse<Exam | null>,
   id: string
 ) => {
+  const { unauthorized, userId, response } = await authUserSession(req, res)
+  if (unauthorized) return response
+
   const exam = await findGradedExamById(id)
+
+  if (exam?.userId !== userId) {
+    return res.status(401).end("unauthorized")
+  }
+
   res.send(exam)
 }
 

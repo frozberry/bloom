@@ -1,5 +1,6 @@
 import { User } from "@prisma/client"
 import type { NextApiRequest, NextApiResponse } from "next"
+import authAdminSession from "../../../lib/authAdminSession"
 import { deleteUser, findUserById } from "../../../services/server/userService"
 
 const GET = async (
@@ -16,6 +17,9 @@ const DELETE = async (
   res: NextApiResponse,
   id: string
 ) => {
+  const { unauthorized, response } = await authAdminSession(req, res)
+  if (unauthorized) return response
+
   const success = await deleteUser(id)
 
   if (!success) {

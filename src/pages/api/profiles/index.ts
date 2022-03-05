@@ -1,11 +1,15 @@
 import type { NextApiRequest, NextApiResponse } from "next"
 import { getProfiles } from "../../../services/server/userService"
 import { UserProfile } from "../../../lib/types"
+import authAdminSession from "../../../lib/authAdminSession"
 
 const GET = async (
   req: NextApiRequest,
   res: NextApiResponse<UserProfile[]>
 ) => {
+  const { unauthorized, response } = await authAdminSession(req, res)
+  if (unauthorized) return response
+
   const profiles = await getProfiles()
   res.send(profiles)
 }

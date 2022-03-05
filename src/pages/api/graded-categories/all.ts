@@ -12,6 +12,7 @@ const GET = async (
 ) => {
   const { average } = req.query
 
+  // TODO not sure how this should be authed
   if (average === "true") {
     const averages = await getCatergoriesAverage()
     res.send(averages)

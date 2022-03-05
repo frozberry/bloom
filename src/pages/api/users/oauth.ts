@@ -1,13 +1,10 @@
 import type { NextApiRequest, NextApiResponse } from "next"
 import { userIsOAuth } from "../../../services/server/userService"
-import authenticateUserSession from "../../../lib/authenticateUserSession"
+import authUserSession from "../../../lib/authUserSession"
 
 const GET = async (req: NextApiRequest, res: NextApiResponse<boolean>) => {
-  console.log("ouath runs")
-  const { auth, userId, response } = await authenticateUserSession(req, res)
-  if (!auth) {
-    return response
-  }
+  const { unauthorized, userId, response } = await authUserSession(req, res)
+  if (unauthorized) return response
 
   const isOAuth = await userIsOAuth(userId)
   res.send(isOAuth)

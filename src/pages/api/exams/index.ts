@@ -1,6 +1,6 @@
 import { Problem, Exam } from "@prisma/client"
 import { NextApiRequest, NextApiResponse } from "next"
-import authenticateAdminSession from "../../../lib/authenticateAdminSession"
+import authAdminSession from "../../../lib/authAdminSession"
 import { createExam, getExams } from "../../../services/server/examService"
 
 type PostBody = {
@@ -9,7 +9,7 @@ type PostBody = {
 }
 
 const GET = async (req: NextApiRequest, res: NextApiResponse<Exam[]>) => {
-  const { unauthorized, response } = await authenticateAdminSession(req, res)
+  const { unauthorized, response } = await authAdminSession(req, res)
   if (unauthorized) return response
 
   const exams = await getExams()
@@ -18,7 +18,7 @@ const GET = async (req: NextApiRequest, res: NextApiResponse<Exam[]>) => {
 
 const POST = async (req: NextApiRequest, res: NextApiResponse<Exam | null>) => {
   const { problems }: PostBody = req.body
-  const { unauthorized, response } = await authenticateAdminSession(req, res)
+  const { unauthorized, response } = await authAdminSession(req, res)
   if (unauthorized) return response
 
   const exam = await createExam(problems)

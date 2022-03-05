@@ -1,10 +1,14 @@
 import { Problem } from "@prisma/client"
 import type { NextApiRequest, NextApiResponse } from "next"
+import authAdminSession from "../../../lib/authAdminSession"
 import { getProblems } from "../../../services/server/problemService"
 
 const GET = async (req: NextApiRequest, res: NextApiResponse<Problem[]>) => {
-  const categories = await getProblems()
-  res.send(categories)
+  const { unauthorized, response } = await authAdminSession(req, res)
+  if (unauthorized) return response
+
+  const problems = await getProblems()
+  res.send(problems)
 }
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {

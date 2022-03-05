@@ -7,6 +7,7 @@ type PutBody = {
   token: string
 }
 
+// TODO this route doesn't work with sessions
 const PUT = async (req: NextApiRequest, res: NextApiResponse<User | null>) => {
   const { newPassword, token }: PutBody = req.body
 

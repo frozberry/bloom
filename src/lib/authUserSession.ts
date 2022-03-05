@@ -1,7 +1,7 @@
 import { getSession } from "next-auth/react"
 import { NextApiRequest, NextApiResponse } from "next/types"
 
-const authenticateUserSession = async (
+const authUserSession = async (
   req: NextApiRequest,
   res: NextApiResponse
 ) => {
@@ -10,10 +10,10 @@ const authenticateUserSession = async (
     return { unauthorized: false, userId: session.id as string }
   }
   return {
-    auth: true,
+    unauthorized: true,
     response: res.status(401).end("unauthorized"),
     userId: "",
   }
 }
 
-export default authenticateUserSession
+export default authUserSession

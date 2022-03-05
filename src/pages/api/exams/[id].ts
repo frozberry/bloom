@@ -1,6 +1,6 @@
 import { Exam } from "@prisma/client"
 import type { NextApiRequest, NextApiResponse } from "next"
-import authenticateAdminSession from "../../../lib/authenticateAdminSession"
+import authAdminSession from "../../../lib/authAdminSession"
 import { deleteExam, findExamById } from "../../../services/server/examService"
 
 const GET = async (
@@ -8,7 +8,7 @@ const GET = async (
   res: NextApiResponse<Exam | null>,
   id: string
 ) => {
-  const { unauthorized, response } = await authenticateAdminSession(req, res)
+  const { unauthorized, response } = await authAdminSession(req, res)
   if (unauthorized) return response
 
   const exam = await findExamById(id)
@@ -20,7 +20,7 @@ const DELETE = async (
   res: NextApiResponse,
   id: string
 ) => {
-  const { unauthorized, response } = await authenticateAdminSession(req, res)
+  const { unauthorized, response } = await authAdminSession(req, res)
   if (unauthorized) return response
 
   const success = await deleteExam(id)

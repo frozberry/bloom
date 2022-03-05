@@ -1,4 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from "next"
+import authAdminSession from "../../../lib/authAdminSession"
 import { deleteProblem } from "../../../services/server/problemService"
 
 const DELETE = async (
@@ -17,6 +18,8 @@ const DELETE = async (
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   const { id } = req.query as { id: string }
+  const { unauthorized, response } = await authAdminSession(req, res)
+  if (unauthorized) return response
 
   switch (req.method) {
     case "DELETE":
