@@ -1,9 +1,9 @@
 import { User } from "@prisma/client"
 import bcrypt from "bcrypt"
 import jwt from "jsonwebtoken"
-import { findUserByEmail } from "./userService"
 import { ResetPasswordToken } from "../../lib/types"
 import { prisma } from "../../prisma/client"
+import { findUserByEmail } from "./userService"
 
 /* ---------------------------------- Login --------------------------------- */
 export const login = async (

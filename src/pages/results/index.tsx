@@ -1,9 +1,9 @@
 import { Container } from "@mui/material"
-import { getExamResultsOverview } from "../../services/client/gradedExamClient"
-import SingleAttempt from "../../components/results/SingleExamAttempt"
 import MultipleAttempts from "../../components/results/MultipleExamAttempts"
+import SingleAttempt from "../../components/results/SingleExamAttempt"
 import useAuthQuery from "../../hooks/useAuthQuery"
 import { ExamResultOverivew } from "../../lib/types"
+import { getExamResultsOverview } from "../../services/client/gradedExamClient"
 
 const ResultsList = () => {
   const { data, escape, component } = useAuthQuery(

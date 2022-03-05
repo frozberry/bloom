@@ -1,8 +1,8 @@
-import { Container, Typography, Button, Box } from "@mui/material"
-import { Formik, FormikHelpers, FormikProps, Form, Field } from "formik"
+import { Box, Button, Container, Typography } from "@mui/material"
+import { Field, Form, Formik, FormikHelpers, FormikProps } from "formik"
+import Link from "next/link"
 import * as yup from "yup"
 import FormTextField from "../../components/forms/FormTextField"
-import Link from "next/link"
 
 type FormValues = {
   password: string

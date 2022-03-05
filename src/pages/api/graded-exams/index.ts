@@ -1,7 +1,7 @@
-import type { NextApiRequest, NextApiResponse } from "next"
 import { GradedExam } from "@prisma/client"
-import { getUsersGradedExams } from "../../../services/server/gradedExamService"
+import type { NextApiRequest, NextApiResponse } from "next"
 import authUserSession from "../../../lib/authUserSession"
+import { getUsersGradedExams } from "../../../services/server/gradedExamService"
 
 const GET = async (req: NextApiRequest, res: NextApiResponse<GradedExam[]>) => {
   const { unauthorized, userId, response } = await authUserSession(req, res)

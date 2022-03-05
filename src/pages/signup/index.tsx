@@ -1,13 +1,13 @@
-import { Container, Typography, Button, Box, Divider } from "@mui/material"
-import { Formik, FormikHelpers, FormikProps, Form, Field } from "formik"
-import * as yup from "yup"
-import FormTextField from "../../components/forms/FormTextField"
+import { Box, Button, Container, Divider, Typography } from "@mui/material"
+import { Field, Form, Formik, FormikHelpers, FormikProps } from "formik"
+import { signIn } from "next-auth/react"
 import Image from "next/image"
 import Link from "next/link"
-import { signup } from "../../services/client/accountClient"
-import notifyError from "../../lib/notifyError"
+import * as yup from "yup"
+import FormTextField from "../../components/forms/FormTextField"
 import GoogleSignIn from "../../components/GoogleSignIn"
-import { signIn } from "next-auth/react"
+import notifyError from "../../lib/notifyError"
+import { signup } from "../../services/client/accountClient"
 
 export default function App() {
   type FormValues = {

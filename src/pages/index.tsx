@@ -1,11 +1,11 @@
-import LandingHeader from "../components/landing-page/LandingHeader"
+import { useSession } from "next-auth/react"
+import { useRouter } from "next/router"
+import { useEffect } from "react"
 import HowItWorks from "../components/landing-page/HowItWorks"
-import WhatsWaterfront from "../components/landing-page/WhatsWaterfront"
 import LandingFooter from "../components/landing-page/LandingFooter"
 import LandingGraphs from "../components/landing-page/LandingGraphs"
-import { useEffect } from "react"
-import { useRouter } from "next/router"
-import { useSession } from "next-auth/react"
+import LandingHeader from "../components/landing-page/LandingHeader"
+import WhatsWaterfront from "../components/landing-page/WhatsWaterfront"
 
 const LandingPage = () => {
   const router = useRouter()

@@ -3,7 +3,7 @@ import type { NextApiRequest, NextApiResponse } from "next"
 import authUserSession from "../../../lib/authUserSession"
 import {
   createExamSession,
-  findUsersExamSession,
+  findUsersExamSession
 } from "../../../services/server/examSessionService"
 
 type PostBody = {

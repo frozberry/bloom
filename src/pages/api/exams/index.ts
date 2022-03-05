@@ -4,7 +4,7 @@ import authAdminSession from "../../../lib/authAdminSession"
 import { ProblemJson } from "../../../lib/types"
 import {
   createExamFromJson,
-  getExams,
+  getExams
 } from "../../../services/server/examService"
 
 type PostBody = {

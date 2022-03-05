@@ -1,17 +1,15 @@
-import Head from "next/head"
-import { AppProps } from "next/app"
-import { ThemeProvider } from "@mui/material/styles"
-import CssBaseline from "@mui/material/CssBaseline"
 import { CacheProvider, EmotionCache } from "@emotion/react"
+import CssBaseline from "@mui/material/CssBaseline"
+import { ThemeProvider } from "@mui/material/styles"
 import { SessionProvider } from "next-auth/react"
-
-import theme from "../styles/theme"
-import createEmotionCache from "../lib/createEmotionCache"
-import Header from "../components/Header"
-import "../styles.css"
-
-import { QueryClient, QueryClientProvider } from "react-query"
+import { AppProps } from "next/app"
+import Head from "next/head"
 import { Toaster } from "react-hot-toast"
+import { QueryClient, QueryClientProvider } from "react-query"
+import Header from "../components/Header"
+import createEmotionCache from "../lib/createEmotionCache"
+import "../styles.css"
+import theme from "../styles/theme"
 
 const queryClient = new QueryClient()
 

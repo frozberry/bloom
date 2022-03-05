@@ -1,20 +1,15 @@
 import {
-  Container,
-  Typography,
-  Button,
-  Box,
-  Divider,
-  Alert,
+  Alert, Box, Button, Container, Divider, Typography
 } from "@mui/material"
-import { Formik, FormikHelpers, FormikProps, Form, Field } from "formik"
+import axios from "axios"
+import { Field, Form, Formik, FormikHelpers, FormikProps } from "formik"
+import { signIn } from "next-auth/react"
+import Link from "next/link"
+import { useRouter } from "next/router"
 import * as yup from "yup"
 import FormTextField from "../../components/forms/FormTextField"
-import Link from "next/link"
-import { signIn } from "next-auth/react"
-import { useRouter } from "next/router"
-import axios from "axios"
-import notifyError from "../../lib/notifyError"
 import GoogleSignIn from "../../components/GoogleSignIn"
+import notifyError from "../../lib/notifyError"
 
 // User already has a Google account, but tries to sign in with login
 // User already has login, but tries to sign in with Google

@@ -1,10 +1,10 @@
-import type { NextApiRequest, NextApiResponse } from "next"
 import { GradedCategory } from "@prisma/client"
+import type { NextApiRequest, NextApiResponse } from "next"
+import { CategoryWithAverage } from "../../../lib/types"
 import {
   getCatergoriesAverage,
-  getGradedCategories,
+  getGradedCategories
 } from "../../../services/server/gradedCategoryService"
-import { CategoryWithAverage } from "../../../lib/types"
 
 const GET = async (
   req: NextApiRequest,

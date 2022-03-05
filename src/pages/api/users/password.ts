@@ -4,7 +4,7 @@ import authUserSession from "../../../lib/authUserSession"
 import { ServerError } from "../../../lib/types"
 import {
   changePassword,
-  validatePassword,
+  validatePassword
 } from "../../../services/server/accountService"
 import { findUserById } from "../../../services/server/userService"
 

@@ -1,6 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from "next"
-import { findUserByEmail } from "../../../services/server/userService"
 import { sendPasswordResetEmail } from "../../../services/server/emailService"
+import { findUserByEmail } from "../../../services/server/userService"
 
 type PostBody = {
   email: string
