@@ -29,6 +29,7 @@ const createUsers = async () => {
         parentName: "Henry",
         dob,
         gender: "male",
+        admin: true,
         passwordHash:
           "$2b$10$0QPERpxW431jwQQSTh9H0uSFrxcfcT.9QhE3piaqKQgjssC44DpJK",
         stripeId: "cus_JifnHyNvFpbJIx",
