@@ -1,6 +1,7 @@
 import { User } from "@prisma/client"
 import bcrypt from "bcrypt"
 import jwt from "jsonwebtoken"
+import _ from "lodash"
 import {
   ResetPasswordToken,
   UserProfile,
@@ -118,107 +119,4 @@ export const updateUserScore = async (userId: string) => {
       score,
     },
   })
-}
-
-/* ------------------------------- Profile ------------------------------- */
-
-export const getProfiles = async (): Promise<UserProfile[]> => {
-  const users = await prisma.user.findMany({
-    select: {
-      firstName: true,
-      lastName: true,
-      dob: true,
-      gender: true,
-      profilePicture: true,
-      score: true,
-    },
-  })
-
-  return users
-}
-
-export const findProfileById = async (
-  id: string
-): Promise<UserProfile | null> => {
-  const user = await prisma.user.findUnique({
-    where: {
-      id,
-    },
-    select: {
-      firstName: true,
-      lastName: true,
-      dob: true,
-      gender: true,
-      profilePicture: true,
-      score: true,
-    },
-  })
-
-  return user
-}
-
-/* ---------------------------------- Login --------------------------------- */
-export const login = async (
-  email: string,
-  password: string
-): Promise<User | null> => {
-  const user = await findUserByEmail(email)
-  if (!user) {
-    return null
-  }
-
-  const passwordCorrect = await validatePassword(
-    password,
-    user.passwordHash as string
-  )
-  if (!passwordCorrect) {
-    return null
-  }
-
-  return user
-}
-
-/* -------------------------------- Password -------------------------------- */
-export const validatePassword = async (
-  password: string,
-  passwordHash: string
-) => {
-  const correct = await bcrypt.compare(password, passwordHash)
-  return correct
-}
-
-export const changePassword = async (userId: string, password: string) => {
-  const passwordHash = await bcrypt.hash(password, 10)
-  const updatedUser = prisma.user.update({
-    where: { id: userId },
-    data: { passwordHash },
-  })
-  return updatedUser
-}
-
-export const resetPassword = async (password: string, token: string) => {
-  // eslint-disable-next-line
-  const reset = jwt.verify(token, process.env.JWT_SECRET!) as ResetPasswordToken
-
-  // TODO maybe should just throw error
-  if (Date.now() > reset.expires) {
-    throw new Error("token expired")
-  }
-
-  const updatedUser = await changePassword(reset.id, password)
-  return updatedUser
-}
-
-export const passwordResetUrl = async (userId: string): Promise<string> => {
-  const oneDay = 1000 * 60 * 60 * 24
-  const token = jwt.sign(
-    {
-      id: userId,
-      expires: Date.now() + oneDay,
-    },
-    // eslint-disable-next-line
-    process.env.JWT_SECRET!
-  )
-  const url = `${process.env.FRONTEND_URL}/reset-password/${token}`
-  return url
 }

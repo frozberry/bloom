@@ -14,12 +14,12 @@ export const getExams = async () => {
   return exams
 }
 
-export const getNextExam = async (userId: string) => {
-  const gradedExams = await getUsersGradedExams(userId)
+export const getNextExam = async () => {
+  const exams = await getExams()
 
   const nextExam = await prisma.exam.findUnique({
     where: {
-      num: nextExamNum(gradedExams),
+      num: nextExamNum(exams),
     },
     include: {
       problems: true,
