@@ -21,7 +21,9 @@ export const deleteProblem = async (id: string): Promise<boolean> => {
   return true
 }
 
-export const constructProblems = (inputProblems: any[]) => {
+export const constructProblems = (
+  inputProblems: any[]
+): Prisma.ProblemCreateInput[] => {
   const problems = inputProblems.map((problem, i) => ({
     ...problem,
     num: i + 1,

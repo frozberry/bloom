@@ -1,8 +1,9 @@
 // MockTests.com Maths 2
 
 import { Category } from "@prisma/client"
+import { ProblemJson } from "../src/lib/types"
 
-const problems = [
+const problems: ProblemJson[] = [
   {
     question: "Calculate 7 x 191",
     correct: 1337,
