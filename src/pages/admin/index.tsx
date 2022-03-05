@@ -1,7 +1,6 @@
 import { Button, Container, Divider, Typography } from "@mui/material"
 import { useEffect, useState } from "react"
 import { getExams } from "../../services/client/examClient"
-import useEscapeComponent from "../../hooks/useEscapeComponent"
 import useAuthQuery from "../../hooks/useAuthQuery"
 
 const styles = {
@@ -17,8 +16,7 @@ const styles = {
 }
 
 const Admin = () => {
-  const { isLoading, error, data } = useAuthQuery("getExams", getExams)
-  const { escape, component } = useEscapeComponent(isLoading, error)
+  const { data, escape, component } = useAuthQuery("getExams", getExams)
   const [exams, setExams] = useState<any>([])
 
   useEffect(() => {

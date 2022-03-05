@@ -11,8 +11,7 @@ import {
 } from "../../services/client/accountClient"
 
 export default function App() {
-  const { isLoading, error, data } = useAuthQuery("isOAuth", isUserOAuth)
-  const { escape, component } = useEscapeComponent(isLoading, error)
+  const { data, escape, component } = useAuthQuery("isOAuth", isUserOAuth)
   if (escape) return component
 
   const isOAuth = data as boolean

@@ -1,15 +1,12 @@
 import { Button, Container, Typography } from "@mui/material"
 import { useRouter } from "next/router"
 import { getNextExam } from "../../services/client/examClient"
-import useEscapeComponent from "../../hooks/useEscapeComponent"
 import useAuthQuery from "../../hooks/useAuthQuery"
 import { Exam } from "@prisma/client"
 
 const Home = () => {
   const router = useRouter()
-  const { isLoading, error, data } = useAuthQuery("nextExam", getNextExam)
-  const { escape, component } = useEscapeComponent(isLoading, error)
-
+  const { data, escape, component } = useAuthQuery("nextExam", getNextExam)
   if (escape) return component
 
   const nextExam = data as Exam

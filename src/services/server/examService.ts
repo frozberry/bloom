@@ -42,7 +42,7 @@ export const findExamById = async (id: string) => {
 
 // TODO temporary any type for seed to work
 // Previously ProblemWithCategory[]
-export const createExam = async (problems: any[]) => {
+export const createExam = async (problems: any[], i: number) => {
   // TODO
   // allCatergoriesValid()
 
@@ -55,18 +55,20 @@ export const createExam = async (problems: any[]) => {
     categories: Category.NUMBERS,
   }))
 
-  const exams = await getExams()
+  // const exams = await getExams()
 
   const savedExam = await prisma.exam.create({
     data: {
-      num: nextExamNum(exams),
+      // num: nextExamNum(exams),
+      // num: Math.floor(Math.random(),
+      num: i + 2000,
       problems: {
         create: numberedProblems,
       },
     },
-    include: {
-      problems: true,
-    },
+    // include: {
+    //   problems: true,
+    // },
   })
 
   return savedExam

@@ -116,7 +116,11 @@ const main = async () => {
   await deleteAll()
   await createUsers()
   await createGradedCatergories()
-  const exam = await createExam(problems)
+  for (let i = 0; i < 1000; i++) {
+    console.log(i)
+    await createExam(problems, i)
+  }
+  // const exam = await createExam(problems)
   const user = (await getUser()) as User
   await createExamSession(user, exam)
   const seedAnswers = await createAnswers(exam)

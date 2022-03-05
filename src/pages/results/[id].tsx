@@ -3,17 +3,15 @@ import Link from "next/link"
 import { useRouter } from "next/router"
 import Answers from "../../components/Answers"
 import { findGradedExamById } from "../../services/client/gradedExamClient"
-import useEscapeComponent from "../../hooks/useEscapeComponent"
 import useAuthQuery from "../../hooks/useAuthQuery"
 import { GradedExamWithGradedProblems } from "../../lib/types"
 
 const Page = () => {
   const router = useRouter()
   const { id } = router.query as { id: string }
-  const { isLoading, error, data } = useAuthQuery(id, () =>
+  const { data, escape, component } = useAuthQuery(id, () =>
     findGradedExamById(id)
   )
-  const { escape, component } = useEscapeComponent(isLoading, error)
   if (escape) return component
 
   const gradedExam = data as GradedExamWithGradedProblems
