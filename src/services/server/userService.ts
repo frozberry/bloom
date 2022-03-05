@@ -7,6 +7,7 @@ import {
   UserWithoutDate,
 } from "../../lib/types"
 import { prisma } from "../../prisma/client"
+import { getUsersGradedExams } from "./gradedExamService"
 
 export const getUsers = async (): Promise<UserWithoutDate[]> => {
   const users = await prisma.user.findMany({
@@ -98,6 +99,25 @@ export const userIsOAuth = async (id: string): Promise<boolean> => {
     return false
   }
   return true
+}
+
+export const updateUserScore = async (userId: string) => {
+  console.log("Updating users score")
+  const gradedExams = await getUsersGradedExams(userId)
+
+  const firstAttempts = gradedExams.filter(
+    (gradedExam) => gradedExam.firstAttempt
+  )
+  const score = _.meanBy(firstAttempts, (gradedExam) => gradedExam.percent)
+
+  await prisma.user.update({
+    where: {
+      id: userId,
+    },
+    data: {
+      score,
+    },
+  })
 }
 
 /* ------------------------------- Profile ------------------------------- */

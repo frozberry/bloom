@@ -1,4 +1,4 @@
-import { Category } from "@prisma/client"
+import { Category, GradedProblem } from "@prisma/client"
 import { CategoryWithAverage } from "../../lib/types"
 import { prisma } from "../../prisma/client"
 
@@ -18,8 +18,7 @@ export const getUsersGradedCategories = async (userId: string) => {
   return gradedCatergories
 }
 
-// TODO blindly copied and pasted - not sure if working
-// Compare with live api
+// TODO blindly copied and pasted - not sure if working. Compare with live api
 export const getCatergoriesAverage = async () => {
   const gradedCategories = await prisma.gradedCategory.findMany({
     where: {
@@ -43,4 +42,34 @@ export const getCatergoriesAverage = async () => {
   })
 
   return categoriesAveraged
+}
+
+export const updateGradedCategories = async (
+  userId: string,
+  gradedProblems: GradedProblem[]
+) => {
+  gradedProblems.forEach(async (gradedProblem) => {
+    gradedProblem.categories.forEach(async (category) => {
+      const correct = gradedProblem.correct === gradedProblem.selected
+      const mark = correct ? 1 : 0
+
+      await prisma.gradedCategory.update({
+        where: {
+          userId_category: {
+            userId: userId,
+            category,
+          },
+        },
+        data: {
+          attempts: {
+            increment: 1,
+          },
+          correct: {
+            increment: mark,
+          },
+        },
+      })
+    })
+  })
+  console.log("Grading categories done")
 }
