@@ -55,11 +55,8 @@ export const createExam = async (problems: any[]) => {
     categories: Category.NUMBERS,
   }))
 
-  const exams = await getExams()
-
   const savedExam = await prisma.exam.create({
     data: {
-      num: nextExamNum(exams),
       problems: {
         create: numberedProblems,
       },
@@ -84,11 +81,4 @@ export const deleteExam = async (id: string) => {
     },
   })
   return true
-}
-
-const nextExamNum = <T extends Numbered>(exams: T[]) => {
-  const lastExam = _.maxBy(exams, (exam) => exam.num)
-
-  const incrementedNum = lastExam ? lastExam.num + 1 : 1
-  return incrementedNum
 }
