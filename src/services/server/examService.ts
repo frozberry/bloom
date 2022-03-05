@@ -43,16 +43,12 @@ export const findExamById = async (id: string) => {
 // TODO temporary any type for seed to work
 // Previously ProblemWithCategory[]
 export const createExam = async (problems: any[]) => {
-  // TODO
-  // allCatergoriesValid()
-
   // TODO maybe move to problemService
   const numberedProblems = problems.map((problem, i) => ({
     ...problem,
     num: i + 1,
     correct: problem.correct.toString(),
-    // TODO use the real category
-    categories: Category.NUMBERS,
+    categories: problem.categories,
   }))
 
   const savedExam = await prisma.exam.create({
