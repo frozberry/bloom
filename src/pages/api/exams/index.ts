@@ -18,8 +18,8 @@ const GET = async (req: NextApiRequest, res: NextApiResponse<Exam[]>) => {
 
 const POST = async (req: NextApiRequest, res: NextApiResponse<Exam | null>) => {
   const { problems }: PostBody = req.body
-  const { auth, response } = await authenticateAdminSession(req, res)
-  if (auth) return response
+  const { unauthorized, response } = await authenticateAdminSession(req, res)
+  if (unauthorized) return response
 
   const exam = await createExam(problems)
   res.send(exam)
