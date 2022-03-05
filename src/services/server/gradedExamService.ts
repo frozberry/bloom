@@ -1,4 +1,4 @@
-import { ExamSession, Problem } from "@prisma/client"
+import { ExamSession, Prisma, Problem } from "@prisma/client"
 import { calculateDuration } from "../../lib/calculateDuration"
 import { ExamResultOverivew, ProblemSubmission } from "../../lib/types"
 import { prisma } from "../../prisma/client"
@@ -83,6 +83,20 @@ export const submitExam = async (
   const time = calculateDuration(examSession.start)
   const firstAttempt = await isFirstAttemptAtExam(examSession)
 
+  const gradedProblems = exam.problems.map((problem) => {
+    const submission = submissions.find((submission) => {
+      return submission.problemId === problem.id
+    })
+    const gradedProblem = {
+      selected: submission?.selected.toString(),
+      correct: problem.correct,
+      problem: {
+        connect: { id: problem.id },
+      },
+    }
+    return gradedProblem
+  })
+
   const newGradedExam = await prisma.gradedExam.create({
     data: {
       marks,
@@ -92,6 +106,9 @@ export const submitExam = async (
       time,
       userId,
       examId: examSession.examId,
+      gradedProblems: {
+        create: gradedProblems,
+      },
     },
     include: {
       gradedProblems: true,
