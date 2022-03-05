@@ -59,7 +59,7 @@ export const getExamResultsOverview = async (userId: string) => {
   return examSorted
 }
 
-export const submitExamNew = async (
+export const submitExam = async (
   userId: string,
   examSessionId: string,
   submissions: ProblemSubmission[]
