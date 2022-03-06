@@ -1,5 +1,6 @@
 import {
   Box,
+  Button,
   Container,
   Divider,
   Paper,
@@ -8,20 +9,20 @@ import {
 } from "@mui/material"
 import { ExamSession, GradedProblem, Problem } from "@prisma/client"
 import dayjs, { Dayjs } from "dayjs"
-import { useRouter } from "next/router"
+import _ from "lodash"
+import { Dispatch, SetStateAction, useEffect, useState } from "react"
 import useAuthQuery from "../../hooks/useAuthQuery"
-import { ExamWithProblems } from "../../lib/types"
-import { findExamById } from "../../services/client/examClient"
-import {
-  findActiveExam,
-  findUsersExamSession,
-} from "../../services/client/examSessionClient"
+import { ExamWithProblems, ProblemSubmission } from "../../lib/types"
+import { findActiveExam } from "../../services/client/examSessionClient"
 
 type Props = {
   problem: GradedProblem
   viewOnly: boolean
+  submissions: ProblemSubmission[]
+  setSubmissions: Dispatch<SetStateAction<ProblemSubmission[]>>
 }
-const Problem = ({ problem, viewOnly }: Props) => {
+
+const Problem = ({ problem, viewOnly, submissions, setSubmissions }: Props) => {
   return (
     <Box sx={{ mb: 5 }}>
       <Typography>
@@ -34,29 +35,66 @@ const Problem = ({ problem, viewOnly }: Props) => {
         </div>
       )} */}
       {problem.multi ? (
-        <MultipleChoice problem={problem} viewOnly={viewOnly} />
+        <MultipleChoice
+          problem={problem}
+          viewOnly={viewOnly}
+          submissions={submissions}
+          setSubmissions={setSubmissions}
+        />
       ) : (
-        <InputAnswer problem={problem} viewOnly={viewOnly} />
+        <InputAnswer
+          problem={problem}
+          viewOnly={viewOnly}
+          submissions={submissions}
+          setSubmissions={setSubmissions}
+        />
       )}
     </Box>
   )
 }
 
-const MultipleChoice = ({ problem, viewOnly }: Props) => {
-  console.log(viewOnly)
-  // const dispatch = useDispatch()
-  // const test = useSelector((state) => state.test)
+const MultipleChoice = ({
+  problem,
+  viewOnly,
+  submissions,
+  setSubmissions,
+}: Props) => {
+  const [shuffledOptions, setShuffledOptions] = useState<string[]>([])
 
-  // const [shuffledOptions, setShuffledOptions] = useState([])
+  useEffect(() => {
+    setShuffledOptions(_.shuffle(problem.options))
+  }, [problem.options])
 
-  // useEffect(() => {
-  //   setShuffledOptions(_.shuffle(problem.options))
-  // }, [])
+  const existingSubmission = submissions.find(
+    (submission) => submission.problemId === problem.id
+  )
+
+  const selectOption = (option: string) => {
+    // If the user has already selected an option, update it
+    if (existingSubmission) {
+      const replaceSubmission = submissions.map((submission) =>
+        submission.problemId === problem.id
+          ? { ...submission, selected: option }
+          : submission
+      )
+      setSubmissions(replaceSubmission)
+      return
+    }
+
+    // Or add a new entry
+    setSubmissions([
+      ...submissions,
+      {
+        problemId: problem.id,
+        selected: option,
+      },
+    ])
+  }
 
   return (
     <Box sx={{ display: "flex", alignItems: "center" }}>
-      {problem.options.map((option: any) => {
-        // const selected = problem.selected === option
+      {shuffledOptions.map((option: any) => {
+        const selected = existingSubmission?.selected === option
         return (
           <Paper
             key={option}
@@ -64,15 +102,11 @@ const MultipleChoice = ({ problem, viewOnly }: Props) => {
               py: 1.5,
               px: 6,
               mr: 2,
-              backgroundColor: "primary.light",
+              backgroundColor: selected ? "primary.light" : null,
               textColor: "white",
               cursor: "pointer",
             }}
-            // onClick={
-            //   viewOnly
-            //     ? null
-            //     : () => dispatch(selectOption(test, problem.question, option))
-            // }
+            onClick={viewOnly ? null : () => selectOption(option)}
           >
             <Typography mb={0}>{option}</Typography>
           </Paper>
@@ -118,29 +152,40 @@ const Page = () => {
     findActiveExam
   )
 
+  const [submissions, setSubmissions] = useState<ProblemSubmission[]>([])
+
   if (escape) return component
 
   const { exam, examSession } = data as {
     exam: ExamWithProblems
     examSession: ExamSession
   }
-  console.log(exam)
-  console.log(examSession)
+
+  console.log(submissions)
 
   const formatTime = (date: Date | Dayjs) => dayjs(date).format("hh:mma")
   const { start } = examSession
   const end = dayjs(start).add(45, "minute")
 
   return (
-    <Container>
+    <Container sx={{ pt: 3 }}>
       <Typography>You have 45 minutes to complete this test</Typography>
       <Typography>Start: {formatTime(start)}</Typography>
       <Typography>End: {formatTime(end)}</Typography>
       <Divider sx={{ mb: 4 }} />
 
       {exam.problems.map((problem: any) => {
-        return <Problem problem={problem} viewOnly={false} key={problem.id} />
+        return (
+          <Problem
+            problem={problem}
+            viewOnly={false}
+            key={problem.id}
+            submissions={submissions}
+            setSubmissions={setSubmissions}
+          />
+        )
       })}
+      <Button>Submit</Button>
     </Container>
   )
 }
