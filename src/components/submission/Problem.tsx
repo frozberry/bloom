@@ -1,5 +1,5 @@
 import { Box, Typography } from "@mui/material"
-import { GradedProblem, Problem } from "@prisma/client"
+import { Problem } from "@prisma/client"
 import { Dispatch, SetStateAction } from "react"
 import { ProblemSubmission } from "../../lib/types"
 import InputAnswer from "./InputSubmission"

@@ -1,6 +1,7 @@
 import { Button, Container, Divider, Typography } from "@mui/material"
 import { ExamSession } from "@prisma/client"
 import dayjs, { Dayjs } from "dayjs"
+import { useRouter } from "next/router"
 import { useEffect, useState } from "react"
 import toast from "react-hot-toast"
 import Problem from "../../components/submission/Problem"
@@ -10,6 +11,7 @@ import { findActiveExam } from "../../services/client/examSessionClient"
 import { submitExam } from "../../services/client/gradedExamClient"
 
 const Page = () => {
+  const router = useRouter()
   const [submissions, setSubmissions] = useState<ProblemSubmission[]>([])
   const { data, escape, component } = useAuthQuery(
     "examSession",
@@ -37,7 +39,9 @@ const Page = () => {
 
   const onClick = async () => {
     try {
-      await submitExam(examSession.id, submissions)
+      const gradedExam = await submitExam(examSession.id, submissions)
+      localStorage.removeItem("submissions")
+      router.push(`results/graded-exams/${gradedExam.id}`)
       toast.success("Exam submitted successfully")
     } catch (e) {
       toast.error("error")
