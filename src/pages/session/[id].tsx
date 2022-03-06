@@ -4,7 +4,10 @@ import { useRouter } from "next/router"
 import useAuthQuery from "../../hooks/useAuthQuery"
 import { ExamWithProblems } from "../../lib/types"
 import { findExamById } from "../../services/client/examClient"
-import { findUsersExamSession } from "../../services/client/examSessionClient"
+import {
+  findActiveExam,
+  findUsersExamSession,
+} from "../../services/client/examSessionClient"
 
 type Props = {
   problem: GradedProblem
@@ -106,7 +109,7 @@ const Page = () => {
   const { id } = router.query as { id: string }
   const { data, escape, component } = useAuthQuery(
     "examSession",
-    findUsersExamSession
+    findActiveExam
   )
 
   if (escape) return component
