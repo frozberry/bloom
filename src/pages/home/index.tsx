@@ -3,11 +3,24 @@ import { Exam } from "@prisma/client"
 import { useRouter } from "next/router"
 import useAuthQuery from "../../hooks/useAuthQuery"
 import { getNextExam } from "../../services/client/examClient"
+import { findActiveExam } from "../../services/client/examSessionClient"
 
 const Home = () => {
   const router = useRouter()
+  // TODO maybe a better way to do multiple queries
   const { data, escape, component } = useAuthQuery("nextExam", getNextExam)
+  const {
+    data: session,
+    escape: escapeSession,
+    component: sessionComponent,
+  } = useAuthQuery("examSession", findActiveExam)
+
+  if (escapeSession) return sessionComponent
   if (escape) return component
+
+  if (session) {
+    router.push("/session")
+  }
 
   const nextExam = data as Exam
 
