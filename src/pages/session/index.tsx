@@ -117,9 +117,6 @@ const MultipleChoice = ({
 }
 
 const InputAnswer = ({ problem, viewOnly }: Props) => {
-  // const dispatch = useDispatch()
-  // const test = useSelector((state) => state.test)
-
   // const handleChange = (input) => {
   //   dispatch(selectOption(test, problem.question, input))
   // }
