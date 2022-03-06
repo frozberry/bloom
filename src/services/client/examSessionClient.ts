@@ -8,7 +8,7 @@ export const findUsersExamSession = async () => {
   return response.data
 }
 
-export const createTestSession = async (examId: string) => {
+export const createExamSession = async (examId: string) => {
   const data = {
     examId,
   }

@@ -1,9 +1,10 @@
 import { ExamSession } from "@prisma/client"
 import type { NextApiRequest, NextApiResponse } from "next"
 import authUserSession from "../../../lib/authUserSession"
+import { ServerError } from "../../../lib/types"
 import {
   createExamSession,
-  findUsersExamSession
+  findUsersExamSession,
 } from "../../../services/server/examSessionService"
 
 type PostBody = {
@@ -21,10 +22,22 @@ const GET = async (
   res.send(examSession)
 }
 
-const POST = async (req: NextApiRequest, res: NextApiResponse) => {
+const POST = async (
+  req: NextApiRequest,
+  res: NextApiResponse<ExamSession | ServerError>
+) => {
   const { examId }: PostBody = req.body
   const { unauthorized, userId, response } = await authUserSession(req, res)
   if (unauthorized) return response
+
+  const existing = await findUsersExamSession(userId)
+  if (existing) {
+    res.status(400).send({
+      type: "existingExamSession",
+      message: "User already has an exam session",
+    })
+    return
+  }
 
   const examSession = await createExamSession(userId, examId)
   res.send(examSession)
