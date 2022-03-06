@@ -62,6 +62,7 @@ const MultipleChoice = ({
   setSubmissions,
 }: Props) => {
   const [shuffledOptions, setShuffledOptions] = useState<string[]>([])
+  console.log(submissions)
 
   useEffect(() => {
     setShuffledOptions(_.shuffle(problem.options))
@@ -79,18 +80,20 @@ const MultipleChoice = ({
           ? { ...submission, selected: option }
           : submission
       )
+      localStorage.setItem("submissions", JSON.stringify(replaceSubmission))
       setSubmissions(replaceSubmission)
       return
     }
 
-    // Or add a new entry
-    setSubmissions([
+    const addSubmission = [
       ...submissions,
       {
         problemId: problem.id,
         selected: option,
       },
-    ])
+    ]
+    localStorage.setItem("submissions", JSON.stringify(addSubmission))
+    setSubmissions(addSubmission)
   }
 
   return (
@@ -136,18 +139,21 @@ const InputAnswer = ({
           ? { ...submission, selected: option }
           : submission
       )
+      localStorage.setItem("submissions", JSON.stringify(replaceSubmission))
       setSubmissions(replaceSubmission)
       return
     }
 
     // Or add a new entry
-    setSubmissions([
+    const addSubmission = [
       ...submissions,
       {
         problemId: problem.id,
         selected: option,
       },
-    ])
+    ]
+    localStorage.setItem("submissions", JSON.stringify(addSubmission))
+    setSubmissions(addSubmission)
   }
 
   return (
@@ -157,8 +163,8 @@ const InputAnswer = ({
           <TextField
             type="number"
             onChange={(event: any) => selectOption(event.target.value)}
-            defaultValue={problem.selected}
-            l // Prevents scroll changing the input
+            defaultValue={existingSubmission?.selected}
+            // Prevents scroll changing the input
             onWheelCapture={(e: any) => {
               e.target.blur()
             }}
@@ -173,12 +179,19 @@ const InputAnswer = ({
 }
 
 const Page = () => {
+  const [submissions, setSubmissions] = useState<ProblemSubmission[]>([])
   const { data, escape, component } = useAuthQuery(
     "examSession",
     findActiveExam
   )
 
-  const [submissions, setSubmissions] = useState<ProblemSubmission[]>([])
+  useEffect(() => {
+    const json = localStorage.getItem("submissions")
+    if (json) {
+      const savedSubmissions = JSON.parse(json)
+      setSubmissions(savedSubmissions)
+    }
+  }, [])
 
   if (escape) return component
 
@@ -186,8 +199,6 @@ const Page = () => {
     exam: ExamWithProblems
     examSession: ExamSession
   }
-
-  console.log(submissions)
 
   const formatTime = (date: Date | Dayjs) => dayjs(date).format("hh:mma")
   const { start } = examSession
