@@ -116,10 +116,37 @@ const MultipleChoice = ({
   )
 }
 
-const InputAnswer = ({ problem, viewOnly }: Props) => {
-  // const handleChange = (input) => {
-  //   dispatch(selectOption(test, problem.question, input))
-  // }
+const InputAnswer = ({
+  problem,
+  viewOnly,
+  submissions,
+  setSubmissions,
+}: Props) => {
+  const existingSubmission = submissions.find(
+    (submission) => submission.problemId === problem.id
+  )
+
+  const selectOption = (option: string) => {
+    // If the user has already selected an option, update it
+    if (existingSubmission) {
+      const replaceSubmission = submissions.map((submission) =>
+        submission.problemId === problem.id
+          ? { ...submission, selected: option }
+          : submission
+      )
+      setSubmissions(replaceSubmission)
+      return
+    }
+
+    // Or add a new entry
+    setSubmissions([
+      ...submissions,
+      {
+        problemId: problem.id,
+        selected: option,
+      },
+    ])
+  }
 
   return (
     <>
@@ -127,9 +154,9 @@ const InputAnswer = ({ problem, viewOnly }: Props) => {
         <>
           <TextField
             type="number"
-            // onChange={() => handleChange(event.target.value)}
+            onChange={(event: any) => selectOption(event.target.value)}
             defaultValue={problem.selected}
-            // prevents scroll changing the input
+            l // Prevents scroll changing the input
             onWheelCapture={(e: any) => {
               e.target.blur()
             }}
