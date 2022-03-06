@@ -28,3 +28,11 @@ export const createExamSession = async (userId: string, examId: string) => {
   })
   return examSession
 }
+
+export const deleteUsersExamSession = async (userId: string) => {
+  await prisma.examSession.delete({
+    where: {
+      userId,
+    },
+  })
+}

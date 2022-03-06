@@ -3,7 +3,10 @@ import { calculateDuration } from "../../lib/calculateDuration"
 import { ExamResultOverivew, ProblemSubmission } from "../../lib/types"
 import { prisma } from "../../prisma/client"
 import { findExamById } from "./examService"
-import { findExamSessionById } from "./examSessionService"
+import {
+  deleteUsersExamSession,
+  findExamSessionById,
+} from "./examSessionService"
 import { updateGradedCategories } from "./gradedCategoryService"
 import { updateUserScore } from "./userService"
 
@@ -130,7 +133,7 @@ export const submitExam = async (
     updateUserScore(userId)
   }
 
-  // TODO delete examSession when done
+  await deleteUsersExamSession(userId)
 
   return newGradedExam
 }
