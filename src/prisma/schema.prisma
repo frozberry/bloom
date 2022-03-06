@@ -103,12 +103,13 @@ model GradedProblem {
 }
 
 model ExamSession {
-  id     String   @id @default(uuid())
-  start  DateTime @default(now())
-  user   User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  userId String   @unique
-  Exam   Exam     @relation(fields: [examId], references: [id], onDelete: Cascade)
-  examId String
+  id           String   @id @default(uuid())
+  firstAttempt Boolean
+  start        DateTime @default(now())
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId       String   @unique
+  Exam         Exam     @relation(fields: [examId], references: [id], onDelete: Cascade)
+  examId       String
 }
 
 model GradedCategory {
