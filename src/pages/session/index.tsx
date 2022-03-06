@@ -1,5 +1,13 @@
-import { Box, Container, Paper, TextField, Typography } from "@mui/material"
+import {
+  Box,
+  Container,
+  Divider,
+  Paper,
+  TextField,
+  Typography,
+} from "@mui/material"
 import { ExamSession, GradedProblem, Problem } from "@prisma/client"
+import dayjs, { Dayjs } from "dayjs"
 import { useRouter } from "next/router"
 import useAuthQuery from "../../hooks/useAuthQuery"
 import { ExamWithProblems } from "../../lib/types"
@@ -119,14 +127,20 @@ const Page = () => {
   console.log(exam)
   console.log(examSession)
 
+  const formatTime = (date: Date | Dayjs) => dayjs(date).format("hh:mma")
+  const { start } = examSession
+  const end = dayjs(start).add(45, "minute")
+
   return (
     <Container>
-      {/* <Typography>{exam.id}</Typography>
-      <Typography>{exam.num}</Typography>
-      <Typography>{exam.date}</Typography>
+      <Typography>You have 45 minutes to complete this test</Typography>
+      <Typography>Start: {formatTime(start)}</Typography>
+      <Typography>End: {formatTime(end)}</Typography>
+      <Divider sx={{ mb: 4 }} />
+
       {exam.problems.map((problem: any) => {
         return <Problem problem={problem} viewOnly={false} key={problem.id} />
-      })} */}
+      })}
     </Container>
   )
 }
