@@ -1,4 +1,5 @@
 import { prisma } from "../../prisma/client"
+import { getUsersGradedExams } from "./gradedExamService"
 
 export const findExamSessionById = async (id: string) => {
   const examSession = await prisma.examSession.findUnique({
@@ -20,8 +21,16 @@ export const findUsersExamSession = async (userId: string) => {
 }
 
 export const createExamSession = async (userId: string, examId: string) => {
+  // Check if it's their first attempt
+  const gradedExams = await getUsersGradedExams(userId, false)
+  const existing = gradedExams.find(
+    (gradedExam) => gradedExam.examId === examId
+  )
+  const firstAttempt = !existing
+
   const examSession = await prisma.examSession.create({
     data: {
+      firstAttempt,
       userId,
       examId,
     },
