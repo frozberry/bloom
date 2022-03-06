@@ -30,7 +30,6 @@ const Page = () => {
 
   // TODO better way to check for no session
   if (!data) {
-    console.log("redirect")
     router.push("/home")
     return null
   }

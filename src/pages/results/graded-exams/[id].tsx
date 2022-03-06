@@ -1,9 +1,9 @@
 import { Button, Container, Paper, Typography } from "@mui/material"
-import Link from "next/link"
 import { useRouter } from "next/router"
 import Answers from "../../../components/results/Answers"
 import useAuthQuery from "../../../hooks/useAuthQuery"
 import { GradedExamWithGradedProblems } from "../../../lib/types"
+import { createExamSession } from "../../../services/client/examSessionClient"
 import { findGradedExamById } from "../../../services/client/gradedExamClient"
 
 const Page = () => {
@@ -15,6 +15,17 @@ const Page = () => {
   if (escape) return component
 
   const gradedExam = data as GradedExamWithGradedProblems
+
+  const retryTest = async () => {
+    if (
+      window.confirm(
+        "The test will take 45m and you will not be able to pause once you begin. Are you ready to start the test?"
+      )
+    ) {
+      await createExamSession(gradedExam.examId)
+      router.push("/session")
+    }
+  }
 
   return (
     <Container
@@ -35,11 +46,9 @@ const Page = () => {
         <Typography align="center">
           {`${gradedExam.marks}/${gradedExam.totalMarks}`} marks
         </Typography>
-        <Link href={`/exams/${id}`} passHref>
-          <Button variant="contained" sx={{ mt: 2 }}>
-            Retry test
-          </Button>
-        </Link>
+        <Button variant="contained" onClick={retryTest} sx={{ mt: 2 }}>
+          Retry test
+        </Button>
       </Paper>
       <Answers gradedProblems={gradedExam.gradedProblems} />
     </Container>

@@ -3,7 +3,10 @@ import { Exam } from "@prisma/client"
 import { useRouter } from "next/router"
 import useAuthQuery from "../../hooks/useAuthQuery"
 import { getNextExam } from "../../services/client/examClient"
-import { findActiveExam } from "../../services/client/examSessionClient"
+import {
+  createExamSession,
+  findActiveExam,
+} from "../../services/client/examSessionClient"
 
 const Home = () => {
   const router = useRouter()
@@ -24,12 +27,13 @@ const Home = () => {
 
   const nextExam = data as Exam
 
-  const startTest = () => {
+  const startTest = async () => {
     if (
       window.confirm(
-        "The test will take 45m and you will not be able to pause or restart the test. Are you ready to begin?"
+        "The test will take 45m and you will not be able to pause once you begin. Are you ready to start the test?"
       )
     ) {
+      await createExamSession(nextExam.id)
       router.push("/session")
     }
   }
@@ -41,6 +45,7 @@ const Home = () => {
 
   return (
     <Container>
+      {/* <Button onClick={createSession}>createSession</Button> */}
       {/* TODO needs a better way to handle no more exams as */}
       {!nextExam ? (
         <>
