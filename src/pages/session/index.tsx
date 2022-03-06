@@ -38,13 +38,20 @@ const Page = () => {
   const end = dayjs(start).add(45, "minute")
 
   const onClick = async () => {
-    try {
-      const gradedExam = await submitExam(examSession.id, submissions)
-      localStorage.removeItem("submissions")
-      router.push(`results/graded-exams/${gradedExam.id}`)
-      toast.success("Exam submitted successfully")
-    } catch (e) {
-      toast.error("error")
+    if (
+      submissions.length === exam.problems.length ||
+      window.confirm(
+        "You have left some questions blank. Are you sure you want to submit your test?"
+      )
+    ) {
+      try {
+        const gradedExam = await submitExam(examSession.id, submissions)
+        localStorage.removeItem("submissions")
+        router.push(`results/graded-exams/${gradedExam.id}`)
+        toast.success("Exam submitted successfully")
+      } catch (e) {
+        toast.error("error")
+      }
     }
   }
 
