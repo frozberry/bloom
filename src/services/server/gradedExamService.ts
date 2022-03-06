@@ -129,6 +129,9 @@ export const submitExam = async (
     updateGradedCategories(userId, newGradedExam.gradedProblems)
     updateUserScore(userId)
   }
+
+  // TODO delete examSession when done
+
   return newGradedExam
 }
 
