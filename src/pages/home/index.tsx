@@ -17,7 +17,7 @@ const Home = () => {
         "The test will take 45m and you will not be able to pause or restart the test. Are you ready to begin?"
       )
     ) {
-      router.push(`/exams/${nextExam.id}`)
+      router.push("/session")
     }
   }
 
