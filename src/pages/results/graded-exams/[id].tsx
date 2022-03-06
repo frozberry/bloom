@@ -22,8 +22,11 @@ const Page = () => {
         "The test will take 45m and you will not be able to pause once you begin. Are you ready to start the test?"
       )
     ) {
-      await createExamSession(gradedExam.examId)
-      router.push("/session")
+      try {
+        await createExamSession(gradedExam.examId)
+      } catch {
+        router.push("/session")
+      }
     }
   }
 
