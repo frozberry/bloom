@@ -38,11 +38,16 @@ const Page = () => {
         const end = dayjs(start).add(45, "minute")
 
         const timeLeft = end.valueOf() - dayjs().valueOf()
+        if (timeLeft < 0) {
+          setRemainingMillis(0)
+          finishExam()
+          return
+        }
         setRemainingMillis(timeLeft)
       }
     }, 1000)
     return () => clearInterval(interval)
-  }, [data?.examSession])
+  })
 
   if (escape) return component
 
@@ -62,21 +67,25 @@ const Page = () => {
   const end = dayjs(start).add(45, "minute")
   const remainingMillisFormat = dayjs(remainingMillis).format("mm:ss")
 
-  const submitTest = async () => {
+  const tryFinishExam = async () => {
     if (
       submissions.length === exam.problems.length ||
       window.confirm(
         "You have left some questions blank. Are you sure you want to submit your test?"
       )
     ) {
-      try {
-        const gradedExam = await submitExam(examSession.id, submissions)
-        localStorage.removeItem("submissions")
-        router.push(`results/graded-exams/${gradedExam.id}`)
-        toast.success("Exam submitted successfully")
-      } catch (e) {
-        toast.error("error")
-      }
+      await finishExam()
+    }
+  }
+
+  const finishExam = async () => {
+    try {
+      const gradedExam = await submitExam(examSession.id, submissions)
+      localStorage.removeItem("submissions")
+      router.push(`results/graded-exams/${gradedExam.id}`)
+      toast.success("Exam submitted successfully")
+    } catch (e) {
+      toast.error("error")
     }
   }
 
@@ -116,7 +125,7 @@ const Page = () => {
           />
         )
       })}
-      <Button onClick={submitTest} variant="contained" size="large">
+      <Button onClick={tryFinishExam} variant="contained" size="large">
         Submit test
       </Button>
     </Container>
