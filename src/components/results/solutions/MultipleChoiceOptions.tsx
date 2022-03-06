@@ -9,10 +9,6 @@ type Props = {
 const MultipleChoiceOptions = ({ problem, option }: Props) => {
   const correct = problem.correct === option
 
-  if (problem.multi) {
-    console.log(problem)
-  }
-
   if (correct) {
     return (
       <Paper
