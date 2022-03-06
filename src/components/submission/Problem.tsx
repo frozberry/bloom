@@ -7,12 +7,11 @@ import MultipleChoice from "./MultipleChoice"
 
 type Props = {
   problem: Problem
-  viewOnly: boolean
   submissions: ProblemSubmission[]
   setSubmissions: Dispatch<SetStateAction<ProblemSubmission[]>>
 }
 
-const Problem = ({ problem, viewOnly, submissions, setSubmissions }: Props) => {
+const Problem = ({ problem, submissions, setSubmissions }: Props) => {
   const existingSubmission = submissions.find(
     (submission) => submission.problemId === problem.id
   )
@@ -55,14 +54,12 @@ const Problem = ({ problem, viewOnly, submissions, setSubmissions }: Props) => {
       {problem.multi ? (
         <MultipleChoice
           problem={problem}
-          viewOnly={viewOnly}
           existingSubmission={existingSubmission}
           addOrReplaceSubmission={addOrReplaceSubmission}
         />
       ) : (
         <InputAnswer
           problem={problem}
-          viewOnly={viewOnly}
           existingSubmission={existingSubmission}
           addOrReplaceSubmission={addOrReplaceSubmission}
         />

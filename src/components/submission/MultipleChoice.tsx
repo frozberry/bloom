@@ -6,14 +6,12 @@ import { ProblemSubmission } from "../../lib/types"
 
 type Props = {
   problem: Problem
-  viewOnly: boolean
   existingSubmission: ProblemSubmission | undefined
   addOrReplaceSubmission: (option: string) => void
 }
 
 const MultipleChoice = ({
   problem,
-  viewOnly,
   existingSubmission,
   addOrReplaceSubmission,
 }: Props) => {
@@ -28,6 +26,7 @@ const MultipleChoice = ({
       {shuffledOptions.map((option: any) => {
         const selected = existingSubmission?.selected === option
         return (
+          // TODO refactor this so results can share this component
           <Paper
             key={option}
             sx={{

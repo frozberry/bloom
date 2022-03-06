@@ -87,7 +87,6 @@ const Page = () => {
         return (
           <Problem
             problem={problem}
-            viewOnly={false}
             key={problem.id}
             submissions={submissions}
             setSubmissions={setSubmissions}
