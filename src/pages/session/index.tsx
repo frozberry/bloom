@@ -1,4 +1,4 @@
-import { Button, Container, Divider, Typography } from "@mui/material"
+import { Box, Button, Container, Divider, Typography } from "@mui/material"
 import { ExamSession } from "@prisma/client"
 import dayjs, { Dayjs } from "dayjs"
 import { useRouter } from "next/router"
@@ -15,6 +15,7 @@ import { submitExam } from "../../services/client/gradedExamClient"
 
 const Page = () => {
   const router = useRouter()
+  const [remainingMillis, setRemainingMillis] = useState<number>(1_000_000_000)
   const [submissions, setSubmissions] = useState<ProblemSubmission[]>([])
   const { data, escape, component } = useAuthQuery(
     "examSession",
@@ -28,6 +29,20 @@ const Page = () => {
       setSubmissions(savedSubmissions)
     }
   }, [])
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      if (data?.examSession) {
+        const examSession = data.examSession as ExamSession
+        const start = dayjs(examSession.start).valueOf()
+        const end = dayjs(start).add(45, "minute")
+
+        const timeLeft = end.valueOf() - dayjs().valueOf()
+        setRemainingMillis(timeLeft)
+      }
+    }, 1000)
+    return () => clearInterval(interval)
+  }, [data?.examSession])
 
   if (escape) return component
 
@@ -45,6 +60,7 @@ const Page = () => {
   const formatTime = (date: Date | Dayjs) => dayjs(date).format("hh:mma")
   const { start } = examSession
   const end = dayjs(start).add(45, "minute")
+  const remainingMillisFormat = dayjs(remainingMillis).format("mm:ss")
 
   const submitTest = async () => {
     if (
@@ -73,9 +89,16 @@ const Page = () => {
 
   return (
     <Container sx={{ pt: 3 }}>
-      <Typography>You have 45 minutes to complete this test</Typography>
-      <Typography>Start: {formatTime(start)}</Typography>
-      <Typography>End: {formatTime(end)}</Typography>
+      <Box sx={{ mb: 3 }}>
+        <Typography>You have 45 minutes to complete this test</Typography>
+        <Typography>Start: {formatTime(start)}</Typography>
+        <Typography>End: {formatTime(end)}</Typography>
+        <Typography display="inline">Time remaining: </Typography>
+        {remainingMillis <= 45 * 60 * 1000 && (
+          <Typography display="inline">{remainingMillisFormat}s</Typography>
+        )}
+      </Box>
+
       {!examSession.firstAttempt && (
         <Button variant="outlined" color="inherit" onClick={cancelAttempt}>
           Cancel attempt
