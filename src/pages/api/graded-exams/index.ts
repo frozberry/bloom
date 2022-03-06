@@ -8,7 +8,7 @@ import {
 } from "../../../services/server/gradedExamService"
 
 type PostBody = {
-  examSesionId: string
+  examSessionId: string
   submissions: ProblemSubmission[]
 }
 
@@ -24,12 +24,12 @@ const POST = async (
   req: NextApiRequest,
   res: NextApiResponse<GradedExam | null>
 ) => {
-  const { examSesionId, submissions }: PostBody = req.body
+  const { examSessionId, submissions }: PostBody = req.body
 
   const { unauthorized, userId, response } = await authUserSession(req, res)
   if (unauthorized) return response
 
-  const gradedExam = await submitExam(userId, examSesionId, submissions)
+  const gradedExam = await submitExam(userId, examSessionId, submissions)
   res.send(gradedExam)
 }
 
