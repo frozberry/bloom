@@ -18,12 +18,12 @@ export const createExamSession = async (examId: string) => {
 }
 
 export const findActiveExam = async () => {
-  const response = await axios.get<ExamSession>(url)
+  const session = await findUsersExamSession()
 
-  if (response.data) {
-    const res = await axios.get<Exam>(`/api/exams/${response.data.examId}`)
+  if (session) {
+    const res = await axios.get<Exam>(`/api/exams/${session.examId}`)
     return res.data
   }
 
-  return response.data
+  return null
 }
