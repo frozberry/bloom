@@ -38,7 +38,8 @@ const MultipleChoice = ({
               textColor: "white",
               cursor: "pointer",
             }}
-            onClick={viewOnly ? null : () => addOrReplaceSubmission(option)}
+            // onClick={viewOnly ? null : () => addOrReplaceSubmission(option)}
+            onClick={() => addOrReplaceSubmission(option)}
           >
             <Typography mb={0}>{option}</Typography>
           </Paper>
