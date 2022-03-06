@@ -6,13 +6,41 @@ import InputAnswer from "./InputSubmission"
 import MultipleChoice from "./MultipleChoice"
 
 type Props = {
-  problem: GradedProblem
+  problem: Problem
   viewOnly: boolean
   submissions: ProblemSubmission[]
   setSubmissions: Dispatch<SetStateAction<ProblemSubmission[]>>
 }
 
 const Problem = ({ problem, viewOnly, submissions, setSubmissions }: Props) => {
+  const existingSubmission = submissions.find(
+    (submission) => submission.problemId === problem.id
+  )
+
+  const addOrReplaceSubmission = (option: string) => {
+    // If the user has already selected an option, update it
+    if (existingSubmission) {
+      const replaceSubmission = submissions.map((submission) =>
+        submission.problemId === problem.id
+          ? { ...submission, selected: option }
+          : submission
+      )
+      localStorage.setItem("submissions", JSON.stringify(replaceSubmission))
+      setSubmissions(replaceSubmission)
+      return
+    }
+
+    const addSubmission = [
+      ...submissions,
+      {
+        problemId: problem.id,
+        selected: option,
+      },
+    ]
+    localStorage.setItem("submissions", JSON.stringify(addSubmission))
+    setSubmissions(addSubmission)
+  }
+
   return (
     <Box sx={{ mb: 5 }}>
       <Typography>
@@ -28,15 +56,15 @@ const Problem = ({ problem, viewOnly, submissions, setSubmissions }: Props) => {
         <MultipleChoice
           problem={problem}
           viewOnly={viewOnly}
-          submissions={submissions}
-          setSubmissions={setSubmissions}
+          existingSubmission={existingSubmission}
+          addOrReplaceSubmission={addOrReplaceSubmission}
         />
       ) : (
         <InputAnswer
           problem={problem}
           viewOnly={viewOnly}
-          submissions={submissions}
-          setSubmissions={setSubmissions}
+          existingSubmission={existingSubmission}
+          addOrReplaceSubmission={addOrReplaceSubmission}
         />
       )}
     </Box>
