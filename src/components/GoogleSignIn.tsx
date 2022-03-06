@@ -16,7 +16,7 @@ const GoogleSignIn = () => {
       <GoogleButton
         onClick={() => signIn("google", { callbackUrl: "/home" })}
         type="dark"
-        style={{ width: 400 }}
+        style={{ width: "100%" }}
       />
     </Box>
   )
