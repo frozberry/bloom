@@ -16,7 +16,8 @@ const GET = async (
   res: NextApiResponse<ExamSession | null>
 ) => {
   const { unauthorized, userId, response } = await authUserSession(req, res)
-  if (!unauthorized) return response
+  if (unauthorized) return response
+  console.log("runs")
 
   const examSession = await findUsersExamSession(userId)
   res.send(examSession)

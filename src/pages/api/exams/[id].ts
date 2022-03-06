@@ -8,8 +8,9 @@ const GET = async (
   res: NextApiResponse<Exam | null>,
   id: string
 ) => {
-  const { unauthorized, response } = await authAdminSession(req, res)
-  if (unauthorized) return response
+  // TODO auth the user has an active session
+  // const { unauthorized, response } = await authAdminSession(req, res)
+  // if (unauthorized) return response
 
   const exam = await findExamById(id)
   res.send(exam)

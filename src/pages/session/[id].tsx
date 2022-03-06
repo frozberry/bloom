@@ -4,6 +4,7 @@ import { useRouter } from "next/router"
 import useAuthQuery from "../../hooks/useAuthQuery"
 import { ExamWithProblems } from "../../lib/types"
 import { findExamById } from "../../services/client/examClient"
+import { findUsersExamSession } from "../../services/client/examSessionClient"
 
 type Props = {
   problem: GradedProblem
@@ -103,20 +104,24 @@ const InputAnswer = ({ problem, viewOnly }: Props) => {
 const Page = () => {
   const router = useRouter()
   const { id } = router.query as { id: string }
-  const { data, escape, component } = useAuthQuery(id, () => findExamById(id))
+  const { data, escape, component } = useAuthQuery(
+    "examSession",
+    findUsersExamSession
+  )
 
   if (escape) return component
 
+  console.log(data)
   const exam = data as ExamWithProblems
 
   return (
     <Container>
-      <Typography>{exam.id}</Typography>
+      {/* <Typography>{exam.id}</Typography>
       <Typography>{exam.num}</Typography>
       <Typography>{exam.date}</Typography>
       {exam.problems.map((problem: any) => {
         return <Problem problem={problem} viewOnly={false} key={problem.id} />
-      })}
+      })} */}
     </Container>
   )
 }
