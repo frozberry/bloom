@@ -53,7 +53,7 @@ const SelectPlan = ({ canceled }) => {
         >
           <PlanOption
             title="Monthly"
-            price="£69 / month"
+            price="£19.99 / month"
             onClick={() =>
               stripeCheckout({
                 item: "month",
@@ -63,7 +63,7 @@ const SelectPlan = ({ canceled }) => {
           />
           <PlanOption
             title="Annual (2 months free)"
-            price="£57 / month"
+            price="£16.99 / month"
             onClick={() =>
               stripeCheckout({
                 item: "year",
