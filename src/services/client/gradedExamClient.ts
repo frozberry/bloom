@@ -24,6 +24,6 @@ export const submitExam = async (
   submissions: ProblemSubmission[]
 ) => {
   const data = { examSessionId, submissions }
-  const res = await axios.post("url", data)
+  const res = await axios.post(url, data)
   return res.data
 }

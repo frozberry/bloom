@@ -11,9 +11,11 @@ import { ExamSession, GradedProblem, Problem } from "@prisma/client"
 import dayjs, { Dayjs } from "dayjs"
 import _ from "lodash"
 import { Dispatch, SetStateAction, useEffect, useState } from "react"
+import toast from "react-hot-toast"
 import useAuthQuery from "../../hooks/useAuthQuery"
 import { ExamWithProblems, ProblemSubmission } from "../../lib/types"
 import { findActiveExam } from "../../services/client/examSessionClient"
+import { submitExam } from "../../services/client/gradedExamClient"
 
 type Props = {
   problem: GradedProblem
@@ -191,6 +193,15 @@ const Page = () => {
   const { start } = examSession
   const end = dayjs(start).add(45, "minute")
 
+  const onClick = async () => {
+    try {
+      await submitExam(examSession.id, submissions)
+      toast.success("Exam submitted successfully")
+    } catch (e) {
+      toast.error("error")
+    }
+  }
+
   return (
     <Container sx={{ pt: 3 }}>
       <Typography>You have 45 minutes to complete this test</Typography>
@@ -209,7 +220,7 @@ const Page = () => {
           />
         )
       })}
-      <Button>Submit</Button>
+      <Button onClick={onClick}>Submit</Button>
     </Container>
   )
 }
