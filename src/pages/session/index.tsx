@@ -7,7 +7,10 @@ import toast from "react-hot-toast"
 import Problem from "../../components/submission/Problem"
 import useAuthQuery from "../../hooks/useAuthQuery"
 import { ExamWithProblems, ProblemSubmission } from "../../lib/types"
-import { findActiveExam } from "../../services/client/examSessionClient"
+import {
+  deleteExamSession,
+  findActiveExam,
+} from "../../services/client/examSessionClient"
 import { submitExam } from "../../services/client/gradedExamClient"
 
 const Page = () => {
@@ -43,7 +46,7 @@ const Page = () => {
   const { start } = examSession
   const end = dayjs(start).add(45, "minute")
 
-  const onClick = async () => {
+  const submitTest = async () => {
     if (
       submissions.length === exam.problems.length ||
       window.confirm(
@@ -61,13 +64,20 @@ const Page = () => {
     }
   }
 
+  const cancelAttempt = async () => {
+    if (window.confirm("Are you sure you want to cancel your test?")) {
+      await deleteExamSession()
+      router.push("/results")
+    }
+  }
+
   return (
     <Container sx={{ pt: 3 }}>
       <Typography>You have 45 minutes to complete this test</Typography>
       <Typography>Start: {formatTime(start)}</Typography>
       <Typography>End: {formatTime(end)}</Typography>
       {!examSession.firstAttempt && (
-        <Button variant="outlined" color="inherit">
+        <Button variant="outlined" color="inherit" onClick={cancelAttempt}>
           Cancel attempt
         </Button>
       )}
@@ -84,7 +94,7 @@ const Page = () => {
           />
         )
       })}
-      <Button onClick={onClick} variant="contained" size="large">
+      <Button onClick={submitTest} variant="contained" size="large">
         Submit test
       </Button>
     </Container>

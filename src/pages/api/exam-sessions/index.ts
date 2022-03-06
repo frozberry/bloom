@@ -4,6 +4,7 @@ import authUserSession from "../../../lib/authUserSession"
 import { ServerError } from "../../../lib/types"
 import {
   createExamSession,
+  deleteUsersExamSession,
   findUsersExamSession,
 } from "../../../services/server/examSessionService"
 
@@ -17,7 +18,6 @@ const GET = async (
 ) => {
   const { unauthorized, userId, response } = await authUserSession(req, res)
   if (unauthorized) return response
-  console.log("runs")
 
   const examSession = await findUsersExamSession(userId)
   res.send(examSession)
@@ -44,6 +44,14 @@ const POST = async (
   res.send(examSession)
 }
 
+const DELETE = async (req: NextApiRequest, res: NextApiResponse) => {
+  const { unauthorized, userId, response } = await authUserSession(req, res)
+  if (unauthorized) return response
+
+  await deleteUsersExamSession(userId)
+  res.status(200).end()
+}
+
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   switch (req.method) {
     case "GET":
@@ -51,6 +59,9 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       break
     case "POST":
       POST(req, res)
+      break
+    case "DELETE":
+      DELETE(req, res)
       break
     default:
       res.status(405).end(`Method ${req.method} Not Allowed`)

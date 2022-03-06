@@ -31,3 +31,8 @@ export const findActiveExam = async () => {
 
   return null
 }
+
+export const deleteExamSession = async () => {
+  const res = await axios.delete(url)
+  return res.data
+}
