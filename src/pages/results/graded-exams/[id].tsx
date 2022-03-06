@@ -24,6 +24,7 @@ const Page = () => {
     ) {
       try {
         await createExamSession(gradedExam.examId)
+        router.push("/session")
       } catch {
         router.push("/session")
       }

@@ -66,7 +66,12 @@ const Page = () => {
       <Typography>You have 45 minutes to complete this test</Typography>
       <Typography>Start: {formatTime(start)}</Typography>
       <Typography>End: {formatTime(end)}</Typography>
-      <Divider sx={{ mb: 4 }} />
+      {!examSession.firstAttempt && (
+        <Button variant="outlined" color="inherit">
+          Cancel attempt
+        </Button>
+      )}
+      <Divider sx={{ my: 4 }} />
 
       {exam.problems.map((problem: any) => {
         return (
