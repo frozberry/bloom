@@ -1,5 +1,5 @@
 import { Box, Container, Paper, TextField, Typography } from "@mui/material"
-import { GradedProblem, Problem } from "@prisma/client"
+import { ExamSession, GradedProblem, Problem } from "@prisma/client"
 import { useRouter } from "next/router"
 import useAuthQuery from "../../hooks/useAuthQuery"
 import { ExamWithProblems } from "../../lib/types"
@@ -105,8 +105,6 @@ const InputAnswer = ({ problem, viewOnly }: Props) => {
 }
 
 const Page = () => {
-  const router = useRouter()
-  const { id } = router.query as { id: string }
   const { data, escape, component } = useAuthQuery(
     "examSession",
     findActiveExam
@@ -114,8 +112,12 @@ const Page = () => {
 
   if (escape) return component
 
-  console.log(data)
-  const exam = data as ExamWithProblems
+  const { exam, examSession } = data as {
+    exam: ExamWithProblems
+    examSession: ExamSession
+  }
+  console.log(exam)
+  console.log(examSession)
 
   return (
     <Container>
