@@ -1,17 +1,13 @@
 import { loadStripe } from "@stripe/stripe-js"
 import axios from "axios"
+import { StripeCheckoutBody } from "../../pages/api/stripe/checkout"
 
-const stripePublic = process.env.REACT_APP_STRIPE_PUBLIC as string
+const stripePublic = process.env.NEXT_PUBLIC_STRIPE_PUBLIC as string
 const url = "/api/stripe"
 
 const stripePromise = loadStripe(stripePublic)
 
-type Props = {
-  item: string
-  email: string
-}
-
-export const stripeCheckout = async (data: Props) => {
+export const stripeCheckout = async (data: StripeCheckoutBody) => {
   // Get Stripe.js instance
   const stripe = await stripePromise
 

@@ -1,4 +1,4 @@
-import { Category, GradedExam, Prisma } from "@prisma/client"
+import { Category, Prisma } from "@prisma/client"
 
 /* ----------------------------- UserWithoutDate ---------------------------- */
 const userWithoutDate = Prisma.validator<Prisma.UserArgs>()({

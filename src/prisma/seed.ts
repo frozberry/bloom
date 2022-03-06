@@ -1,4 +1,4 @@
-import { Category, Exam, User } from "@prisma/client"
+import { Category, User } from "@prisma/client"
 import problems from "../../exams/one"
 import { ExamWithProblems } from "../lib/types"
 import { createExamFromJson } from "../services/server/examService"

@@ -1,15 +1,15 @@
 import type { NextApiRequest, NextApiResponse } from "next"
+import { createCheckoutSession } from "../../../services/server/stripeService"
 
-type PostBody = {
+export type StripeCheckoutBody = {
   item: string
   email: string
 }
 
-// TODO
-const POST = async (req: NextApiRequest, res: NextApiResponse<string>) => {
-  const { item, email }: PostBody = req.body
-  console.log(item, email)
-  res.send("unimplemented")
+const POST = async (req: NextApiRequest, res: NextApiResponse) => {
+  const { item, email }: StripeCheckoutBody = req.body
+  const session = await createCheckoutSession(item, email)
+  res.send(session)
 }
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {

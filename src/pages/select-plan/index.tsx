@@ -1,9 +1,15 @@
 import { Alert, Box, Container, Typography } from "@mui/material"
+import { useSession } from "next-auth/react"
 import Bullets from "../../components/select-plan/Bullets"
 import PlanOption from "../../components/select-plan/PlanOption"
 import Questions from "../../components/select-plan/SubscriptionQuestions"
+import { MySession } from "../../lib/types"
+import { stripeCheckout } from "../../services/client/stripeClient"
 
 const SelectPlan = ({ canceled }) => {
+  const { data } = useSession()
+  const session = data as MySession
+
   return (
     <>
       <Alert
@@ -48,22 +54,22 @@ const SelectPlan = ({ canceled }) => {
           <PlanOption
             title="Monthly"
             price="£69 / month"
-            // onClick={() =>
-            // stripeService.checkout({
-            //   item: "month",
-            //   email: user.email,
-            // })
-            // }
+            onClick={() =>
+              stripeCheckout({
+                item: "month",
+                email: session.user.email,
+              })
+            }
           />
           <PlanOption
             title="Annual (2 months free)"
             price="£57 / month"
-            // onClick={() =>
-            // stripeService.checkout({
-            //   item: "year",
-            //   email: user.email,
-            // })
-            // }
+            onClick={() =>
+              stripeCheckout({
+                item: "year",
+                email: session.user.email,
+              })
+            }
           />
         </Box>
         {!canceled ? (

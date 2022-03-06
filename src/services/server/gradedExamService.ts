@@ -1,4 +1,4 @@
-import { ExamSession, Prisma, Problem } from "@prisma/client"
+import { ExamSession, Problem } from "@prisma/client"
 import { calculateDuration } from "../../lib/calculateDuration"
 import { ExamResultOverivew, ProblemSubmission } from "../../lib/types"
 import { prisma } from "../../prisma/client"
