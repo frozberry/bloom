@@ -84,7 +84,9 @@ const Page = () => {
           />
         )
       })}
-      <Button onClick={onClick}>Submit</Button>
+      <Button onClick={onClick} variant="contained" size="large">
+        Submit test
+      </Button>
     </Container>
   )
 }
