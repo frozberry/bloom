@@ -35,7 +35,7 @@ export default function MyApp(props: MyAppProps) {
         <meta name="viewport" content="initial-scale=1, width=device-width" />
         <link rel="shortcut icon" href="/logo.png" />
       </Head>
-      <PlausibleProvider domain="https://waterfront-five.vercel.app/">
+      <PlausibleProvider domain="waterfront-five.vercel.app/">
         <SessionProvider session={session}>
           <QueryClientProvider client={queryClient}>
             <ThemeProvider theme={theme}>
