@@ -1,5 +1,6 @@
 import { loadStripe } from "@stripe/stripe-js"
 import axios from "axios"
+import toast from "react-hot-toast"
 
 const stripePublic = process.env.NEXT_PUBLIC_STRIPE_PUBLIC as string
 const url = "/api/stripe"
@@ -24,10 +25,11 @@ export const stripeCheckout = async (item: string, email: string) => {
     sessionId: session.id,
   })
 
-  if (result?.error) {
+  if (result?.error?.message) {
     // If `redirectToCheckout` fails due to a browser or network
     // error, display the localized error message to your customer
     // using `result.error.message`.
+    toast.error(result.error.message)
   }
 }
 
