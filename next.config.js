@@ -1,4 +1,4 @@
-import { withPlausibleProxy } from "next-plausible"
+const { withPlausibleProxy } = require("next-plausible")
 
 module.exports = withPlausibleProxy()({
   images: {
