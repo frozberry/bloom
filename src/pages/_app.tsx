@@ -10,6 +10,7 @@ import Header from "../components/Header"
 import createEmotionCache from "../lib/createEmotionCache"
 import "../styles.css"
 import theme from "../styles/theme"
+import PlausibleProvider from "next-plausible"
 
 const queryClient = new QueryClient()
 
@@ -34,16 +35,18 @@ export default function MyApp(props: MyAppProps) {
         <meta name="viewport" content="initial-scale=1, width=device-width" />
         <link rel="shortcut icon" href="/logo.png" />
       </Head>
-      <SessionProvider session={session}>
-        <QueryClientProvider client={queryClient}>
-          <ThemeProvider theme={theme}>
-            <CssBaseline />
-            <Header />
-            <Toaster />
-            <Component {...pageProps} />
-          </ThemeProvider>
-        </QueryClientProvider>
-      </SessionProvider>
+      <PlausibleProvider domain="https://waterfront-five.vercel.app/">
+        <SessionProvider session={session}>
+          <QueryClientProvider client={queryClient}>
+            <ThemeProvider theme={theme}>
+              <CssBaseline />
+              <Header />
+              <Toaster />
+              <Component {...pageProps} />
+            </ThemeProvider>
+          </QueryClientProvider>
+        </SessionProvider>
+      </PlausibleProvider>
     </CacheProvider>
   )
 }
