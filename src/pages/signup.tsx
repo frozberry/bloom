@@ -4,10 +4,10 @@ import { signIn } from "next-auth/react"
 import Image from "next/image"
 import Link from "next/link"
 import * as yup from "yup"
-import FormTextField from "../../components/forms/FormTextField"
-import GoogleSignIn from "../../components/GoogleSignIn"
-import notifyError from "../../lib/notifyError"
-import { signup } from "../../services/client/accountClient"
+import FormTextField from "../components/forms/FormTextField"
+import GoogleSignIn from "../components/GoogleSignIn"
+import notifyError from "../lib/notifyError"
+import { signup } from "../services/client/accountClient"
 
 export default function App() {
   type FormValues = {

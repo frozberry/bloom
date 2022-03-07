@@ -4,14 +4,14 @@ import dayjs, { Dayjs } from "dayjs"
 import { useRouter } from "next/router"
 import { useEffect, useState } from "react"
 import toast from "react-hot-toast"
-import Problem from "../../components/submission/Problem"
-import useAuthQuery from "../../hooks/useAuthQuery"
-import { ExamWithProblems, ProblemSubmission } from "../../lib/types"
+import Problem from "../components/submission/Problem"
+import useAuthQuery from "../hooks/useAuthQuery"
+import { ExamWithProblems, ProblemSubmission } from "../lib/types"
 import {
   deleteExamSession,
   findActiveExam,
-} from "../../services/client/examSessionClient"
-import { submitExam } from "../../services/client/gradedExamClient"
+} from "../services/client/examSessionClient"
+import { submitExam } from "../services/client/gradedExamClient"
 
 const Page = () => {
   const router = useRouter()

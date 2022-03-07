@@ -7,12 +7,12 @@ import {
 } from "@mui/material"
 import { useSession } from "next-auth/react"
 import { useState } from "react"
-import Bullets from "../../components/select-plan/Bullets"
-import PlanOption from "../../components/select-plan/PlanOption"
-import Questions from "../../components/select-plan/SubscriptionQuestions"
-import notifyError from "../../lib/notifyError"
-import { MySession } from "../../lib/types"
-import { stripeCheckout } from "../../services/client/stripeClient"
+import Bullets from "../components/select-plan/Bullets"
+import PlanOption from "../components/select-plan/PlanOption"
+import Questions from "../components/select-plan/SubscriptionQuestions"
+import notifyError from "../lib/notifyError"
+import { MySession } from "../lib/types"
+import { stripeCheckout } from "../services/client/stripeClient"
 
 const SelectPlan = ({ canceled = false }: { canceled: boolean }) => {
   const [stripeLoading, setStripeLoading] = useState(false)

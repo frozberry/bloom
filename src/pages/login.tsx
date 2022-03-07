@@ -12,9 +12,9 @@ import { signIn } from "next-auth/react"
 import Link from "next/link"
 import { useRouter } from "next/router"
 import * as yup from "yup"
-import FormTextField from "../../components/forms/FormTextField"
-import GoogleSignIn from "../../components/GoogleSignIn"
-import notifyError from "../../lib/notifyError"
+import FormTextField from "../components/forms/FormTextField"
+import GoogleSignIn from "../components/GoogleSignIn"
+import notifyError from "../lib/notifyError"
 
 // User already has a Google account, but tries to sign in with login
 // User already has login, but tries to sign in with Google

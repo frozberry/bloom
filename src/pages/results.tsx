@@ -1,8 +1,8 @@
 import { Container } from "@mui/material"
-import SingleAttempt from "../../components/results/SingleExamAttempt"
-import useAuthQuery from "../../hooks/useAuthQuery"
-import { GradedExamWithExam } from "../../lib/types"
-import { getUsersGradedExams } from "../../services/client/gradedExamClient"
+import SingleAttempt from "../components/results/SingleExamAttempt"
+import useAuthQuery from "../hooks/useAuthQuery"
+import { GradedExamWithExam } from "../lib/types"
+import { getUsersGradedExams } from "../services/client/gradedExamClient"
 
 const ResultsList = () => {
   const { data, escape, component } = useAuthQuery(

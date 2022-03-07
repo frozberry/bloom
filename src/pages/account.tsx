@@ -1,13 +1,10 @@
-import { Container, Typography, Button, Box } from "@mui/material"
-import { Formik, FormikHelpers, FormikProps, Form, Field } from "formik"
+import { Box, Button, Container, Typography } from "@mui/material"
+import { Field, Form, Formik, FormikHelpers, FormikProps } from "formik"
 import * as yup from "yup"
-import FormTextField from "../../components/forms/FormTextField"
-import useAuthQuery from "../../hooks/useAuthQuery"
-import notifyError from "../../lib/notifyError"
-import {
-  changePassword,
-  isUserOAuth,
-} from "../../services/client/accountClient"
+import FormTextField from "../components/forms/FormTextField"
+import useAuthQuery from "../hooks/useAuthQuery"
+import notifyError from "../lib/notifyError"
+import { changePassword, isUserOAuth } from "../services/client/accountClient"
 
 export default function App() {
   const { data, escape, component } = useAuthQuery("isOAuth", isUserOAuth)

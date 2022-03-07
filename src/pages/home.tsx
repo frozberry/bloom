@@ -1,12 +1,12 @@
 import { Button, Container, Typography } from "@mui/material"
 import { Exam } from "@prisma/client"
 import { useRouter } from "next/router"
-import useAuthQuery from "../../hooks/useAuthQuery"
-import { getNextExam } from "../../services/client/examClient"
+import useAuthQuery from "../hooks/useAuthQuery"
+import { getNextExam } from "../services/client/examClient"
 import {
   createExamSession,
   findActiveExam,
-} from "../../services/client/examSessionClient"
+} from "../services/client/examSessionClient"
 
 const Home = () => {
   const router = useRouter()

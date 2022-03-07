@@ -1,6 +1,5 @@
 import { loadStripe } from "@stripe/stripe-js"
 import axios from "axios"
-import { StripeCheckoutBody } from "../../pages/api/stripe/checkout"
 
 const stripePublic = process.env.NEXT_PUBLIC_STRIPE_PUBLIC as string
 const url = "/api/stripe"
