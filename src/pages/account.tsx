@@ -1,6 +1,7 @@
-import { Box, Button, Container, Typography } from "@mui/material"
+import { Box, Button, Container, Divider, Typography } from "@mui/material"
 import { Field, Form, Formik, FormikHelpers, FormikProps } from "formik"
 import * as yup from "yup"
+import ChildForm from "../components/forms/ChildForm"
 import FormTextField from "../components/forms/FormTextField"
 import useAuthQuery from "../hooks/useAuthQuery"
 import notifyError from "../lib/notifyError"
@@ -41,9 +42,14 @@ export default function App() {
   }
 
   return (
-    <Container maxWidth="xs">
+    <Container maxWidth="xs" sx={{ pt: 4 }}>
+      <Typography variant="h2" sx={{ mb: 4 }}>
+        Child's details
+      </Typography>
+      <ChildForm />
       {!isOAuth && (
         <>
+          <Divider sx={{ my: 4 }} />
           <Box sx={{ my: 4 }}>
             <Typography variant="h2">Change password</Typography>
           </Box>
