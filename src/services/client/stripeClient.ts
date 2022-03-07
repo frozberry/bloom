@@ -7,11 +7,9 @@ const url = "/api/stripe"
 
 const stripePromise = loadStripe(stripePublic)
 
-export const stripeCheckout = async (data: StripeCheckoutBody) => {
+export const stripeCheckout = async (item: string, email: string) => {
   // Get Stripe.js instance
   const stripe = await stripePromise
-
-  const { item, email } = data
 
   // Call your backend to create the Checkout Session
   const checkoutData = {

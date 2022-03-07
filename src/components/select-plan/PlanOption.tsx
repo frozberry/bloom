@@ -1,4 +1,4 @@
-import { Button, Paper, Typography } from "@mui/material"
+import { Button, CircularProgress, Paper, Typography } from "@mui/material"
 
 const PlanOption = ({
   title,
@@ -35,6 +35,7 @@ const PlanOption = ({
         disableElevation
         sx={{ mt: 2 }}
         onClick={onClick}
+        startIcon={<CircularProgress color="secondary" size="small" />}
       >
         Choose plan
       </Button>
