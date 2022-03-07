@@ -6,7 +6,7 @@ import Questions from "../../components/select-plan/SubscriptionQuestions"
 import { MySession } from "../../lib/types"
 import { stripeCheckout } from "../../services/client/stripeClient"
 
-const SelectPlan = ({ canceled }) => {
+const SelectPlan = ({ canceled = false }: { canceled: boolean }) => {
   const { data } = useSession()
   const session = data as MySession
 
