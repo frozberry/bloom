@@ -4,8 +4,11 @@ import toast from "react-hot-toast"
 
 const stripePublic = process.env.NEXT_PUBLIC_STRIPE_PUBLIC as string
 const url = "/api/stripe"
-
 const stripePromise = loadStripe(stripePublic)
+
+type StripeSession = {
+  id: string
+}
 
 export const stripeCheckout = async (item: string, email: string) => {
   const stripe = await stripePromise
@@ -14,7 +17,7 @@ export const stripeCheckout = async (item: string, email: string) => {
     item,
     email,
   }
-  const response = await axios.post<{ id: string }>(
+  const response = await axios.post<StripeSession>(
     `${url}/checkout`,
     checkoutData
   )
