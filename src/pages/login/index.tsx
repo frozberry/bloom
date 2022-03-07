@@ -93,6 +93,7 @@ export default function App() {
                   name="email"
                   placeholder="Email"
                   size="small"
+                  autoComplete="email"
                   component={FormTextField}
                   fullWidth
                 />
@@ -104,6 +105,7 @@ export default function App() {
                   placeholder="********"
                   type="password"
                   size="small"
+                  autoComplete="password"
                   component={FormTextField}
                   fullWidth
                 />

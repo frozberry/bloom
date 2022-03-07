@@ -81,6 +81,7 @@ export default function App() {
               <Field
                 name="name"
                 placeholder="Name"
+                autoComplete="name"
                 size="small"
                 component={FormTextField}
                 fullWidth
@@ -91,6 +92,7 @@ export default function App() {
               <Field
                 name="email"
                 placeholder="Email"
+                autoComplete="email"
                 size="small"
                 component={FormTextField}
                 fullWidth
@@ -102,6 +104,7 @@ export default function App() {
                 name="password"
                 placeholder="********"
                 type="password"
+                autoComplete="password"
                 size="small"
                 component={FormTextField}
                 fullWidth
