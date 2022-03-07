@@ -8,27 +8,23 @@ const url = "/api/stripe"
 const stripePromise = loadStripe(stripePublic)
 
 export const stripeCheckout = async (item: string, email: string) => {
-  // Get Stripe.js instance
   const stripe = await stripePromise
 
-  // Call your backend to create the Checkout Session
   const checkoutData = {
     item,
     email,
   }
   const response = await axios.post(`${url}/checkout`, checkoutData)
-
   const session = response.data
 
-  // When the customer clicks on the button, redirect them to Checkout.
   const result = await stripe?.redirectToCheckout({
     sessionId: session.id,
   })
 
+  // If `redirectToCheckout` fails due to a browser or network
+  // error, display the localized error message to your customer
+  // using `result.error.message`.
   if (result?.error?.message) {
-    // If `redirectToCheckout` fails due to a browser or network
-    // error, display the localized error message to your customer
-    // using `result.error.message`.
     toast.error(result.error.message)
   }
 }
