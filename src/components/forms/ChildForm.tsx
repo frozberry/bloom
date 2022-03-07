@@ -1,12 +1,18 @@
 import { Box, Button, Typography } from "@mui/material"
 import axios from "axios"
 import { Field, Form, Formik, FormikHelpers, FormikProps } from "formik"
+import toast from "react-hot-toast"
 import * as yup from "yup"
+import useAuthQuery from "../../hooks/useAuthQuery"
 import notifyError from "../../lib/notifyError"
-import { signup } from "../../services/client/accountClient"
+import { gu } from "../../services/client/userClient"
 import FormTextField from "./FormTextField"
 
-const SignupForm = () => {
+const ChildForm = () => {
+  const { escape, component, data } = useAuthQuery("getUser", gu)
+  if (escape) return component
+  console.log(data)
+
   type FormValues = {
     firstName: string
     lastName: string
@@ -14,8 +20,8 @@ const SignupForm = () => {
   }
 
   const initialValues = {
-    firstName: "",
-    lastName: "",
+    firstName: data.firstName,
+    lastName: data.lastName,
     dob: "",
   }
 
@@ -37,7 +43,9 @@ const SignupForm = () => {
         gender: "male",
       })
       console.log(res.data)
+      toast.success("succesfully changed")
 
+      formikHelpers.setSubmitting(false)
       // await signup(values.name, values.email, values.password)
       // signIn("credentials", {
       //   email: values.email,
@@ -61,7 +69,6 @@ const SignupForm = () => {
             <Typography variant="subtitle2">First name</Typography>
             <Field
               name="firstName"
-              // placeholder="Name"
               autoComplete="name"
               size="small"
               component={FormTextField}
@@ -105,4 +112,4 @@ const SignupForm = () => {
   )
 }
 
-export default SignupForm
+export default ChildForm

@@ -13,7 +13,9 @@ type PostBody = {
 
 const GET = async (req: NextApiRequest, res: NextApiResponse) => {
   const { unauthorized, userId, response } = await authUserSession(req, res)
+  console.log(userId)
   if (unauthorized) return response
+  console.log(userId)
 
   const users = await findUserById(userId)
   res.send(users)
