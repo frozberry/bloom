@@ -24,7 +24,8 @@ const POST = async (req: NextApiRequest, res: NextApiResponse) => {
   if (unauthorized) return response
 
   const { firstName, lastName, dob, gender }: PostBody = req.body
-  const editProfile = editUser(userId, firstName, lastName, "foo", "male")
+  const d = new Date(dob)
+  const editProfile = editUser(userId, firstName, lastName, d, "male")
 
   res.send(editProfile)
 }

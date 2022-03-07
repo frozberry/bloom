@@ -1,4 +1,5 @@
 import { Box, Button, Typography } from "@mui/material"
+import axios from "axios"
 import { Field, Form, Formik, FormikHelpers, FormikProps } from "formik"
 import * as yup from "yup"
 import notifyError from "../../lib/notifyError"
@@ -29,13 +30,20 @@ const SignupForm = () => {
     formikHelpers: FormikHelpers<FormValues>
   ) => {
     try {
+      const res = await axios.post("/api/profile", {
+        firstName: values.firstName,
+        lastName: values.lastName,
+        dob: values.lastName,
+        gender: "male",
+      })
+      console.log(res.data)
+
       // await signup(values.name, values.email, values.password)
       // signIn("credentials", {
       //   email: values.email,
       //   password: values.dob,
       //   callbackUrl: "/home",
       // })
-      console.log(values.dob)
     } catch (e) {
       notifyError(e)
       formikHelpers.setSubmitting(false)
