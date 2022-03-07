@@ -14,7 +14,10 @@ export const stripeCheckout = async (item: string, email: string) => {
     item,
     email,
   }
-  const response = await axios.post(`${url}/checkout`, checkoutData)
+  const response = await axios.post<{ id: string }>(
+    `${url}/checkout`,
+    checkoutData
+  )
   const session = response.data
 
   const result = await stripe?.redirectToCheckout({
