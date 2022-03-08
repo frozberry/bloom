@@ -38,20 +38,6 @@ const createUsers = async () => {
         stripeSubId: "sub_JifnkftUVSP4Mg",
         subEnds,
       },
-      {
-        id: "8f0c3193-6ca3-4b51-8818-eb16390fd7f9",
-        email: "henry@henrywu.co.uk",
-        firstName: "Tomothy",
-        lastName: "T",
-        parentName: "Henry",
-        dob,
-        gender: "male",
-        passwordHash:
-          "$2b$10$8GfTVRlKhQz0eKQl5w4ycuhhSlXGQ.oFzPRdEljrcQkHYXm.PEChG",
-        stripeId: "cus_JifnHyNvFpbJIx",
-        stripeSubId: "sub_JifnkftUVSP4Mg",
-        subEnds,
-      },
     ],
   })
 }
