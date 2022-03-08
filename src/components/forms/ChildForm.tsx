@@ -1,18 +1,18 @@
 import { Box, Button, Typography } from "@mui/material"
-import axios from "axios"
 import dayjs from "dayjs"
 import { Field, Form, Formik, FormikHelpers, FormikProps } from "formik"
-import { attempt } from "lodash"
 import toast from "react-hot-toast"
 import * as yup from "yup"
 import useAuthQuery from "../../hooks/useAuthQuery"
-import nameCase from "../../lib/nameCase"
 import notifyError from "../../lib/notifyError"
-import { gu, updateProfile } from "../../services/client/profileClient"
+import {
+  findUsersProfile,
+  updateProfile,
+} from "../../services/client/profileClient"
 import FormTextField from "./FormTextField"
 
 const ChildForm = () => {
-  const { escape, component, data } = useAuthQuery("getUser", gu)
+  const { escape, component, data } = useAuthQuery("getUser", findUsersProfile)
   if (escape) return component
   console.log(data)
 

@@ -3,7 +3,7 @@ import nameCase from "../../lib/nameCase"
 
 const url = "/api/profile"
 
-export const getProfile = async () => {
+export const findUsersProfile = async () => {
   const res = await axios.get<string>(url)
   return res.data
 }
