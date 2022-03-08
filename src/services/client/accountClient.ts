@@ -1,5 +1,6 @@
 import axios from "axios"
 import toast from "react-hot-toast"
+import { AccountPageData } from "../../lib/types"
 
 export const login = async (email: string, password: string) => {
   const data = {
@@ -49,5 +50,10 @@ export const changePassword = async (
 
 export const isUserOAuth = async () => {
   const res = await axios.get<boolean>("/api/users/oauth")
+  return res.data
+}
+
+export const getAccountPageData = async () => {
+  const res = await axios.get<AccountPageData>("/api/users/account")
   return res.data
 }

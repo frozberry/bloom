@@ -1,44 +1,43 @@
 import { Box, Button, Container, Divider, Typography } from "@mui/material"
+import { useRouter } from "next/router"
 import ChangePasswordForm from "../components/forms/ChangePasswordForm"
 import ChildForm from "../components/forms/ChildForm"
 import useAuthQuery from "../hooks/useAuthQuery"
-import { UserProfile } from "../lib/types"
-import { isUserOAuth } from "../services/client/accountClient"
-import { findUsersProfile } from "../services/client/profileClient"
+import { AccountPageData } from "../lib/types"
+import { getAccountPageData } from "../services/client/accountClient"
 import { stripePortalUrl } from "../services/client/stripeClient"
 
-type Data = {
-  profile: UserProfile
-  isOAuth: boolean
-}
-
-const getAccountInfo = async (): Promise<Data> => {
-  const profile = await findUsersProfile()
-  const isOAuth = await isUserOAuth()
-  return { profile, isOAuth }
-}
-
-const openPortal = async () => {
-  const url = await stripePortalUrl("cus_JifnHyNvFpbJIx")
-  window.open(url)
-}
-
 export default function App() {
+  const router = useRouter()
   const { data, escape, component } = useAuthQuery(
-    "accountForms",
-    getAccountInfo
+    "accountData",
+    getAccountPageData
   )
   if (escape) return component
 
-  const { profile, isOAuth } = data as Data
+  const account = data as AccountPageData
+
+  const handleBilling = async (customerId: string | null) => {
+    if (!customerId) {
+      router.push("/select-plan")
+      return
+    }
+    const url = await stripePortalUrl(customerId)
+    window.open(url)
+  }
 
   return (
     <Container maxWidth="xs" sx={{ pt: 4 }}>
       <Typography variant="h2" sx={{ mb: 4 }}>
         Child's details
       </Typography>
-      <ChildForm profile={profile} />
-      {!isOAuth && (
+      <ChildForm
+        firstName={data.firstName}
+        lastName={data.lastName}
+        dob={data.dob}
+        gender={data.gender}
+      />
+      {!account.isOAuth && (
         <>
           <Divider sx={{ my: 4 }} />
           <Box sx={{ my: 4 }}>
@@ -59,7 +58,7 @@ export default function App() {
         size="large"
         color="secondary"
         fullWidth
-        onClick={openPortal}
+        onClick={() => handleBilling(account.stripeId)}
       >
         Payments portal
       </Button>

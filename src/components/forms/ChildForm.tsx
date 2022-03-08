@@ -9,10 +9,13 @@ import { updateProfile } from "../../services/client/profileClient"
 import FormTextField from "./FormTextField"
 
 type Props = {
-  profile: UserProfile
+  firstName: string
+  lastName: string
+  dob: string
+  gender: string
 }
 
-const ChildForm = ({ profile }: Props) => {
+const ChildForm = ({ firstName, lastName, dob, gender }: Props) => {
   type FormValues = {
     firstName: string
     lastName: string
@@ -20,9 +23,9 @@ const ChildForm = ({ profile }: Props) => {
   }
 
   const initialValues = {
-    firstName: profile.firstName || "",
-    lastName: profile.lastName || "",
-    dob: profile.dob ? dayjs(profile.dob).format("YYYY-MM-DD") : "",
+    firstName: firstName || "",
+    lastName: lastName || "",
+    dob: dob ? dayjs(dob).format("YYYY-MM-DD") : "",
   }
 
   const validationSchema = yup.object().shape({
