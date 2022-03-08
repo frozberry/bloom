@@ -63,7 +63,6 @@ const ChildForm = ({ firstName, lastName, dob, gender }: Props) => {
               size="small"
               component={FormTextField}
               fullWidth
-              style={{ textTransform: "capitalize" }}
             />
           </Box>
           <Box>
