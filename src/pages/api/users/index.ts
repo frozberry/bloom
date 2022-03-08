@@ -1,11 +1,9 @@
 import { User } from "@prisma/client"
 import type { NextApiRequest, NextApiResponse } from "next"
 import authAdminSession from "../../../lib/authAdminSession"
-import authUserSession from "../../../lib/authUserSession"
 import { ServerError } from "../../../lib/types"
 import {
   createUser,
-  editUser,
   findUserByEmail,
   getUsers,
 } from "../../../services/server/userService"
@@ -14,13 +12,6 @@ type PostBody = {
   parentName: string
   email: string
   password: string
-}
-
-type PutBody = {
-  firstName: string
-  lastName: string
-  dob: string
-  gender: string
 }
 
 const GET = async (req: NextApiRequest, res: NextApiResponse<User[]>) => {
@@ -50,16 +41,6 @@ const POST = async (
   res.send(user)
 }
 
-const PUT = async (req: NextApiRequest, res: NextApiResponse<User>) => {
-  const { firstName, lastName, dob, gender }: PutBody = req.body
-
-  const { unauthorized, userId, response } = await authUserSession(req, res)
-  if (unauthorized) return response
-
-  const updatedUser = await editUser(userId, firstName, lastName, dob, gender)
-  res.send(updatedUser)
-}
-
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   switch (req.method) {
     case "GET":
@@ -67,9 +48,6 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       break
     case "POST":
       POST(req, res)
-      break
-    case "PUT":
-      PUT(req, res)
       break
     default:
       res.status(405).end(`Method ${req.method} Not Allowed`)
