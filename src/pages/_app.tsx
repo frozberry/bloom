@@ -2,15 +2,16 @@ import { CacheProvider, EmotionCache } from "@emotion/react"
 import CssBaseline from "@mui/material/CssBaseline"
 import { ThemeProvider } from "@mui/material/styles"
 import { SessionProvider } from "next-auth/react"
+import PlausibleProvider from "next-plausible"
 import { AppProps } from "next/app"
 import Head from "next/head"
 import { Toaster } from "react-hot-toast"
 import { QueryClient, QueryClientProvider } from "react-query"
+import { ReactQueryDevtools } from "react-query/devtools"
 import Header from "../components/Header"
 import createEmotionCache from "../lib/createEmotionCache"
 import "../styles.css"
 import theme from "../styles/theme"
-import PlausibleProvider from "next-plausible"
 
 const queryClient = new QueryClient()
 
@@ -35,18 +36,19 @@ export default function MyApp(props: MyAppProps) {
         <meta name="viewport" content="initial-scale=1, width=device-width" />
         <link rel="shortcut icon" href="/logo.png" />
       </Head>
-      <PlausibleProvider domain="waterfront-five.vercel.app/">
-        <SessionProvider session={session}>
-          <QueryClientProvider client={queryClient}>
+      <SessionProvider session={session}>
+        <QueryClientProvider client={queryClient}>
+          <PlausibleProvider domain="waterfront-five.vercel.app/">
             <ThemeProvider theme={theme}>
               <CssBaseline />
               <Header />
               <Toaster />
               <Component {...pageProps} />
             </ThemeProvider>
-          </QueryClientProvider>
-        </SessionProvider>
-      </PlausibleProvider>
+          </PlausibleProvider>
+          <ReactQueryDevtools initialIsOpen={true} />
+        </QueryClientProvider>
+      </SessionProvider>
     </CacheProvider>
   )
 }
