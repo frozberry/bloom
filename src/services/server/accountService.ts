@@ -10,7 +10,7 @@ export const login = async (
   email: string,
   password: string
 ): Promise<User | null> => {
-  const user = await findUserByEmail(email)
+  const user = await findUserByEmail(email.trim())
   if (!user) {
     return null
   }

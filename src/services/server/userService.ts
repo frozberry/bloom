@@ -29,7 +29,7 @@ export const createUser = async (
   const passwordHash = await bcrypt.hash(password, 10)
 
   const user = await prisma.user.create({
-    data: { parentName, email, passwordHash },
+    data: { parentName: parentName.trim(), email: email.trim(), passwordHash },
   })
 
   const token = jwt.sign(
