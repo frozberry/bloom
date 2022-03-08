@@ -56,7 +56,7 @@ export default function App() {
       <Button
         variant="contained"
         size="large"
-        color="secondary"
+        color="primary"
         fullWidth
         onClick={() => handleBilling(account.stripeId)}
       >
