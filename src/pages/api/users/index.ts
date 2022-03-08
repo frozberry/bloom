@@ -1,15 +1,14 @@
-import type { NextApiRequest, NextApiResponse } from "next"
 import { User } from "@prisma/client"
-
+import type { NextApiRequest, NextApiResponse } from "next"
+import authAdminSession from "../../../lib/authAdminSession"
+import authUserSession from "../../../lib/authUserSession"
+import { ServerError } from "../../../lib/types"
 import {
   createUser,
   editUser,
   findUserByEmail,
   getUsers,
 } from "../../../services/server/userService"
-import { ServerError, UserWithoutDate } from "../../../lib/types"
-import authUserSession from "../../../lib/authUserSession"
-import authAdminSession from "../../../lib/authAdminSession"
 
 type PostBody = {
   parentName: string
@@ -24,10 +23,7 @@ type PutBody = {
   gender: string
 }
 
-const GET = async (
-  req: NextApiRequest,
-  res: NextApiResponse<UserWithoutDate[]>
-) => {
+const GET = async (req: NextApiRequest, res: NextApiResponse<User[]>) => {
   const { unauthorized, response } = await authAdminSession(req, res)
   if (unauthorized) return response
 
