@@ -1,21 +1,11 @@
 import { Box, Button, Typography } from "@mui/material"
 import { Field, Form, Formik, FormikHelpers, FormikProps } from "formik"
 import * as yup from "yup"
-import useAuthQuery from "../../hooks/useAuthQuery"
 import notifyError from "../../lib/notifyError"
-import {
-  changePassword,
-  isUserOAuth,
-} from "../../services/client/accountClient"
+import { changePassword } from "../../services/client/accountClient"
 import FormTextField from "./FormTextField"
 
 const ChangePasswordForm = () => {
-  const { data, escape, component } = useAuthQuery("isOAuth", isUserOAuth)
-  if (escape) return component
-
-  const isOAuth = data as boolean
-  if (isOAuth) return null
-
   type FormValues = {
     currentPassword: string
     newPassword: string
