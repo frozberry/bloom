@@ -8,7 +8,7 @@ import * as yup from "yup"
 import useAuthQuery from "../../hooks/useAuthQuery"
 import nameCase from "../../lib/nameCase"
 import notifyError from "../../lib/notifyError"
-import { gu } from "../../services/client/userClient"
+import { gu, updateProfile } from "../../services/client/profileClient"
 import FormTextField from "./FormTextField"
 
 const ChildForm = () => {
@@ -40,14 +40,8 @@ const ChildForm = () => {
     formikHelpers: FormikHelpers<FormValues>
   ) => {
     try {
-      await axios.post("/api/profile", {
-        firstName: nameCase(values.firstName),
-        lastName: nameCase(values.lastName),
-        dob: new Date(values.dob),
-        gender: "male",
-      })
+      updateProfile(values.firstName, values.lastName, values.dob, "male")
       toast.success("Details updated succesfully")
-
       formikHelpers.setSubmitting(false)
     } catch (e) {
       notifyError(e)
