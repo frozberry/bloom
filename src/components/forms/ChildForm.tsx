@@ -14,7 +14,6 @@ import FormTextField from "./FormTextField"
 const ChildForm = () => {
   const { escape, component, data } = useAuthQuery("getUser", findUsersProfile)
   if (escape) return component
-  console.log(data)
 
   type FormValues = {
     firstName: string
@@ -27,7 +26,6 @@ const ChildForm = () => {
     lastName: data.lastName || "",
     dob: data.dob ? dayjs(data.dob).format("YYYY-MM-DD") : "",
   }
-  console.log(data.dob)
 
   const validationSchema = yup.object().shape({
     firstName: yup.string().required("Required"),
