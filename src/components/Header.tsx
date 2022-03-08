@@ -46,7 +46,6 @@ const Header = () => {
       <HeaderItem link="/results">Results</HeaderItem>
       <HeaderItem link="/stats">Stats</HeaderItem>
       <HeaderItem link="/account">Account</HeaderItem>
-      <HeaderItem link="/account">{session.user.email}</HeaderItem>
       {/* <Button sx={{ color: "black" }} onClick={handlePortal}>
         Account
       </Button> */}
