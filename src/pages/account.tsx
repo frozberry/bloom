@@ -5,7 +5,7 @@ import useAuthQuery from "../hooks/useAuthQuery"
 import { UserProfile } from "../lib/types"
 import { isUserOAuth } from "../services/client/accountClient"
 import { findUsersProfile } from "../services/client/profileClient"
-import { stripePortal } from "../services/client/stripeClient"
+import { stripePortalUrl } from "../services/client/stripeClient"
 
 type Data = {
   profile: UserProfile
@@ -19,7 +19,7 @@ const getAccountInfo = async (): Promise<Data> => {
 }
 
 const openPortal = async () => {
-  const url = await stripePortal("cus_JifnHyNvFpbJIx")
+  const url = await stripePortalUrl("cus_JifnHyNvFpbJIx")
   window.open(url)
 }
 

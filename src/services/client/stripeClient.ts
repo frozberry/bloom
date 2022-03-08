@@ -35,8 +35,10 @@ export const stripeCheckout = async (item: string, email: string) => {
   }
 }
 
-export const stripePortal = async (customerId: string) => {
-  const response = await axios.post(`${url}/customer-portal`, { customerId })
+export const stripePortalUrl = async (customerId: string) => {
+  const response = await axios.post<{ url: string }>(`${url}/customer-portal`, {
+    customerId,
+  })
 
   return response.data.url
 }
