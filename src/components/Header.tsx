@@ -83,16 +83,16 @@ const Header = () => {
             "aria-labelledby": "basic-button",
           }}
         >
-          <MenuItem>
+          <MenuItem onClick={handleClose}>
             <HeaderItem link="/results">Results</HeaderItem>
           </MenuItem>
-          <MenuItem>
+          <MenuItem onClick={handleClose}>
             <HeaderItem link="/stats">Stats</HeaderItem>
           </MenuItem>
-          <MenuItem>
+          <MenuItem onClick={handleClose}>
             <HeaderItem link="/account">Account</HeaderItem>
           </MenuItem>
-          <MenuItem>
+          <MenuItem onClick={handleClose}>
             <Button sx={{ color: "black" }} onClick={handleLogout}>
               Log out
             </Button>
