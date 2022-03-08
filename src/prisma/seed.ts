@@ -21,24 +21,22 @@ const createUsers = async () => {
   const dob = new Date("2010-01-01T00:00:00.000Z")
   const subEnds = new Date("2021-06-30T18:35:58.000Z")
 
-  await prisma.user.createMany({
-    data: [
-      {
-        id: "3fa5a38b-e8fc-41a7-95d0-04f438ec3ff3",
-        email: "pannicope@gmail.com",
-        firstName: "Bob",
-        lastName: "b",
-        parentName: "Henry",
-        dob,
-        gender: "male",
-        admin: true,
-        passwordHash:
-          "$2b$10$0QPERpxW431jwQQSTh9H0uSFrxcfcT.9QhE3piaqKQgjssC44DpJK",
-        stripeId: "cus_JifnHyNvFpbJIx",
-        stripeSubId: "sub_JifnkftUVSP4Mg",
-        subEnds,
-      },
-    ],
+  await prisma.user.create({
+    data: {
+      id: "3fa5a38b-e8fc-41a7-95d0-04f438ec3ff3",
+      email: "pannicope@gmail.com",
+      firstName: "Bob",
+      lastName: "b",
+      parentName: "Henry",
+      gender: "male",
+      dob,
+      admin: true,
+      passwordHash:
+        "$2b$10$7f2Zo6SqU6E7r./LmGDkSOsQNSpcGTRiIKHpx/.ZK0G7sxTXskXsq",
+      stripeId: "cus_JifnHyNvFpbJIx",
+      stripeSubId: "sub_JifnkftUVSP4Mg",
+      subEnds,
+    },
   })
 }
 
@@ -46,7 +44,8 @@ const createGradedCatergories = async () => {
   const user1 = (await findUserByEmail("pannicope@gmail.com")) as User
   const user2 = (await findUserByEmail("henry@henrywu.co.uk")) as User
 
-  const users = [user1, user2]
+  // const users = [user1, user2]
+  const users = [user1]
 
   const categories = Object.values(Category)
 
