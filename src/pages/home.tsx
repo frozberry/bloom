@@ -5,7 +5,7 @@ import useAuthQuery from "../hooks/useAuthQuery"
 import { getNextExam } from "../services/client/examClient"
 import {
   createExamSession,
-  findActiveExam,
+  findActiveExam
 } from "../services/client/examSessionClient"
 
 const Home = () => {

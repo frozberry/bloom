@@ -1,8 +1,10 @@
-import { AppBar, Toolbar, Button, Box } from "@mui/material"
+import { AppBar, Toolbar, Button, Box, MenuItem, Menu } from "@mui/material"
 import Link from "next/link"
 import Image from "next/image"
 import { signOut, useSession } from "next-auth/react"
 import { MySession } from "../lib/types"
+import MenuIcon from "@mui/icons-material/Menu"
+import { useState } from "react"
 // import stripeService from "../services/stripeService"
 
 type HeaderProp = {
@@ -13,6 +15,15 @@ type HeaderProp = {
 const Header = () => {
   const { data } = useSession()
   const session = data as MySession
+
+  const [anchorEl, setAnchorEl] = useState(null)
+  const open = Boolean(anchorEl)
+  const handleClick = (event: any) => {
+    setAnchorEl(event.currentTarget)
+  }
+  const handleClose = () => {
+    setAnchorEl(null)
+  }
 
   const handleLogout = () => {
     // localStorage.removeItem("loggedWaterfrontUser")
@@ -42,25 +53,58 @@ const Header = () => {
   )
 
   const loggedIn = () => (
-    <>
-      <HeaderItem link="/results">Results</HeaderItem>
-      <HeaderItem link="/stats">Stats</HeaderItem>
-      <HeaderItem link="/account">Account</HeaderItem>
-      {/* <Button sx={{ color: "black" }} onClick={handlePortal}>
-        Account
-      </Button> */}
-      {/* {user?.email === "pannicope@gmail.com" && (
-        <HeaderItem link="/admin">Admin</HeaderItem>
-      )} */}
-      <Button sx={{ color: "black" }} onClick={handleLogout}>
-        Log out
-      </Button>
-    </>
+    <Box>
+      <Box sx={{ display: { xs: "none", sm: "initial" } }}>
+        <HeaderItem link="/results">Results</HeaderItem>
+        <HeaderItem link="/stats">Stats</HeaderItem>
+        <HeaderItem link="/account">Account</HeaderItem>
+        <Button sx={{ color: "black" }} onClick={handleLogout}>
+          Log out
+        </Button>
+      </Box>
+
+      <Box sx={{ display: { xs: "initial", sm: "none" } }}>
+        <MenuIcon
+          fontSize="large"
+          color="primary"
+          sx={{ color: "black" }}
+          id="basic-button"
+          aria-controls={open ? "basic-menu" : undefined}
+          aria-haspopup="true"
+          aria-expanded={open ? "true" : undefined}
+          onClick={handleClick}
+        />
+        <Menu
+          id="basic-menu"
+          anchorEl={anchorEl}
+          open={open}
+          onClose={handleClose}
+          MenuListProps={{
+            "aria-labelledby": "basic-button",
+          }}
+        >
+          <MenuItem>
+            <HeaderItem link="/results">Results</HeaderItem>
+          </MenuItem>
+          <MenuItem>
+            <HeaderItem link="/stats">Stats</HeaderItem>
+          </MenuItem>
+          <MenuItem>
+            <HeaderItem link="/ccount">Account</HeaderItem>
+          </MenuItem>
+          <MenuItem>
+            <Button sx={{ color: "black" }} onClick={handleLogout}>
+              Log out
+            </Button>
+          </MenuItem>
+        </Menu>
+      </Box>
+    </Box>
   )
 
   return (
     <>
-      <AppBar position="static" style={{ margin: 0, backgroundColor: "white" }}>
+      <AppBar position="static" style={{ backgroundColor: "white" }}>
         <Toolbar>
           <Link href={session ? "/home" : "/"} passHref>
             <Box
