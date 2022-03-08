@@ -3,18 +3,16 @@ import dayjs from "dayjs"
 import { Field, Form, Formik, FormikHelpers, FormikProps } from "formik"
 import toast from "react-hot-toast"
 import * as yup from "yup"
-import useAuthQuery from "../../hooks/useAuthQuery"
 import notifyError from "../../lib/notifyError"
-import {
-  findUsersProfile,
-  updateProfile,
-} from "../../services/client/profileClient"
+import { UserProfile } from "../../lib/types"
+import { updateProfile } from "../../services/client/profileClient"
 import FormTextField from "./FormTextField"
 
-const ChildForm = () => {
-  const { escape, component, data } = useAuthQuery("getUser", findUsersProfile)
-  if (escape) return component
+type Props = {
+  profile: UserProfile
+}
 
+const ChildForm = ({ profile }: Props) => {
   type FormValues = {
     firstName: string
     lastName: string
@@ -22,9 +20,9 @@ const ChildForm = () => {
   }
 
   const initialValues = {
-    firstName: data.firstName || "",
-    lastName: data.lastName || "",
-    dob: data.dob ? dayjs(data.dob).format("YYYY-MM-DD") : "",
+    firstName: profile.firstName || "",
+    lastName: profile.lastName || "",
+    dob: profile.dob ? dayjs(profile.dob).format("YYYY-MM-DD") : "",
   }
 
   const validationSchema = yup.object().shape({

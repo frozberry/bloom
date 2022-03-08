@@ -1,10 +1,11 @@
 import axios from "axios"
 import nameCase from "../../lib/nameCase"
+import { UserProfile } from "../../lib/types"
 
 const url = "/api/profile"
 
 export const findUsersProfile = async () => {
-  const res = await axios.get<string>(url)
+  const res = await axios.get<UserProfile>(url)
   return res.data
 }
 
