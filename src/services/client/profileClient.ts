@@ -21,6 +21,6 @@ export const updateProfile = async (
     gender,
   }
 
-  const res = await axios.post(url, data)
+  const res = await axios.put(url, data)
   return res.data
 }

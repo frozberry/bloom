@@ -6,7 +6,7 @@ import {
   findProfileById,
 } from "../../services/server/profileService"
 
-type PostBody = {
+type PutBody = {
   firstName: string
   lastName: string
   dob: string
@@ -24,11 +24,11 @@ const GET = async (
   res.send(profile)
 }
 
-const POST = async (req: NextApiRequest, res: NextApiResponse) => {
+const PUT = async (req: NextApiRequest, res: NextApiResponse) => {
   const { unauthorized, userId, response } = await authUserSession(req, res)
   if (unauthorized) return response
 
-  const { firstName, lastName, dob, gender }: PostBody = req.body
+  const { firstName, lastName, dob, gender }: PutBody = req.body
   const profile = editProfile(userId, firstName, lastName, dob, gender)
 
   res.send(profile)
@@ -39,8 +39,8 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     case "GET":
       GET(req, res)
       break
-    case "POST":
-      POST(req, res)
+    case "PUT":
+      PUT(req, res)
       break
     default:
       res.status(405).end(`Method ${req.method} Not Allowed`)
