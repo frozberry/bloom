@@ -1,8 +1,10 @@
 import type { NextApiRequest, NextApiResponse } from "next"
-import { User } from "@prisma/client"
-
 import authUserSession from "../../lib/authUserSession"
-import { editUser, findUserById } from "../../services/server/userService"
+import { UserProfile } from "../../lib/types"
+import {
+  editProfile,
+  findProfileById,
+} from "../../services/server/profileService"
 
 type PostBody = {
   firstName: string
@@ -11,14 +13,15 @@ type PostBody = {
   gender: string
 }
 
-const GET = async (req: NextApiRequest, res: NextApiResponse) => {
+const GET = async (
+  req: NextApiRequest,
+  res: NextApiResponse<UserProfile | null>
+) => {
   const { unauthorized, userId, response } = await authUserSession(req, res)
-  console.log(userId)
   if (unauthorized) return response
-  console.log(userId)
 
-  const users = await findUserById(userId)
-  res.send(users)
+  const profile = await findProfileById(userId)
+  res.send(profile)
 }
 
 const POST = async (req: NextApiRequest, res: NextApiResponse) => {
@@ -26,9 +29,9 @@ const POST = async (req: NextApiRequest, res: NextApiResponse) => {
   if (unauthorized) return response
 
   const { firstName, lastName, dob, gender }: PostBody = req.body
-  const editProfile = editUser(userId, firstName, lastName, dob, gender)
+  const profile = editProfile(userId, firstName, lastName, dob, gender)
 
-  res.send(editProfile)
+  res.send(profile)
 }
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {

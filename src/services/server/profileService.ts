@@ -35,3 +35,27 @@ export const findProfileById = async (
 
   return user
 }
+
+export const editProfile = async (
+  userId: string,
+  firstName: string,
+  lastName: string,
+  dob: string,
+  gender: string
+) => {
+  const updatedData = {
+    firstName,
+    lastName,
+    dob,
+    gender,
+  }
+
+  const updatedUser = await prisma.user.update({
+    where: { id: userId },
+    data: {
+      ...updatedData,
+    },
+  })
+
+  return updatedUser
+}

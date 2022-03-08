@@ -41,30 +41,6 @@ export const createUser = async (
   return token
 }
 
-export const editUser = async (
-  userId: string,
-  firstName: string,
-  lastName: string,
-  dob: string,
-  gender: string
-) => {
-  const updatedData = {
-    firstName,
-    lastName,
-    dob,
-    gender,
-  }
-
-  const updatedUser = await prisma.user.update({
-    where: { id: userId },
-    data: {
-      ...updatedData,
-    },
-  })
-
-  return updatedUser
-}
-
 export const deleteUser = async (id: string): Promise<boolean> => {
   const user = await findUserById(id)
   if (!user) {
