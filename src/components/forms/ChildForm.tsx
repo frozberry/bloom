@@ -23,9 +23,9 @@ const ChildForm = () => {
   }
 
   const initialValues = {
-    firstName: data.firstName,
-    lastName: data.lastName,
-    dob: dayjs(data.dob).format("YYYY-MM-DD"),
+    firstName: data.firstName || "",
+    lastName: data.lastName || "",
+    dob: data.dob ? dayjs(data.dob).format("YYYY-MM-DD") : "",
   }
   console.log(data.dob)
 
