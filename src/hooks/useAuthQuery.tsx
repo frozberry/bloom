@@ -12,7 +12,7 @@ const NoUser = () => {
 type Payload = {
   data: any
   escape: boolean
-  component?: JSX.Element
+  component: JSX.Element | null
 }
 
 const useAuthQuery = (key: string, queryFn: QueryFunction) => {
@@ -22,6 +22,7 @@ const useAuthQuery = (key: string, queryFn: QueryFunction) => {
   const payload: Payload = {
     data,
     escape: false,
+    component: null,
   }
 
   if (session === null) {
