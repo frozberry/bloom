@@ -90,7 +90,7 @@ const Header = () => {
             <HeaderItem link="/stats">Stats</HeaderItem>
           </MenuItem>
           <MenuItem>
-            <HeaderItem link="/ccount">Account</HeaderItem>
+            <HeaderItem link="/account">Account</HeaderItem>
           </MenuItem>
           <MenuItem>
             <Button sx={{ color: "black" }} onClick={handleLogout}>
