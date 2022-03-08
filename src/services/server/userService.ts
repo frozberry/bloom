@@ -6,23 +6,8 @@ import { UserWithoutDate } from "../../lib/types"
 import { prisma } from "../../prisma/client"
 import { getUsersGradedExams } from "./gradedExamService"
 
-export const getUsers = async (): Promise<UserWithoutDate[]> => {
-  const users = await prisma.user.findMany({
-    select: {
-      id: true,
-      email: true,
-      firstName: true,
-      lastName: true,
-      parentName: true,
-      gender: true,
-      admin: true,
-      profilePicture: true,
-      active: true,
-      score: true,
-      gradedExams: true,
-      gradedCategories: true,
-    },
-  })
+export const getUsers = async (): Promise<User[]> => {
+  const users = await prisma.user.findMany()
   return users
 }
 

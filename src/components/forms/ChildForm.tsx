@@ -1,9 +1,12 @@
 import { Box, Button, Typography } from "@mui/material"
 import axios from "axios"
+import dayjs from "dayjs"
 import { Field, Form, Formik, FormikHelpers, FormikProps } from "formik"
+import { attempt } from "lodash"
 import toast from "react-hot-toast"
 import * as yup from "yup"
 import useAuthQuery from "../../hooks/useAuthQuery"
+import nameCase from "../../lib/nameCase"
 import notifyError from "../../lib/notifyError"
 import { gu } from "../../services/client/userClient"
 import FormTextField from "./FormTextField"
@@ -22,8 +25,9 @@ const ChildForm = () => {
   const initialValues = {
     firstName: data.firstName,
     lastName: data.lastName,
-    dob: "",
+    dob: dayjs(data.dob).format("YYYY-MM-DD"),
   }
+  console.log(data.dob)
 
   const validationSchema = yup.object().shape({
     firstName: yup.string().required("Required"),
@@ -36,10 +40,11 @@ const ChildForm = () => {
     formikHelpers: FormikHelpers<FormValues>
   ) => {
     try {
+      console.log(values.dob)
       const res = await axios.post("/api/profile", {
-        firstName: values.firstName,
-        lastName: values.lastName,
-        dob: values.lastName,
+        firstName: nameCase(values.firstName),
+        lastName: nameCase(values.lastName),
+        dob: new Date(values.dob),
         gender: "male",
       })
       console.log(res.data)
@@ -73,6 +78,7 @@ const ChildForm = () => {
               size="small"
               component={FormTextField}
               fullWidth
+              style={{ textTransform: "capitalize" }}
             />
           </Box>
           <Box>
