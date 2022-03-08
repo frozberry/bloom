@@ -40,23 +40,15 @@ const ChildForm = () => {
     formikHelpers: FormikHelpers<FormValues>
   ) => {
     try {
-      console.log(values.dob)
-      const res = await axios.post("/api/profile", {
+      await axios.post("/api/profile", {
         firstName: nameCase(values.firstName),
         lastName: nameCase(values.lastName),
         dob: new Date(values.dob),
         gender: "male",
       })
-      console.log(res.data)
-      toast.success("succesfully changed")
+      toast.success("Details updated succesfully")
 
       formikHelpers.setSubmitting(false)
-      // await signup(values.name, values.email, values.password)
-      // signIn("credentials", {
-      //   email: values.email,
-      //   password: values.dob,
-      //   callbackUrl: "/home",
-      // })
     } catch (e) {
       notifyError(e)
       formikHelpers.setSubmitting(false)
