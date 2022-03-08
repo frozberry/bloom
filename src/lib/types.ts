@@ -130,3 +130,12 @@ export enum ViewOptions {
   CORRECT,
   INCORRECT,
 }
+
+export type AccountPageData = {
+  firstName: string | null
+  lastName: string | null
+  dob: Date | null
+  gender: string | null
+  stripeId: string | null
+  isOAuth: boolean
+}

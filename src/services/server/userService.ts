@@ -2,7 +2,7 @@ import { User } from "@prisma/client"
 import bcrypt from "bcrypt"
 import jwt from "jsonwebtoken"
 import _ from "lodash"
-import { UserWithoutDate } from "../../lib/types"
+import { AccountPageData, UserWithoutDate } from "../../lib/types"
 import { prisma } from "../../prisma/client"
 import { getUsersGradedExams } from "./gradedExamService"
 
@@ -76,4 +76,32 @@ export const updateUserScore = async (userId: string) => {
       score,
     },
   })
+}
+
+export const getUsersAccountPage = async (userId: string) => {
+  const user = await prisma.user.findUnique({
+    where: { id: userId },
+    select: {
+      firstName: true,
+      lastName: true,
+      dob: true,
+      gender: true,
+      passwordHash: true,
+      stripeId: true,
+    },
+  })
+  if (!user) throw new Error("User does not exist")
+
+  const isOAuth = !user?.passwordHash
+
+  const account: AccountPageData = {
+    firstName: user.firstName,
+    lastName: user.lastName,
+    dob: user.dob,
+    gender: user.gender,
+    stripeId: user.stripeId,
+    isOAuth,
+  }
+
+  return account
 }
