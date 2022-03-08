@@ -2,6 +2,7 @@ import { Box, Button, Typography } from "@mui/material"
 import axios from "axios"
 import { Field, Form, Formik, FormikHelpers, FormikProps } from "formik"
 import { signIn } from "next-auth/react"
+import { Dispatch, SetStateAction } from "react"
 import * as yup from "yup"
 import notifyError from "../../lib/notifyError"
 import FormTextField from "./FormTextField"
@@ -10,7 +11,11 @@ import FormTextField from "./FormTextField"
 // User already has login, but tries to sign in with Google
 // Account doesn't exist at all
 
-const LoginForm = () => {
+type Props = {
+  setLoading: Dispatch<SetStateAction<boolean>>
+}
+
+const LoginForm = ({ setLoading }: Props) => {
   type FormValues = {
     email: string
     password: string
@@ -31,6 +36,7 @@ const LoginForm = () => {
     formikHelpers: FormikHelpers<FormValues>
   ) => {
     try {
+      setLoading(true)
       await axios.post("/api/auth/verify-login", {
         email: values.email,
         password: values.password,
@@ -40,9 +46,11 @@ const LoginForm = () => {
         password: values.password,
         callbackUrl,
       })
+      setLoading(false)
     } catch (e) {
       notifyError(e)
       formikHelpers.setSubmitting(false)
+      setLoading(false)
     }
   }
 

@@ -1,12 +1,16 @@
 import { Box, Button, Typography } from "@mui/material"
 import { Field, Form, Formik, FormikHelpers, FormikProps } from "formik"
 import { signIn } from "next-auth/react"
+import { Dispatch, SetStateAction } from "react"
 import * as yup from "yup"
 import notifyError from "../../lib/notifyError"
 import { signup } from "../../services/client/accountClient"
 import FormTextField from "./FormTextField"
 
-const SignupForm = () => {
+type Props = {
+  setLoading: Dispatch<SetStateAction<boolean>>
+}
+const SignupForm = ({ setLoading }: Props) => {
   type FormValues = {
     name: string
     email: string
@@ -30,15 +34,20 @@ const SignupForm = () => {
     formikHelpers: FormikHelpers<FormValues>
   ) => {
     try {
+      setLoading(true)
       await signup(values.name, values.email, values.password)
-      signIn("credentials", {
+
+      await signIn("credentials", {
         email: values.email,
         password: values.password,
         callbackUrl: "/home",
       })
+
+      setLoading(false)
     } catch (e) {
       notifyError(e)
       formikHelpers.setSubmitting(false)
+      setLoading(false)
     }
   }
   return (
