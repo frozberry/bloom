@@ -10,10 +10,10 @@ export enum ColorTypes {
 type Props = {
   option: string
   colorType: ColorTypes
-  clickable: boolean
+  onClick?: () => void
 }
 
-const OptionPaper = ({ option, colorType, clickable }: Props) => {
+const OptionPaper = ({ option, colorType, onClick }: Props) => {
   let backgroundColor = null
   let textColor = null
 
@@ -39,9 +39,10 @@ const OptionPaper = ({ option, colorType, clickable }: Props) => {
         py: 1.5,
         px: 6,
         mr: 2,
-        cursor: clickable ? "pointer" : "default",
+        cursor: onClick ? "pointer" : "default",
         backgroundColor,
       }}
+      onClick={onClick}
     >
       <Typography sx={{ mb: 0 }} color={textColor}>
         {option}

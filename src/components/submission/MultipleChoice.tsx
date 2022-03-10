@@ -1,8 +1,9 @@
-import { Box, Paper, Typography } from "@mui/material"
+import { Box } from "@mui/material"
 import { Problem } from "@prisma/client"
 import _ from "lodash"
 import { useEffect, useState } from "react"
 import { ProblemSubmission } from "../../lib/types"
+import OptionPaper, { ColorTypes } from "../OptionPaper"
 
 type Props = {
   problem: Problem
@@ -25,23 +26,14 @@ const MultipleChoice = ({
     <Box sx={{ display: "flex", alignItems: "center" }}>
       {shuffledOptions.map((option: any) => {
         const selected = existingSubmission?.selected === option
+        const colorType = selected ? ColorTypes.SELECTED : ColorTypes.DEFAULT
         return (
-          // TODO refactor this so results can share this component
-          <Paper
-            key={option}
-            sx={{
-              py: 1.5,
-              px: 6,
-              mr: 2,
-              backgroundColor: selected ? "primary.light" : null,
-              textColor: "white",
-              cursor: "pointer",
-            }}
-            // onClick={viewOnly ? null : () => addOrReplaceSubmission(option)}
+          <OptionPaper
+            option={option}
+            colorType={colorType}
             onClick={() => addOrReplaceSubmission(option)}
-          >
-            <Typography mb={0}>{option}</Typography>
-          </Paper>
+            key={option}
+          />
         )
       })}
     </Box>
