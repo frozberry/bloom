@@ -1,7 +1,6 @@
 import { CacheProvider, EmotionCache } from "@emotion/react"
 import CssBaseline from "@mui/material/CssBaseline"
 import { ThemeProvider } from "@mui/material/styles"
-import { SessionProvider } from "next-auth/react"
 import PlausibleProvider from "next-plausible"
 import { AppProps } from "next/app"
 import Head from "next/head"
@@ -26,7 +25,7 @@ export default function MyApp(props: MyAppProps) {
   const {
     Component,
     emotionCache = clientSideEmotionCache,
-    pageProps: { session, ...pageProps },
+    pageProps: { ...pageProps },
   } = props
 
   return (
@@ -36,19 +35,17 @@ export default function MyApp(props: MyAppProps) {
         <meta name="viewport" content="initial-scale=1, width=device-width" />
         <link rel="shortcut icon" href="/logo.png" />
       </Head>
-      <SessionProvider session={session}>
-        <QueryClientProvider client={queryClient}>
-          <PlausibleProvider domain="waterfront-five.vercel.app/">
-            <ThemeProvider theme={theme}>
-              <CssBaseline />
-              <Header />
-              <Toaster />
-              <Component {...pageProps} />
-            </ThemeProvider>
-          </PlausibleProvider>
-          <ReactQueryDevtools initialIsOpen={true} />
-        </QueryClientProvider>
-      </SessionProvider>
+      <QueryClientProvider client={queryClient}>
+        <PlausibleProvider domain="waterfront-five.vercel.app/">
+          <ThemeProvider theme={theme}>
+            <CssBaseline />
+            <Header />
+            <Toaster />
+            <Component {...pageProps} />
+          </ThemeProvider>
+        </PlausibleProvider>
+        <ReactQueryDevtools initialIsOpen={true} />
+      </QueryClientProvider>
     </CacheProvider>
   )
 }

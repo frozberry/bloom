@@ -9,16 +9,17 @@ import {
 } from "@mui/material"
 import Link from "next/link"
 import Image from "next/image"
-import { signOut, useSession } from "next-auth/react"
+import { signOut } from "next-auth/react"
 import { MySession } from "../lib/types"
 import MenuIcon from "@mui/icons-material/Menu"
 import { useState } from "react"
+import { useSession } from "../hooks/useSession"
 
-type HeaderProp = {
+type Props = {
   link: string
   children: string
 }
-const HeaderItem = (props: HeaderProp) => {
+const HeaderItem = (props: Props) => {
   return (
     <Link href={props.link} passHref>
       <Button sx={{ color: "black" }}>{props.children}</Button>
@@ -100,8 +101,7 @@ const LoggedOut = () => (
 )
 
 const Header = () => {
-  const { data } = useSession()
-  const session = data as MySession
+  const { session } = useSession()
 
   return (
     <>
@@ -126,9 +126,6 @@ const Header = () => {
           {/* Somehow sets to the right of the app bar marginRight not needed here, but could play with positioning */}
           <section style={{ marginLeft: "auto", marginRight: 0 }}>
             {session ? <LoggedIn /> : <LoggedOut />}
-            <Typography sx={{ color: "black" }}>
-              {session?.user?.email}
-            </Typography>
           </section>
         </Toolbar>
       </AppBar>

@@ -1,11 +1,12 @@
-import { useSession } from "next-auth/react"
+// import { useSession } from "next-auth/react"
 import { useRouter } from "next/router"
 import { QueryFunction, useQuery } from "react-query"
 import Loading from "../components/Loading"
+import { useSession } from "./useSession"
 
 const NoUser = () => {
   const router = useRouter()
-  router.push("/")
+  router.push("/login")
   return null
 }
 
@@ -17,7 +18,7 @@ type Payload = {
 
 const useAuthQuery = (key: string, queryFn: QueryFunction) => {
   const { isLoading, error, data } = useQuery(key, queryFn)
-  const { data: session } = useSession()
+  const { session } = useSession()
 
   const payload: Payload = {
     data,

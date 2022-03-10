@@ -1,5 +1,5 @@
 import { useQuery } from "react-query"
-import { useRouter } from "next/router"
+import { MySession } from "../lib/types"
 
 export async function fetchSession() {
   const res = await fetch("/api/auth/session")
@@ -10,19 +10,10 @@ export async function fetchSession() {
   return null
 }
 
-export function useSession({
-  required,
-  redirectTo = "/api/auth/signin?error=SessionExpired",
-  queryConfig = {},
-} = {}) {
-  const router = useRouter()
+export function useSession() {
   const query = useQuery(["session"], fetchSession, {
-    ...queryConfig,
-    onSettled(data, error) {
-      if (queryConfig.onSettled) queryConfig.onSettled(data, error)
-      if (data || !required) return
-      router.push(redirectTo)
-    },
+    staleTime: 60 * 1000 * 60 * 3, // 3 hours
   })
-  return [query.data, query.status === "loading"]
+  const { data } = query
+  return { session: data as MySession }
 }
