@@ -1,5 +1,4 @@
 // import { useSession } from "next-auth/react"
-import axios from "axios"
 import { useRouter } from "next/router"
 import { QueryFunction, useQuery } from "react-query"
 import Loading from "../components/Loading"
@@ -25,15 +24,19 @@ type Payload = {
 }
 
 const useAuthQuery = (key: string, queryFn: QueryFunction) => {
-  const { isLoading, error, data } = useQuery(key, queryFn)
-  const q2 = useQuery("active", checkUserActive, {
+  const query = useQuery(key, queryFn)
+  const { session } = useSession()
+  const activeQuery = useQuery("active", checkUserActive, {
     staleTime: 3 * 60 * 60 * 1000,
   })
 
-  const { session } = useSession()
+  const isLoading =
+    query.isLoading || activeQuery.isLoading || session === undefined
+
+  const isError = query.error || activeQuery.error
 
   const payload: Payload = {
-    data,
+    data: query.data,
     escape: false,
     component: null,
   }
@@ -44,22 +47,24 @@ const useAuthQuery = (key: string, queryFn: QueryFunction) => {
     return payload
   }
 
-  if (isLoading || session === undefined) {
+  if (isLoading) {
     payload.escape = true
     payload.component = <Loading />
     return payload
   }
 
-  if (q2?.data && !q2.data.active) {
+  if (!activeQuery?.data?.active) {
     payload.escape = true
     payload.component = <NoSub />
     return payload
   }
 
-  if (error) {
+  if (isError) {
     payload.escape = true
-    // @ts-ignore
-    payload.component = <p>Error: {error.message}</p>
+    payload.component = (
+      // @ts-ignore
+      <p>{query.error.message}.</p>
+    )
     return payload
   }
 
