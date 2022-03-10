@@ -6,51 +6,79 @@ type Props = {
   option: string
 }
 
+enum ColorTypes {
+  DEFAULT,
+  SELECTED,
+  CORRECT,
+  INCORRECT,
+}
+
+const OptionPaper = ({ option, colorType, clickable }: any) => {
+  let backgroundColor = null
+  let textColor = null
+
+  switch (colorType) {
+    case ColorTypes.DEFAULT:
+      break
+    case ColorTypes.SELECTED:
+      backgroundColor = "primary.light"
+      break
+    case ColorTypes.CORRECT:
+      backgroundColor = "#CBF4C9"
+      textColor = "green"
+      break
+    case ColorTypes.INCORRECT:
+      backgroundColor = "#FDE2DD"
+      textColor = "red"
+      break
+  }
+
+  return (
+    <Paper
+      sx={{
+        py: 1.5,
+        px: 6,
+        mr: 2,
+        cursor: clickable ? "pointer" : "default",
+        backgroundColor,
+      }}
+    >
+      <Typography sx={{ mb: 0 }} color={textColor}>
+        {option}
+      </Typography>
+    </Paper>
+  )
+}
+
 const MultipleChoiceOptions = ({ problem, option }: Props) => {
   const correct = problem.correct === option
 
   if (correct) {
     return (
-      <Paper
-        key={option}
-        sx={{
-          py: 1.5,
-          px: 6,
-          mr: 2,
-          //TODO Use theme color
-          backgroundColor: "#CBF4C9",
-        }}
-      >
-        <Typography color={correct ? "green" : "red"} sx={{ mb: 0 }}>
-          <b>{option}</b>
-        </Typography>
-      </Paper>
+      <OptionPaper
+        option={option}
+        colorType={ColorTypes.CORRECT}
+        clickable={false}
+      />
     )
   }
 
   if (!(problem.selected === option)) {
     return (
-      <Paper key={option} sx={{ py: 1.5, px: 6, mr: 2 }}>
-        <Typography sx={{ mb: 0 }}>{option}</Typography>
-      </Paper>
+      <OptionPaper
+        option={option}
+        colorType={ColorTypes.DEFAULT}
+        clickable={false}
+      />
     )
   }
 
   return (
-    <Paper
-      key={option}
-      sx={{
-        py: 1.5,
-        px: 6,
-        mr: 2,
-        // TODO Use theme color
-        backgroundColor: "#FDE2DD",
-      }}
-    >
-      <Typography color={correct ? "green" : "red"} sx={{ mb: 0 }}>
-        {option}
-      </Typography>
-    </Paper>
+    <OptionPaper
+      option={option}
+      colorType={ColorTypes.INCORRECT}
+      clickable={false}
+    />
   )
 }
 
