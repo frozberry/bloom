@@ -17,7 +17,6 @@ const Problem = ({ problem, submissions, setSubmissions }: Props) => {
   )
 
   const addOrReplaceSubmission = (option: string) => {
-    console.log("runs")
     // If the user has already selected an option, update it
     if (existingSubmission) {
       const replaceSubmission = submissions.map((submission) =>
