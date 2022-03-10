@@ -5,7 +5,6 @@ import { signOut, useSession } from "next-auth/react"
 import { MySession } from "../lib/types"
 import MenuIcon from "@mui/icons-material/Menu"
 import { useState } from "react"
-// import stripeService from "../services/stripeService"
 
 type HeaderProp = {
   link: string
@@ -26,16 +25,8 @@ const Header = () => {
   }
 
   const handleLogout = () => {
-    // localStorage.removeItem("loggedWaterfrontUser")
-    // location.href = "/login"
     signOut({ callbackUrl: `${process.env.NEXT_PUBLIC_URL}/login` })
   }
-
-  // const handlePortal = async () => {
-  // const url = await stripeService.portal(stripe.stripeId)
-  // window.location.replace(url)
-  // alert("stripe portal")
-  // }
 
   const HeaderItem = (props: HeaderProp) => {
     return (
