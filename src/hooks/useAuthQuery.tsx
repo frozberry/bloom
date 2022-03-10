@@ -3,6 +3,7 @@ import axios from "axios"
 import { useRouter } from "next/router"
 import { QueryFunction, useQuery } from "react-query"
 import Loading from "../components/Loading"
+import { checkUserActive } from "../services/client/accountClient"
 import { useSession } from "./useSession"
 
 const NoUser = () => {
@@ -23,14 +24,9 @@ type Payload = {
   component: JSX.Element | null
 }
 
-const active = async () => {
-  const res = await axios.get("/api/users")
-  return res.data
-}
-
 const useAuthQuery = (key: string, queryFn: QueryFunction) => {
   const { isLoading, error, data } = useQuery(key, queryFn)
-  const q2 = useQuery("active", active)
+  const q2 = useQuery("active", checkUserActive)
 
   const { session } = useSession()
 

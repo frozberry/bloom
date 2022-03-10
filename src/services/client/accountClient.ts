@@ -50,3 +50,12 @@ export const getAccountPageData = async () => {
     notifyError(e)
   }
 }
+
+export const checkUserActive = async () => {
+  try {
+    const res = await axios.get<{ active: boolean }>("/api/users/active")
+    return res.data
+  } catch (e) {
+    notifyError(e)
+  }
+}
