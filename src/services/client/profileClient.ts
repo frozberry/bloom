@@ -1,12 +1,17 @@
 import axios from "axios"
 import nameCase from "../../lib/nameCase"
+import notifyError from "../../lib/notifyError"
 import { UserProfile } from "../../lib/types"
 
 const url = "/api/profile"
 
 export const findUsersProfile = async () => {
-  const res = await axios.get<UserProfile>(url)
-  return res.data
+  try {
+    const res = await axios.get<UserProfile>(url)
+    return res.data
+  } catch (e) {
+    notifyError(e)
+  }
 }
 
 export const updateProfile = async (
@@ -22,6 +27,10 @@ export const updateProfile = async (
     gender,
   }
 
-  const res = await axios.put(url, data)
-  return res.data
+  try {
+    const res = await axios.put(url, data)
+    return res.data
+  } catch (e) {
+    notifyError(e)
+  }
 }

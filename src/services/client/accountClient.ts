@@ -1,22 +1,7 @@
 import axios from "axios"
 import toast from "react-hot-toast"
+import notifyError from "../../lib/notifyError"
 import { AccountPageData } from "../../lib/types"
-
-export const login = async (email: string, password: string) => {
-  const data = {
-    email,
-    password,
-  }
-  const res = await axios.post<string>("/api/login", data)
-
-  localStorage.setItem(
-    "loggedWaterfrontUser",
-    JSON.stringify({ token: res.data })
-  )
-
-  location.href = "/home"
-  return res.data
-}
 
 export const signup = async (
   parentName: string,
@@ -49,11 +34,19 @@ export const changePassword = async (
 }
 
 export const isUserOAuth = async () => {
-  const res = await axios.get<boolean>("/api/users/oauth")
-  return res.data
+  try {
+    const res = await axios.get<boolean>("/api/users/oauth")
+    return res.data
+  } catch (e) {
+    notifyError(e)
+  }
 }
 
 export const getAccountPageData = async () => {
-  const res = await axios.get<AccountPageData>("/api/users/account")
-  return res.data
+  try {
+    const res = await axios.get<AccountPageData>("/api/users/account")
+    return res.data
+  } catch (e) {
+    notifyError(e)
+  }
 }

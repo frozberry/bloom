@@ -1,4 +1,5 @@
 // import { useSession } from "next-auth/react"
+import axios from "axios"
 import { useRouter } from "next/router"
 import { QueryFunction, useQuery } from "react-query"
 import Loading from "../components/Loading"
@@ -10,14 +11,27 @@ const NoUser = () => {
   return null
 }
 
+const NoSub = () => {
+  const router = useRouter()
+  router.push("/select-plan")
+  return null
+}
+
 type Payload = {
   data: any
   escape: boolean
   component: JSX.Element | null
 }
 
+const active = async () => {
+  const res = await axios.get("/api/users")
+  return res.data
+}
+
 const useAuthQuery = (key: string, queryFn: QueryFunction) => {
   const { isLoading, error, data } = useQuery(key, queryFn)
+  const q2 = useQuery("active", active)
+
   const { session } = useSession()
 
   const payload: Payload = {
@@ -35,6 +49,12 @@ const useAuthQuery = (key: string, queryFn: QueryFunction) => {
   if (isLoading || session === undefined) {
     payload.escape = true
     payload.component = <Loading />
+    return payload
+  }
+
+  if (q2?.data && !q2.data.active) {
+    payload.escape = true
+    payload.component = <NoSub />
     return payload
   }
 
