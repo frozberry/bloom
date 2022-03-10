@@ -58,7 +58,7 @@ const OptionPaper = ({ option, colorType, onClick }: Props) => {
       }}
       onClick={onClick}
     >
-      <Typography sx={{ mb: 0, textAlign: "center" }} color={textColor}>
+      <Typography sx={{ mb: 0, textAlign: "center", color: textColor }}>
         {option}
       </Typography>
     </Paper>
