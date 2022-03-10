@@ -46,11 +46,11 @@ const Problem = ({ problem, submissions, setSubmissions }: Props) => {
         <b>Question {problem.num}</b>
       </Typography>
       <Typography sx={{ mb: 3 }}>{problem.question}</Typography>
-      {/* {problem.img && (
+      {problem.img && (
         <div style={styles.center}>
           <img style={styles.img} src={problem.img} />
         </div>
-      )} */}
+      )}
       {problem.multi ? (
         <MultipleChoice
           problem={problem}

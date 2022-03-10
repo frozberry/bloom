@@ -100,6 +100,7 @@ export const submitExam = async (
       selected: submission?.selected.toString(),
       options: problem.options,
       unit: problem.unit,
+      img: problem.img,
 
       problem: {
         connect: { id: problem.id },

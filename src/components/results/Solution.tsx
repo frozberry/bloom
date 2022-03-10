@@ -18,6 +18,7 @@ const Solution = ({ problem }: Props) => {
 
   const correct = isCorrect(problem)
   const tickOrCross = correct ? "✅" : "❌"
+  console.log(problem.img)
 
   return (
     <Box key={problem.question} sx={{ mb: 4 }}>
