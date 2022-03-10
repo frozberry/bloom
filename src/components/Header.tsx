@@ -1,4 +1,12 @@
-import { AppBar, Toolbar, Button, Box, MenuItem, Menu } from "@mui/material"
+import {
+  AppBar,
+  Toolbar,
+  Button,
+  Box,
+  MenuItem,
+  Menu,
+  Typography,
+} from "@mui/material"
 import Link from "next/link"
 import Image from "next/image"
 import { signOut, useSession } from "next-auth/react"
@@ -10,16 +18,22 @@ type HeaderProp = {
   link: string
   children: string
 }
+const HeaderItem = (props: HeaderProp) => {
+  return (
+    <Link href={props.link} passHref>
+      <Button sx={{ color: "black" }}>{props.children}</Button>
+    </Link>
+  )
+}
 
-const Header = () => {
-  const { data } = useSession()
-  const session = data as MySession
-
+const LoggedIn = () => {
   const [anchorEl, setAnchorEl] = useState(null)
   const open = Boolean(anchorEl)
-  const handleClick = (event: any) => {
+
+  const handleMenu = (event: any) => {
     setAnchorEl(event.currentTarget)
   }
+
   const handleClose = () => {
     setAnchorEl(null)
   }
@@ -27,23 +41,7 @@ const Header = () => {
   const handleLogout = () => {
     signOut({ callbackUrl: `${process.env.NEXT_PUBLIC_URL}/login` })
   }
-
-  const HeaderItem = (props: HeaderProp) => {
-    return (
-      <Link href={props.link} passHref>
-        <Button sx={{ color: "black" }}>{props.children}</Button>
-      </Link>
-    )
-  }
-
-  const loggedOut = () => (
-    <>
-      <HeaderItem link="/login">Log in</HeaderItem>
-      <HeaderItem link="/signup">Get Started</HeaderItem>
-    </>
-  )
-
-  const loggedIn = () => (
+  return (
     <Box>
       <Box sx={{ display: { xs: "none", sm: "initial" } }}>
         <HeaderItem link="/results">Results</HeaderItem>
@@ -63,7 +61,7 @@ const Header = () => {
           aria-controls={open ? "basic-menu" : undefined}
           aria-haspopup="true"
           aria-expanded={open ? "true" : undefined}
-          onClick={handleClick}
+          onClick={handleMenu}
         />
         <Menu
           id="basic-menu"
@@ -92,6 +90,18 @@ const Header = () => {
       </Box>
     </Box>
   )
+}
+
+const LoggedOut = () => (
+  <>
+    <HeaderItem link="/login">Log in</HeaderItem>
+    <HeaderItem link="/signup">Get Started</HeaderItem>
+  </>
+)
+
+const Header = () => {
+  const { data } = useSession()
+  const session = data as MySession
 
   return (
     <>
@@ -115,7 +125,10 @@ const Header = () => {
           </Link>
           {/* Somehow sets to the right of the app bar marginRight not needed here, but could play with positioning */}
           <section style={{ marginLeft: "auto", marginRight: 0 }}>
-            {session ? loggedIn() : loggedOut()}
+            {session ? <LoggedIn /> : <LoggedOut />}
+            <Typography sx={{ color: "black" }}>
+              {session?.user?.email}
+            </Typography>
           </section>
         </Toolbar>
       </AppBar>
