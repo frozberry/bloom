@@ -1,4 +1,4 @@
-import { useSession } from "next-auth/react"
+import { useSession } from "../hooks/useSession"
 import { useRouter } from "next/router"
 import { useEffect } from "react"
 import HowItWorks from "../components/landing-page/HowItWorks"
@@ -9,7 +9,7 @@ import WhatsWaterfront from "../components/landing-page/WhatsWaterfront"
 
 const LandingPage = () => {
   const router = useRouter()
-  const { data: session } = useSession()
+  const { session } = useSession()
 
   useEffect(() => {
     if (session) {

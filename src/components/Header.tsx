@@ -1,17 +1,8 @@
-import {
-  AppBar,
-  Toolbar,
-  Button,
-  Box,
-  MenuItem,
-  Menu,
-  Typography,
-} from "@mui/material"
-import Link from "next/link"
-import Image from "next/image"
-import { signOut } from "next-auth/react"
-import { MySession } from "../lib/types"
 import MenuIcon from "@mui/icons-material/Menu"
+import { AppBar, Box, Button, Menu, MenuItem, Toolbar } from "@mui/material"
+import { signOut } from "next-auth/react"
+import Image from "next/image"
+import Link from "next/link"
 import { useState } from "react"
 import { useSession } from "../hooks/useSession"
 

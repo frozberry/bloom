@@ -5,19 +5,17 @@ import {
   LinearProgress,
   Typography,
 } from "@mui/material"
-import { useSession } from "next-auth/react"
 import { useState } from "react"
 import Bullets from "../components/select-plan/Bullets"
 import PlanOption from "../components/select-plan/PlanOption"
 import Questions from "../components/select-plan/SubscriptionQuestions"
+import { useSession } from "../hooks/useSession"
 import notifyError from "../lib/notifyError"
-import { MySession } from "../lib/types"
 import { stripeCheckout } from "../services/client/stripeClient"
 
 const SelectPlan = ({ canceled = false }: { canceled: boolean }) => {
   const [stripeLoading, setStripeLoading] = useState(false)
-  const { data } = useSession()
-  const session = data as MySession
+  const { session } = useSession()
 
   const handleCheckout = async (plan: string) => {
     setStripeLoading(true)
