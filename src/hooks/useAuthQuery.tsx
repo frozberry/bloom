@@ -26,7 +26,9 @@ type Payload = {
 
 const useAuthQuery = (key: string, queryFn: QueryFunction) => {
   const { isLoading, error, data } = useQuery(key, queryFn)
-  const q2 = useQuery("active", checkUserActive)
+  const q2 = useQuery("active", checkUserActive, {
+    staleTime: 3 * 60 * 60 * 1000,
+  })
 
   const { session } = useSession()
 

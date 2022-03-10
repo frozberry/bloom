@@ -1,11 +1,7 @@
 import { User } from "@prisma/client"
 import type { NextApiRequest, NextApiResponse } from "next"
 import authUserSession from "../../../lib/authUserSession"
-import { AccountPageData } from "../../../lib/types"
-import {
-  findUserById,
-  getUsersAccountPage,
-} from "../../../services/server/userService"
+import { findUserById } from "../../../services/server/userService"
 
 const GET = async (
   req: NextApiRequest,
