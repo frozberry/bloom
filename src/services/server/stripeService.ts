@@ -18,9 +18,6 @@ export const createCheckoutSession = async (item: string, email: string) => {
   const successUrl = `${process.env.FRONTEND}/home`
   const cancelUrl = `${process.env.FRONTEND}/select-plan`
 
-  const user = await findUserByEmail(email)
-  const previouslySubscribed = user?.stripeId
-
   const sessionData: Stripe.Checkout.SessionCreateParams = {
     payment_method_types: ["card"],
     line_items: [
@@ -35,12 +32,13 @@ export const createCheckoutSession = async (item: string, email: string) => {
     cancel_url: cancelUrl,
   }
 
-  if (previouslySubscribed) {
+  const user = await findUserByEmail(email)
+
+  if (user?.stripeId) {
     sessionData.customer = user.stripeId as string
   } else {
-    const subscriptionData = { trial_period_days: 14 }
     sessionData.customer_email = email
-    sessionData.subscription_data = subscriptionData
+    sessionData.subscription_data = { trial_period_days: 14 }
   }
 
   const session = await stripe.checkout.sessions.create(sessionData)
