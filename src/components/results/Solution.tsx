@@ -27,7 +27,7 @@ const Solution = ({ problem }: Props) => {
       </Typography>
       <Typography>{problem.question}</Typography>
 
-      {problem.img && (
+      {/* {problem.img && (
         <Image
           src={problem.img}
           alt="image"
@@ -35,6 +35,11 @@ const Solution = ({ problem }: Props) => {
           width={200}
           height={100}
         />
+      )} */}
+      {problem.img && (
+        <Box sx={{ my: 3 }}>
+          <img src={problem.img} alt="problem image" />
+        </Box>
       )}
 
       <MultipleChoiceAnswer problem={problem} />
