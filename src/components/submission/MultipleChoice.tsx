@@ -23,7 +23,22 @@ const MultipleChoice = ({
   }, [problem.options])
 
   return (
-    <Box sx={{ display: "flex", alignItems: "center" }}>
+    // TODO this logic is duplicated in MultipleChoiceAnswer.tsx
+    // Can be refactored to share the same views
+    <Box
+      sx={{
+        display: "flex",
+        flexDirection: {
+          xs: "column",
+          sm: "row",
+        },
+        alignItems: {
+          xs: "start",
+          sm: "center",
+        },
+        flexWrap: "wrap",
+      }}
+    >
       {shuffledOptions.map((option: any) => {
         const selected = existingSubmission?.selected === option
         const colorType = selected ? ColorTypes.SELECTED : ColorTypes.DEFAULT
