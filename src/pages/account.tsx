@@ -51,7 +51,7 @@ export default function App() {
         Membership and billing
       </Typography>
       <Typography sx={{ textAlign: "center" }}>
-        Click here to access our secure billing portal
+        Access your secure billing portal below
       </Typography>
       <Button
         variant="contained"
