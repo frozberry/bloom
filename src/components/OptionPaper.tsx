@@ -37,14 +37,28 @@ const OptionPaper = ({ option, colorType, onClick }: Props) => {
     <Paper
       sx={{
         py: 1.5,
-        px: 6,
-        mr: 2,
+        px: {
+          xs: 2,
+          sm: 6,
+        },
+        mr: {
+          xs: 1,
+          sm: 2,
+        },
+        mb: {
+          xs: 2,
+          sm: "default",
+        },
+        width: {
+          xs: "100%",
+          sm: "auto",
+        },
         cursor: onClick ? "pointer" : "default",
         backgroundColor,
       }}
       onClick={onClick}
     >
-      <Typography sx={{ mb: 0 }} color={textColor}>
+      <Typography sx={{ mb: 0, textAlign: "center" }} color={textColor}>
         {option}
       </Typography>
     </Paper>

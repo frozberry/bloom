@@ -11,8 +11,15 @@ const MultipleChoiceAnswer = ({ problem }: Props) => {
     <Box
       sx={{
         display: "flex",
-        flexDirection: "row",
-        alignItems: "center",
+        flexDirection: {
+          xs: "column",
+          sm: "row",
+        },
+        alignItems: {
+          xs: "start",
+          sm: "center",
+        },
+        flexWrap: "wrap",
       }}
     >
       {problem.options.map((option: string) => (
