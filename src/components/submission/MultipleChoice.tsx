@@ -3,7 +3,7 @@ import { Problem } from "@prisma/client"
 import _ from "lodash"
 import { useEffect, useState } from "react"
 import { ProblemSubmission } from "../../lib/types"
-import OptionPaper, { ColorTypes } from "../OptionPaper"
+import OptionPaper from "../OptionPaper"
 
 type Props = {
   problem: Problem
@@ -41,7 +41,7 @@ const MultipleChoice = ({
     >
       {shuffledOptions.map((option: any) => {
         const selected = existingSubmission?.selected === option
-        const colorType = selected ? ColorTypes.SELECTED : ColorTypes.DEFAULT
+        const colorType = selected ? "selected" : "default"
         return (
           <OptionPaper
             option={option}

@@ -1,15 +1,10 @@
 import { Paper, Typography } from "@mui/material"
 
-export enum ColorTypes {
-  DEFAULT,
-  SELECTED,
-  CORRECT,
-  INCORRECT,
-}
+export type ColorType = "default" | "selected" | "correct" | "incorrect"
 
 type Props = {
   option: string
-  colorType: ColorTypes
+  colorType: ColorType
   onClick?: () => void
 }
 
@@ -18,16 +13,16 @@ const OptionPaper = ({ option, colorType, onClick }: Props) => {
   let textColor = null
 
   switch (colorType) {
-    case ColorTypes.DEFAULT:
+    case "default":
       break
-    case ColorTypes.SELECTED:
+    case "selected":
       backgroundColor = "primary.light"
       break
-    case ColorTypes.CORRECT:
+    case "selected":
       backgroundColor = "#CBF4C9"
       textColor = "green"
       break
-    case ColorTypes.INCORRECT:
+    case "incorrect":
       backgroundColor = "#FDE2DD"
       textColor = "red"
       break

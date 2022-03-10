@@ -1,5 +1,5 @@
 import { GradedProblem } from "@prisma/client"
-import OptionPaper, { ColorTypes } from "../../OptionPaper"
+import OptionPaper from "../../OptionPaper"
 
 type Props = {
   problem: GradedProblem
@@ -10,16 +10,16 @@ const MultipleChoiceOptions = ({ problem, option }: Props) => {
   const correct = problem.correct === option
 
   if (correct) {
-    return <OptionPaper option={option} colorType={ColorTypes.CORRECT} />
+    return <OptionPaper option={option} colorType="correct" />
   }
 
   // If unselected
   if (!(problem.selected === option)) {
-    return <OptionPaper option={option} colorType={ColorTypes.DEFAULT} />
+    return <OptionPaper option={option} colorType="default" />
   }
 
   // If incorrect
-  return <OptionPaper option={option} colorType={ColorTypes.INCORRECT} />
+  return <OptionPaper option={option} colorType="incorrect" />
 }
 
 export default MultipleChoiceOptions
