@@ -1,5 +1,6 @@
 import Stripe from "stripe"
 import { findUserByEmail } from "./userService"
+import { prisma } from "../../prisma/client"
 
 // eslint-disable-next-line
 export const stripe = new Stripe(process.env.STRIPE_SECRET!, {
@@ -54,4 +55,29 @@ export const getCustomerPortalUrl = async (customerId: string) => {
   })
 
   return portalSession.url
+}
+
+export const paymentSucceeded = async (invoice: Stripe.Invoice) => {
+  console.log(`💰 Invoice status: ${invoice.status}`)
+  console.log("Customer: ", invoice.customer)
+  console.log("Billing reason: ", invoice.billing_reason)
+
+  const email = invoice.customer_email as string
+  const stripeId = invoice.customer as string
+
+  switch (invoice.billing_reason) {
+    case "subscription_create":
+      await prisma.user.update({
+        where: { email },
+        data: {
+          stripeId,
+          active: true,
+        },
+      })
+      break
+    case "subscription_update":
+      break
+    default:
+      console.log("Error: Unknown billing reason")
+  }
 }
