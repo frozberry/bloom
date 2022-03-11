@@ -43,7 +43,7 @@ const Stats = () => {
   const name = "Bob"
 
   return (
-    <>
+    <Container sx={{ mt: 3 }}>
       {/* <Radar data={radarData} /> */}
       <Container maxWidth="md">
         <Typography variant="h4" style={{ textAlign: "center" }}>
@@ -67,7 +67,7 @@ const Stats = () => {
           </Typography> */}
         </Container>
       </div>
-    </>
+    </Container>
   )
 }
 
