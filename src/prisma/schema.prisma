@@ -21,21 +21,20 @@ model User {
   sessions      Session[]
 
   // Application
+  passwordHash    String?
+  admin           Boolean   @default(false)
+  createdAt       DateTime  @default(now())
+  firstSubscribed DateTime?
+  subEnds         DateTime?
+  stripeId        String?
+  stripeSubId     String?
+
+  score          Float?
   firstName      String?
   lastName       String?
-  parentName     String?
-  passwordHash   String?
   dob            DateTime?
   gender         String?
-  admin          Boolean   @default(false)
   profilePicture String?
-  stripeId       String?
-  stripeSubId    String?
-  active         Boolean   @default(false)
-  subEnds        DateTime?
-  score          Float?
-  date           DateTime  @default(now())
-  dateSub        DateTime?
 
   // Relations
   gradedExams      GradedExam[]

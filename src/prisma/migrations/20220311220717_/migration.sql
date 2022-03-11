@@ -8,21 +8,19 @@ CREATE TABLE "User" (
     "email" TEXT NOT NULL,
     "emailVerified" TIMESTAMP(3),
     "image" TEXT,
-    "firstName" TEXT,
-    "lastName" TEXT,
-    "parentName" TEXT,
     "passwordHash" TEXT,
-    "dob" TIMESTAMP(3),
-    "gender" TEXT,
     "admin" BOOLEAN NOT NULL DEFAULT false,
-    "profilePicture" TEXT,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "firstSubscribed" TIMESTAMP(3),
+    "subEnds" TIMESTAMP(3),
     "stripeId" TEXT,
     "stripeSubId" TEXT,
-    "active" BOOLEAN NOT NULL DEFAULT false,
-    "subEnds" TIMESTAMP(3),
     "score" DOUBLE PRECISION,
-    "date" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "dateSub" TIMESTAMP(3),
+    "firstName" TEXT,
+    "lastName" TEXT,
+    "dob" TIMESTAMP(3),
+    "gender" TEXT,
+    "profilePicture" TEXT,
 
     CONSTRAINT "User_pkey" PRIMARY KEY ("id")
 );
@@ -56,13 +54,13 @@ CREATE TABLE "Problem" (
 -- CreateTable
 CREATE TABLE "GradedExam" (
     "id" TEXT NOT NULL,
-    "marks" INTEGER NOT NULL,
-    "total" INTEGER NOT NULL,
-    "percent" DOUBLE PRECISION NOT NULL,
     "num" INTEGER NOT NULL,
+    "marks" INTEGER NOT NULL,
+    "totalMarks" INTEGER NOT NULL,
+    "percent" DOUBLE PRECISION NOT NULL,
     "firstAttempt" BOOLEAN NOT NULL,
     "time" INTEGER NOT NULL,
-    "date" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "userId" TEXT NOT NULL,
     "examId" TEXT NOT NULL,
 
@@ -72,17 +70,18 @@ CREATE TABLE "GradedExam" (
 -- CreateTable
 CREATE TABLE "GradedProblem" (
     "id" TEXT NOT NULL,
+    "num" INTEGER NOT NULL,
     "question" TEXT NOT NULL,
+    "multi" BOOLEAN NOT NULL,
     "correct" TEXT NOT NULL,
     "selected" TEXT,
-    "num" INTEGER NOT NULL,
-    "multi" BOOLEAN NOT NULL DEFAULT false,
-    "img" TEXT,
     "options" TEXT[],
     "unit" TEXT,
-    "date" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "gradedExamId" TEXT NOT NULL,
+    "img" TEXT,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "categories" "Category"[],
+    "gradedExamId" TEXT NOT NULL,
+    "problemId" TEXT NOT NULL,
 
     CONSTRAINT "GradedProblem_pkey" PRIMARY KEY ("id")
 );
@@ -90,9 +89,10 @@ CREATE TABLE "GradedProblem" (
 -- CreateTable
 CREATE TABLE "ExamSession" (
     "id" TEXT NOT NULL,
+    "firstAttempt" BOOLEAN NOT NULL,
     "start" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "userId" TEXT NOT NULL,
-    "examId" TEXT,
+    "examId" TEXT NOT NULL,
 
     CONSTRAINT "ExamSession_pkey" PRIMARY KEY ("id")
 );
@@ -176,6 +176,9 @@ ALTER TABLE "GradedExam" ADD CONSTRAINT "GradedExam_userId_fkey" FOREIGN KEY ("u
 
 -- AddForeignKey
 ALTER TABLE "GradedExam" ADD CONSTRAINT "GradedExam_examId_fkey" FOREIGN KEY ("examId") REFERENCES "Exam"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "GradedProblem" ADD CONSTRAINT "GradedProblem_problemId_fkey" FOREIGN KEY ("problemId") REFERENCES "Problem"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "GradedProblem" ADD CONSTRAINT "GradedProblem_gradedExamId_fkey" FOREIGN KEY ("gradedExamId") REFERENCES "GradedExam"("id") ON DELETE CASCADE ON UPDATE CASCADE;
