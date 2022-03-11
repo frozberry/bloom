@@ -18,20 +18,20 @@ const ToggleButton = ({ view, setView }: Props) => {
       }}
     >
       <Button
-        color={view === ViewOptions.ALL ? "primary" : "inherit"}
-        onClick={() => setView(ViewOptions.ALL)}
+        color={view === "all" ? "primary" : "inherit"}
+        onClick={() => setView("all")}
       >
         All
       </Button>
       <Button
-        color={view === ViewOptions.CORRECT ? "primary" : "inherit"}
-        onClick={() => setView(ViewOptions.CORRECT)}
+        color={view === "correct" ? "primary" : "inherit"}
+        onClick={() => setView("correct")}
       >
         Correct
       </Button>
       <Button
-        color={view === ViewOptions.INCORRECT ? "primary" : "inherit"}
-        onClick={() => setView(ViewOptions.INCORRECT)}
+        color={view === "incorrect" ? "primary" : "inherit"}
+        onClick={() => setView("incorrect")}
       >
         Incorrect
       </Button>

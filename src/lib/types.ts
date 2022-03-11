@@ -125,11 +125,7 @@ export type ProblemSubmission = {
   selected: string
 }
 
-export enum ViewOptions {
-  ALL,
-  CORRECT,
-  INCORRECT,
-}
+export type ViewOptions = "all" | "correct" | "incorrect"
 
 export type AccountPageData = {
   firstName: string | null

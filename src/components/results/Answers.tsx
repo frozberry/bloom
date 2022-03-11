@@ -11,15 +11,15 @@ type Props = {
 }
 
 const Answers = ({ gradedProblems }: Props) => {
-  const [view, setView] = useState<ViewOptions>(ViewOptions.ALL)
+  const [view, setView] = useState<ViewOptions>("all")
 
   const correct = (p: GradedProblem) => p.selected === p.correct
   const incorrect = (p: GradedProblem) => p.selected !== p.correct
 
   const filteredProblems =
-    view === ViewOptions.ALL
+    view === "all"
       ? gradedProblems
-      : view === ViewOptions.CORRECT
+      : view === "correct"
       ? gradedProblems.filter(correct)
       : gradedProblems.filter(incorrect)
 
