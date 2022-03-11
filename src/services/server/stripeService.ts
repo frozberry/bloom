@@ -1,6 +1,7 @@
 import Stripe from "stripe"
 import { findUserByEmail } from "./userService"
 import { prisma } from "../../prisma/client"
+import dayjs from "dayjs"
 
 // eslint-disable-next-line
 export const stripe = new Stripe(process.env.STRIPE_SECRET!, {
@@ -65,6 +66,9 @@ export const paymentSucceeded = async (invoice: Stripe.Invoice) => {
   const email = invoice.customer_email as string
   const stripeId = invoice.customer as string
 
+  const dateSub = new Date()
+  const subEnds = dayjs().add(14, "days").toDate()
+
   switch (invoice.billing_reason) {
     case "subscription_create":
       console.log("Creating new subscription")
@@ -73,6 +77,8 @@ export const paymentSucceeded = async (invoice: Stripe.Invoice) => {
         data: {
           stripeId,
           active: true,
+          subEnds,
+          dateSub,
         },
       })
       break
