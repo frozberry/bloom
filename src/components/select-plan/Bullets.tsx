@@ -2,7 +2,7 @@ import { Container, Typography } from "@mui/material"
 
 const Bullets = () => {
   return (
-    <Container sx={{ mt: 5 }} maxWidth="xs">
+    <Container maxWidth="xs">
       <Typography
         paragraph
         color="textPrimary"
@@ -20,12 +20,12 @@ const Bullets = () => {
       <Typography mb={1}>
         ✔️ Rewards and certificates for top students
       </Typography>
-      <Typography mb={1}>
+      <Typography mb={3}>
         ✔️ ️Easy to use online test-taking platform
       </Typography>
       <Typography
-        paragraph
         color="textPrimary"
+        paragraph
         sx={{ fontSize: 20, fontWeight: "bold" }}
       >
         Coming soon:

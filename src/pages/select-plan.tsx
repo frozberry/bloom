@@ -65,8 +65,12 @@ const SelectPlan = ({ canceled = false }: { canceled: boolean }) => {
         <Box
           sx={{
             display: "flex",
-            flexDirection: "row",
+            flexDirection: {
+              xs: "column",
+              sm: "row",
+            },
             justifyContent: "center",
+            alignItems: "center",
           }}
         >
           <PlanOption
@@ -82,14 +86,18 @@ const SelectPlan = ({ canceled = false }: { canceled: boolean }) => {
         </Box>
         {!canceled ? (
           <Container
-            sx={{ display: "flex", flexDirection: "row" }}
+            sx={{
+              display: "flex",
+              flexDirection: { xs: "column", sm: "row" },
+              mt: { xs: 2, sm: 5 },
+            }}
             maxWidth="md"
           >
             <Questions />
             <Bullets />
           </Container>
         ) : (
-          <Container maxWidth="xs" sx={{ mb: 30 }}>
+          <Container maxWidth="xs" sx={{ mb: { xs: 0, sm: 30 } }}>
             <Bullets />
           </Container>
         )}
