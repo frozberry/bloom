@@ -1,4 +1,3 @@
-// import { useSession } from "next-auth/react"
 import { useRouter } from "next/router"
 import { QueryFunction, useQuery } from "react-query"
 import Loading from "../components/Loading"
@@ -23,7 +22,11 @@ type Payload = {
   component: JSX.Element | null
 }
 
-const useAuthQuery = (key: string, queryFn: QueryFunction) => {
+const useAuthQuery = (
+  key: string,
+  queryFn: QueryFunction,
+  allowInactive = false
+) => {
   const query = useQuery(key, queryFn)
   const { session } = useSession()
   const activeQuery = useQuery("active", checkUserActive, {
@@ -53,7 +56,7 @@ const useAuthQuery = (key: string, queryFn: QueryFunction) => {
     return payload
   }
 
-  if (!activeQuery?.data?.active) {
+  if (!activeQuery?.data?.active && !allowInactive) {
     payload.escape = true
     payload.component = <NoSub />
     return payload

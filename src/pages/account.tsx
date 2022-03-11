@@ -11,8 +11,10 @@ export default function App() {
   const router = useRouter()
   const { data, escape, component } = useAuthQuery(
     "accountData",
-    getAccountPageData
+    getAccountPageData,
+    true
   )
+  console.log(data, escape)
   if (escape) return component
 
   const account = data as AccountPageData
