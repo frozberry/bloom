@@ -40,7 +40,7 @@ const Stats = () => {
   // }))
 
   // const name = capitalize(profile.firstName)
-  const name = "Bob"
+  const name = "your child"
 
   return (
     <Container sx={{ mt: 3 }}>

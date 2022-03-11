@@ -40,7 +40,7 @@ const Home = () => {
 
   // TODO get the users name
   const profile = {
-    firstName: "henry",
+    firstName: "your child",
   }
 
   return (
