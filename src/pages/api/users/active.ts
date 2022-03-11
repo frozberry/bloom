@@ -11,7 +11,14 @@ const GET = async (
   if (unauthorized) return response
 
   const user = (await findUserById(userId)) as User
-  res.send({ active: user?.active })
+
+  let active = true
+
+  if (!user.subEnds || user.subEnds < new Date()) {
+    active = false
+  }
+
+  res.send({ active })
 }
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
