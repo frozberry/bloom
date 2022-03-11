@@ -56,13 +56,16 @@ const ChildForm = ({ firstName, lastName, dob, gender }: Props) => {
       {(formikProps: FormikProps<FormValues>) => (
         <Form noValidate autoComplete="off">
           <Box>
-            <Typography variant="subtitle2">First name</Typography>
+            <Typography variant="subtitle2" sx={{ mb: 0 }}>
+              First name
+            </Typography>
             <Field
               name="firstName"
               autoComplete="name"
               size="small"
               component={FormTextField}
               fullWidth
+              sx={{ mb: 2 }}
             />
           </Box>
           <Box>
@@ -74,6 +77,7 @@ const ChildForm = ({ firstName, lastName, dob, gender }: Props) => {
               size="small"
               component={FormTextField}
               fullWidth
+              sx={{ mb: 2 }}
             />
           </Box>
           <Box>
@@ -84,6 +88,7 @@ const ChildForm = ({ firstName, lastName, dob, gender }: Props) => {
               size="small"
               component={FormTextField}
               fullWidth
+              sx={{ mb: 2 }}
             />
           </Box>
           <Button
@@ -93,6 +98,7 @@ const ChildForm = ({ firstName, lastName, dob, gender }: Props) => {
             color="primary"
             fullWidth
             disabled={formikProps.isSubmitting}
+            sx={{ mt: 2 }}
           >
             Save
           </Button>

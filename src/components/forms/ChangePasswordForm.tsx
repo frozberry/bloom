@@ -51,6 +51,7 @@ const ChangePasswordForm = () => {
               size="small"
               component={FormTextField}
               fullWidth
+              sx={{ mb: 2 }}
             />
           </Box>
           <Box>
@@ -62,6 +63,7 @@ const ChangePasswordForm = () => {
               size="small"
               component={FormTextField}
               fullWidth
+              sx={{ mb: 2 }}
             />
           </Box>
           <Button
@@ -71,6 +73,7 @@ const ChangePasswordForm = () => {
             color="primary"
             fullWidth
             disabled={formikProps.isSubmitting}
+            sx={{ mt: 2 }}
           >
             Save
           </Button>

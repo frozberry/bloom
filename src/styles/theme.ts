@@ -35,8 +35,8 @@ let theme = createTheme({
   typography: {
     body1: {
       // fontSize: "1.25rem",
-      lineHeight: 1.8,
-      marginBottom: 24,
+      // lineHeight: 1.8,
+      // marginBottom: 24,
     },
     h1: {
       letterSpacing: 1.5,

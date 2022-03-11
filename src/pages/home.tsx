@@ -44,12 +44,14 @@ const Home = () => {
   }
 
   return (
-    <Container>
+    <Container sx={{ mt: 3 }}>
       {/* TODO needs a better way to handle no more exams as */}
       {!nextExam ? (
         <>
-          <Typography>The next test will be released a week.</Typography>
-          <Typography>
+          <Typography paragraph>
+            The next test will be released a week.
+          </Typography>
+          <Typography paragraph>
             We will send you an email when you it's avaiable
           </Typography>
         </>

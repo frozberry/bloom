@@ -73,6 +73,7 @@ const LoginForm = ({ setLoading }: Props) => {
               autoComplete="email"
               component={FormTextField}
               fullWidth
+              sx={{ mb: 2 }}
             />
           </Box>
           <Box>
@@ -85,6 +86,7 @@ const LoginForm = ({ setLoading }: Props) => {
               autoComplete="password"
               component={FormTextField}
               fullWidth
+              sx={{ mb: 2 }}
             />
           </Box>
           <Button
@@ -94,6 +96,7 @@ const LoginForm = ({ setLoading }: Props) => {
             color="primary"
             fullWidth
             disabled={formikProps.isSubmitting}
+            sx={{ mt: 2 }}
           >
             Submit
           </Button>

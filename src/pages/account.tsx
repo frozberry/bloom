@@ -61,6 +61,7 @@ export default function App() {
         color="primary"
         fullWidth
         onClick={() => handleBilling(account.stripeId)}
+        sx={{ mt: 4 }}
       >
         Payments portal
       </Button>
