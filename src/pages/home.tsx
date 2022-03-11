@@ -45,7 +45,6 @@ const Home = () => {
 
   return (
     <Container>
-      {/* <Button onClick={createSession}>createSession</Button> */}
       {/* TODO needs a better way to handle no more exams as */}
       {!nextExam ? (
         <>
