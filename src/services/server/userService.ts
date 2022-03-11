@@ -2,7 +2,7 @@ import { User } from "@prisma/client"
 import bcrypt from "bcrypt"
 import jwt from "jsonwebtoken"
 import _ from "lodash"
-import { AccountPageData, UserWithoutDate } from "../../lib/types"
+import { AccountPageData } from "../../lib/types"
 import { prisma } from "../../prisma/client"
 import { getUsersGradedExams } from "./gradedExamService"
 
