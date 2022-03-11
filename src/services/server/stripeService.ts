@@ -2,7 +2,7 @@ import Stripe from "stripe"
 import { findUserByEmail } from "./userService"
 
 // eslint-disable-next-line
-const stripe = new Stripe(process.env.STRIPE_SECRET!, {
+export const stripe = new Stripe(process.env.STRIPE_SECRET!, {
   apiVersion: "2020-08-27",
 })
 
