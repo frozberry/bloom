@@ -66,7 +66,7 @@ export const paymentSucceeded = async (invoice: Stripe.Invoice) => {
   const email = invoice.customer_email as string
   const stripeId = invoice.customer as string
 
-  const dateSub = new Date()
+  const firstSubscribed = new Date()
   const subEnds = dayjs().add(14, "days").toDate()
 
   switch (invoice.billing_reason) {
@@ -76,9 +76,8 @@ export const paymentSucceeded = async (invoice: Stripe.Invoice) => {
         where: { email },
         data: {
           stripeId,
-          active: true,
           subEnds,
-          dateSub,
+          firstSubscribed,
         },
       })
       break

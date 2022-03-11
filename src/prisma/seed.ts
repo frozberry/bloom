@@ -27,11 +27,10 @@ const createUsers = async () => {
       email: "pannicope@gmail.com",
       firstName: "Bob",
       lastName: "b",
-      parentName: "Henry",
+      name: "Henry",
       gender: "male",
       dob,
       admin: true,
-      active: true,
       passwordHash:
         "$2b$10$7f2Zo6SqU6E7r./LmGDkSOsQNSpcGTRiIKHpx/.ZK0G7sxTXskXsq",
       stripeId: "cus_JifnHyNvFpbJIx",
