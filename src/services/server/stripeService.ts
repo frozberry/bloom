@@ -67,6 +67,7 @@ export const paymentSucceeded = async (invoice: Stripe.Invoice) => {
 
   switch (invoice.billing_reason) {
     case "subscription_create":
+      console.log("Creating new subscription")
       await prisma.user.update({
         where: { email },
         data: {
@@ -76,6 +77,7 @@ export const paymentSucceeded = async (invoice: Stripe.Invoice) => {
       })
       break
     case "subscription_update":
+      console.log("Updating existing subscription")
       break
     default:
       console.log("Error: Unknown billing reason")

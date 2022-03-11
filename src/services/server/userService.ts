@@ -105,4 +105,3 @@ export const getUsersAccountPage = async (userId: string) => {
 
   return account
 }
-
