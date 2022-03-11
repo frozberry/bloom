@@ -20,7 +20,7 @@ model User {
   accounts      Account[]
   sessions      Session[]
 
-  // Application
+  // Backend
   passwordHash    String?
   admin           Boolean   @default(false)
   createdAt       DateTime  @default(now())
@@ -29,6 +29,7 @@ model User {
   stripeId        String?
   stripeSubId     String?
 
+  // Profile
   score          Float?
   firstName      String?
   lastName       String?
