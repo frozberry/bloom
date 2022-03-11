@@ -29,7 +29,11 @@ const Solution = ({ problem }: Props) => {
 
       {problem.img && (
         <Box sx={{ my: 3 }}>
-          <img src={problem.img} alt="problem image" />
+          <img
+            src={problem.img}
+            alt="problem image"
+            style={{ maxWidth: "100%" }}
+          />
         </Box>
       )}
 

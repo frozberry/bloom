@@ -47,8 +47,12 @@ const Problem = ({ problem, submissions, setSubmissions }: Props) => {
       </Typography>
       <Typography sx={{ mb: 3 }}>{problem.question}</Typography>
       {problem.img && (
-        <Box sx={{ my: 3 }}>
-          <img src={problem.img} alt="problem image" />
+        <Box sx={{ my: 3, maxWidth: "100%" }}>
+          <img
+            src={problem.img}
+            alt="problem image"
+            style={{ maxWidth: "100%" }}
+          />
         </Box>
       )}
       {problem.multi ? (
