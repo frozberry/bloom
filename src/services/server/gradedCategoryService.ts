@@ -1,4 +1,5 @@
 import { Category, GradedProblem } from "@prisma/client"
+import _ from "lodash"
 import { CategoryWithAverage } from "../../lib/types"
 import { prisma } from "../../prisma/client"
 
@@ -37,6 +38,7 @@ export const createUsersGradedCategories = async (userId: string) => {
 export const getCatergoriesAverage = async () => {
   const gradedCategories = await prisma.gradedCategory.findMany({
     where: {
+      // Greater than 0 attempts
       attempts: {
         gt: 0,
       },
@@ -45,18 +47,33 @@ export const getCatergoriesAverage = async () => {
 
   const categories = Object.values(Category)
 
-  const categoriesAveraged: CategoryWithAverage[] = categories.map((c) => {
-    const mgc = gradedCategories.filter((gc) => gc.category === c)
+  const categoriesAveraged: CategoryWithAverage[] = categories.map(
+    (category) => {
+      const mgc = gradedCategories.filter((gc) => gc.category === category)
 
-    const totalAttempts = mgc.reduce((acc, gc) => gc.attempts + acc, 0)
-    const totalCorrect = mgc.reduce((acc, gc) => gc.correct + acc, 0)
-    return {
-      average: (100 * totalCorrect) / totalAttempts,
-      category: c,
+      const totalAttempts = mgc.reduce((acc, gc) => gc.attempts + acc, 0)
+      const totalCorrect = mgc.reduce((acc, gc) => gc.correct + acc, 0)
+      return {
+        average: (100 * totalCorrect) / totalAttempts,
+        category: category,
+      }
     }
-  })
+  )
 
   return categoriesAveraged
+}
+
+export const getUsersGradedCategoriesWithAverage = async (userId: string) => {
+  const averages = await getCatergoriesAverage()
+  const gradedCategories = await getUsersGradedCategories(userId)
+
+  const merged = _.merge(
+    _.keyBy(averages, "category"),
+    _.keyBy(gradedCategories, "category")
+  )
+  const values = _.values(merged)
+
+  return values
 }
 
 export const updateGradedCategories = async (

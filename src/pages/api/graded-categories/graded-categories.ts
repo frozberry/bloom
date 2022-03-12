@@ -5,6 +5,7 @@ import { CategoryWithAverage } from "../../../lib/types"
 import {
   getCatergoriesAverage,
   getUsersGradedCategories,
+  getUsersGradedCategoriesWithAverage,
 } from "../../../services/server/gradedCategoryService"
 
 const GET = async (
@@ -12,15 +13,13 @@ const GET = async (
   res: NextApiResponse<CategoryWithAverage[] | GradedCategory[]>
 ) => {
   const { average } = req.query
-
-  // TODO move to own route
-  if (average === "true") {
-    const averages = await getCatergoriesAverage()
-    res.send(averages)
-  }
-
   const { unauthorized, userId, response } = await authUserSession(req, res)
   if (unauthorized) return response
+
+  if (average === "true") {
+    const averages = await getUsersGradedCategoriesWithAverage(userId)
+    res.send(averages)
+  }
 
   const gradedCategories = await getUsersGradedCategories(userId)
   res.send(gradedCategories)
