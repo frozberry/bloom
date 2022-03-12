@@ -8,6 +8,7 @@ import {
   findExamSessionById,
 } from "./examSessionService"
 import { updateGradedCategories } from "./gradedCategoryService"
+import { constructGradedProblems } from "./gradedProblemService"
 import { updateUserScore } from "./userService"
 
 /* ---------------------------------- CRUD ---------------------------------- */
@@ -85,29 +86,9 @@ export const submitExam = async (
     exam.problems
   )
   const time = calculateDuration(examSession.start)
+
   const firstAttempt = await isFirstAttemptAtExam(examSession)
-
-  const gradedProblems = exam.problems.map((problem) => {
-    const submission = submissions.find((submission) => {
-      return submission.problemId === problem.id
-    })
-    const gradedProblem = {
-      //TODO string conversion might not be needed
-      num: problem.num,
-      question: problem.question,
-      multi: problem.multi,
-      correct: problem.correct,
-      selected: submission?.selected.toString(),
-      options: problem.options,
-      unit: problem.unit,
-      img: problem.img,
-
-      problem: {
-        connect: { id: problem.id },
-      },
-    }
-    return gradedProblem
-  })
+  const gradedProblems = constructGradedProblems(exam, submissions)
 
   const newGradedExam = await prisma.gradedExam.create({
     data: {
