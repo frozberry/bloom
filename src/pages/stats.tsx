@@ -1,4 +1,6 @@
-import { Container, Typography } from "@mui/material"
+import { Box, Button, Container, Typography } from "@mui/material"
+import axios from "axios"
+import Link from "next/link"
 import Radar from "../components/graphs/Radar"
 import PercentileRating from "../components/PercentileRating"
 import useAuthQuery from "../hooks/useAuthQuery"
@@ -6,14 +8,42 @@ import displayCategory from "../lib/displayCategory"
 import { CategoryStatsData, RadarData } from "../lib/types"
 import { getCategoriesStats } from "../services/client/gradedCategoryClient"
 
+const getUserScore = async () => {
+  const res = await axios.get<{ score: number | null }>("/api/score")
+  return res.data
+}
 const Stats = () => {
+  // TODO make a hook for multiple queries
   const { data, escape, component } = useAuthQuery(
     "categoryStats",
     getCategoriesStats
   )
-  if (escape) return component
+  const {
+    data: data2,
+    escape: escape2,
+    component: component2,
+  } = useAuthQuery("score", getCategoriesStats)
+
+  if (escape || escape2) return component
 
   const categoryData = data as CategoryStatsData
+  const score = data2.score as number | null
+
+  if (!score) {
+    return (
+      <Container sx={{ mt: 3 }}>
+        <Typography variant="h2">
+          Your child's stats will show up here after they take their first test
+        </Typography>
+        <Box sx={{ textAlign: "center", mt: 2 }}>
+          <Link href="/home" passHref>
+            <a>Back to home</a>
+          </Link>
+        </Box>
+      </Container>
+    )
+  }
+
   const radarData: RadarData[] = categoryData.map((category) => {
     const score = (100 * category.correct) / category.attempts
     return {
@@ -31,7 +61,7 @@ const Stats = () => {
         maxWidth="sm"
         style={{ marginTop: 20, marginBottom: 20 }}
       ></Container>
-      <PercentileRating score={89} />
+      <PercentileRating score={score} />
       <Typography>
         Only 1 in 10 children who take the 11+ exam get into grammar schools.
         You should aim to be in the blue section - the top 90%
