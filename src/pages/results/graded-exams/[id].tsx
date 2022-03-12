@@ -7,6 +7,7 @@ import {
 } from "@mui/material"
 import { useRouter } from "next/router"
 import { useState } from "react"
+import { useQueryClient } from "react-query"
 import Answers from "../../../components/results/Answers"
 import useAuthQuery from "../../../hooks/useAuthQuery"
 import notifyError from "../../../lib/notifyError"
@@ -16,6 +17,8 @@ import { findGradedExamById } from "../../../services/client/gradedExamClient"
 
 const Page = () => {
   const router = useRouter()
+  const queryClient = useQueryClient()
+
   const [loading, setLoading] = useState(false)
   const { id } = router.query as { id: string }
   const { data, escape, component } = useAuthQuery(id, () =>
@@ -35,6 +38,7 @@ const Page = () => {
         setLoading(true)
         await createExamSession(gradedExam.examId)
         setLoading(false)
+        queryClient.invalidateQueries("examSession")
         router.push("/session")
       } catch (e) {
         notifyError(e)
