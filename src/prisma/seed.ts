@@ -40,29 +40,6 @@ const createUsers = async () => {
   })
 }
 
-const createGradedCatergories = async () => {
-  const user1 = (await findUserByEmail("pannicope@gmail.com")) as User
-  const user2 = (await findUserByEmail("henry@henrywu.co.uk")) as User
-
-  // const users = [user1, user2]
-  const users = [user1]
-
-  const categories = Object.values(Category)
-
-  users.forEach(async (u) => {
-    categories.forEach(async (c) => {
-      await prisma.gradedCategory.createMany({
-        data: [
-          {
-            userId: u.id,
-            category: c,
-          },
-        ],
-      })
-    })
-  })
-}
-
 const createAnswers = async (exam: ExamWithProblems) => {
   const seedAnswers = exam.problems.map((p: any) => {
     const correct = Math.random() < 0.8
@@ -89,7 +66,6 @@ const main = async () => {
 
   await deleteAll()
   await createUsers()
-  await createGradedCatergories()
   const exam = await createExamFromJson(problems)
   const user = (await findUserByEmail("pannicope@gmail.com")) as User
   // const examSession = await createExamSession(user.id, exam.id)
