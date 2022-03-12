@@ -75,6 +75,10 @@ const Home = () => {
             You will only need a pen/pencil and paper. Calculators are not
             allowed.
           </Typography>
+
+          <Typography paragraph>
+            <b>Do not start the test until your child is ready.</b>
+          </Typography>
           <Button variant="contained" onClick={startTest}>
             Begin Test
           </Button>
