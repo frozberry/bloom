@@ -14,7 +14,6 @@ export default function App() {
     getAccountPageData,
     true
   )
-  console.log(data, escape)
   if (escape) return component
 
   const account = data as AccountPageData

@@ -22,8 +22,6 @@ const Stats = () => {
     }
   })
 
-  console.log(radarData)
-
   const name = "your child"
 
   return (
