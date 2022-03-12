@@ -47,9 +47,22 @@ const PercentileRating = ({ score }: Props) => {
   const percentile = Math.round((betterThan / totalStudents) * 100 * 10) / 10
 
   return (
-    <Box sx={{ mb: 10 }}>
-      <Typography variant="h2">
-        You child scored higher than {percentile}% of Waterfront students
+    <Box sx={{ mb: 3 }}>
+      <Typography variant="h2" sx={{ textAlign: "center", my: 2 }}>
+        You child scored higher than {percentile}% of Waterfront students.
+      </Typography>
+
+      <Typography sx={{ textAlign: "center", my: 2 }}>
+        You child has an average score of <b>{Math.round(score)}%</b> across his
+        Waterfront tests.
+      </Typography>
+
+      <Typography sx={{ textAlign: "center", my: 2 }}>
+        Please note that only the first attempt at each test is counted to their
+        official score.
+      </Typography>
+      <Typography sx={{ textAlign: "center", my: 2 }}>
+        A new test is released every week.
       </Typography>
 
       <PercentileGraph data={data} />

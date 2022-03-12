@@ -12,6 +12,7 @@ const getUserScore = async () => {
   const res = await axios.get<{ score: number | null }>("/api/score")
   return res.data
 }
+
 const Stats = () => {
   // TODO make a hook for multiple queries
   const { data, escape, component } = useAuthQuery(
@@ -54,9 +55,15 @@ const Stats = () => {
   return (
     <Container sx={{ mt: 3 }}>
       <PercentileRating score={score} />
-      <Typography>
+      <Typography sx={{ textAlign: "center", my: 2 }}>
         Only 1 in 10 children who take the 11+ exam get into grammar schools.
-        You should aim to be in the blue section - the top 90%
+      </Typography>
+      <Typography sx={{ textAlign: "center", my: 2 }}>
+        You should aim for your child to be scoring higher than 90% of other
+        students by the time they take their entrace exam.
+      </Typography>
+      <Typography variant="h2" sx={{ mt: 8 }}>
+        Category breakdown
       </Typography>
       <Radar data={radarData} />
     </Container>
