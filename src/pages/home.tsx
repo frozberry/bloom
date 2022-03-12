@@ -65,8 +65,8 @@ const Home = () => {
         <>
           <Typography paragraph>You have a new test ready.</Typography>
           <Typography paragraph>
-            Please make sure {profile.firstName} has 45 minutes avaiable to take
-            the test.
+            Please make sure {profile.firstName} has 45 minutes available to
+            take the test.
           </Typography>
           <Typography paragraph>
             Once you begin, you will not be able to pause or restart the test.
