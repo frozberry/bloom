@@ -59,7 +59,6 @@ export const getCatergoriesAverage = async () => {
   return categoriesAveraged
 }
 
-// TODO check what happens if it doesn't already exist
 export const updateGradedCategories = async (
   userId: string,
   gradedProblems: GradedProblem[]

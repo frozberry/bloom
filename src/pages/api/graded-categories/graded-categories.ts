@@ -4,7 +4,7 @@ import authUserSession from "../../../lib/authUserSession"
 import { CategoryWithAverage } from "../../../lib/types"
 import {
   getCatergoriesAverage,
-  getUsersGradedCategories
+  getUsersGradedCategories,
 } from "../../../services/server/gradedCategoryService"
 
 const GET = async (
