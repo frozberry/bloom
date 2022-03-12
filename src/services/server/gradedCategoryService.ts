@@ -34,7 +34,7 @@ export const createUsersGradedCategories = async (userId: string) => {
   }
 }
 
-// TODO blindly copied and pasted - not sure if working. Compare with live api
+// The average score for each category across all students
 export const getCatergoriesAverage = async () => {
   const gradedCategories = await prisma.gradedCategory.findMany({
     where: {
@@ -63,6 +63,7 @@ export const getCatergoriesAverage = async () => {
   return categoriesAveraged
 }
 
+// The users gradedCategories, with an extra field for the average
 export const getUsersGradedCategoriesWithAverage = async (userId: string) => {
   const averages = await getCatergoriesAverage()
   const gradedCategories = await getUsersGradedCategories(userId)
