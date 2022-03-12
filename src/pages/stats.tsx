@@ -1,5 +1,6 @@
 import { Container, Typography } from "@mui/material"
 import Radar from "../components/graphs/Radar"
+import PercentileRating from "../components/PercentileRating"
 import useAuthQuery from "../hooks/useAuthQuery"
 import displayCategory from "../lib/displayCategory"
 import { CategoryStatsData, RadarData } from "../lib/types"
@@ -39,16 +40,11 @@ const Stats = () => {
           you an accurate result. But we'll let you know when it's ready.
         </Typography>
       </Container>
-      <div style={{ opacity: 0.1 }}>
-        {/* <Percentile /> */}
-        {/* <HalfPie /> */}
-        <Container maxWidth="sm" style={{ marginBottom: 40 }}>
-          {/* <Typography>
-            Only 1 in 10 children who take the 11+ exam get into grammar
-            schools. You should aim to be in the blue section - the top 90%
-          </Typography> */}
-        </Container>
-      </div>
+      <PercentileRating score={89} />
+      <Typography>
+        Only 1 in 10 children who take the 11+ exam get into grammar schools.
+        You should aim to be in the blue section - the top 90%
+      </Typography>
     </Container>
   )
 }
