@@ -1,4 +1,6 @@
+import { GradeRounded } from "@mui/icons-material"
 import { Container } from "@mui/material"
+import NoExamsTaken from "../components/NoExamsTaken"
 import SingleAttempt from "../components/results/SingleExamAttempt"
 import useAuthQuery from "../hooks/useAuthQuery"
 import { GradedExamWithExam } from "../lib/types"
@@ -13,6 +15,8 @@ const ResultsList = () => {
 
   const gradedExams = data as GradedExamWithExam[]
   const firstAttempts = gradedExams
+
+  if (gradedExams.length === 0) return <NoExamsTaken page="results" />
 
   return (
     <Container>

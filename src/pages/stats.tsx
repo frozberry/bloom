@@ -1,7 +1,7 @@
-import { Box, Button, Container, Typography } from "@mui/material"
+import { Container, Typography } from "@mui/material"
 import axios from "axios"
-import Link from "next/link"
 import Radar from "../components/graphs/Radar"
+import NoExamsTaken from "../components/NoExamsTaken"
 import PercentileRating from "../components/PercentileRating"
 import useAuthQuery from "../hooks/useAuthQuery"
 import displayCategory from "../lib/displayCategory"
@@ -26,20 +26,7 @@ const Stats = () => {
   const categoryData = data as CategoryStatsData
   const score = data2.score as number | null
 
-  if (!score) {
-    return (
-      <Container sx={{ mt: 3 }}>
-        <Typography variant="h2">
-          Your child's stats will show up here after they take their first test
-        </Typography>
-        <Box sx={{ textAlign: "center", mt: 2 }}>
-          <Link href="/home" passHref>
-            <a>Back to home</a>
-          </Link>
-        </Box>
-      </Container>
-    )
-  }
+  if (!score) return <NoExamsTaken page="stats" />
 
   const radarData: RadarData[] = categoryData.map((category) => {
     const score = (100 * category.correct) / category.attempts
