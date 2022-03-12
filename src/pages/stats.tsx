@@ -27,24 +27,16 @@ const Stats = () => {
 
   return (
     <Container sx={{ mt: 3 }}>
-      <Radar data={radarData} />
-      <Container maxWidth="md">
-        <Typography variant="h4" style={{ textAlign: "center" }}>
-          We are currently processing {name}'s results.
-        </Typography>
-      </Container>
-      <Container maxWidth="sm" style={{ marginTop: 20, marginBottom: 20 }}>
-        <Typography>
-          Waterfront will compare {name}'s results with other students on the
-          platform. We still need a bit more time to gather the data and give
-          you an accurate result. But we'll let you know when it's ready.
-        </Typography>
-      </Container>
+      <Container
+        maxWidth="sm"
+        style={{ marginTop: 20, marginBottom: 20 }}
+      ></Container>
       <PercentileRating score={89} />
       <Typography>
         Only 1 in 10 children who take the 11+ exam get into grammar schools.
         You should aim to be in the blue section - the top 90%
       </Typography>
+      <Radar data={radarData} />
     </Container>
   )
 }

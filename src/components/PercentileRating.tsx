@@ -1,3 +1,5 @@
+import { Typography } from "@mui/material"
+import { Box } from "@mui/system"
 import PercentileGraph from "../components/graphs/PercentileGraph"
 import createNormalDistribution from "../lib/createNormalDistribution"
 
@@ -45,10 +47,13 @@ const PercentileRating = ({ score }: Props) => {
   const percentile = Math.round((betterThan / totalStudents) * 100 * 10) / 10
 
   return (
-    <div style={{ marginBottom: 10 }}>
-      You child scored higher than {percentile}% of Waterfront students{" "}
+    <Box sx={{ mb: 10 }}>
+      <Typography variant="h2">
+        You child scored higher than {percentile}% of Waterfront students
+      </Typography>
+
       <PercentileGraph data={data} />
-    </div>
+    </Box>
   )
 }
 
