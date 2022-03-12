@@ -133,3 +133,9 @@ export type AccountPageData = {
   stripeId: string | null
   isOAuth: boolean
 }
+
+export type RadarData = {
+  category: string
+  ["Your child"]: number
+  Average: number
+}

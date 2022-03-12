@@ -1,4 +1,5 @@
 import { Container, Typography } from "@mui/material"
+import StatsRadar from "../components/StatsRadar"
 
 // const capitalize = ([first, ...rest]) =>
 //   first.toUpperCase() + rest.join("").toLowerCase()
@@ -45,6 +46,7 @@ const Stats = () => {
   return (
     <Container sx={{ mt: 3 }}>
       {/* <Radar data={radarData} /> */}
+      <StatsRadar />
       <Container maxWidth="md">
         <Typography variant="h4" style={{ textAlign: "center" }}>
           We are currently processing {name}'s results.

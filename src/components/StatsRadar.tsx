@@ -1,21 +1,13 @@
-import { useState } from "react"
-
-import Radar from "../graphs/Radar"
-import useInterval from "../../lib/useInterval"
-import { RadarData } from "../../lib/types"
-
-type RadarIteration = {
-  data: RadarData[]
-  iterations: number
-}
+import { Typography, Container } from "@mui/material"
+import { RadarData } from "../lib/types"
+import Radar from "./graphs/Radar"
 
 const rand = (min: number, max: number) => {
   return Math.floor(Math.random() * (max - min + 1) + min)
 }
 
-const initData: RadarIteration = {
-  iterations: 1,
-  data: [
+const StatsRadar = () => {
+  const data: RadarData[] = [
     {
       category: "fractions",
       ["Your child"]: rand(5, 15),
@@ -61,38 +53,13 @@ const initData: RadarIteration = {
       ["Your child"]: rand(5, 15),
       Average: 62,
     },
-  ],
+  ]
+
+  return (
+    <Container>
+      <Radar data={data} />
+    </Container>
+  )
 }
 
-const genData = (currentData: RadarIteration): RadarIteration => {
-  if (currentData.iterations > 11) {
-    return initData
-  }
-
-  const data = currentData.data.map((d) => {
-    const currentValue = d["Your child"]
-    const maxValue = Math.min(100, currentValue + 20)
-    const newValue = rand(currentValue, maxValue)
-    return {
-      ...d,
-      ["Your child"]: newValue,
-    }
-  })
-
-  return {
-    iterations: currentData.iterations + 1,
-    data,
-  }
-}
-
-const LandingRadar = () => {
-  const [radarData, setRadarData] = useState(initData)
-
-  useInterval(() => {
-    setRadarData(() => genData(radarData))
-  }, 1000)
-
-  return <Radar data={radarData.data} />
-}
-
-export default LandingRadar
+export default StatsRadar
