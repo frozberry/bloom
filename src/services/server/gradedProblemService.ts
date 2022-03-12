@@ -19,6 +19,7 @@ export const constructGradedProblems = (
       options: problem.options,
       unit: problem.unit,
       img: problem.img,
+      categories: problem.categories,
 
       problem: {
         connect: { id: problem.id },

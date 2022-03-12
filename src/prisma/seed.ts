@@ -19,7 +19,7 @@ const deleteAll = async () => {
 
 const createUsers = async () => {
   const dob = new Date("2010-01-01T00:00:00.000Z")
-  const subEnds = new Date("2021-06-30T18:35:58.000Z")
+  const subEnds = new Date("2031-06-30T18:35:58.000Z")
 
   await prisma.user.create({
     data: {
@@ -92,11 +92,11 @@ const main = async () => {
   await createGradedCatergories()
   const exam = await createExamFromJson(problems)
   const user = (await findUserByEmail("pannicope@gmail.com")) as User
-  const examSession = await createExamSession(user.id, exam.id)
-  const seedAnswers = await createAnswers(exam)
+  // const examSession = await createExamSession(user.id, exam.id)
+  // const seedAnswers = await createAnswers(exam)
 
   console.log("Submitting exam")
-  await submitExam(user.id, examSession.id, seedAnswers)
+  // await submitExam(user.id, examSession.id, seedAnswers)
   console.log("Done")
 }
 
