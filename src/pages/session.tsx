@@ -6,6 +6,7 @@ import { useEffect, useState } from "react"
 import toast from "react-hot-toast"
 import Problem from "../components/submission/Problem"
 import useAuthQuery from "../hooks/useAuthQuery"
+import seedAnswers from "../lib/seedAnswers"
 import { ExamWithProblems, ProblemSubmission } from "../lib/types"
 import {
   deleteExamSession,
@@ -96,8 +97,14 @@ const Page = () => {
     }
   }
 
+  const seed = () => {
+    const seedSubmissions = seedAnswers(exam)
+    setSubmissions(seedSubmissions)
+  }
+
   return (
     <Container sx={{ pt: 3 }}>
+      <Button onClick={seed}>Seed</Button>
       <Box sx={{ mb: 3 }}>
         <Typography>You have 45 minutes to complete this test</Typography>
         <Typography>Start: {formatTime(start)}</Typography>
