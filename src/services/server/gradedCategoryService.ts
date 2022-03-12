@@ -1,6 +1,6 @@
 import { Category, GradedProblem } from "@prisma/client"
 import _ from "lodash"
-import { CategoryWithAverage } from "../../lib/types"
+import { CategoryStatsData, CategoryWithAverage } from "../../lib/types"
 import { prisma } from "../../prisma/client"
 
 export const getGradedCategories = async () => {
@@ -72,7 +72,7 @@ export const getUsersGradedCategoriesWithAverage = async (userId: string) => {
     _.keyBy(averages, "category"),
     _.keyBy(gradedCategories, "category")
   )
-  const values = _.values(merged)
+  const values: CategoryStatsData = _.values(merged)
 
   return values
 }

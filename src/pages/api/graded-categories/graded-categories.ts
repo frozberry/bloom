@@ -1,16 +1,15 @@
 import { GradedCategory } from "@prisma/client"
 import type { NextApiRequest, NextApiResponse } from "next"
 import authUserSession from "../../../lib/authUserSession"
-import { CategoryWithAverage } from "../../../lib/types"
+import { CategoryStatsData } from "../../../lib/types"
 import {
-  getCatergoriesAverage,
   getUsersGradedCategories,
   getUsersGradedCategoriesWithAverage,
 } from "../../../services/server/gradedCategoryService"
 
 const GET = async (
   req: NextApiRequest,
-  res: NextApiResponse<CategoryWithAverage[] | GradedCategory[]>
+  res: NextApiResponse<CategoryStatsData | GradedCategory[]>
 ) => {
   const { average } = req.query
   const { unauthorized, userId, response } = await authUserSession(req, res)

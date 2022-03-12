@@ -1,52 +1,35 @@
 import { Container, Typography } from "@mui/material"
+import Radar from "../components/graphs/Radar"
 import StatsRadar from "../components/StatsRadar"
-
-// const capitalize = ([first, ...rest]) =>
-//   first.toUpperCase() + rest.join("").toLowerCase()
+import useAuthQuery from "../hooks/useAuthQuery"
+import displayCategory from "../lib/displayCategory"
+import { CategoryStatsData, RadarData } from "../lib/types"
+import { getCategoriesStats } from "../services/client/gradedCategoryClient"
 
 const Stats = () => {
-  // const [gcs, setGcs] = useState(null)
-  // const [averageGcs, setAverageGcs] = useState(null)
+  const { data, escape, component } = useAuthQuery(
+    "categoryStats",
+    getCategoriesStats
+  )
+  if (escape) return component
 
-  // useEffect(() => {
-  //   if (user) {
-  //     gradedCategoryService
-  //       .getGradedCategories(user.token)
-  //       .then((gc) => setGcs(gc))
+  const categoryData = data as CategoryStatsData
+  const radarData: RadarData[] = categoryData.map((category) => {
+    const score = (100 * category.correct) / category.attempts
+    return {
+      category: displayCategory(category.category),
+      ["Your child"]: Math.round(score),
+      Average: Math.round(category.average),
+    }
+  })
 
-  //     gradedCategoryService.getAverageGcs().then((av) => setAverageGcs(av))
-  //   }
-  // }, [user])
+  console.log(radarData)
 
-  // if (!gcs || !averageGcs || !profile) return null
-
-  // const calculatePercent = (gc) => Math.round((100 * gc.correct) / gc.attempts)
-
-  // const withAverage = gcs.map((gc) => {
-  //   const matchedAverage = averageGcs.filter(
-  //     (agc) => agc.name === gc.categoryName
-  //   )
-  //   const average = matchedAverage[0].average
-  //   const roundedAverage = Math.round(average)
-  //   return {
-  //     ...gc,
-  //     average: roundedAverage,
-  //   }
-  // })
-
-  // const radarData = withAverage.map((gc) => ({
-  //   category: gc.categoryName,
-  //   [profile.firstName]: calculatePercent(gc),
-  //   Average: gc.average,
-  // }))
-
-  // const name = capitalize(profile.firstName)
   const name = "your child"
 
   return (
     <Container sx={{ mt: 3 }}>
-      {/* <Radar data={radarData} /> */}
-      <StatsRadar />
+      <Radar data={radarData} />
       <Container maxWidth="md">
         <Typography variant="h4" style={{ textAlign: "center" }}>
           We are currently processing {name}'s results.

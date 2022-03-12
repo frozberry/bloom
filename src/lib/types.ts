@@ -1,4 +1,4 @@
-import { Category, Prisma } from "@prisma/client"
+import { Category, GradedCategory, Prisma } from "@prisma/client"
 
 /* ----------------------------- UserWithoutDate ---------------------------- */
 const userWithoutDate = Prisma.validator<Prisma.UserArgs>()({
@@ -139,3 +139,5 @@ export type RadarData = {
   ["Your child"]: number
   Average: number
 }
+
+export type CategoryStatsData = (CategoryWithAverage & GradedCategory)[]
