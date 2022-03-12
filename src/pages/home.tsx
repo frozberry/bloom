@@ -1,5 +1,6 @@
 import { Button, Container, Typography } from "@mui/material"
 import { Exam } from "@prisma/client"
+import Link from "next/link"
 import { useRouter } from "next/router"
 import useAuthQuery from "../hooks/useAuthQuery"
 import { getNextExam } from "../services/client/examClient"
@@ -49,10 +50,15 @@ const Home = () => {
       {!nextExam ? (
         <>
           <Typography paragraph>
-            The next test will be released a week.
+            The next test will be released a week, you will receieve a
+            notification when it is available.
           </Typography>
           <Typography paragraph>
-            We will send you an email when you it's avaiable
+            In the meantime, head over to the{" "}
+            <Link href="/results">
+              <a>results page</a>
+            </Link>{" "}
+            to review and retry previous tests.
           </Typography>
         </>
       ) : (
