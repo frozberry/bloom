@@ -18,6 +18,7 @@ const GET = async (
   if (average === "true") {
     const averages = await getUsersGradedCategoriesWithAverage(userId)
     res.send(averages)
+    return
   }
 
   const gradedCategories = await getUsersGradedCategories(userId)
