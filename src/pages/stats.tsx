@@ -5,26 +5,20 @@ import NoExamsTaken from "../components/NoExamsTaken"
 import PercentileRating from "../components/PercentileRating"
 import useAuthQuery from "../hooks/useAuthQuery"
 import displayCategory from "../lib/displayCategory"
-import { CategoryStatsData, RadarData } from "../lib/types"
-import { getCategoriesStats } from "../services/client/gradedCategoryClient"
+import { RadarData } from "../lib/types"
+import { StatsPageData } from "./api/stats"
 
-const getUserScore = async () => {
-  const res = await axios.get<{ score: number | null }>("/api/score")
+const getStatsPage = async () => {
+  const res = await axios.get<StatsPageData>("/api/stats")
   return res.data
 }
 
 const Stats = () => {
-  // TODO make a hook for multiple queries
-  const { data, escape, component } = useAuthQuery(
-    "categoryStats",
-    getCategoriesStats
-  )
-  const { data: data2, escape: escape2 } = useAuthQuery("score", getUserScore)
+  const { data, escape, component } = useAuthQuery("statsPage", getStatsPage)
 
-  if (escape || escape2) return component
+  if (escape) return component
 
-  const categoryData = data as CategoryStatsData
-  const score = data2.score as number | null
+  const { categoryData, score } = data as StatsPageData
 
   if (!score) return <NoExamsTaken page="stats" />
 

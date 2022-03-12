@@ -6,7 +6,7 @@ import { getUsersGradedCategoriesWithAverage } from "../../services/server/grade
 import { findUserById } from "../../services/server/userService"
 
 export type StatsPageData = {
-  categoriesData: CategoryStatsData
+  categoryData: CategoryStatsData
   score: number | null
 }
 
@@ -18,11 +18,11 @@ const GET = async (
   const { unauthorized, userId, response } = await authUserSession(req, res)
   if (unauthorized) return response
 
-  const averages = await getUsersGradedCategoriesWithAverage(userId)
+  const categoryData = await getUsersGradedCategoriesWithAverage(userId)
   const user = (await findUserById(userId)) as User
 
   const data = {
-    categoriesData: averages,
+    categoryData,
     score: user.score,
   }
 
