@@ -4,7 +4,6 @@ import { Field, Form, Formik, FormikHelpers, FormikProps } from "formik"
 import toast from "react-hot-toast"
 import * as yup from "yup"
 import notifyError from "../../lib/notifyError"
-import { UserProfile } from "../../lib/types"
 import { updateProfile } from "../../services/client/profileClient"
 import FormTextField from "./FormTextField"
 

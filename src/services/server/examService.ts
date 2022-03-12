@@ -1,10 +1,5 @@
 import _ from "lodash"
-import {
-  ExamWithProblems,
-  Numbered,
-  ProblemJson,
-  ProblemSubmission,
-} from "../../lib/types"
+import { Numbered, ProblemJson } from "../../lib/types"
 import { prisma } from "../../prisma/client"
 import { getUsersGradedExams } from "./gradedExamService"
 import { constructProblems } from "./problemService"

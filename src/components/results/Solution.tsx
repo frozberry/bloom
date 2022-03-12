@@ -1,6 +1,5 @@
-import { Typography, Divider, Box } from "@mui/material"
+import { Box, Divider, Typography } from "@mui/material"
 import { GradedProblem } from "@prisma/client"
-import Image from "next/image"
 import InputAnswer from "./solutions/InputAnswer"
 import MultipleChoiceAnswer from "./solutions/MultipleChoiceAnswer"
 

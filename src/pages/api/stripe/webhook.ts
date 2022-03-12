@@ -3,11 +3,9 @@ import Cors from "micro-cors"
 import { NextApiRequest, NextApiResponse } from "next"
 import Stripe from "stripe"
 import {
-  stripe,
   paymentSucceeded,
+  stripe,
 } from "../../../services/server/stripeService"
-import { findUserByEmail } from "../../../services/server/userService"
-import { prisma } from "../../../prisma/client"
 
 const webhookSecret: string = process.env.ENDPOINT_SECRET as string
 
