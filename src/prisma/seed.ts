@@ -68,11 +68,11 @@ const main = async () => {
   await createUsers()
   const exam = await createExamFromJson(problems)
   const user = (await findUserByEmail("pannicope@gmail.com")) as User
-  // const examSession = await createExamSession(user.id, exam.id)
-  // const seedAnswers = await createAnswers(exam)
+  const examSession = await createExamSession(user.id, exam.id)
+  const seedAnswers = await createAnswers(exam)
 
   console.log("Submitting exam")
-  // await submitExam(user.id, examSession.id, seedAnswers)
+  await submitExam(user.id, examSession.id, seedAnswers)
   console.log("Done")
 }
 
