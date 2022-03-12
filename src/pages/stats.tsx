@@ -1,6 +1,5 @@
 import { Container, Typography } from "@mui/material"
 import Radar from "../components/graphs/Radar"
-import StatsRadar from "../components/StatsRadar"
 import useAuthQuery from "../hooks/useAuthQuery"
 import displayCategory from "../lib/displayCategory"
 import { CategoryStatsData, RadarData } from "../lib/types"
