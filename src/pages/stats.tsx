@@ -18,11 +18,7 @@ const Stats = () => {
     "categoryStats",
     getCategoriesStats
   )
-  const {
-    data: data2,
-    escape: escape2,
-    component: component2,
-  } = useAuthQuery("score", getCategoriesStats)
+  const { data: data2, escape: escape2 } = useAuthQuery("score", getUserScore)
 
   if (escape || escape2) return component
 
@@ -57,10 +53,6 @@ const Stats = () => {
 
   return (
     <Container sx={{ mt: 3 }}>
-      <Container
-        maxWidth="sm"
-        style={{ marginTop: 20, marginBottom: 20 }}
-      ></Container>
       <PercentileRating score={score} />
       <Typography>
         Only 1 in 10 children who take the 11+ exam get into grammar schools.
