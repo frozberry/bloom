@@ -7,7 +7,10 @@ import {
   deleteUsersExamSession,
   findExamSessionById,
 } from "./examSessionService"
-import { updateGradedCategories } from "./gradedCategoryService"
+import {
+  createUsersGradedCategories,
+  updateGradedCategories,
+} from "./gradedCategoryService"
 import { constructGradedProblems } from "./gradedProblemService"
 import { updateUserScore } from "./userService"
 
@@ -111,9 +114,11 @@ export const submitExam = async (
 
   if (!newGradedExam) throw new Error("Graded Exam not created")
 
+  await createUsersGradedCategories(userId)
+
   if (firstAttempt) {
-    updateGradedCategories(userId, newGradedExam.gradedProblems)
-    updateUserScore(userId)
+    await updateGradedCategories(userId, newGradedExam.gradedProblems)
+    await updateUserScore(userId)
   }
 
   await deleteUsersExamSession(userId)

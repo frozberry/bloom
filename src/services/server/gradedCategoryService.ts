@@ -18,6 +18,21 @@ export const getUsersGradedCategories = async (userId: string) => {
   return gradedCatergories
 }
 
+export const createUsersGradedCategories = async (userId: string) => {
+  const existing = await getUsersGradedCategories(userId)
+  if (existing.length === 0) {
+    const categories = Object.values(Category)
+    const data = categories.map((category) => {
+      return {
+        userId,
+        category,
+      }
+    })
+
+    await prisma.gradedCategory.createMany({ data })
+  }
+}
+
 // TODO blindly copied and pasted - not sure if working. Compare with live api
 export const getCatergoriesAverage = async () => {
   const gradedCategories = await prisma.gradedCategory.findMany({

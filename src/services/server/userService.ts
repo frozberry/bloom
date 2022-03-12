@@ -32,6 +32,7 @@ export const createUser = async (
     data: { name: parentName.trim(), email: email.trim(), passwordHash },
   })
 
+  // TODO no longer needs to send token
   const token = jwt.sign(
     { id: user.id, email: user.email },
     // eslint-disable-next-line
