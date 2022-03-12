@@ -127,6 +127,7 @@ export const submitExam = async (
       gradedProblems: true,
     },
   })
+
   if (!newGradedExam) throw new Error("Graded Exam not created")
 
   if (firstAttempt) {

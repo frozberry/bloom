@@ -21,6 +21,7 @@ export const deleteProblem = async (id: string): Promise<boolean> => {
   return true
 }
 
+// Constructs the problems from input JSON
 export const constructProblems = (
   inputProblems: any[]
 ): Prisma.ProblemCreateInput[] => {
