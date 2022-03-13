@@ -1,6 +1,6 @@
 import { ResponsiveLine } from "@nivo/line"
 
-const PercentileGraph = ({ data }) => {
+const PercentileGraph = ({ data }: any) => {
   return (
     <div style={{ height: 400, fontFamily: "Roboto", marginTop: 20 }}>
       <ResponsiveLine
