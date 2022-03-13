@@ -63,7 +63,7 @@ const LoginForm = ({ setLoading }: Props) => {
       onSubmit={onSubmit}
     >
       {(formikProps: FormikProps<FormValues>) => (
-        <Form noValidate autoComplete="off">
+        <Form noValidate>
           <Box>
             <Typography variant="subtitle2">Parent's Email</Typography>
             <Field

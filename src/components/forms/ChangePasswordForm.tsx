@@ -41,11 +41,13 @@ const ChangePasswordForm = () => {
       onSubmit={onSubmit}
     >
       {(formikProps: FormikProps<FormValues>) => (
-        <Form noValidate autoComplete="off">
+        <Form noValidate>
           <Box>
             <Typography variant="subtitle2">Current password</Typography>
             <Field
               name="currentPassword"
+              id="currentPassword"
+              autoComplete="current-password"
               placeholder="********"
               type="password"
               size="small"
@@ -58,6 +60,8 @@ const ChangePasswordForm = () => {
             <Typography variant="subtitle2">New password</Typography>
             <Field
               name="newPassword"
+              id="new-password"
+              autoComplete="new-password"
               placeholder="********"
               type="password"
               size="small"
