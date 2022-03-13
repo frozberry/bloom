@@ -62,7 +62,7 @@ export default function App() {
         onClick={() => handleBilling(account.stripeId)}
         sx={{ mt: 4, mb: 8 }}
       >
-        Payments portal
+        Membership portal
       </Button>
     </Container>
   )
