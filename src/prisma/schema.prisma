@@ -46,7 +46,7 @@ model User {
 model Exam {
   id           String        @id @default(uuid())
   num          Int           @unique
-  date         DateTime      @default(now())
+  createdAt    DateTime      @default(now())
   problems     Problem[]
   gradedExams  GradedExam[]
   examSessions ExamSession[]
@@ -61,7 +61,7 @@ model Problem {
   unit          String?
   num           Int
   img           String?
-  date          DateTime        @default(now())
+  createdAt     DateTime        @default(now())
   exam          Exam            @relation(fields: [examId], references: [id], onDelete: Cascade)
   examId        String
   categories    Category[]
