@@ -1,4 +1,3 @@
-import { GradeRounded } from "@mui/icons-material"
 import { Container } from "@mui/material"
 import NoExamsTaken from "../components/NoExamsTaken"
 import SingleAttempt from "../components/results/SingleExamAttempt"

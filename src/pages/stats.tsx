@@ -31,8 +31,6 @@ const Stats = () => {
     }
   })
 
-  const name = "your child"
-
   return (
     <Container sx={{ mt: 3 }}>
       <PercentileRating score={score} />
