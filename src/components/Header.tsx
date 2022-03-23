@@ -111,6 +111,7 @@ const Header = () => {
                 alt="Waterfront"
                 width={154}
                 height={20}
+                priority
               />
             </Box>
           </Link>
