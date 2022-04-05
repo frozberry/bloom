@@ -7,38 +7,8 @@ type Props = {
   score: number
 }
 
-type LineData = {
-  id: string
-  data: PointData[]
-}
-
-type PointData = {
-  x: number
-  y: number
-}
-
 const PercentileRating = ({ score }: Props) => {
   const normalDistribution = createNormalDistribution()
-
-  const data: LineData[] = [
-    {
-      id: "Waterfront students",
-      data: normalDistribution,
-    },
-    {
-      id: "Your child",
-      data: [
-        {
-          x: score,
-          y: 0,
-        },
-        {
-          x: score,
-          y: 100,
-        },
-      ],
-    },
-  ]
 
   const totalStudents = normalDistribution.reduce((acc, d) => acc + d.y, 0)
   const betterThan = normalDistribution
@@ -65,7 +35,7 @@ const PercentileRating = ({ score }: Props) => {
         A new test is released every week.
       </Typography>
 
-      <PercentileGraph data={data} />
+      <PercentileGraph score={score} />
     </Box>
   )
 }

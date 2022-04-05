@@ -4,6 +4,8 @@ import Container from "@mui/material/Container"
 import LandingRadar from "./LandingRadar"
 import LandingLineProgress from "./LandingLineProgress"
 import Image from "next/image"
+import PercentileRating from "../PercentileRating"
+import PercentileGraph from "../graphs/PercentileGraph"
 
 const LandingGraphs = () => {
   return (
@@ -47,6 +49,8 @@ const LandingGraphs = () => {
           For every 10 children who take the 11+ exam, only one child gets a
           grammar school spot.
         </Typography>
+
+        <PercentileGraph score={92} />
       </Box>
 
       <Box sx={{ mt: 7 }}>

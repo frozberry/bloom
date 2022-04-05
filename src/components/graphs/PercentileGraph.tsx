@@ -1,6 +1,43 @@
 import { ResponsiveLine } from "@nivo/line"
+import createNormalDistribution from "../../lib/createNormalDistribution"
 
-const PercentileGraph = ({ data }: any) => {
+type Props = {
+  score: number
+}
+
+type LineData = {
+  id: string
+  data: PointData[]
+}
+
+type PointData = {
+  x: number
+  y: number
+}
+
+const PercentileGraph = ({ score }: Props) => {
+  const normalDistribution = createNormalDistribution()
+
+  const data: LineData[] = [
+    {
+      id: "Waterfront students",
+      data: normalDistribution,
+    },
+    {
+      id: "Your child",
+      data: [
+        {
+          x: score,
+          y: 0,
+        },
+        {
+          x: score,
+          y: 100,
+        },
+      ],
+    },
+  ]
+
   return (
     <div style={{ height: 400, fontFamily: "Roboto", marginTop: 20 }}>
       <ResponsiveLine
