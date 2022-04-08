@@ -26,6 +26,7 @@
     "@emotion/react": "^11.6.0",
     "@emotion/server": "^11.4.0",
     "@emotion/styled": "^11.6.0",
+    "@fontsource/inter": "^4.5.7",
     "@mui/icons-material": "^5.2.5",
     "@mui/material": "^5.4.2",
     "@next-auth/prisma-adapter": "^1.0.1",

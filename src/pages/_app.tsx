@@ -11,6 +11,7 @@ import Header from "../components/Header"
 import createEmotionCache from "../lib/createEmotionCache"
 import "../styles.css"
 import theme from "../styles/theme"
+import "@fontsource/inter"
 
 const queryClient = new QueryClient()
 

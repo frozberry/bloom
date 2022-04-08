@@ -24,6 +24,10 @@ u {
   color: #232129;
 } */
 
+p {
+  font-family: "Inter";
+}
+
 /* Hide number input field */
 input[type="number"] {
   -moz-appearance: textfield;

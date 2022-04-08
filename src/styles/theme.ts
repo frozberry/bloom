@@ -33,10 +33,12 @@ let theme = createTheme({
     },
   },
   typography: {
+    fontFamily: "Inter",
     body1: {
       // fontSize: "1.25rem",
       // lineHeight: 1.8,
       // marginBottom: 24,
+      // fontFamily: "Inter",
     },
     h1: {
       letterSpacing: 1.5,
