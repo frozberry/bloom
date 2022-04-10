@@ -12,7 +12,7 @@ const HowItWorks = () => {
       }}
     >
       <Container maxWidth="lg">
-        <Typography variant="h4" align="center" sx={{ mb: 20 }}>
+        <Typography variant="h4" align="center" sx={{ mb: 4 }}>
           <b>How it works</b>
         </Typography>
 
