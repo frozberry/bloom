@@ -32,8 +32,7 @@ const HowItWorks = () => {
               1
             </Typography>
             <Typography align="center" paragraph sx={{ fontSize: 22 }}>
-              Projects receive up to $1M funding. They apply in 15 minutes and
-              get a decision within a few days.
+              Every week your child completes an 11+ maths exam on our website
             </Typography>
           </Box>
           <Box sx={{ m: 1, width: { xs: "auto", sm: "33%" } }}>
