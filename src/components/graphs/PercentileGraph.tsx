@@ -20,7 +20,7 @@ const PercentileGraph = ({ score }: Props) => {
 
   const data: LineData[] = [
     {
-      id: "Waterfront students",
+      id: "Bloom students",
       data: normalDistribution,
     },
     {
@@ -61,7 +61,7 @@ const PercentileGraph = ({ score }: Props) => {
           tickSize: 5,
           tickPadding: 5,
           tickRotation: 0,
-          legend: "Waterfront results",
+          legend: "Bloom results",
           legendOffset: 36,
           legendPosition: "middle",
         }}

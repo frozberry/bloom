@@ -19,12 +19,12 @@ const PercentileRating = ({ score }: Props) => {
   return (
     <Box sx={{ mb: 3 }}>
       <Typography variant="h2" sx={{ textAlign: "center", my: 2 }}>
-        You child scored higher than {percentile}% of Waterfront students.
+        You child scored higher than {percentile}% of Bloom students.
       </Typography>
 
       <Typography sx={{ textAlign: "center", my: 2 }}>
         You child has an average score of <b>{Math.round(score)}%</b> across his
-        Waterfront tests.
+        Bloom tests.
       </Typography>
 
       <Typography sx={{ textAlign: "center", my: 2 }}>

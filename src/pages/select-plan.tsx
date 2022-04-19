@@ -38,7 +38,7 @@ const SelectPlan = ({ canceled = false }: { canceled: boolean }) => {
           mb: 3,
         }}
       >
-        Please choose a plan to continue using Waterfront
+        Please choose a plan to continue using Bloom
       </Alert>
       <Container>
         <Typography

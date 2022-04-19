@@ -98,7 +98,7 @@ const PrivacyPolicy = () => {
         </li>
         <li>
           <p>
-            <strong>Website</strong> refers to Waterfront, accessible from{" "}
+            <strong>Website</strong> refers to Bloom, accessible from{" "}
             <a
               href="https://waterfrontlearn.com"
               rel="noreferrer"

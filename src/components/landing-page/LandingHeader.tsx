@@ -72,7 +72,7 @@ const LandingHeader = () => {
                       },
                     }}
                   >
-                    Try Waterfront free for 14-days
+                    Try Bloom free for 14-days
                   </Typography>
                 </Box>
               </Button>
@@ -91,7 +91,7 @@ const LandingHeader = () => {
             >
               <Image
                 src="/boy.png"
-                alt="Waterfront logo"
+                alt="Bloom logo"
                 layout="responsive"
                 width={512}
                 height={512}

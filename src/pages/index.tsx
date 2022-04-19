@@ -5,7 +5,7 @@ import HowItWorks from "../components/landing-page/HowItWorks"
 import LandingFooter from "../components/landing-page/LandingFooter"
 import LandingGraphs from "../components/landing-page/LandingGraphs"
 import LandingHeader from "../components/landing-page/LandingHeader"
-import WhatsWaterfront from "../components/landing-page/WhatsWaterfront"
+import WhatsBloom from "../components/landing-page/WhatsBloom"
 
 const LandingPage = () => {
   const router = useRouter()
@@ -20,7 +20,7 @@ const LandingPage = () => {
   return (
     <>
       <LandingHeader />
-      <WhatsWaterfront />
+      <WhatsBloom />
       <HowItWorks />
       <LandingGraphs />
       <LandingFooter />

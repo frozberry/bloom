@@ -22,7 +22,7 @@ export default function App() {
           <Box sx={{ width: 40, mx: "auto" }}>
             <Image
               src="/logo.png"
-              alt="Waterfront"
+              alt="Bloom"
               layout="responsive"
               width={512}
               height={512}
@@ -30,7 +30,7 @@ export default function App() {
           </Box>
           <Typography variant="h2">Create an account</Typography>
           <Typography variant="body1" sx={{ textAlign: "center", mt: 1 }}>
-            Join Waterfront to start working towards your child's grammar school
+            Join Bloom to start working towards your child's grammar school
             placement school today today.
           </Typography>
         </Box>

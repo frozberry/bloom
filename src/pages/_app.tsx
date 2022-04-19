@@ -35,7 +35,7 @@ export default function MyApp(props: MyAppProps) {
   return (
     <CacheProvider value={emotionCache}>
       <Head>
-        <title>Waterfront 11+ Exam Preparation</title>
+        <title>Bloom 11+ Exam Preparation</title>
         <meta name="viewport" content="initial-scale=1, width=device-width" />
         <link rel="shortcut icon" href="/logo.png" />
       </Head>

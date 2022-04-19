@@ -17,7 +17,7 @@ const Questions = () => {
       </Typography>
       <Typography paragraph sx={{ mb: 3 }}>
         Your 14-Day Trial is completely free and gives you full access to the
-        Waterfront platform until <b>{date}</b>. Cancel any time.
+        Bloom platform until <b>{date}</b>. Cancel any time.
       </Typography>
       <Typography
         sx={{

@@ -18,8 +18,8 @@ const LandingGraphs = () => {
           color="textSecondary"
           sx={{ textAlign: "center", mb: 6, fontSize: 22 }}
         >
-          Experts recommend starting 11+ preparation in Year 3 - Waterfront lets
-          you easily visualise your child's progress
+          Experts recommend starting 11+ preparation in Year 3 - Bloom lets you
+          easily visualise your child's progress
         </Typography>
         <LandingLineProgress />
       </Box>

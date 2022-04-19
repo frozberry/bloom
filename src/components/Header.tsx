@@ -108,7 +108,7 @@ const Header = () => {
             >
               <Image
                 src="/logo-text.png"
-                alt="Waterfront"
+                alt="Bloom"
                 width={154}
                 height={20}
                 priority
