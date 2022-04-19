@@ -34,8 +34,8 @@ const LandingHeader = () => {
               variant="body1"
               sx={{ fontSize: 20, mb: 3, color: "#121D1E", lineHeight: 1.5 }}
             >
-              Only 1 in 10 children who take the 11+ get accepted to grammar
-              schools. See how your child ranks against the competition.
+              Only 1 in 10 children who take the 11+ exam get accepted to
+              grammar schools. See how your child ranks against the competition.
             </Typography>
             <Link href="/signup" passHref>
               <Button
