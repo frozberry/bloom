@@ -1,5 +1,13 @@
 import MenuIcon from "@mui/icons-material/Menu"
-import { AppBar, Box, Button, Menu, MenuItem, Toolbar } from "@mui/material"
+import {
+  AppBar,
+  Box,
+  Button,
+  Menu,
+  MenuItem,
+  Toolbar,
+  Typography,
+} from "@mui/material"
 import { signOut } from "next-auth/react"
 import Image from "next/image"
 import Link from "next/link"
@@ -107,12 +115,23 @@ const Header = () => {
               }}
             >
               <Image
-                src="/logo-text.png"
+                src="/rose.png"
                 alt="Bloom"
-                width={154}
-                height={20}
+                width={32}
+                height={32}
                 priority
               />
+            </Box>
+          </Link>
+
+          <Link href={session ? "/home" : "/"} passHref>
+            <Box sx={{ cursor: "pointer" }}>
+              <Typography
+                color="textPrimary"
+                sx={{ fontSize: 24, ml: 1, letterSpacing: 1 }}
+              >
+                <b>Bloom</b>
+              </Typography>
             </Box>
           </Link>
           {/* Somehow sets to the right of the app bar marginRight not needed here, but could play with positioning */}
