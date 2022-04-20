@@ -80,12 +80,8 @@ const Terms = () => {
         <li>
           <p>
             <strong>Website</strong> refers to Bloom, accessible from{" "}
-            <a
-              href="https://waterfrontlearn.com"
-              rel="noreferrer"
-              target="_blank"
-            >
-              https://waterfrontlearn.com
+            <a href="/" rel="noreferrer" target="_blank">
+              https://www.bloomlearn.co.uk
             </a>
           </p>
         </li>
@@ -292,7 +288,7 @@ const Terms = () => {
         contact us:
       </p>
       <ul>
-        <li>By email: support@waterfrontlearn.com</li>
+        <li>By email: support@bloomlearn.co.uk</li>
       </ul>
     </Container>
   )

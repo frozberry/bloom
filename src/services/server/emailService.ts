@@ -8,7 +8,7 @@ export const sendPasswordResetEmail = (userId: string, email: string) => {
   const client = new postmark.ServerClient(process.env.POSTMARK_SECRET!)
 
   client.sendEmailWithTemplate({
-    From: "support@waterfrontlearn.com",
+    From: "support@bloomlearn.co.uk",
     To: email,
     TemplateAlias: "password-reset",
     TemplateModel: {

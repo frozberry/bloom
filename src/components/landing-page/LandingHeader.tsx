@@ -64,7 +64,7 @@ const LandingHeader = () => {
                     variant="body2"
                     sx={{
                       fontSize: "1rem",
-                      color: "white",
+                      olor: "white",
                       mb: 0,
                       display: {
                         xs: "none",
