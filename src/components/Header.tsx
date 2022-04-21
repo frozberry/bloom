@@ -128,7 +128,7 @@ const Header = () => {
             <Box sx={{ cursor: "pointer" }}>
               <Typography
                 color="textPrimary"
-                sx={{ fontSize: 24, ml: 1, letterSpacing: 1 }}
+                sx={{ fontSize: 24, ml: 1, letterSpacing: 1, fontWeight: 700 }}
               >
                 <b>Bloom</b>
               </Typography>
