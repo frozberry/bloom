@@ -11,11 +11,6 @@ import Header from "../components/Header"
 import createEmotionCache from "../lib/createEmotionCache"
 import "../styles.css"
 import theme from "../styles/theme"
-import "@fontsource/inter/300.css"
-import "@fontsource/inter/400.css"
-import "@fontsource/inter/500.css"
-import "@fontsource/inter/700.css"
-
 const queryClient = new QueryClient()
 
 // Client-side cache, shared for the whole session of the user in the browser.
