@@ -29,6 +29,8 @@ const useAuthQuery = (
 ) => {
   const query = useQuery(key, queryFn)
   const { session } = useSession()
+
+  // Only check user is active every 3 hours to reduce api calls
   const activeQuery = useQuery("active", checkUserActive, {
     staleTime: 3 * 60 * 60 * 1000,
   })
@@ -56,6 +58,7 @@ const useAuthQuery = (
     return payload
   }
 
+  // If user subscription is invalid on a page that requires a valid sub
   if (!activeQuery?.data?.active && !allowInactive) {
     payload.escape = true
     payload.component = <NoSub />
