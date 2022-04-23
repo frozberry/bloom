@@ -41,6 +41,7 @@ const LoggedIn = () => {
   const handleLogout = () => {
     signOut({ callbackUrl: `${process.env.NEXT_PUBLIC_URL}/login` })
   }
+  
   return (
     <Box>
       <Box sx={{ display: { xs: "none", sm: "initial" } }}>

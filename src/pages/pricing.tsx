@@ -1,9 +1,18 @@
 import { Box, Container, Typography } from "@mui/material"
+import Router from "next/router"
 import Bullets from "../components/select-plan/Bullets"
 import PlanOption from "../components/select-plan/PlanOption"
 import Questions from "../components/select-plan/SubscriptionQuestions"
 
 const SelectPlan = () => {
+  // This could be a Link
+  // But it was quicker to use a function since
+  // The shared component uses onClick
+
+  const onClick = () => {
+    Router.push("/signup")
+  }
+
   return (
     <Container sx={{ mt: 4 }}>
       <Typography
@@ -35,15 +44,11 @@ const SelectPlan = () => {
           alignItems: "center",
         }}
       >
-        <PlanOption
-          title="Monthly"
-          price="£19.99 / month"
-          // onClick={() => handleCheckout("month")}
-        />
+        <PlanOption title="Monthly" price="£19.99 / month" onClick={onClick} />
         <PlanOption
           title="Annual (2 months free)"
-          price="£16.99 / month"
-          // onClick={() => handleCheckout("year")}
+          price="£16.99/ month"
+          onClick={onClick}
         />
       </Box>
 
@@ -58,7 +63,7 @@ const SelectPlan = () => {
         <Questions />
         <Bullets />
       </Container>
-    </Container>
+    </Container> //
   )
 }
 
