@@ -1,34 +1,29 @@
 import { Box, Button, Typography } from "@mui/material"
 import axios from "axios"
 import { Field, Form, Formik, FormikHelpers, FormikProps } from "formik"
-import { signIn } from "next-auth/react"
-import { Dispatch, SetStateAction } from "react"
+import toast from "react-hot-toast"
 import * as yup from "yup"
 import notifyError from "../../lib/notifyError"
 import FormTextField from "./FormTextField"
 
-// User already has a Google account, but tries to sign in with login
-// User already has login, but tries to sign in with Google
-// Account doesn't exist at all
-
-type Props = {
-  setLoading: Dispatch<SetStateAction<boolean>>
-}
-
-const LoginForm = ({ setLoading }: Props) => {
+const ContactForm = () => {
   type FormValues = {
+    name: string
     email: string
-    password: string
+    message: string
   }
 
   const initialValues = {
+    name: "",
     email: "",
-    password: "",
+    message: "",
   }
 
   const validationSchema = yup.object().shape({
+    name: yup.string().required("Required"),
     email: yup.string().required("Required").email("Invalid email"),
-    password: yup.string().required("Required"),
+
+    message: yup.string().required("Required"),
   })
 
   const onSubmit = async (
@@ -36,25 +31,18 @@ const LoginForm = ({ setLoading }: Props) => {
     formikHelpers: FormikHelpers<FormValues>
   ) => {
     try {
-      setLoading(true)
-      await axios.post("/api/auth/verify-login", {
+      await axios.post("/api/messages", {
+        name: values.email,
         email: values.email,
-        password: values.password,
+        message: values.message,
       })
-      await signIn("credentials", {
-        email: values.email,
-        password: values.password,
-        callbackUrl,
-      })
-      setLoading(false)
+      toast.success("Thank you for your message, we'll be in touch shortly")
+      formikHelpers.resetForm()
     } catch (e) {
       notifyError(e)
       formikHelpers.setSubmitting(false)
-      setLoading(false)
     }
   }
-
-  const callbackUrl = "/home"
 
   return (
     <Formik
@@ -65,7 +53,19 @@ const LoginForm = ({ setLoading }: Props) => {
       {(formikProps: FormikProps<FormValues>) => (
         <Form noValidate>
           <Box>
-            <Typography variant="subtitle2">Parent's Email</Typography>
+            <Typography variant="subtitle2">Name</Typography>
+            <Field
+              name="name"
+              placeholder="Name"
+              size="small"
+              autoComplete="name"
+              component={FormTextField}
+              fullWidth
+              sx={{ mb: 2 }}
+            />
+          </Box>
+          <Box>
+            <Typography variant="subtitle2">Email</Typography>
             <Field
               name="email"
               placeholder="Email"
@@ -77,16 +77,17 @@ const LoginForm = ({ setLoading }: Props) => {
             />
           </Box>
           <Box>
-            <Typography variant="subtitle2">Password</Typography>
+            <Typography variant="subtitle2">Message</Typography>
             <Field
-              name="password"
-              placeholder="********"
-              type="password"
+              name="message"
+              placeholder="Message"
               size="small"
-              autoComplete="password"
               component={FormTextField}
               fullWidth
               sx={{ mb: 2 }}
+              multiline={true}
+              minRows={6}
+              maxRows={30}
             />
           </Box>
           <Button
@@ -106,4 +107,4 @@ const LoginForm = ({ setLoading }: Props) => {
   )
 }
 
-export default LoginForm
+export default ContactForm
