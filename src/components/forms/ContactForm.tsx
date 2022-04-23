@@ -30,10 +30,11 @@ const ContactForm = () => {
     formikHelpers: FormikHelpers<FormValues>
   ) => {
     try {
-      // await axios.post("/api/auth/verify-login", {
-      //   email: values.email,
-      //   password: values.password,
-      // })
+      await axios.post("/api/messages", {
+        name: values.email,
+        email: values.email,
+        message: values.message,
+      })
       toast.success("Thank you for your message, we'll be in touch shortly")
       formikHelpers.resetForm()
     } catch (e) {
