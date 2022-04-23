@@ -3,7 +3,7 @@ import {
   Container,
   Divider,
   LinearProgress,
-  Typography
+  Typography,
 } from "@mui/material"
 import Link from "next/link"
 import { useState } from "react"

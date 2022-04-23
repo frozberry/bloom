@@ -7,7 +7,7 @@ const FullSize = () => {
   return (
     <Box sx={{ display: { xs: "none", sm: "initial" } }}>
       <HeaderLink link="/pricing">Pricing</HeaderLink>
-      <HeaderLink link="/login">Contact</HeaderLink>
+      <HeaderLink link="/contact">Contact</HeaderLink>
       <HeaderLink link="/login">Log in</HeaderLink>
       <HeaderLink link="/signup" emphasis={true}>
         Get Started
