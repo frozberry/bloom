@@ -84,7 +84,8 @@ const ContactForm = () => {
               fullWidth
               sx={{ mb: 2 }}
               multiline={true}
-              rows={4}
+              minRows={6}
+              maxRows={30}
             />
           </Box>
           <Button
