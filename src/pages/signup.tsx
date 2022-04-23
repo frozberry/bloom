@@ -19,15 +19,6 @@ export default function App() {
       {loading && <LinearProgress />}
       <Container maxWidth="xs">
         <Box sx={{ my: 4 }}>
-          <Box sx={{ width: 40, mx: "auto" }}>
-            <Image
-              src="/logo.png"
-              alt="Bloom"
-              layout="responsive"
-              width={512}
-              height={512}
-            />
-          </Box>
           <Typography variant="h2">Create an account</Typography>
           <Typography variant="body1" sx={{ textAlign: "center", mt: 1 }}>
             Join Bloom to start working towards your child's grammar school
