@@ -14,15 +14,57 @@ import Link from "next/link"
 import { useState } from "react"
 import { useSession } from "../hooks/useSession"
 
-type Props = {
+type LinkProps = {
   link: string
   children: string
+  emphasis?: boolean
 }
-const HeaderItem = (props: Props) => {
+
+type FunctionProps = {
+  // TODO use function type
+  onClick: any
+  children: string
+  emphasis?: boolean
+}
+
+type ButtonProps = {
+  onClick?: any
+  children: string
+  emphasis?: boolean
+}
+
+const HeaderButton = ({ onClick, emphasis, children }: ButtonProps) => {
   return (
-    <Link href={props.link} passHref>
-      <Button sx={{ color: "black" }}>{props.children}</Button>
+    <Button
+      variant={emphasis ? "contained" : "text"}
+      color="primary"
+      onClick={onClick}
+      sx={{
+        color: emphasis ? "white" : "black",
+        textTransform: "none",
+        px: 3,
+        ml: emphasis ? 3 : 0,
+        fontSize: "1rem",
+      }}
+    >
+      {children}
+    </Button>
+  )
+}
+
+const HeaderLink = ({ link, children, emphasis }: LinkProps) => {
+  return (
+    <Link href={link} passHref>
+      <HeaderButton emphasis={emphasis}>{children}</HeaderButton>
     </Link>
+  )
+}
+
+const HeaderFunction = ({ onClick, children, emphasis }: FunctionProps) => {
+  return (
+    <HeaderButton onClick={onClick} emphasis={emphasis}>
+      {children}
+    </HeaderButton>
   )
 }
 
@@ -41,16 +83,14 @@ const LoggedIn = () => {
   const handleLogout = () => {
     signOut({ callbackUrl: `${process.env.NEXT_PUBLIC_URL}/login` })
   }
-  
+
   return (
     <Box>
       <Box sx={{ display: { xs: "none", sm: "initial" } }}>
-        <HeaderItem link="/results">Results</HeaderItem>
-        <HeaderItem link="/stats">Stats</HeaderItem>
-        <HeaderItem link="/account">Account</HeaderItem>
-        <Button sx={{ color: "black" }} onClick={handleLogout}>
-          Log out
-        </Button>
+        <HeaderLink link="/results">Results</HeaderLink>
+        <HeaderLink link="/stats">Stats</HeaderLink>
+        <HeaderLink link="/account">Account</HeaderLink>
+        <HeaderFunction onClick={handleLogout}>Log out</HeaderFunction>
       </Box>
 
       <Box sx={{ display: { xs: "initial", sm: "none" } }}>
@@ -74,13 +114,13 @@ const LoggedIn = () => {
           }}
         >
           <MenuItem onClick={handleClose}>
-            <HeaderItem link="/results">Results</HeaderItem>
+            <HeaderLink link="/results">Results</HeaderLink>
           </MenuItem>
           <MenuItem onClick={handleClose}>
-            <HeaderItem link="/stats">Stats</HeaderItem>
+            <HeaderLink link="/stats">Stats</HeaderLink>
           </MenuItem>
           <MenuItem onClick={handleClose}>
-            <HeaderItem link="/account">Account</HeaderItem>
+            <HeaderLink link="/account">Account</HeaderLink>
           </MenuItem>
           <MenuItem onClick={handleClose}>
             <Button sx={{ color: "black" }} onClick={handleLogout}>
@@ -95,8 +135,12 @@ const LoggedIn = () => {
 
 const LoggedOut = () => (
   <>
-    <HeaderItem link="/login">Log in</HeaderItem>
-    <HeaderItem link="/signup">Get Started</HeaderItem>
+    <HeaderLink link="/pricing">Pricing</HeaderLink>
+    <HeaderLink link="/login">Contact</HeaderLink>
+    <HeaderLink link="/login">Log in</HeaderLink>
+    <HeaderLink link="/signup" emphasis={true}>
+      Get Started
+    </HeaderLink>
   </>
 )
 
