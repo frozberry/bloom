@@ -2,7 +2,7 @@ import MenuIcon from "@mui/icons-material/Menu"
 import { Box, Button, Menu, MenuItem } from "@mui/material"
 import { signOut } from "next-auth/react"
 import { useState } from "react"
-import { HeaderFunction, HeaderLink } from "./HeaderComponents"
+import { HeaderButton, HeaderLink } from "./HeaderComponents"
 
 const LoggedIn = () => {
   const [anchorEl, setAnchorEl] = useState(null)
@@ -26,7 +26,7 @@ const LoggedIn = () => {
         <HeaderLink link="/results">Results</HeaderLink>
         <HeaderLink link="/stats">Stats</HeaderLink>
         <HeaderLink link="/account">Account</HeaderLink>
-        <HeaderFunction onClick={handleLogout}>Log out</HeaderFunction>
+        <HeaderButton onClick={handleLogout}>Log out</HeaderButton>
       </Box>
 
       <Box sx={{ display: { xs: "initial", sm: "none" } }}>

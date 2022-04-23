@@ -39,6 +39,7 @@ const Header = () => {
             </Typography>
           </Box>
         </Link>
+
         {/* Somehow sets to the right of the app bar marginRight not needed here, but could play with positioning */}
         <section style={{ marginLeft: "auto", marginRight: 0 }}>
           {session ? <LoggedIn /> : <LoggedOut />}

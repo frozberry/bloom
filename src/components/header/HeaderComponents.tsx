@@ -7,13 +7,6 @@ type LinkProps = {
   emphasis?: boolean
 }
 
-type FunctionProps = {
-  // TODO use function type
-  onClick: any
-  children: string
-  emphasis?: boolean
-}
-
 type ButtonProps = {
   onClick?: any
   children: string
@@ -44,17 +37,5 @@ export const HeaderLink = ({ link, children, emphasis }: LinkProps) => {
     <Link href={link} passHref>
       <HeaderButton emphasis={emphasis}>{children}</HeaderButton>
     </Link>
-  )
-}
-
-export const HeaderFunction = ({
-  onClick,
-  children,
-  emphasis,
-}: FunctionProps) => {
-  return (
-    <HeaderButton onClick={onClick} emphasis={emphasis}>
-      {children}
-    </HeaderButton>
   )
 }
