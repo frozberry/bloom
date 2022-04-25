@@ -1,18 +1,17 @@
-import postmark from "postmark"
+import * as postmark from "postmark"
 import { passwordResetUrl } from "./accountService"
 
-export const sendPasswordResetEmail = (userId: string, email: string) => {
+export const sendPasswordResetEmail = async (userId: string, email: string) => {
   const url = passwordResetUrl(userId)
 
   // eslint-disable-next-line
   const client = new postmark.ServerClient(process.env.POSTMARK_SECRET!)
 
-  client.sendEmailWithTemplate({
-    From: "support@bloomlearn.co.uk",
+  client.sendEmail({
+    From: "Bloom<support@bloomlearn.co.uk>j",
     To: email,
-    TemplateAlias: "password-reset",
-    TemplateModel: {
-      url,
-    },
+    Subject: "Bloom password reset",
+    HtmlBody: `<html><body>Password reset ${url}</body></html>`,
+    MessageStream: "outbound",
   })
 }

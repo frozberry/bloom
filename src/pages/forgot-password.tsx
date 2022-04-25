@@ -1,4 +1,5 @@
 import { Box, Button, Container, Typography } from "@mui/material"
+import axios from "axios"
 import { Field, Form, Formik, FormikHelpers, FormikProps } from "formik"
 import * as yup from "yup"
 import FormTextField from "../components/forms/FormTextField"
@@ -16,11 +17,11 @@ export default function App() {
     email: yup.string().required("Required"),
   })
 
-  const onSubmit = (
+  const onSubmit = async (
     values: FormValues,
     formikHelpers: FormikHelpers<FormValues>
   ) => {
-    alert(values.email)
+    await axios.post("/api/emails", { email: values.email })
     formikHelpers.setSubmitting(false)
   }
 

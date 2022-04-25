@@ -56,7 +56,7 @@ export const resetPassword = async (password: string, token: string) => {
   return updatedUser
 }
 
-export const passwordResetUrl = async (userId: string): Promise<string> => {
+export const passwordResetUrl = (userId: string): string => {
   const oneDay = 1000 * 60 * 60 * 24
   const token = jwt.sign(
     {
@@ -66,6 +66,6 @@ export const passwordResetUrl = async (userId: string): Promise<string> => {
     // eslint-disable-next-line
     process.env.JWT_SECRET!
   )
-  const url = `${process.env.FRONTEND_URL}/reset-password/${token}`
+  const url = `${process.env.NEXT_PUBLIC_URL}/reset-password/${token}`
   return url
 }
