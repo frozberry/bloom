@@ -40,7 +40,8 @@ const HowItWorks = () => {
               2
             </Typography>
             <Typography align="center" paragraph sx={{ fontSize: 22 }}>
-              Every week your child completes an 11+ maths exam on our website
+              Compare their results to other children competing for grammar
+              school spots
             </Typography>
           </Box>
           <Box sx={{ m: 1, width: { xs: "auto", sm: "33%" } }}>
@@ -48,7 +49,8 @@ const HowItWorks = () => {
               3
             </Typography>
             <Typography align="center" paragraph sx={{ fontSize: 22 }}>
-              Every week your child completes an 11+ maths exam on our website
+              Use our data-driven insights to give you the insights to perfect
+              your child's preparation
             </Typography>
           </Box>
         </Container>
