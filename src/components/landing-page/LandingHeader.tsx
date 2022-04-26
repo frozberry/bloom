@@ -5,6 +5,7 @@ import Container from "@mui/material/Container"
 import Grid from "@mui/material/Grid"
 import Image from "next/image"
 import Link from "next/link"
+import VideoPlayer from "../VideoPlayer"
 
 const LandingHeader = () => {
   return (

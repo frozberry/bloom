@@ -1,9 +1,11 @@
 import Typography from "@mui/material/Typography"
 import Container from "@mui/material/Container"
+import VideoPlayer from "../VideoPlayer"
 
 const WhatsBloom = () => {
   return (
-    <Container maxWidth="sm" style={{ paddingTop: 40, paddingBottom: 40 }}>
+    // <Container maxWidth="md" style={{ paddingTop: 40, paddingBottom: 40 }}>
+    <Container maxWidth="md" sx={{ py: 6 }}>
       <Typography
         variant="h4"
         sx={{
@@ -14,10 +16,12 @@ const WhatsBloom = () => {
       >
         <b>What&apos;s Bloom?</b>
       </Typography>
+
+      <VideoPlayer />
       <Typography
         variant="body1"
         align="center"
-        sx={{ lineHeight: 2, fontSize: 20 }}
+        sx={{ lineHeight: 2, fontSize: 20, mt: 4 }}
       >
         Bloom is the best tool for parents and children in the UK preparing for
         11+ exams. Every week your child takes an expertly written maths mock

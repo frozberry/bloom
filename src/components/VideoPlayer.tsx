@@ -12,7 +12,7 @@ const VideoPlayer = () => {
         }}
       >
         <ReactPlayer
-          url="https://swiftbadminton.wistia.com/medias/v37i7ucb0f"
+          url="https://bloomlearn.wistia.com/medias/mpc84hnebd"
           style={{
             position: "absolute",
             top: 0,
@@ -24,7 +24,7 @@ const VideoPlayer = () => {
           volume={0.5}
           config={{
             options: {
-              // playbar: true,
+              playbar: true,
               resumable: true,
               fullscreenButton: true,
               volumeControl: true,
