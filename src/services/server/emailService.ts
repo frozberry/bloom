@@ -8,7 +8,7 @@ const client = new postmark.ServerClient("2d8d8de1-9707-4014-a8b1-758171f3b51e")
 export const sendPasswordResetEmail = async (userId: string, email: string) => {
   const url = passwordResetUrl(userId)
 
-  await client.sendEmail({
+  client.sendEmail({
     From: "Bloom<support@bloomlearn.co.uk>",
     To: email,
     Subject: "Bloom password reset",
@@ -24,9 +24,9 @@ export const sendContactMessageEmail = async (
 ) => {
   // Regex to replaceAll, since replaceAll doesn't work Vercel
   const withLineBreaks = message.replace("/:/\n", "<br/>")
-  await client.sendEmail({
+  client.sendEmail({
     From: "Bloom<messages@bloomlearn.co.uk>",
-    To: "henry@bloomlearn.co.uk",
+    To: "henry@henrywu.co.uk",
     Subject: "New message",
     HtmlBody: `
     <html><body>
