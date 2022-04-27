@@ -21,7 +21,8 @@ export const sendContactMessageEmail = async (
   email: string,
   message: string
 ) => {
-  const withLineBreaks = message.replaceAll("\n", "<br/>")
+  // Regex to replaceAll, since replaceAll doesn't work Vercel
+  const withLineBreaks = message.replace("/:/\n", "<br/>")
   console.log(message)
   console.log(withLineBreaks)
   client.sendEmail({
