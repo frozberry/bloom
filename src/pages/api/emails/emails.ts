@@ -25,7 +25,7 @@ const POST = async (req: NextApiRequest, res: NextApiResponse) => {
       return res.status(401).end("email not found")
     }
 
-    sendPasswordResetEmail(user.id, user.email)
+    await sendPasswordResetEmail(user.id, user.email)
 
     res.status(200).end(`Password reset sent to ${user.email}`)
     return
@@ -33,7 +33,7 @@ const POST = async (req: NextApiRequest, res: NextApiResponse) => {
 
   if (type === "contact") {
     const { name, email, message }: ContactBody = req.body
-    sendContactMessageEmail(name, email, message)
+    await sendContactMessageEmail(name, email, message)
     res.status(200).end("Contact email sent")
     return
   }
