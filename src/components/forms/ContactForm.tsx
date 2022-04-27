@@ -20,9 +20,8 @@ const ContactForm = () => {
   }
 
   const validationSchema = yup.object().shape({
-    name: yup.string().required("Required"),
-    email: yup.string().required("Required").email("Invalid email"),
-
+    // name: yup.string().required("Required"),
+    // email: yup.string().required("Required").email("Invalid email"),
     message: yup.string().required("Required"),
   })
 
@@ -31,11 +30,12 @@ const ContactForm = () => {
     formikHelpers: FormikHelpers<FormValues>
   ) => {
     try {
-      await axios.post("/api/messages", {
-        name: values.email,
+      await axios.post("/api/emails?type=contact", {
+        name: values.name,
         email: values.email,
         message: values.message,
       })
+
       toast.success("Thank you for your message, we'll be in touch shortly")
       formikHelpers.resetForm()
     } catch (e) {

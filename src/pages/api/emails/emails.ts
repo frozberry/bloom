@@ -1,22 +1,44 @@
 import type { NextApiRequest, NextApiResponse } from "next"
-import { sendPasswordResetEmail } from "../../../services/server/emailService"
+import {
+  sendContactMessageEmail,
+  sendPasswordResetEmail,
+} from "../../../services/server/emailService"
 import { findUserByEmail } from "../../../services/server/userService"
 
-type PostBody = {
+type EmailBody = {
   email: string
+}
+type ContactBody = {
+  name: string
+  email: string
+  message: string
 }
 
 const POST = async (req: NextApiRequest, res: NextApiResponse) => {
-  const { email }: PostBody = req.body
-  const user = await findUserByEmail(email)
+  const { type } = req.query
 
-  if (!user) {
-    return res.status(401).end("email not found")
+  if (type === "password-reset") {
+    const { email }: EmailBody = req.body
+    const user = await findUserByEmail(email)
+
+    if (!user) {
+      return res.status(401).end("email not found")
+    }
+
+    sendPasswordResetEmail(user.id, user.email)
+
+    res.status(200).end(`Password reset sent to ${user.email}`)
+    return
   }
 
-  sendPasswordResetEmail(user.id, user.email)
+  if (type === "contact") {
+    const { name, email, message }: ContactBody = req.body
+    sendContactMessageEmail(name, email, message)
+    res.status(200).end("Contact email sent")
+    return
+  }
 
-  res.status(200).end(`email sent to ${user.email}`)
+  res.status(400).end("Invalid query type")
 }
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
