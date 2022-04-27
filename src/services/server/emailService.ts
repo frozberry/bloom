@@ -2,7 +2,8 @@ import * as postmark from "postmark"
 import { passwordResetUrl } from "./accountService"
 
 // eslint-disable-next-line
-const client = new postmark.ServerClient(process.env.POSTMARK_SECRET!)
+// const client = new postmark.ServerClient(process.env.POSTMARK_SECRET!)
+const client = new postmark.ServerClient("2d8d8de1-9707-4014-a8b1-758171f3b51e")
 
 export const sendPasswordResetEmail = async (userId: string, email: string) => {
   const url = passwordResetUrl(userId)
@@ -25,7 +26,7 @@ export const sendContactMessageEmail = async (
   const withLineBreaks = message.replace("/:/\n", "<br/>")
   client.sendEmail({
     From: "Bloom<messages@bloomlearn.co.uk>",
-    To: "henry@henrywu.co.uk",
+    To: "henry@bloomlearn.co.uk",
     Subject: "New message",
     HtmlBody: `
     <html><body>
