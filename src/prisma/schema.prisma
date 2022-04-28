@@ -172,10 +172,3 @@ model VerificationToken {
 
   @@unique([identifier, token])
 }
-
-model Message {
-  id      String @id
-  name    String
-  email   String
-  message String
-}
