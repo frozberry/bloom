@@ -11,6 +11,13 @@ export const getUsers = async (): Promise<User[]> => {
   return users
 }
 
+export const getSubbedUsers = async (): Promise<User[]> => {
+  const users = await prisma.user.findMany({
+    where: { subEnds: { not: null } },
+  })
+  return users
+}
+
 export const findUserById = async (id: string): Promise<User | null> => {
   const user = await prisma.user.findUnique({ where: { id } })
   return user
