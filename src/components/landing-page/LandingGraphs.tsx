@@ -1,11 +1,10 @@
-import Typography from "@mui/material/Typography"
 import Box from "@mui/material/Box"
 import Container from "@mui/material/Container"
-import LandingRadar from "./LandingRadar"
-import LandingLineProgress from "./LandingLineProgress"
+import Typography from "@mui/material/Typography"
 import Image from "next/image"
-import PercentileRating from "../PercentileRating"
 import PercentileGraph from "../graphs/PercentileGraph"
+import LandingLineProgress from "./LandingLineProgress"
+import LandingRadar from "./LandingRadar"
 
 const LandingGraphs = () => {
   return (
